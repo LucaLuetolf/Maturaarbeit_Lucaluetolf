@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="27ec528c-de88-4b84-b51d-6e541a5319f5" name="Changes" comment=".">
-      <change beforePath="$PROJECT_DIR$/src/main/Textfiles/artikel" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/textfiles/artikel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Textfiles/kunden" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/textfiles/kunden" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Textfiles/vorherigeRechnungen" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/textfiles/vorherigeRechnungen" afterDir="false" />
-    </list>
+    <list default="true" id="27ec528c-de88-4b84-b51d-6e541a5319f5" name="Changes" comment="Projekt am 05/02/2023 erstellt" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,13 +112,42 @@
       <option name="project" value="LOCAL" />
       <updated>1675623060824</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Projekt am 05/02/2023 erstellt">
+      <created>1675623391180</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1675623391180</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Projekt am 05/02/2023 erstellt">
+      <created>1675623457491</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1675623457491</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Projekt am 05/02/2023 erstellt">
+      <created>1675623552409</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1675623552409</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Projekt am 05/02/2023 erstellt">
+      <created>1675623609947</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1675623609947</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test" />
     <MESSAGE value="test123" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Projekt am 05/02/2023 erstellt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Projekt am 05/02/2023 erstellt" />
   </component>
 </project>
