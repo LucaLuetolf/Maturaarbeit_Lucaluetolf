@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27ec528c-de88-4b84-b51d-6e541a5319f5" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/src/main/Textfiles/artikel" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Textfiles/kunden" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Textfiles/vorherigeRechnungen" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textfiles/artikel" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/textfiles/artikel" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textfiles/kunden" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/textfiles/kunden" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textfiles/vorherigeRechnungen" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/textfiles/vorherigeRechnungen" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +102,21 @@
       <option name="project" value="LOCAL" />
       <updated>1675622865689</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary=".">
+      <created>1675622996399</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1675622996399</updated>
+    </task>
+    <task id="LOCAL-00005" summary=".">
+      <created>1675623060824</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1675623060824</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
