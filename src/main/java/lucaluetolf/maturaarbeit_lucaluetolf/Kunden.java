@@ -126,9 +126,18 @@ public class Kunden {
 
 
 
-
+    public static void tester1(){
+        for (int i = 0; 5 > i; i++) {
+            if(array[i]!=null){
+                System.out.println(array[i].getNachname());
+            }else {
+                System.out.println("null");
+            }
+        }
+    }
 
     public static void tester(){
+
         if (array[5] == null){
             System.out.println("null");
         }
