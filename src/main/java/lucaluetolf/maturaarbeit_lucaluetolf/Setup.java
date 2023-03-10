@@ -8,10 +8,30 @@ import java.util.Scanner;
 
 public class Setup{
 
+    private static int groesseArrayKunden = 3;
+    private static int groesseArrayArtikel;
+
+    public static int getGroesseArrayKunden() {
+        return groesseArrayKunden;
+    }
+
+    public static void setGroesseArrayKunden(int groesseArrayKunden) {
+        Setup.groesseArrayKunden = groesseArrayKunden;
+    }
+
+    public static void setGroesseArrayArtikel(int groesseArrayArtikel) {
+        Setup.groesseArrayArtikel = groesseArrayArtikel;
+    }
+    public static int getGroesseArrayArtikel() {
+        return groesseArrayArtikel;
+    }
+
     private static File kunden = new File("src/main/Textdokumente/kunden");
-    public static Kunde[] arrayKunde = new Kunde[10];
+    public static Kunde[] arrayKunde = new Kunde[groesseArrayKunden];
+
     public static File artikel = new File("src/main/Textdokumente/artikel");
-    public static Artikel[] arrayArtikel = new Artikel[10];
+    public static Artikel[] arrayArtikel = new Artikel[getGroesseArrayArtikel()];
+    public static File array = new File ("src/main/Textdokumente/arrays");
 
     public static void setupKunden(){
         Scanner scanner = null;
@@ -37,6 +57,7 @@ public class Setup{
         }
     }
 
+
     public static void setupArtikel(){
         Scanner scanner = null;
         try {
@@ -57,6 +78,22 @@ public class Setup{
             a++;
         }
     }
+    public static void setupArray() {
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(array);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        while (scanner.hasNext()) {
+
+            groesseArrayKunden = scanner.nextInt();
+            groesseArrayArtikel = scanner.nextInt();
+        }
+
+    }
+
     public static void speichernKunde(){
         int a = 0;
         try {

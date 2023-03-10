@@ -1,5 +1,8 @@
 package lucaluetolf.maturaarbeit_lucaluetolf;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+
 public class Kunde{
 
     private int kundenummer;
@@ -80,5 +83,9 @@ public class Kunde{
 
     public void setNatelnummer(String natelnummer) {
         this.natelnummer = natelnummer;
+    }
+
+    public static void kundeErfassen(){
+
     }
 }
