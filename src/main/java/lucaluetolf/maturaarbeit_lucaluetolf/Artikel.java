@@ -7,13 +7,17 @@ public class Artikel {
     double menge;
     float preis;
     int lagerbestand;
+    double anzahl;
+    int rabatt;
 
-    public Artikel(int artikelnummer, String name, double menge, float preis, int lagerbestand) {
+    public Artikel(int artikelnummer, String name, double menge, float preis, int lagerbestand, double anzahl, int rabatt) {
         this.artikelnummer = artikelnummer;
         this.name = name;
         this.menge = menge;
         this.preis = preis;
         this.lagerbestand = lagerbestand;
+        this.anzahl = anzahl;
+        this.rabatt = rabatt;
     }
 
     public int getArtikelnummer() {
@@ -50,5 +54,21 @@ public class Artikel {
 
     public void setLagerbestand(int lagerbestand) {
         this.lagerbestand = lagerbestand;
+    }
+
+    public double getAnzahl() {
+        return anzahl;
+    }
+
+    public void setAnzahl(double anzahl) {
+        this.anzahl = anzahl;
+    }
+
+    public int getRabatt() {
+        return rabatt;
+    }
+
+    public void setRabatt(int rabatt) {
+        this.rabatt = rabatt;
     }
 }

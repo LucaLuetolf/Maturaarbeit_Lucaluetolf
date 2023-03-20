@@ -14,32 +14,11 @@ public class Setup{
     public static File artikel = new File("src/main/Textdokumente/artikel");
     public static File mitarbeiter = new File("src/main/Textdokumente/mitarbeiter");
 
-    //TODO Grösse array
-    private static int groesseArrayKunden = 3;
-    private static int groesseArrayArtikel;
-
-    //TODO Getter und Setter Grösse array
-
-    public static int getGroesseArrayKunden() {
-        return groesseArrayKunden;
-    }
-    public static void setGroesseArrayKunden(int groesseArrayKunden) {
-        Setup.groesseArrayKunden = groesseArrayKunden;
-    }
-    public static int getGroesseArrayArtikel() {
-        return groesseArrayArtikel;
-    }
-    public static void setGroesseArrayArtikel(int groesseArrayArtikel) {
-        Setup.groesseArrayArtikel = groesseArrayArtikel;
-    }
-
-    //TODO Array:
-    public static Kunde[] arrayKunde = new Kunde[groesseArrayKunden];
-    public static Artikel[] arrayArtikel = new Artikel[getGroesseArrayArtikel()];
-    public static Mitarbeiter[] arrayMitarbeiter = new Mitarbeiter[1];
 
     //TODO Linkedlist:
-    public static LinkedList kunde = new LinkedList<>();
+    public static LinkedList<Kunde> linkedlistKunde = new LinkedList<>();
+    public static LinkedList<Artikel> linkedlistArtikel = new LinkedList<>();
+    public static LinkedList<Mitarbeiter> linkedlistMitarbeiter = new LinkedList<>();
 
     //TODO Setup_Methoden:
     public static void setupKunden(){
@@ -61,7 +40,7 @@ public class Setup{
             String ort = scanner.next();
             String email = scanner.next();
             String natelnummer = scanner.next();
-            arrayKunde[a] = new Kunde(kundennummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer);
+            linkedlistKunde.addLast(new Kunde(kundennummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer));
             a++;
 
         }
@@ -82,7 +61,9 @@ public class Setup{
             double menge = scanner.nextDouble();
             float preis = scanner.nextFloat();
             int lagerbestand = scanner.nextInt();
-            arrayArtikel[a] = new Artikel(artikelnummer, name, menge, preis, lagerbestand);
+            int artikel = 0;
+            int rabatt = scanner.nextInt();
+            linkedlistArtikel.addLast(new Artikel(artikelnummer, name, menge, preis, lagerbestand, artikel, rabatt));
             a++;
         }
     }
@@ -104,7 +85,8 @@ public class Setup{
             String email = scanner.next();
             String natelnummer = scanner.next();
             Boolean erstanmeldung = scanner.nextBoolean();
-            arrayMitarbeiter[a] = new Mitarbeiter(mitarbeiternummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer, erstanmeldung);
+            int pin = scanner.nextInt();
+            linkedlistMitarbeiter.addLast(new Mitarbeiter(mitarbeiternummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer, erstanmeldung, pin));
             a++;
         }
     }
@@ -119,17 +101,16 @@ public class Setup{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        for (int i = 0; i < arrayKunde.length-1; i++) {
+        for (int i = 0; i < linkedlistKunde.size(); i++) {
 
-            if (arrayKunde[a] != null) {
+            if (linkedlistKunde.get(a) != null) {
                 try {
                     FileWriter writer = new FileWriter(kunden, true);
-                    writer.write(arrayKunde[a].getKundenummer() + " " + arrayKunde[a].getNachname() + " " + arrayKunde[a].getVorname() + " " + arrayKunde[a].getAdresse() + " " + arrayKunde[a].getPostleitzahl() + " " + arrayKunde[a].getOrt() + " " + arrayKunde[a].geteMail() + " " + arrayKunde[a].getNatelnummer() + '\n');
+                    writer.write(linkedlistKunde.get(a).getKundenummer() + " " + linkedlistKunde.get(a).getNachname() + " " + linkedlistKunde.get(a).getVorname() + " " + linkedlistKunde.get(a).getAdresse() + " " + linkedlistKunde.get(a).getPostleitzahl() + " " + linkedlistKunde.get(a).getOrt() + " " + linkedlistKunde.get(a).geteMail() + " " + linkedlistKunde.get(a).getNatelnummer() + '\n');
                     writer.flush();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                Setup.arrayKunde[a].getNachname();
             }
             a++;
         }
@@ -144,12 +125,12 @@ public class Setup{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        for (int i = 0; i < arrayKunde.length-1; i++) {
+        for (int i = 0; i < linkedlistArtikel.size(); i++) {
 
-            if (arrayKunde[a] != null) {
+            if (linkedlistArtikel.get(a) != null) {
                 try {
                     FileWriter writer = new FileWriter(artikel, true);
-                    writer.write(arrayArtikel[a].getArtikelnummer() + " " + arrayArtikel[a].getName() + " " + arrayArtikel[a].getMenge() + " " + arrayArtikel[a].getPreis() + " " + arrayArtikel[a].getLagerbestand() + '\n');
+                    writer.write(linkedlistArtikel.get(a).getArtikelnummer() + " " + linkedlistArtikel.get(a).getName() + " " + linkedlistArtikel.get(a).getMenge() + " " + linkedlistArtikel.get(a).getPreis() + " " + linkedlistArtikel.get(a).getLagerbestand() + linkedlistArtikel.get(a).getRabatt() + '\n');
                     writer.flush();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -167,12 +148,12 @@ public class Setup{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        for (int i = 0; i < arrayMitarbeiter.length-1; i++) {
-            if (arrayMitarbeiter[a] != null) {
+        for (int i = 0; i < linkedlistMitarbeiter.size()-1; i++) {
+            if (linkedlistMitarbeiter.get(a) != null) {
 
                 try {
                     FileWriter writer = new FileWriter(artikel, true);
-                    writer.write(arrayMitarbeiter[a].getMitarbeiternummer() + " " + arrayMitarbeiter[a].getNachname() + " " + arrayMitarbeiter[a].getVorname() + " " + arrayMitarbeiter[a].getAdresse() + " " + arrayMitarbeiter[a].getPostleitzahl() + " " + arrayMitarbeiter[a].getOrt() + " " + arrayMitarbeiter[a].geteMail() + " " + arrayMitarbeiter[a].getNatelnummer() + " " + arrayMitarbeiter[a].isErstanmeldung());
+                    writer.write(linkedlistMitarbeiter.get(a).getMitarbeiternummer() + " " + linkedlistMitarbeiter.get(a).getNachname() + " " + linkedlistMitarbeiter.get(a).getVorname() + " " + linkedlistMitarbeiter.get(a).getAdresse() + " " + linkedlistMitarbeiter.get(a).getPostleitzahl() + " " + linkedlistMitarbeiter.get(a).getOrt() + " " + linkedlistMitarbeiter.get(a).geteMail() + " " + linkedlistMitarbeiter.get(a).getNatelnummer() + " " + linkedlistMitarbeiter.get(a).isErstanmeldung() + " " + linkedlistMitarbeiter.get(a).getPin() + '\n');
                     writer.flush();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
