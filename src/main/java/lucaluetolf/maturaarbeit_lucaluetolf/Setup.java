@@ -53,17 +53,22 @@ public class Setup{
             throw new RuntimeException(e);
         }
         int a = 0;
+        double menge1;
+        float preis1;
 
         while(scanner.hasNext()){
 
             int artikelnummer = scanner.nextInt();
             String name = scanner.next();
-            double menge = scanner.nextDouble();
-            float preis = scanner.nextFloat();
+            String menge = scanner.next();
+            String preis = scanner.next();
             int lagerbestand = scanner.nextInt();
             int artikel = 0;
             int rabatt = scanner.nextInt();
-            linkedlistArtikel.addLast(new Artikel(artikelnummer, name, menge, preis, lagerbestand, artikel, rabatt));
+            menge1 = Double.parseDouble(menge);
+            preis1 = Float.parseFloat(preis);
+
+            linkedlistArtikel.addLast(new Artikel(artikelnummer, name, menge1, preis1, lagerbestand, artikel, rabatt));
             a++;
         }
     }
@@ -125,12 +130,15 @@ public class Setup{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        String string = "";
         for (int i = 0; i < linkedlistArtikel.size(); i++) {
 
             if (linkedlistArtikel.get(a) != null) {
                 try {
                     FileWriter writer = new FileWriter(artikel, true);
-                    writer.write(linkedlistArtikel.get(a).getArtikelnummer() + " " + linkedlistArtikel.get(a).getName() + " " + linkedlistArtikel.get(a).getMenge() + " " + linkedlistArtikel.get(a).getPreis() + " " + linkedlistArtikel.get(a).getLagerbestand() + linkedlistArtikel.get(a).getRabatt() + '\n');
+                    string = String.valueOf(linkedlistArtikel.get(i).getMenge());
+                    string.replace(".", ",");
+                    writer.write(linkedlistArtikel.get(a).getArtikelnummer() + " " + linkedlistArtikel.get(a).getName() + " " +string+ " " + linkedlistArtikel.get(a).getPreis() + " " + linkedlistArtikel.get(a).getLagerbestand() +  " " + linkedlistArtikel.get(a).getRabatt() + '\n');
                     writer.flush();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -148,11 +156,11 @@ public class Setup{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        for (int i = 0; i < linkedlistMitarbeiter.size()-1; i++) {
+        for (int i = 0; i < linkedlistMitarbeiter.size(); i++) {
             if (linkedlistMitarbeiter.get(a) != null) {
 
                 try {
-                    FileWriter writer = new FileWriter(artikel, true);
+                    FileWriter writer = new FileWriter(mitarbeiter, true);
                     writer.write(linkedlistMitarbeiter.get(a).getMitarbeiternummer() + " " + linkedlistMitarbeiter.get(a).getNachname() + " " + linkedlistMitarbeiter.get(a).getVorname() + " " + linkedlistMitarbeiter.get(a).getAdresse() + " " + linkedlistMitarbeiter.get(a).getPostleitzahl() + " " + linkedlistMitarbeiter.get(a).getOrt() + " " + linkedlistMitarbeiter.get(a).geteMail() + " " + linkedlistMitarbeiter.get(a).getNatelnummer() + " " + linkedlistMitarbeiter.get(a).isErstanmeldung() + " " + linkedlistMitarbeiter.get(a).getPin() + '\n');
                     writer.flush();
                 } catch (IOException e) {
