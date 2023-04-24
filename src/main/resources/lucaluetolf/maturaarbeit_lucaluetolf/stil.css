@@ -1,0 +1,38 @@
+.anchorpanelink{
+    -fx-background-color:#E8CFB0;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+    -fx-border-color: #ba8759;
+}
+.panelinkslogo{
+    -fx-background-color:#ffffff;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+ }
+ .panebutton{
+    -fx-background-color:#E8CFB0;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-border-color:#E8CFB0;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+ }
+ .jfxbutton{
+    -fx-background-color: #E8CFB0;
+    -fx-background-radius: 10px;
+    -fx-font-size: 20;
+    -fx-text-fill:  #ba8759;
+ }
+ .labelWillkommen{
+    -fx-text-fill: #ba8759;
+    -fx-font-size: 35;
+ }
+ .backgroundlogin{
+    -fx-background-color: #E8CFB0;
+ }
+ .backgroundloginpane{
+    -fx-background-color: #ffffff;
+ }

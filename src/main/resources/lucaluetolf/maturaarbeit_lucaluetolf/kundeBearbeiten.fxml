@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" styleClass="backgroundlogin" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiKundeBearbeiten">
+   <children>
+      <Pane layoutX="529.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <TextField fx:id="textfeldKundennummer1" layoutX="300.0" layoutY="160.0" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="53.0" layoutY="43.0" prefHeight="53.0" prefWidth="292.0" text="Kunde Bearbeiten" textFill="#ba8759">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="215.0" layoutY="469.0" onAction="#kundeBearbeiten" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="Erfassen" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="118.0" layoutY="155.0" prefHeight="35.0" prefWidth="171.0" text="Kundennummer" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldOrt1" layoutX="300.0" layoutY="326.0" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldNachname1" layoutX="300.0" layoutY="195.0" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldVorname1" layoutX="300.0" layoutY="229.0" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldAdresse1" layoutX="300.0" layoutY="261.0" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="118.0" layoutY="190.0" prefHeight="35.0" prefWidth="171.0" text="Nachname" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="224.0" prefHeight="35.0" prefWidth="171.0" text="Vorname" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="256.0" prefHeight="35.0" prefWidth="171.0" text="Adresse" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="321.0" prefHeight="35.0" prefWidth="171.0" text="Ort" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldPostleitzahl1" layoutX="300.0" layoutY="294.0" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="118.0" layoutY="289.0" prefHeight="35.0" prefWidth="171.0" text="Postleitzahl" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldEmail1" layoutX="300.0" layoutY="358.0" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="118.0" layoutY="353.0" prefHeight="35.0" prefWidth="171.0" text="E-Mail" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldNatelnummer1" layoutX="300.0" layoutY="390.0" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="118.0" layoutY="385.0" prefHeight="35.0" prefWidth="171.0" text="Natelnummer" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
