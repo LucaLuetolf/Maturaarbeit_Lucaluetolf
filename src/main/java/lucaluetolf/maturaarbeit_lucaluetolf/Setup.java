@@ -39,7 +39,7 @@ public class Setup{
             int postleitzahl = scanner.nextInt();
             String ort = scanner.next();
             String email = scanner.next();
-            String natelnummer = scanner.next();
+            int natelnummer = scanner.nextInt();
             linkedlistKunde.addLast(new Kunde(kundennummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer));
             a++;
 
@@ -88,7 +88,7 @@ public class Setup{
             int postleitzahl = scanner.nextInt();
             String ort = scanner.next();
             String email = scanner.next();
-            String natelnummer = scanner.next();
+            int natelnummer = scanner.nextInt();
             Boolean erstanmeldung = scanner.nextBoolean();
             int pin = scanner.nextInt();
             linkedlistMitarbeiter.addLast(new Mitarbeiter(mitarbeiternummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer, erstanmeldung, pin));

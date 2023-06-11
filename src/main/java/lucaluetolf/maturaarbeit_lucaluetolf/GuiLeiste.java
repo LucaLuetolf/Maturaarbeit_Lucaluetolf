@@ -68,7 +68,7 @@ public class GuiLeiste {
     @FXML
     protected void toSceneNeueRechnung(ActionEvent event) {
         try {
-            root = FXMLLoader.load(getClass().getResource("neueRechnung.fxml"));
+            root = FXMLLoader.load(getClass().getResource("kundenFuerRechnung.fxml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

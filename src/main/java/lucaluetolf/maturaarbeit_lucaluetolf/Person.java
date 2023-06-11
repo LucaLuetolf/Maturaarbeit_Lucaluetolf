@@ -7,9 +7,9 @@ public class Person {
     private int postleitzahl;
     private String ort;
     private String eMail;
-    private String natelnummer;
+    private int natelnummer;
 
-    public Person(String nachname, String vorname, String adresse, int postleitzahl, String ort, String eMail, String natelnummer) {
+    public Person(String nachname, String vorname, String adresse, int postleitzahl, String ort, String eMail, int natelnummer) {
         this.nachname = nachname;
         this.vorname = vorname;
         this.adresse = adresse;
@@ -67,11 +67,11 @@ public class Person {
         this.eMail = eMail;
     }
 
-    public String getNatelnummer() {
+    public int getNatelnummer() {
         return natelnummer;
     }
 
-    public void setNatelnummer(String natelnummer) {
+    public void setNatelnummer(int natelnummer) {
         this.natelnummer = natelnummer;
     }
 }

@@ -13,17 +13,12 @@ public class AllgemeineMethoden {
             Files.copy(sourceFile.toPath(), destinationFile.toPath());
 
         } catch (Exception e) {
-            System.out.println(e);
+            new RuntimeException(e);
         }
     }
     public static void ordnerErstellen(String kundennummer, String nachname, String vorname){
         String pfad = "Rechnungen\\"+kundennummer + " " + nachname + " " + vorname;
         File ordner = new File(pfad);
-        boolean ordner1 = ordner.mkdirs();
-        if(ordner1){
-            System.out.println("Ordner wurde erstellt");
-        }else{
-            System.out.println("Fehler beim erstellen des Ordners");
-        }
+        ordner.mkdirs();
     }
 }

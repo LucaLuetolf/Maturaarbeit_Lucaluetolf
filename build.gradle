@@ -37,6 +37,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     implementation 'com.itextpdf:itext7-core:7.2.5'
+    implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
+    implementation group: 'com.jfoenix', name: 'jfoenix', version: '9.0.1'
 }
 
 test {

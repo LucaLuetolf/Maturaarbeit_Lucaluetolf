@@ -7,45 +7,23 @@ import javafx.stage.FileChooser;
 
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
+import java.util.ResourceBundle;
 
 
-public class GuiStartseite extends GuiLeiste{
+public class GuiStartseite extends GuiLeiste implements Initializable{
     LocalTime time = LocalTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
 
     @FXML
     private Label labelWillkommen;
 
-    @FXML
-    public void explorer(){
-        FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            String filePath = selectedFile.getAbsolutePath();
-            labelWillkommen.setText(filePath);
-
-            // Pfad in die Zwischenablage kopieren
-            StringSelection selection = new StringSelection(filePath);
-            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(selection, null);
-        }
-
-        /*try {
-            Runtime.getRuntime().exec("explorer C:\\");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-        //https://stackoverflow.com/questions/11174055/open-up-windows-explorer-in-java
-        //https://stackoverflow.com/questions/10966999/how-to-make-a-button-that-when-clicked-opens-the-appdata-directory/10967320#10967320
-    }
-
-    /*@Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO nach Good ... Namen von Mitarbeiter + Zeiten Festlegen
         int time1 = Integer.parseInt(formatter.format(time));
         if (time1 >= 6 && time1 < 11){
             labelWillkommen.setText("Good Morning");
@@ -62,5 +40,5 @@ public class GuiStartseite extends GuiLeiste{
         if (time1 >= 22 && time1 < 6){
             labelWillkommen.setText("Good Night");
         }
-    }*/
+    }
 }

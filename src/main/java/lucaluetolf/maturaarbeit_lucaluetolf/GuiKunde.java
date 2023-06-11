@@ -165,6 +165,7 @@ public class GuiKunde extends GuiLeiste implements Initializable {
                     setText(null);
                 } else {
                     setText(item.getKundenummer() + item.getNachname() + item.getVorname() + item.getAdresse() + item.getPostleitzahl() + item.getOrt() + item.geteMail() + item.getNatelnummer());
+                    listviewKunden.setId(String.valueOf(item.getKundenummer()));
                 }
             }
         });
@@ -172,9 +173,6 @@ public class GuiKunde extends GuiLeiste implements Initializable {
 
             @Override
             public void handle(MouseEvent event) {
-                System.out.println(listviewKunden.getSelectionModel().getSelectedItem().getKundenummer());
-                setKundennummerBearbeiten(listviewKunden.getSelectionModel().getSelectedItem().getKundenummer());
-                System.out.println(getKundennummerBearbeiten());
                 try {
                     root = FXMLLoader.load(getClass().getResource("kundeBearbeiten.fxml"));
                 } catch (IOException e) {

@@ -12,10 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class GuiKundeBearbeiten extends GuiLeiste implements Initializable {
@@ -52,21 +49,29 @@ public class GuiKundeBearbeiten extends GuiLeiste implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            int id = 123445;
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM KUNDEN WHERE id = " + id);
             textfeldKundennummer1.setEditable(false);
-            textfeldKundennummer1.setText(String.valueOf(statement.execute("SELECT id FROM KUNDEN WHERE id=" + getKundennummerBearbeiten())));
-            textfeldNachname1.setText(String.valueOf(statement.execute("SELECT nachname FROM kunden WHERE id=" + getKundennummerBearbeiten())));
-            textfeldVorname1.setText(String.valueOf(statement.execute("SELECT vorname FROM kunden WHERE id=" + getKundennummerBearbeiten())));
-            textfeldAdresse1.setText(String.valueOf(statement.execute("SELECT adresse FROM kunden WHERE id=" + getKundennummerBearbeiten())));
-            textfeldPostleitzahl1.setText(String.valueOf(statement.execute("SELECT postleitzahl FROM kunden WHERE id=" + getKundennummerBearbeiten())));
-            textfeldOrt1.setText(String.valueOf(statement.execute("SELECT ort FROM kunden WHERE id=" + getKundennummerBearbeiten())));
-            textfeldEmail1.setText(String.valueOf(statement.execute("SELECT email FROM kunden WHERE id=" + getKundennummerBearbeiten())));
-            textfeldNatelnummer1.setText(String.valueOf(statement.execute("SELECT natelnummer FROM kunden WHERE id=" + getKundennummerBearbeiten())));
+            textfeldKundennummer1.setText(String.valueOf(statement.execute("SELECT id FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
+            textfeldNachname1.setText(String.valueOf(statement.execute("SELECT nachname FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
+            textfeldVorname1.setText(String.valueOf(statement.execute("SELECT vorname FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
+            textfeldAdresse1.setText(String.valueOf(statement.execute("SELECT adresse FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
+            textfeldPostleitzahl1.setText(String.valueOf(statement.execute("SELECT postleitzahl FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
+            textfeldOrt1.setText(String.valueOf(statement.execute("SELECT ort FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
+            textfeldEmail1.setText(String.valueOf(statement.execute("SELECT email FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
+            //textfeldNatelnummer1.setText(String.valueOf(statement.execute("SELECT natelnummer FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
+            textfeldNatelnummer1.setText(resultSet.getString("id"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
     @FXML
     public void kundeBearbeiten(ActionEvent event){
+        try {
+            int id = Integer.parseInt(String.valueOf(statement.execute("SELECT kunden FROM bearbeiten")));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         try {
             statement.execute("UPDATE kunden SET nachname=" + textfeldNachname1.getText() + "WHERE id =" + getKundennummerBearbeiten());
             statement.execute("UPDATE kunden SET vorname=" + textfeldVorname1.getText() + "WHERE id =" + getKundennummerBearbeiten());

@@ -55,13 +55,6 @@
                 <RowConstraints maxHeight="193.0" minHeight="193.0" prefHeight="193.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="193.0" prefHeight="193.0" vgrow="SOMETIMES" />
               </rowConstraints>
-               <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E8CFB0;">
-                     <children>
-                        <JFXButton layoutX="59.0" layoutY="140.0" />
-                     </children>
-                  </Pane>
-               </children>
             </GridPane>
          </content>
       </ScrollPane>

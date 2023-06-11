@@ -40,7 +40,7 @@
                <children>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/benutzer-avatar.png" />
+                        <Image url="@../../../../../Bilder/System/Startseite/Profil.png" />
                      </image>
                   </ImageView>
                </children>
