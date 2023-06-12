@@ -1,2 +1,10 @@
 Datei kopieren, Delfstack, https://www.delftstack.com/de/howto/java/java-copy-file/ [02/03/2023]
 itext importieren und Pdf erstellen, CodingError, https://www.youtube.com/watch?v=ylaP8LyoKog [28/02/2023]
+Ordner erstellen, Delfstack, https://www.delftstack.com/de/howto/java/create-directory-java/ [12/03/2023]
+Kunde zu Listview hinzufügen, , https://stackoverflow.com/questions/36657299/how-can-i-populate-a-listview-in-javafx-using-custom-objects [13/04/2023]
+ComboBox, , https://www.geeksforgeeks.org/javafx-combobox-with-examples/ [13/04/2023]
+Explorer öffnen, , https://genuinecoder.com/how-to-open-file-explorer-in-java/[15/04/2023]
+https://stackoverflow.com/questions/35450990/how-to-get-file-path-from-javafx-filechooser
+Action Event, https://www.baeldung.com/javafx-button-eventhandler#:~:text=Let%E2%80%99s%20start%20with%20handling%20simple%20click%20events%20and,on%20the%20button%2C%20there%27s%20a%20new%20log%20message%3A [28/04/2023]
+
+https://youtu.be/zvgWgpGZVKc

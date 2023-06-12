@@ -1,0 +1,32 @@
+ String nachname = String.valueOf(textfeldName.getText());
+                            String vorname = String.valueOf(textfeldName.getText());
+                            String adresse = String.valueOf(textfeldName.getText());
+                            int postleitzahl = Integer.parseInt(textfeldArtikelnummer.getText());
+                            String ort = String.valueOf(textfeldName.getText());
+                            String email = String.valueOf(textfeldName.getText());
+                            int natelnummer = Integer.parseInt(textfeldArtikelnummer.getText());
+
+
+                            int kundennummer = Integer.parseInt(button.getId());
+                            try {
+                                statement.execute("UPDATE KUNDEN SET nachname = '"+ nachname + "' WHERE id = "+  kundennummer +")");
+                                statement.execute("UPDATE KUNDEN SET nachname = '"+ vorname + "' WHERE id = "+  kundennummer +")");
+                                statement.execute("UPDATE KUNDEN SET nachname = '"+ adresse + "' WHERE id = "+  kundennummer +")");
+                                statement.execute("UPDATE KUNDEN SET nachname = '"+ postleitzahl + "' WHERE id = "+  kundennummer +")");
+                                statement.execute("UPDATE KUNDEN SET nachname = '"+ ort + "' WHERE id = "+  kundennummer +")");
+                                statement.execute("UPDATE KUNDEN SET nachname = '"+ email + "' WHERE id = "+  kundennummer +")");
+                                statement.execute("UPDATE KUNDEN SET nachname = '"+ natelnummer + "' WHERE id = "+  kundennummer +")");
+
+                                root = FXMLLoader.load(getClass().getResource("artikel.fxml"));
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
+
+
+                        }
