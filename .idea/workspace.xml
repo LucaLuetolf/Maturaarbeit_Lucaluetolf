@@ -5,31 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27ec528c-de88-4b84-b51d-6e541a5319f5" name="Changes" comment="Die Seite Artikel und Kunden wurden angefangen, jedoch sind sie nicht Fertig. Das Fenster neue Rechnung ist in bearbeitung.">
-      <change afterPath="$PROJECT_DIR$/src/main/Textdokumente/Notizen.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Textdokumente/SQL" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Textdokumente/Tutorial Pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/Textdokumente/kundebearbeiten" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiMitarbeiterLogin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Archiv.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Artikel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Einstellungen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Kunden.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Lagerbestand.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Mitarbeiter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/NeueRechnung.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Profil.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Verkauf.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/buchhaltung.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/mitarbeiterLogin.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/paneforArtikel.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/paneForWarenkorb.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/Links.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Textdokumente/Links.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/artikel" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Textdokumente/artikel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/mitarbeiter" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Textdokumente/mitarbeiter" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/Notizen.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Textdokumente/Notizen.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/SQL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/artikel" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/kunden" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/mitarbeiter" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/AllgemeineMethoden.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/AllgemeineMethoden.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelErfassen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelErfassen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKunde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKunde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeBearbeiten.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeBearbeiten.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeErfassen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeErfassen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeFuerRechnung.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeFuerRechnung.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/PdfErstellen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/PdfErstellen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelErfassen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelErfassen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelFuerRechnung.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelFuerRechnung.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundeErfassen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundeErfassen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kunden.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kunden.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundenFuerRechnung.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundenFuerRechnung.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/startseite.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/startseite.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/style.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,8 +101,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/Textdokumente/Tutorial Pdf" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/Textdokumente/artikel" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/Textdokumente/kunden" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/AllgemeineMethoden.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/Gui.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -127,12 +127,13 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luca Schule/Maturaarbeit_LucaLuetolf/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luca Schule/Maturaarbeit_LucaLuetolf/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kunden.fxml&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.User-Defined File Types&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.User-Defined File Types&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/Luca Schule/Maturaarbeit_LucaLuetolf/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kunden.fxml&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -419,7 +420,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682323129288</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Die Seite Artikel und Kunden wurden angefangen, jedoch sind sie nicht Fertig. Das Fenster neue Rechnung ist in bearbeitung.">
+      <created>1686565660401</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1686565660401</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -457,6 +465,18 @@
     <option name="LAST_COMMIT_MESSAGE" value="Die Seite Artikel und Kunden wurden angefangen, jedoch sind sie nicht Fertig. Das Fenster neue Rechnung ist in bearbeitung." />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalStateException" package="java.lang" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="GradleRunConfiguration">
         <watch expression="kunde" />

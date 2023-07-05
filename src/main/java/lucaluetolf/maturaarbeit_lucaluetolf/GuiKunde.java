@@ -1,5 +1,7 @@
 package lucaluetolf.maturaarbeit_lucaluetolf;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,12 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -40,9 +41,11 @@ public class GuiKunde extends GuiLeiste implements Initializable {
     @FXML
     private ComboBox sortierenKunde;
 
+    @FXML
+    private TableView tableViewKunden;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String auswahl[] = {"Nachname", "Vorname", "Kundennummer", "Hinzugefügt"};
+        /*String auswahl[] = {"Nachname", "Vorname", "Kundennummer", "Hinzugefügt"};
         ObservableList<String> observableListCombobox = FXCollections.observableArrayList(auswahl);
         sortierenKunde.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #ba8759;");
         sortierenKunde.setItems(observableListCombobox);
@@ -183,7 +186,83 @@ public class GuiKunde extends GuiLeiste implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             }
-        });
+        });*/
+        ObservableList<ObservableList<String>> observableList = FXCollections.observableArrayList();
+        TableColumn<ObservableList<String>, String> kundennummer = new TableColumn<>("Kundennummer");
+        TableColumn<ObservableList<String>, String> nachname = new TableColumn<>("Nachname");
+        TableColumn<ObservableList<String>, String> vorname = new TableColumn<>("Vorname");
+        TableColumn<ObservableList<String>, String> adresse = new TableColumn<>("Adresse");
+        TableColumn<ObservableList<String>, String> ort = new TableColumn<>("Ort");
+        TableColumn<ObservableList<String>, String> postleitzahl = new TableColumn<>("PLZ");
+        TableColumn<ObservableList<String>, String> email = new TableColumn<>("E-Mail");
+        TableColumn<ObservableList<String>, String> natelnummer = new TableColumn<>("Natelnummer");
+
+        kundennummer.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(0)));
+        nachname.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(1)));
+        vorname.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(2)));
+        adresse.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
+        postleitzahl.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(4)));
+        ort.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(5)));
+        email.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(6)));
+        natelnummer.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(7)));
+
+
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM kunden");
+            while (resultSet.next()) {
+                ObservableList spalten = FXCollections.observableArrayList();
+                spalten.add(resultSet.getString("kundenId"));
+                spalten.add(resultSet.getString("nachname"));
+                spalten.add(resultSet.getString("vorname"));
+                spalten.add(resultSet.getString("adresse"));
+                spalten.add(resultSet.getString("postleitzahl"));
+                spalten.add(resultSet.getString("ort"));
+                spalten.add(resultSet.getString("email"));
+                spalten.add(resultSet.getString("natelnummer"));
+
+                observableList.add(spalten);
+
+
+                tableViewKunden.getColumns().addAll(kundennummer, nachname, vorname, adresse,postleitzahl, ort, email, natelnummer);
+
+                tableViewKunden.setId(resultSet.getString("kundenId"));
+                tableViewKunden.setItems(observableList);
+                tableViewKunden.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+
+                    @Override
+                    public void handle(MouseEvent event) {
+                        /*try {
+                            root = FXMLLoader.load(getClass().getResource("kundeBearbeiten.fxml"));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();*/
+
+                        int zahl = tableViewKunden.getSelectionModel().getFocusedIndex();
+                        String val = kundennummer.getCellData(zahl);
+
+                    }
+                });
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        kundennummer.setPrefWidth(100);
+        nachname.setPrefWidth(113);
+        vorname.setPrefWidth(113);
+        adresse.setPrefWidth(120);
+        ort.setPrefWidth(120);
+        postleitzahl.setPrefWidth(40);
+        email.setPrefWidth(130);
+        natelnummer.setPrefWidth(110);
+
+
     }
 
     @FXML

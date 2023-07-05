@@ -3,8 +3,8 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -40,7 +40,7 @@
       </VBox>
       <ScrollPane fitToWidth="true" layoutX="288.0" layoutY="146.0" prefHeight="582.0" prefWidth="850.0">
          <content>
-            <ListView fx:id="listviewKunden" fixedCellSize="-2.0" prefHeight="580.0" prefWidth="848.0" />
+            <TableView fx:id="tableViewKunden" prefHeight="580.0" prefWidth="848.0" />
          </content>
       </ScrollPane>
       <JFXButton layoutX="916.0" layoutY="57.0" onAction="#toSceneKundeErfassen" style="-fx-background-radius: 20; -fx-background-color: #E8CFB0; -fx-font-size: 20; -fx-text-fill: ffffff;" text="+ Kunde Hinzufügen" textFill="#d00909" />

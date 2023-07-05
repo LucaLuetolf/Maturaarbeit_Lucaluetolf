@@ -52,7 +52,7 @@ public class GuiKundeBearbeiten extends GuiLeiste implements Initializable {
             int id = 123445;
             ResultSet resultSet = statement.executeQuery("SELECT * FROM KUNDEN WHERE id = " + id);
             textfeldKundennummer1.setEditable(false);
-            textfeldKundennummer1.setText(String.valueOf(statement.execute("SELECT id FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
+            textfeldKundennummer1.setText(String.valueOf(statement.execute("SELECT kundenId FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
             textfeldNachname1.setText(String.valueOf(statement.execute("SELECT nachname FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
             textfeldVorname1.setText(String.valueOf(statement.execute("SELECT vorname FROM KUNDEN,BEARBEITEN WHERE id = kunden")));
             textfeldAdresse1.setText(String.valueOf(statement.execute("SELECT adresse FROM KUNDEN,BEARBEITEN WHERE id = kunden")));

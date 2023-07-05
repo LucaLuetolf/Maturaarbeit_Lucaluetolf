@@ -21,4 +21,5 @@ public class AllgemeineMethoden {
         File ordner = new File(pfad);
         ordner.mkdirs();
     }
+
 }

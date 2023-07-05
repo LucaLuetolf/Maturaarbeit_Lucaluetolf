@@ -12,10 +12,35 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.*;
 
 public class GuiLogin {
-    private String passwort1 = "Hans";
-    private String benutzername1 = "Hans";
+
+    Statement statement;
+    {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    String benutzername1 = null;
+    String passwort1 = null;
+
+    {
+      try {
+          ResultSet resultset = statement.executeQuery("SELECT * FROM UNTERNEHMEN");
+          if (resultset.next()){
+              benutzername1 = resultset.getString("benutzername");
+              passwort1 = resultset.getString("passwort");
+          }
+      } catch (SQLException e) {
+          throw new RuntimeException(e);
+      }
+    }
+
+
 
     private Stage stage;
     private Scene scene;

@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 
@@ -47,6 +48,13 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
         int prefHeight = 193;
         int prefHeightPerColumn = 193;
         try {
+            ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
+
+            int orange = 0;
+            if(resultSetUnternehmen.next()){
+                orange = resultSetUnternehmen.getInt("lagerbestandOrange");
+            }
+            resultSetUnternehmen.close();
             ResultSet resultSet  = statement.executeQuery("SELECT * FROM artikel");
             while(resultSet.next()) {
                 if(column == 5){
@@ -63,22 +71,24 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
                 Label labelTitelArtikelnummer = new Label ("Artikelnr.:");
                 Label labelTitelName = new Label ("Name:");
                 Label labelTitelPreis = new Label ("Preis:");
-                Label labelArtikelnummer = new Label(resultSet.getString("id"));
+                Label labelArtikelnummer = new Label(resultSet.getString("artikelId"));
 
                 labelTitelArtikelnummer.setStyle("-fx-text-fill: #FFFFFF ");
                 labelTitelName.setStyle("-fx-text-fill: #FFFFFF ");
                 labelTitelPreis.setStyle("-fx-text-fill: #FFFFFF ");
                 Label labelName = new Label(resultSet.getString("name"));
                 Label labelPreis = new Label(resultSet.getString("preis"));
-                Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//System//Artikel//Artikel.png");
+                /*Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//System//Artikel//Artikel.png");
                 ImageView imageView = new ImageView(image);
-                /*if (new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSet.getString("id")) == null){
+                if (new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSet.getString("id")) == null){
                     Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//System//Artikel//Artikel.png"); //TODO Bild festlegen
                     imageView.setImage(image);
                 }else{
                     Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSet.getString("id"));
                     imageView.setImage(image);
                 }*/
+
+                Line lineLagerbestand = new Line();
 
                 pane.setPrefSize(170,193);
                 pane.getChildren().add(labelArtikelnummer);
@@ -87,6 +97,7 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
                 pane.getChildren().add(labelTitelArtikelnummer);
                 pane.getChildren().add(labelTitelName);
                 pane.getChildren().add(labelTitelPreis);
+                pane.getChildren().add(lineLagerbestand);
                 labelTitelArtikelnummer.setLayoutX(14);
                 labelTitelArtikelnummer.setLayoutY(88);
                 labelTitelName.setLayoutX(14);
@@ -102,17 +113,45 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
                 labelPreis.setLayoutX(76);
                 labelPreis.setLayoutY(122);
                 labelPreis.setStyle("-fx-text-fill: #FFFFFF ");
+                lineLagerbestand.setLayoutX(84);
+                lineLagerbestand.setLayoutY(179);
+                lineLagerbestand.setStartX(-68.125);
+                lineLagerbestand.setEndX(71.625);
+                pane.getChildren().add(button);
 
-                pane.getChildren().add(imageView);
+                int bestand = resultSet.getInt("lagerbestand");
+
+
+
+
+                /*if (resultSetUnternehmen.next()) {
+                    if (resultSet.getInt("lagerbestand") <= resultSetUnternehmen.getInt("lagerbestandRot")) {
+                        lineLagerbestand.setStyle("-fx-stroke: #ff172e; -fx-stroke-width: 2px");
+                    } else if (resultSet.getInt("lagerbestand") <= resultSetUnternehmen.getInt("lagerbestandOrange") && resultSet.getInt("lagerbestand") > resultSetUnternehmen.getInt("lagerbestandRot")) {
+                        lineLagerbestand.setStyle("-fx-stroke: #ffae5c; -fx-stroke-width: 2px");
+                    } else {
+                        lineLagerbestand.setStyle("-fx-stroke: #00dd76; -fx-stroke-width: 2px");
+                    }
+                }*/
+
+                if (bestand == 0) {
+                    lineLagerbestand.setStyle("-fx-stroke: #ff172e; -fx-stroke-width: 2px");
+                } else if (bestand <= orange && bestand > 0) {
+                    lineLagerbestand.setStyle("-fx-stroke: #ffae5c; -fx-stroke-width: 2px");
+                } else {
+                    lineLagerbestand.setStyle("-fx-stroke: #00dd76; -fx-stroke-width: 2px");
+                }
+
+
+
+                /*pane.getChildren().add(imageView);
                 imageView.setLayoutX(54);
                 imageView.setLayoutY(14);
                 imageView.setFitWidth(65);
-                imageView.setFitHeight(65);
-
-                pane.getChildren().add(button);
+                imageView.setFitHeight(65);*/
                 button.setLayoutX(50);
-                button.setLayoutY(152);
-                button.setId(resultSet.getString("id"));
+                button.setLayoutY(145);//152
+                button.setId(resultSet.getString("artikelId"));
                 button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -122,6 +161,7 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
                 pane.setStyle("-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px");
                 gridpaneArtikel.add(pane,column,row);
                 column++;
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

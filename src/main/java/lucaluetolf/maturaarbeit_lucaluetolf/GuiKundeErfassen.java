@@ -15,7 +15,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class GuiKundeErfassen {
+public class GuiKundeErfassen extends GuiLeiste{
 
     Statement statement;
 
@@ -51,7 +51,7 @@ public class GuiKundeErfassen {
     @FXML
     protected void kundeErfassen(ActionEvent event) {
         try {
-            statement.execute("INSERT INTO kunden (id, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer) VALUES (" + textfeldKundennummer.getText() + ",'" + textfeldNachname.getText() + "','" + textfeldVorname.getText() + "','" + textfeldAdresse.getText() + "'," + textfeldPostleitzahl.getText() + ",'" + textfeldOrt.getText() + "','" + textfeldEmail.getText() + "'," + textfeldNatelnummer.getText() + ")");
+            statement.execute("INSERT INTO kunden (kundenId, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer) VALUES (" + textfeldKundennummer.getText() + ",'" + textfeldNachname.getText() + "','" + textfeldVorname.getText() + "','" + textfeldAdresse.getText() + "'," + textfeldPostleitzahl.getText() + ",'" + textfeldOrt.getText() + "','" + textfeldEmail.getText() + "'," + textfeldNatelnummer.getText() + ")");
             root = FXMLLoader.load(getClass().getResource("kunden.fxml"));
             AllgemeineMethoden.ordnerErstellen(String.valueOf(textfeldKundennummer.getText()), textfeldNachname.getText(), textfeldVorname.getText());
         } catch (SQLException e) {

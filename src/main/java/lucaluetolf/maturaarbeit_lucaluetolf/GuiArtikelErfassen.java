@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javafx.stage.FileChooser.ExtensionFilter;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -22,7 +23,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class GuiArtikelErfassen {
+public class GuiArtikelErfassen extends GuiLeiste{
 
     Statement statement;
 
@@ -56,6 +57,9 @@ public class GuiArtikelErfassen {
     @FXML
     protected void bildAendern(){
         FileChooser fileChooser = new FileChooser();
+        ExtensionFilter filter = new ExtensionFilter("PNG-Dateien", "png");
+        fileChooser.getExtensionFilters().add(filter);
+
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
@@ -77,9 +81,10 @@ public class GuiArtikelErfassen {
         int lagerbestand = Integer.parseInt(textfeldLagerbestand.getText());
 
         try {
-            statement.execute("INSERT INTO artikel (id, name, preis, menge, rabatt, lagerbestand) VALUES (" +artikelnummer + "," + "'" + textfeldName.getText() + "'" + "," + preis + "," + menge + "," + rabatt + "," + lagerbestand + ")");
+            statement.execute("INSERT INTO artikel (artikelId, name, preis, menge, rabatt, lagerbestand) VALUES (" +artikelnummer + "," + "'" + textfeldName.getText() + "'" + "," + preis + "," + menge + "," + rabatt + "," + lagerbestand + ")");
             root = FXMLLoader.load(getClass().getResource("artikel.fxml"));
         } catch (SQLException e) {
+            e.getMessage();
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);

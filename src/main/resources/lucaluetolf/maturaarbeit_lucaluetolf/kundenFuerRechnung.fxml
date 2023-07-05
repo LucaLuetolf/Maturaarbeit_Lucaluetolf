@@ -1,49 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiKunde">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiKundeFuerRechnung">
     <children>
-        <VBox prefHeight="800.0" prefWidth="230.0">
-            <children>
-                <AnchorPane prefHeight="800.0" prefWidth="230.0" styleClass="anchorpanelink">
-                    <children>
-                        <JFXButton onAction="#toSceneStartseite" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Startseite" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="150.0" />
-                        <Pane layoutX="28.0" layoutY="43.0" prefHeight="80.0" prefWidth="200.0" styleClass="panelinkslogo" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
-                            <children>
-                                <Label alignment="CENTER" contentDisplay="TOP" layoutX="1.0" layoutY="5.0" prefHeight="70.0" prefWidth="196.0" text="Name" textFill="#ba8759">
-                                    <font>
-                                        <Font size="48.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </Pane>
-                        <JFXButton onAction="#toSceneArtikel" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Artikel" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="210.0" />
-                        <JFXButton onAction="#toSceneKunden" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Kunden" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="270.0" />
-                        <JFXButton onAction="#toSceneNeueRechnung" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="neue Rechnung" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="330.0" />
-                        <JFXButton onAction="#toSceneVerkauf" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Verkauf" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="390.0" />
-                        <JFXButton onAction="#toSceneLagerbestand" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Lagerbestand" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="450.0" />
-                        <JFXButton onAction="#toSceneMitarbeiter" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Mitarbeiter" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="510.0" />
-                        <JFXButton onAction="#toSceneArchiv" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Archiv" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="570.0" />
-                        <JFXButton onAction="#toSceneBuchhaltung" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Buchhaltung" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="630.0" />
-                    </children>
-                </AnchorPane>
-            </children>
-        </VBox>
+        <VBox prefHeight="800.0" prefWidth="230.0" />
         <ScrollPane fitToWidth="true" layoutX="288.0" layoutY="146.0" prefHeight="582.0" prefWidth="850.0">
             <content>
-                <ListView fx:id="listviewKunden" fixedCellSize="-2.0" prefHeight="580.0" prefWidth="848.0" />
+                <TableView fx:id="tableViewKunden" prefHeight="580.0" prefWidth="848.0" />
             </content>
         </ScrollPane>
-        <JFXButton layoutX="916.0" layoutY="57.0" onAction="#toSceneKundeErfassen" style="-fx-background-radius: 20; -fx-background-color: #E8CFB0; -fx-font-size: 20; -fx-text-fill: ffffff;" text="+ Kunde Hinzufügen" textFill="#d00909" />
         <Pane layoutX="288.0" layoutY="57.0" prefHeight="43.0" prefWidth="313.0" style="-fx-background-radius: 20; -fx-background-color: #E8CFB0;">
             <children>
                 <ComboBox fx:id="sortierenKunde" layoutX="149.0" layoutY="9.0" prefWidth="150.0" promptText="hinzugefügt" style="-fx-background-color: ffffff;" />
