@@ -10,14 +10,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import javax.imageio.event.IIOReadProgressListener;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -25,10 +24,11 @@ import java.util.ResourceBundle;
 
 public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
     Statement statement;
+    Connection connection;
 
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
+            connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
             statement = connection.createStatement();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -43,8 +43,6 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
     @FXML
     private GridPane gridpaneWarenkorb;
     @FXML
-    private Pane paneAdressat;
-    @FXML
     private Pane paneWarenkorbTotal;
     @FXML
     private Label labelAdressatKundennummer;
@@ -57,7 +55,11 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
     @FXML
     private JFXButton buttonAdressatAendern;
     @FXML
-    private JFXButton buttonRechnungErstellen;
+    private Label labelTotal;
+    @FXML
+    private Label labelRabatte;
+    @FXML
+    private Label labelSumme;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -185,7 +187,7 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
                         }
                     }
                 });
-                buttonPlus.setOnAction(new EventHandler<ActionEvent>() {
+                buttonPlus.setOnAction(new EventHandler <ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         int lagerbestand = 0;
@@ -275,11 +277,11 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
     }
 
     private void paneFuerWarenkorb(ResultSet resultSet, int anzahl){
-        Label labelWarenkorbArtikelnummer = null;
-        Label labelWarenkorbName = null;
-        Label labelWarenkorbPreis = null;
-        Label labelWarenkorbAnzahl = null;
-        Label labelWarenkorbTotal = null;
+        Label labelWarenkorbArtikelnummer;
+        Label labelWarenkorbName;
+        Label labelWarenkorbPreis;
+        Label labelWarenkorbAnzahl;
+        Label labelWarenkorbTotal;
 
         gridpaneWarenkorb.getChildren().clear();
         int id = 0;
@@ -299,8 +301,12 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
             }
             resultSetRechnungsnummer.close();
 
-            statement.execute("DELETE FROM bestellung WHERE artikel_id = " + id );
-            statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, rabatt) VALUES (" + rechnungsnr+ "," + artikelnummer + "," + anzahl + "," + rabatt + ")");
+            if(anzahl != 0){
+                statement.execute("DELETE FROM bestellung WHERE artikel_id = " + id );
+                statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, rabatt) VALUES (" + rechnungsnr+ "," + artikelnummer + "," + anzahl + "," + rabatt + ")");
+            }else{
+                statement.execute("DELETE FROM bestellung WHERE artikel_id = " + id );
+            }
 
 
             ResultSet resultSetWarenkorb = statement.executeQuery("SELECT * FROM unternehmen, bestellung, artikel WHERE rechnungsnummer = bestellungId AND artikelId = artikel_id");
@@ -334,8 +340,25 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
                 labelWarenkorbTotal.setStyle("-fx-text-fill: #FFFFFF ");
                 gridpaneWarenkorb.addRow(counter+1, paneWarenkorb);
                 gridpaneWarenkorb.setStyle("-fx-border-color: #FFFFFF");
+
             }
-            //resultSetWarenkorb.close();
+            resultSetWarenkorb.close();
+            ResultSet resultSetSumme = statement.executeQuery("SELECT SUM(anzahl * preis) AS summe FROM bestellung, unternehmen, artikel WHERE rechnungsnummer = bestellungId AND artikelId = artikel_id");
+            if(resultSetSumme.next()){
+                labelTotal.setText(String.valueOf(resultSetSumme.getDouble("summe")));
+                labelTotal.setTextAlignment(TextAlignment.LEFT);
+            }
+            resultSetSumme.close();
+            ResultSet resultSetRabatt = statement.executeQuery("SELECT SUM(preis/100 * (100-bestellung.rabatt)) AS total FROM bestellung, unternehmen, artikel WHERE rechnungsnummer = rechnungsnummer AND artikelid = artikel_id");
+            if(resultSetRabatt.next()){
+                labelRabatte.setText("-" + resultSetRabatt.getDouble("total"));
+                labelRabatte.setTextAlignment(TextAlignment.LEFT);
+            }
+
+            labelSumme.setText(String.valueOf(Double.parseDouble(labelTotal.getText()) - Double.parseDouble(labelRabatte.getText())));
+            System.out.println(Double.parseDouble(labelTotal.getText()));
+            System.out.println(Double.parseDouble(labelTotal.getText()) + Double.parseDouble(labelRabatte.getText()));
+            labelSumme.setTextAlignment(TextAlignment.RIGHT);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -347,12 +370,20 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
     protected void buttonRechnungErstellen(ActionEvent event) {
         PdfErstellen.layout1();
         try {
+
+            ResultSet resultSetLagerbestand = statement.executeQuery("SELECT * FROM unternehmen, bestellung WHERE rechnungsnummer = bestellungId");
+            while (resultSetLagerbestand.next()){
+                Statement updateStatement = connection.createStatement();
+                updateStatement.execute("UPDATE artikel SET lagerbestand = lagerbestand -" + resultSetLagerbestand.getInt("anzahl") + "WHERE artikelId = " + resultSetLagerbestand.getInt("artikel_id"));
+            }
+            resultSetLagerbestand.close();
             int rechnungsnummer= 0;
             ResultSet resultSetRechnungsnummer = statement.executeQuery("SELECT * FROM unternehmen");
             if(resultSetRechnungsnummer.next()){
                 rechnungsnummer = resultSetRechnungsnummer.getInt("rechnungsnummer");
             }
             statement.execute("UPDATE unternehmen SET rechnungsnummer="+ (rechnungsnummer+1) +"WHERE rechnungsnummer="+rechnungsnummer);
+            resultSetRechnungsnummer.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
