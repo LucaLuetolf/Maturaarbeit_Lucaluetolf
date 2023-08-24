@@ -3,7 +3,6 @@ package lucaluetolf.maturaarbeit_lucaluetolf;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +19,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class GuiKundeFuerRechnung extends GuiLeiste implements Initializable {
+public class GuiKundeFuerRechnung extends GuiTaskleiste implements Initializable {
     Statement statement;
 
     {
@@ -28,7 +27,7 @@ public class GuiKundeFuerRechnung extends GuiLeiste implements Initializable {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
             statement = connection.createStatement();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
     }
 
@@ -36,164 +35,129 @@ public class GuiKundeFuerRechnung extends GuiLeiste implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    @FXML
-    private ListView<Kunde> listviewKunden;
-    @FXML
-    private ComboBox sortierenKunde;
+
 
     @FXML
     private TableView tableViewKunden;
+    @FXML
+    private TextField textfieldFilterKundennummer;
+    @FXML
+    private TextField textfieldFilterNachname;
+    @FXML
+    private TextField textfieldFilterVorname;
+    @FXML
+    private TextField textfieldFilterPostleitzahl;
+    private String stringResultset;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /*String auswahl[] = {"Nachname", "Vorname", "Kundennummer", "Hinzugefügt"};
-        ObservableList<String> observableListCombobox = FXCollections.observableArrayList(auswahl);
-        sortierenKunde.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #ba8759;");
-        sortierenKunde.setItems(observableListCombobox);
-
-        ObservableList<Kunde> observableList = FXCollections.observableArrayList();
-        observableList.clear();
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM kunden");
-            while (resultSet.next()) {
-                int kundennummer = Integer.parseInt(resultSet.getString("id"));
-                String nachname = String.valueOf(resultSet.getString("nachname"));
-                String vorname = String.valueOf(resultSet.getString("vorname"));
-                String adresse = String.valueOf(resultSet.getString("adresse"));
-                int postleitzahl = Integer.parseInt(resultSet.getString("postleitzahl"));
-                String ort = String.valueOf(resultSet.getString("ort"));
-                String email = String.valueOf(resultSet.getString("email"));
-                int natelnummer = Integer.parseInt(resultSet.getString("natelnummer"));
-                observableList.add(new Kunde(kundennummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer));
-            }
-
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            kundenAnzeigen(statement.executeQuery("SELECT * FROM kunden"));
+        } catch (SQLException e) {
+            AllgemeineMethoden.fehlermeldung(e);
         }
+    }
 
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                if (sortierenKunde.getValue() == "Nachname") {
-                    observableList.clear();
-                    try {
-                        ResultSet resultSet = statement.executeQuery("SELECT * FROM kunden ORDER BY Nachname");
-                        while (resultSet.next()) {
-                            int kundennummer = Integer.parseInt(resultSet.getString("id"));
-                            String nachname = String.valueOf(resultSet.getString("nachname"));
-                            String vorname = String.valueOf(resultSet.getString("vorname"));
-                            String adresse = String.valueOf(resultSet.getString("adresse"));
-                            int postleitzahl = Integer.parseInt(resultSet.getString("postleitzahl"));
-                            String ort = String.valueOf(resultSet.getString("ort"));
-                            String email = String.valueOf(resultSet.getString("email"));
-                            int natelnummer = Integer.parseInt(resultSet.getString("natelnummer"));
-                            observableList.add(new Kunde(kundennummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer));
-                        }
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
-                if (sortierenKunde.getValue() == "Vorname") {
-                    observableList.clear();
-                    try {
-                        ResultSet resultSet = statement.executeQuery("SELECT * FROM kunden ORDER BY vorname");
-                        while (resultSet.next()) {
-                            int kundennummer = Integer.parseInt(resultSet.getString("id"));
-                            String nachname = String.valueOf(resultSet.getString("nachname"));
-                            String vorname = String.valueOf(resultSet.getString("vorname"));
-                            String adresse = String.valueOf(resultSet.getString("adresse"));
-                            int postleitzahl = Integer.parseInt(resultSet.getString("postleitzahl"));
-                            String ort = String.valueOf(resultSet.getString("ort"));
-                            String email = String.valueOf(resultSet.getString("email"));
-                            int natelnummer = Integer.parseInt(resultSet.getString("natelnummer"));
-                            observableList.add(new Kunde(kundennummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer));
-                        }
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+    @FXML
+    protected void textfieldFilterKundennummerKey() {
+        textfieldFilterKundennummer.setText(textfieldFilterKundennummer.getText().replaceAll("[^0-9]", ""));
+        textfieldFilterKundennummer.positionCaret(textfieldFilterKundennummer.getLength());
+    }
 
-                }
-                if (sortierenKunde.getValue() == "Kundennummer") {
-                    observableList.clear();
-                    try {
-                        ResultSet resultSet = statement.executeQuery("SELECT * FROM kunden ORDER BY id");
-                        while (resultSet.next()) {
-                            int kundennummer = Integer.parseInt(resultSet.getString("id"));
-                            String nachname = String.valueOf(resultSet.getString("nachname"));
-                            String vorname = String.valueOf(resultSet.getString("vorname"));
-                            String adresse = String.valueOf(resultSet.getString("adresse"));
-                            int postleitzahl = Integer.parseInt(resultSet.getString("postleitzahl"));
-                            String ort = String.valueOf(resultSet.getString("ort"));
-                            String email = String.valueOf(resultSet.getString("email"));
-                            int natelnummer = Integer.parseInt(resultSet.getString("natelnummer"));
-                            observableList.add(new Kunde(kundennummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer));
-                        }
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+    @FXML
+    protected void textfieldFilterNachnameKey() {
+        textfieldFilterNachname.setText(textfieldFilterNachname.getText().replaceAll("[^A-Z, ^a-z]", ""));
+        textfieldFilterNachname.positionCaret(textfieldFilterNachname.getLength());
 
-                }
-                if (sortierenKunde.getValue() == "Hinzugefügt") {
-                    observableList.clear();
-                    try {
-                        ResultSet resultSet = statement.executeQuery("SELECT * FROM kunden DESC");
-                        while (resultSet.next()) {
-                            int kundennummer = Integer.parseInt(resultSet.getString("id"));
-                            String nachname = String.valueOf(resultSet.getString("nachname"));
-                            String vorname = String.valueOf(resultSet.getString("vorname"));
-                            String adresse = String.valueOf(resultSet.getString("adresse"));
-                            int postleitzahl = Integer.parseInt(resultSet.getString("postleitzahl"));
-                            String ort = String.valueOf(resultSet.getString("ort"));
-                            String email = String.valueOf(resultSet.getString("email"));
-                            int natelnummer = Integer.parseInt(resultSet.getString("natelnummer"));
-                            observableList.add(new Kunde(kundennummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer));
-                        }
+    }
 
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+    @FXML
+    protected void textfieldFilterVornameKey() {
+        textfieldFilterVorname.setText(textfieldFilterVorname.getText().replaceAll("[^A-Z, ^a-z]", ""));
+        textfieldFilterVorname.positionCaret(textfieldFilterVorname.getLength());
+    }
 
-                }
+    @FXML
+    protected void textfieldFilterPostleitzahlKey() {
+        textfieldFilterPostleitzahl.setText(textfieldFilterPostleitzahl.getText().replaceAll("[^0-9]", ""));
+        textfieldFilterPostleitzahl.positionCaret(textfieldFilterPostleitzahl.getLength());
+    }
+
+    @FXML
+    protected void kundenRechnungFilterAnwenden() {
+        int counter = 0;
+        stringResultset = "SELECT * FROM Kunden";
+        if (textfieldFilterKundennummer.getText() != "") {
+            if (counter == 0) {
+                stringResultset = stringResultset + " WHERE";
             }
-        };
-        sortierenKunde.setOnAction(event);
-
-        listviewKunden.setItems(null);
-        listviewKunden.setItems(observableList);
-
-        listviewKunden.setCellFactory(param -> new ListCell<Kunde>() {
-            @Override
-            protected void updateItem(Kunde item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getKundenummer() + item.getNachname() + item.getVorname() + item.getAdresse() + item.getPostleitzahl() + item.getOrt() + item.geteMail() + item.getNatelnummer());
-                    listviewKunden.setId(String.valueOf(item.getKundenummer()));
-                }
+            if (counter >= 1) {
+                stringResultset = stringResultset + " AND";
             }
-        });
-        listviewKunden.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    root = FXMLLoader.load(getClass().getResource("kundeBearbeiten.fxml"));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+            counter++;
+            stringResultset = stringResultset + " kundenId = " + textfieldFilterKundennummer.getText();
+        }
+        if (textfieldFilterNachname.getText() != "") {
+            if (counter == 0) {
+                stringResultset = stringResultset + " WHERE";
             }
-        });*/
+            if (counter >= 1) {
+                stringResultset = stringResultset + " AND";
+            }
+            counter++;
+            stringResultset = stringResultset + " nachname = '" + textfieldFilterNachname.getText() + "'";
+        }
+        if (textfieldFilterVorname.getText() != "") {
+            if (counter == 0) {
+                stringResultset = stringResultset + " WHERE";
+            }
+            if (counter >= 1) {
+                stringResultset = stringResultset + " AND";
+            }
+            counter++;
+            stringResultset = stringResultset + " vorname = '" + textfieldFilterVorname.getText() + "'";
+        }
+        if (textfieldFilterPostleitzahl.getText() != "") {
+            if (counter == 0) {
+                stringResultset = stringResultset + " WHERE";
+            }
+            if (counter >= 1) {
+                stringResultset = stringResultset + " AND";
+            }
+            counter++;
+            stringResultset = stringResultset + " postleitzahl = " + textfieldFilterPostleitzahl.getText();
+        }
+        stringResultset = stringResultset + ";";
+        try {
+            kundenAnzeigen(statement.executeQuery(stringResultset));
+        } catch (SQLException e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
+        System.out.println(stringResultset);
+    }
+    @FXML
+    protected void kundenRechnungFilterZuruecksetzten(){
+        textfieldFilterKundennummer.setText("");
+        textfieldFilterNachname.setText("");
+        textfieldFilterVorname.setText("");
+        textfieldFilterPostleitzahl.setText("");
+        try {
+            kundenAnzeigen(statement.executeQuery("SELECT * FROM kunden"));
+        } catch (SQLException e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
+    }
+
+    private void kundenAnzeigen(ResultSet resultSet) {
+        tableViewKunden.getColumns().clear();
         ObservableList<ObservableList<String>> observableList = FXCollections.observableArrayList();
+
         TableColumn<ObservableList<String>, String> spalteKundennummer = new TableColumn<>("Kundennummer");
         TableColumn<ObservableList<String>, String> spalteNachname = new TableColumn<>("Nachname");
         TableColumn<ObservableList<String>, String> spalteVorname = new TableColumn<>("Vorname");
         TableColumn<ObservableList<String>, String> spalteAdresse = new TableColumn<>("Adresse");
         TableColumn<ObservableList<String>, String> spalteOrt = new TableColumn<>("Ort");
-        TableColumn<ObservableList<String>, String> spaltePostleitzahl = new TableColumn<>("Postleitzahl");
+        TableColumn<ObservableList<String>, String> spaltePostleitzahl = new TableColumn<>("PLZ");
         TableColumn<ObservableList<String>, String> spalteEmail = new TableColumn<>("E-Mail");
         TableColumn<ObservableList<String>, String> spalteNatelnummer = new TableColumn<>("Natelnummer");
 
@@ -201,16 +165,17 @@ public class GuiKundeFuerRechnung extends GuiLeiste implements Initializable {
         spalteNachname.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(1)));
         spalteVorname.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(2)));
         spalteAdresse.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(3)));
-        spalteOrt.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(4)));
-        spaltePostleitzahl.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(5)));
+        spaltePostleitzahl.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(4)));
+        spalteOrt.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(5)));
         spalteEmail.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(6)));
         spalteNatelnummer.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(7)));
 
+        tableViewKunden.getColumns().addAll(spalteKundennummer, spalteNachname, spalteVorname, spalteAdresse, spaltePostleitzahl, spalteOrt, spalteEmail, spalteNatelnummer);
 
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM kunden");
             while (resultSet.next()) {
-                ObservableList spalten = FXCollections.observableArrayList();
+
+                ObservableList<String> spalten = FXCollections.observableArrayList();
                 spalten.add(resultSet.getString("kundenId"));
                 spalten.add(resultSet.getString("nachname"));
                 spalten.add(resultSet.getString("vorname"));
@@ -221,14 +186,7 @@ public class GuiKundeFuerRechnung extends GuiLeiste implements Initializable {
                 spalten.add(resultSet.getString("natelnummer"));
 
                 observableList.add(spalten);
-
-
-                tableViewKunden.getColumns().addAll(spalteKundennummer, spalteNachname, spalteVorname, spalteAdresse, spalteOrt, spaltePostleitzahl, spalteEmail, spalteNatelnummer);
-
-                tableViewKunden.setId(resultSet.getString("kundenId"));
-                tableViewKunden.setItems(observableList);
                 tableViewKunden.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
                     @Override
                     public void handle(MouseEvent event) {
                         int zeilennummer = tableViewKunden.getSelectionModel().getFocusedIndex();
@@ -237,15 +195,14 @@ public class GuiKundeFuerRechnung extends GuiLeiste implements Initializable {
                         ResultSet resultSetRechnungsnummer = null;
                         try {
                             resultSetRechnungsnummer = statement.executeQuery("SELECT rechnungsnummer FROM unternehmen");
-                        if (resultSetRechnungsnummer.next()){
-                                rechnungsnummer = resultSetRechnungsnummer.getInt("rechnungsnummer");
-                            }
+                            resultSetRechnungsnummer.next();
+                            rechnungsnummer = resultSetRechnungsnummer.getInt("rechnungsnummer");
+                            statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
                             statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id) VALUES (" + rechnungsnummer + "," + kundennummer + ")");
                             root = FXMLLoader.load(getClass().getResource("artikelFuerRechnung.fxml"));
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                        resultSetRechnungsnummer.close();
+                        } catch (Exception e) {
+                            AllgemeineMethoden.fehlermeldung(e);
                         }
                         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         scene = new Scene(root);
@@ -253,11 +210,14 @@ public class GuiKundeFuerRechnung extends GuiLeiste implements Initializable {
                         stage.show();
                     }
                 });
+
             }
 
+            tableViewKunden.setItems(observableList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
+
         spalteKundennummer.setPrefWidth(100);
         spalteNachname.setPrefWidth(113);
         spalteVorname.setPrefWidth(113);
@@ -268,4 +228,6 @@ public class GuiKundeFuerRechnung extends GuiLeiste implements Initializable {
         spalteNatelnummer.setPrefWidth(110);
 
     }
+
+
 }

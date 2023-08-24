@@ -3,19 +3,14 @@ package lucaluetolf.maturaarbeit_lucaluetolf;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.stage.FileChooser;
 
-import java.awt.datatransfer.StringSelection;
-import java.io.File;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
 import java.util.ResourceBundle;
 
 
-public class GuiStartseite extends GuiLeiste implements Initializable{
+public class GuiStartseite extends GuiTaskleiste implements Initializable{
     LocalTime time = LocalTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
 

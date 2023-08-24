@@ -15,7 +15,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class GuiKundeBearbeiten extends GuiLeiste implements Initializable {
+public class GuiKundeBearbeiten extends GuiTaskleiste implements Initializable {
     Statement statement;
     {
         try {

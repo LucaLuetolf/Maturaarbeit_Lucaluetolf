@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -13,8 +14,8 @@
    <children>
       <Pane layoutX="300.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
          <children>
-            <TextField fx:id="textfeldArtikelnummer" layoutX="300.0" layoutY="265.0" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="53.0" layoutY="43.0" text="Artikel Erfassen" textFill="#ba8759">
+            <TextField fx:id="textfeldArtikelnummer" layoutX="300.0" layoutY="265.0" onKeyReleased="#textfieldArtikelnummerKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="53.0" layoutY="43.0" text="Artikel erfassen" textFill="#ba8759">
                <font>
                   <Font size="36.0" />
                </font>
@@ -29,10 +30,10 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldLagerbestand" layoutX="300.0" layoutY="431.0" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldName" layoutX="300.0" layoutY="300.0" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldPreis" layoutX="300.0" layoutY="334.0" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldMenge" layoutX="300.0" layoutY="366.0" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldLagerbestand" layoutX="300.0" layoutY="431.0" onKeyReleased="#textfieldLagerbestandKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldName" layoutX="300.0" layoutY="300.0" onKeyReleased="#textfieldNameKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldPreis" layoutX="300.0" layoutY="334.0" onKeyReleased="#textfieldPreisKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldMenge" layoutX="300.0" layoutY="366.0" onKeyReleased="#textfieldMengeKey" prefHeight="25.0" prefWidth="125.0" />
             <Label layoutX="118.0" layoutY="295.0" prefHeight="35.0" prefWidth="171.0" text="Name" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
@@ -53,7 +54,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldRabatt" layoutX="300.0" layoutY="399.0" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldRabatt" layoutX="300.0" layoutY="399.0" onKeyReleased="#textfieldRabattKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="118.0" layoutY="394.0" prefHeight="35.0" prefWidth="171.0" text="Rabatt" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
@@ -78,6 +79,7 @@
                   </ImageView>
                </children>
             </Pane>
+            <ChoiceBox fx:id="comboboxMenge" layoutX="427.0" layoutY="366.0" prefHeight="25.0" prefWidth="75.0" />
          </children>
       </Pane>
    </children>

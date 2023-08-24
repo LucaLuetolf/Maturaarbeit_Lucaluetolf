@@ -1,7 +1,6 @@
 package lucaluetolf.maturaarbeit_lucaluetolf;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,13 +15,12 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class GuiKunde extends GuiLeiste implements Initializable {
+public class GuiKunde extends GuiTaskleiste implements Initializable {
     Statement statement;
 
     {
@@ -223,7 +221,7 @@ public class GuiKunde extends GuiLeiste implements Initializable {
                 observableList.add(spalten);
 
 
-                tableViewKunden.getColumns().addAll(kundennummer, nachname, vorname, adresse,postleitzahl, ort, email, natelnummer);
+                tableViewKunden.getColumns().addAll(kundennummer, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer);
 
                 tableViewKunden.setId(resultSet.getString("kundenId"));
                 tableViewKunden.setItems(observableList);

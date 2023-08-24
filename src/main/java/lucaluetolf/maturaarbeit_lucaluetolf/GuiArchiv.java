@@ -1,4 +1,4 @@
 package lucaluetolf.maturaarbeit_lucaluetolf;
 
-public class GuiArchiv extends GuiLeiste{
+public class GuiArchiv extends GuiTaskleiste {
 }

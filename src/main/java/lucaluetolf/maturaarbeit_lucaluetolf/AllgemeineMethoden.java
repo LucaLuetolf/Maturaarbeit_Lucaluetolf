@@ -1,5 +1,7 @@
 package lucaluetolf.maturaarbeit_lucaluetolf;
 
+import javafx.scene.control.Alert;
+
 import java.io.File;
 import java.nio.file.Files;
 
@@ -20,6 +22,14 @@ public class AllgemeineMethoden {
         String pfad = "Rechnungen\\"+kundennummer + " " + nachname + " " + vorname;
         File ordner = new File(pfad);
         ordner.mkdirs();
+    }
+
+    public static void fehlermeldung(Exception e){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Leider ist ein Fehler aufgetreten");
+        alert.setContentText(e.getMessage());
+        alert.showAndWait();
     }
 
 }

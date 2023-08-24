@@ -22,7 +22,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
+public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializable {
     Statement statement;
     Connection connection;
 
@@ -97,11 +97,11 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
                 Label labelPreis = new Label(resultSetArtikel.getString("preis"));
                 /*Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//System//Artikel//Artikel.png");
                 ImageView imageView = new ImageView(image);
-                if (new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSet.getString("id")) == null){
-                    Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//System//Artikel//Artikel.png"); //TODO Bild festlegen
+                if (new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSetArtikel.getString("id")) == null){
+                    image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//System//Artikel//Artikel.png"); //TODO Bild festlegen
                     imageView.setImage(image);
                 }else{
-                    Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSet.getString("id"));
+                    image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSetArtikel.getString("id") + ".png");
                     imageView.setImage(image);
                 }*/
 
@@ -232,6 +232,7 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
                                 textFieldAnzahl.setText(String.valueOf(anzahl));
                             }
                             paneFuerWarenkorb(statement.executeQuery("SELECT * FROM artikel WHERE artikelId=" + textFieldAnzahl.getId()), anzahl);
+                            resultSet.close();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -249,8 +250,6 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
                 labelAdressatNachname.setText(resultSetBearbeiter.getString("nachname"));
                 labelAdressatVorname.setText(resultSetBearbeiter.getString("vorname"));
                 labelAdressatAdresse.setText(resultSetBearbeiter.getString("adresse"));
-
-
             }
             //TODO
             resultSetBearbeiter.close();
@@ -348,20 +347,30 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
                 labelTotal.setText(String.valueOf(resultSetSumme.getDouble("summe")));
                 labelTotal.setTextAlignment(TextAlignment.LEFT);
             }
+
             resultSetSumme.close();
-            ResultSet resultSetRabatt = statement.executeQuery("SELECT SUM(preis/100 * (100-bestellung.rabatt)) AS total FROM bestellung, unternehmen, artikel WHERE rechnungsnummer = rechnungsnummer AND artikelid = artikel_id");
+            ResultSet resultSetRabatt = statement.executeQuery("SELECT * FROM artikel, bestellung, unternehmen WHERE rechnungsnummer = bestellungId AND artikelId = artikel_id");
+            double rabattTotal = 0;
+            while (resultSet.next()){
+                int rabattArtikel = resultSetRabatt.getInt("bestellung.rabatt");
+                double preisArtikel = resultSetRabatt.getDouble("preis");
+                int anzahlArtikel = resultSetRabatt.getInt("anzahl");
+                rabattTotal = (preisArtikel / 100 * (rabattArtikel))*anzahlArtikel;
+                Math.round(rabattTotal);
+            }
             if(resultSetRabatt.next()){
-                labelRabatte.setText("-" + resultSetRabatt.getDouble("total"));
+                labelRabatte.setText("-" + rabattTotal);
                 labelRabatte.setTextAlignment(TextAlignment.LEFT);
             }
+            resultSetRabatt.close();
 
             labelSumme.setText(String.valueOf(Double.parseDouble(labelTotal.getText()) - Double.parseDouble(labelRabatte.getText())));
             System.out.println(Double.parseDouble(labelTotal.getText()));
             System.out.println(Double.parseDouble(labelTotal.getText()) + Double.parseDouble(labelRabatte.getText()));
             labelSumme.setTextAlignment(TextAlignment.RIGHT);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
         }
 
 
@@ -370,7 +379,6 @@ public class GuiArtikelFuerRechnung extends GuiLeiste implements Initializable {
     protected void buttonRechnungErstellen(ActionEvent event) {
         PdfErstellen.layout1();
         try {
-
             ResultSet resultSetLagerbestand = statement.executeQuery("SELECT * FROM unternehmen, bestellung WHERE rechnungsnummer = bestellungId");
             while (resultSetLagerbestand.next()){
                 Statement updateStatement = connection.createStatement();

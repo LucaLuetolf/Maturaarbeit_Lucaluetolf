@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class GuiLeiste {
+public class GuiTaskleiste {
     private int kundennummerBearbeiten;
 
     public int getKundennummerBearbeiten() {
@@ -30,7 +30,7 @@ public class GuiLeiste {
         try {
             root = FXMLLoader.load(getClass().getResource("startseite.fxml"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -43,7 +43,7 @@ public class GuiLeiste {
         try {
             root = FXMLLoader.load(getClass().getResource("artikel.fxml"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -56,7 +56,7 @@ public class GuiLeiste {
         try {
             root = FXMLLoader.load(getClass().getResource("kunden.fxml"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -70,7 +70,7 @@ public class GuiLeiste {
         try {
             root = FXMLLoader.load(getClass().getResource("kundenFuerRechnung.fxml"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -83,7 +83,7 @@ public class GuiLeiste {
         try {
             root = FXMLLoader.load(getClass().getResource("Verkauf.fxml"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -97,7 +97,7 @@ public class GuiLeiste {
         try {
             root = FXMLLoader.load(getClass().getResource("lagerbestand.fxml"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -111,7 +111,7 @@ public class GuiLeiste {
         try {
             root = FXMLLoader.load(getClass().getResource("mitarbeiter.fxml"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -125,7 +125,7 @@ public class GuiLeiste {
         try {
             root = FXMLLoader.load(getClass().getResource("archiv.fxml"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -139,7 +139,7 @@ public class GuiLeiste {
         try {
             root = FXMLLoader.load(getClass().getResource("buchhaltung.fxml"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

@@ -10,8 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
@@ -23,7 +21,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class GuiArtikel extends GuiLeiste implements Initializable {
+public class GuiArtikel extends GuiTaskleiste implements Initializable {
     Statement statement;
 
     {
@@ -51,13 +49,13 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
             ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
 
             int orange = 0;
-            if(resultSetUnternehmen.next()){
+            if (resultSetUnternehmen.next()) {
                 orange = resultSetUnternehmen.getInt("lagerbestandOrange");
             }
             resultSetUnternehmen.close();
-            ResultSet resultSet  = statement.executeQuery("SELECT * FROM artikel");
-            while(resultSet.next()) {
-                if(column == 5){
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM artikel");
+            while (resultSet.next()) {
+                if (column == 5) {
                     row = row + 1;
                     gridpaneArtikel.addColumn(row);
                     prefHeight = prefHeight + prefHeightPerColumn;
@@ -68,9 +66,9 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
                 JFXButton button = new JFXButton("Mehr Infos");
                 button.setStyle("-fx-border-radius: 15px; -fx-text-fill: #ba8759; -fx-background-color: #FFFFFF");
 
-                Label labelTitelArtikelnummer = new Label ("Artikelnr.:");
-                Label labelTitelName = new Label ("Name:");
-                Label labelTitelPreis = new Label ("Preis:");
+                Label labelTitelArtikelnummer = new Label("Artikelnr.:");
+                Label labelTitelName = new Label("Name:");
+                Label labelTitelPreis = new Label("Preis:");
                 Label labelArtikelnummer = new Label(resultSet.getString("artikelId"));
 
                 labelTitelArtikelnummer.setStyle("-fx-text-fill: #FFFFFF ");
@@ -90,7 +88,7 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
 
                 Line lineLagerbestand = new Line();
 
-                pane.setPrefSize(170,193);
+                pane.setPrefSize(170, 193);
                 pane.getChildren().add(labelArtikelnummer);
                 pane.getChildren().add(labelName);
                 pane.getChildren().add(labelPreis);
@@ -121,19 +119,6 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
 
                 int bestand = resultSet.getInt("lagerbestand");
 
-
-
-
-                /*if (resultSetUnternehmen.next()) {
-                    if (resultSet.getInt("lagerbestand") <= resultSetUnternehmen.getInt("lagerbestandRot")) {
-                        lineLagerbestand.setStyle("-fx-stroke: #ff172e; -fx-stroke-width: 2px");
-                    } else if (resultSet.getInt("lagerbestand") <= resultSetUnternehmen.getInt("lagerbestandOrange") && resultSet.getInt("lagerbestand") > resultSetUnternehmen.getInt("lagerbestandRot")) {
-                        lineLagerbestand.setStyle("-fx-stroke: #ffae5c; -fx-stroke-width: 2px");
-                    } else {
-                        lineLagerbestand.setStyle("-fx-stroke: #00dd76; -fx-stroke-width: 2px");
-                    }
-                }*/
-
                 if (bestand == 0) {
                     lineLagerbestand.setStyle("-fx-stroke: #ff172e; -fx-stroke-width: 2px");
                 } else if (bestand <= orange && bestand > 0) {
@@ -141,8 +126,6 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
                 } else {
                     lineLagerbestand.setStyle("-fx-stroke: #00dd76; -fx-stroke-width: 2px");
                 }
-
-
 
                 /*pane.getChildren().add(imageView);
                 imageView.setLayoutX(54);
@@ -159,7 +142,7 @@ public class GuiArtikel extends GuiLeiste implements Initializable {
                     }
                 });
                 pane.setStyle("-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px");
-                gridpaneArtikel.add(pane,column,row);
+                gridpaneArtikel.add(pane, column, row);
                 column++;
 
             }

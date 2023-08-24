@@ -9,13 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class GuiKundeErfassen extends GuiLeiste{
+public class GuiKundeErfassen extends GuiTaskleiste {
 
     Statement statement;
 
@@ -24,9 +23,10 @@ public class GuiKundeErfassen extends GuiLeiste{
             Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
             statement = connection.createStatement();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AllgemeineMethoden.fehlermeldung(e);
         }
     }
+
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -47,22 +47,121 @@ public class GuiKundeErfassen extends GuiLeiste{
     private TextField textfeldEmail;
     @FXML
     private TextField textfeldNatelnummer;
+    boolean booleanKundennummer = false;
+    boolean booleanNachname = false;
+    boolean booleanVorname = false;
+    boolean booleanAdresse = false;
+    boolean booleanPostleitzahl = false;
+    boolean booleanOrt = false;
+    boolean booleanEmail = false;
+    boolean booleanNatelnummer = false;
+
+    private boolean tester(String regex, TextField textField) {
+        boolean boolean1 = textField.getText().matches(regex);
+        if (boolean1) {
+            textField.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+        } else {
+            textField.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
+        }
+        return boolean1;
+    }
+
+    @FXML
+    protected void textfieldKundennummerKey() {
+        textfeldKundennummer.setText(textfeldKundennummer.getText().replaceAll("[^0-9]", ""));
+        textfeldKundennummer.positionCaret(textfeldKundennummer.getLength());
+        booleanKundennummer = tester("^[1-9]\\d*$", textfeldKundennummer);
+    }
+
+    @FXML
+    protected void textfieldNachnameKey() {
+        textfeldNachname.setText(textfeldNachname.getText().replaceAll("[^A-Z, ^a-z]", ""));
+        textfeldNachname.positionCaret(textfeldNachname.getLength());
+        booleanNachname = tester("^[A-Z][a-z]+(\\s[A-Z][a-z]+)?$", textfeldNachname);
+    }
+
+    @FXML
+    protected void textfieldVornameKey() {
+        textfeldVorname.setText(textfeldVorname.getText().replaceAll("[^A-Z, ^a-z]", ""));
+        textfeldVorname.positionCaret(textfeldVorname.getLength());
+        booleanVorname = tester("^[A-Z][a-z]+(\\s[A-Z][a-z]+)?$", textfeldVorname);
+    }
+
+    @FXML
+    protected void textfieldAdresseKey() {
+        textfeldAdresse.setText(textfeldAdresse.getText().replaceAll("^[^A-za-z]+ [^0-9]$", ""));
+        textfeldAdresse.positionCaret(textfeldAdresse.getLength());
+        booleanAdresse = tester("^[A-Za-z]+(\\s\\d*)?$", textfeldAdresse);
+    }
+
+    @FXML
+    protected void textfieldPostleitzahlKey() {
+        textfeldPostleitzahl.setText(textfeldPostleitzahl.getText().replaceAll("[^0-9]", ""));
+        textfeldPostleitzahl.positionCaret(textfeldPostleitzahl.getLength());
+        booleanPostleitzahl = tester("^[0-9]{4}$", textfeldPostleitzahl);
+    }
+
+    @FXML
+    protected void textfieldOrtKey() {
+        textfeldOrt.setText(textfeldOrt.getText().replaceAll("[^A-Za-z]", ""));
+        textfeldOrt.positionCaret(textfeldOrt.getLength());
+        booleanOrt = tester("[A-Z][a-z]+$", textfeldOrt);
+    }
+
+    @FXML
+    protected void textfieldEmailKey() {
+        booleanEmail = tester("^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,}$", textfeldEmail);
+    }
+
+    @FXML
+    protected void textfieldNatelnummerKey() {
+        textfeldNatelnummer.setText(textfeldNatelnummer.getText().replaceAll("[^0-9]", ""));
+        textfeldNatelnummer.positionCaret(textfeldNatelnummer.getLength());
+        booleanNatelnummer = tester("^[1-9]\\d*$", textfeldNatelnummer);
+    }
 
     @FXML
     protected void kundeErfassen(ActionEvent event) {
-        try {
-            statement.execute("INSERT INTO kunden (kundenId, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer) VALUES (" + textfeldKundennummer.getText() + ",'" + textfeldNachname.getText() + "','" + textfeldVorname.getText() + "','" + textfeldAdresse.getText() + "'," + textfeldPostleitzahl.getText() + ",'" + textfeldOrt.getText() + "','" + textfeldEmail.getText() + "'," + textfeldNatelnummer.getText() + ")");
-            root = FXMLLoader.load(getClass().getResource("kunden.fxml"));
-            AllgemeineMethoden.ordnerErstellen(String.valueOf(textfeldKundennummer.getText()), textfeldNachname.getText(), textfeldVorname.getText());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (booleanKundennummer && booleanNachname && booleanVorname && booleanAdresse && booleanPostleitzahl && booleanOrt && booleanEmail && booleanNatelnummer) {
+            try {
+                statement.execute("INSERT INTO kunden (kundenId, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer) VALUES (" + textfeldKundennummer.getText() + ",'" + textfeldNachname.getText() + "','" + textfeldVorname.getText() + "','" + textfeldAdresse.getText() + "'," + textfeldPostleitzahl.getText() + ",'" + textfeldOrt.getText() + "','" + textfeldEmail.getText() + "'," + textfeldNatelnummer.getText() + ")");
+                root = FXMLLoader.load(getClass().getResource("kunden.fxml"));
+                AllgemeineMethoden.ordnerErstellen(String.valueOf(textfeldKundennummer.getText()), textfeldNachname.getText(), textfeldVorname.getText());
+            } catch (Exception e) {
+                AllgemeineMethoden.fehlermeldung(e);
+            }
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            if (booleanKundennummer == false) {
+                textfeldKundennummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            }
+            if (booleanNachname == false) {
+                textfeldNachname.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            }
+            if (booleanVorname == false) {
+                textfeldVorname.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            }
+            if (booleanAdresse == false) {
+                textfeldAdresse.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            }
+            if (booleanPostleitzahl == false) {
+                textfeldPostleitzahl.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            }
+            if (booleanOrt == false) {
+                textfeldOrt.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            }
+            if (booleanEmail == false) {
+                textfeldEmail.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            }
+            if (booleanNatelnummer == false) {
+                textfeldNatelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            }
         }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+
+
     }
 
 }

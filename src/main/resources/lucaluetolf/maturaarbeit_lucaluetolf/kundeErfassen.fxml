@@ -11,8 +11,8 @@
    <children>
       <Pane layoutX="300.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
          <children>
-            <TextField fx:id="textfeldKundennummer" layoutX="300.0" layoutY="160.0" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="53.0" layoutY="43.0" text="Kunde Erfassen" textFill="#ba8759">
+            <TextField fx:id="textfeldKundennummer" layoutX="300.0" layoutY="160.0" onKeyReleased="#textfieldKundennummerKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="53.0" layoutY="43.0" text="Kunde erfassen" textFill="#ba8759">
                <font>
                   <Font size="36.0" />
                </font>
@@ -27,10 +27,10 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldOrt" layoutX="300.0" layoutY="326.0" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldNachname" layoutX="300.0" layoutY="195.0" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldVorname" layoutX="300.0" layoutY="229.0" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldAdresse" layoutX="300.0" layoutY="261.0" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldOrt" layoutX="300.0" layoutY="326.0" onKeyReleased="#textfieldOrtKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldNachname" layoutX="300.0" layoutY="195.0" onKeyReleased="#textfieldNachnameKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldVorname" layoutX="300.0" layoutY="229.0" onKeyReleased="#textfieldVornameKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldAdresse" layoutX="300.0" layoutY="261.0" onKeyReleased="#textfieldAdresseKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="118.0" layoutY="190.0" prefHeight="35.0" prefWidth="171.0" text="Nachname" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
@@ -51,19 +51,19 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldPostleitzahl" layoutX="300.0" layoutY="294.0" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldPostleitzahl" layoutX="300.0" layoutY="294.0" onKeyReleased="#textfieldPostleitzahlKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="118.0" layoutY="289.0" prefHeight="35.0" prefWidth="171.0" text="Postleitzahl" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldEmail" layoutX="300.0" layoutY="358.0" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldEmail" layoutX="300.0" layoutY="358.0" onKeyReleased="#textfieldEmailKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="118.0" layoutY="353.0" prefHeight="35.0" prefWidth="171.0" text="E-Mail" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldNatelnummer" layoutX="300.0" layoutY="390.0" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldNatelnummer" layoutX="300.0" layoutY="390.0" onKeyReleased="#textfieldNatelnummerKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="118.0" layoutY="385.0" prefHeight="35.0" prefWidth="171.0" text="Natelnummer" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
