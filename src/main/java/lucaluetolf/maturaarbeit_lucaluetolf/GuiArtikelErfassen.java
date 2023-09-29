@@ -19,7 +19,9 @@ import javafx.stage.Stage;
 
 import javafx.stage.FileChooser.ExtensionFilter;
 
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.io.FileFilter;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -78,11 +80,10 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
     }
 
 
-    // Quelle:
     @FXML
     protected void bildAendern() {
         FileChooser fileChooser = new FileChooser();
-        ExtensionFilter filter = new ExtensionFilter("PNG-Dateien", "png");
+        ExtensionFilter filter = new ExtensionFilter("Bilddateien", "*.png;*.jpeg;*.jpg;*.gif;*.svg");
         fileChooser.getExtensionFilters().add(filter);
 
         File selectedFile = fileChooser.showOpenDialog(null);
@@ -98,22 +99,21 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
     protected void textfieldArtikelnummerKey() {
         textfeldArtikelnummer.setText(textfeldArtikelnummer.getText().replaceAll("[^0-9]", ""));
         textfeldArtikelnummer.positionCaret(textfeldArtikelnummer.getLength());
-        booleanArtikelnummer = tester("[0-9]", textfeldArtikelnummer);
+        booleanArtikelnummer = tester("^[1-9]\\d*$", textfeldArtikelnummer);
     }
 
     @FXML
     protected void textfieldNameKey() {
-        booleanName = tester("", textfeldName);
+        booleanName = tester("[^A-Za-zéàèöäüÉÀÈÖÄÜ]", textfeldName);
+        textfeldName.positionCaret(textfeldName.getLength());
+        booleanName = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldName);
     }
 
-    //TODO Regex Preis anpassen, momentan keine Stelle vor dem Punkt. Unendlich viele Punkte möglich
     @FXML
     protected void textfieldPreisKey() {
-        //textfeldPreis.setText(textfeldPreis.getText().replaceAll("[^0-9]+\\.[^0-9]", ""));
-        textfeldPreis.setText(textfeldPreis.getText().replaceAll("^(?!.*\\..*\\.)\\d+(\\.\\d{1,2})?$", ""));
+        textfeldPreis.setText(textfeldPreis.getText().replaceAll("[^0-9.]", ""));
         textfeldPreis.positionCaret(textfeldPreis.getLength());
-        String s = "^[0-9]+\\.[0-9]";
-        booleanPreis = tester("^[0-9]+\\.[0-9]", textfeldPreis);
+        booleanPreis = tester("^\\d+(\\.\\d{1}(0|5)?)?$", textfeldPreis);
 
     }
 
@@ -125,6 +125,7 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
     @FXML
     protected void textfieldRabattKey() {
         textfeldRabatt.setText(textfeldRabatt.getText().replaceAll("[^0-9]", ""));
+        booleanRabatt = tester("^[0-9]\\d*$", textfeldRabatt);
         if (100 < Integer.parseInt(textfeldRabatt.getText())) {
             textfeldRabatt.setText("");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -132,7 +133,7 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
             alert.setHeaderText("Fehlermeldung");
             alert.setContentText("Der gewünschte Rabatt beträgt mehr als 100%");
             alert.showAndWait();
-            tester("[0-9]", textfeldRabatt);
+
         }
         textfeldRabatt.positionCaret(textfeldRabatt.getLength());
 
@@ -142,7 +143,7 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
     protected void textfieldLagerbestandKey() {
         textfeldLagerbestand.setText(textfeldLagerbestand.getText().replaceAll("[^0-9]", ""));
         textfeldLagerbestand.positionCaret(textfeldLagerbestand.getLength());
-        booleanLagerbestand = tester("[0-9]", textfeldLagerbestand);
+        booleanLagerbestand = tester("^[0-9]\\d*$", textfeldLagerbestand);
     }
 
     @FXML
@@ -155,34 +156,29 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
                 root = FXMLLoader.load(getClass().getResource("artikel.fxml"));
                 System.out.println(comboboxMenge.getSelectionModel().getSelectedItem());
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText("Look, an Information Dialog");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
-                System.out.println("Fehler");
+                AllgemeineMethoden.fehlermeldung(e);
             }
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } else {
-            if (booleanArtikelnummer) {
+            if (booleanArtikelnummer == false) {
                 textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
             }
-            if (booleanName) {
+            if (booleanName == false) {
                 textfeldName.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
             }
-            if (booleanPreis) {
+            if (booleanPreis == false) {
                 textfeldPreis.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
             }
-            if (booleanMenge) {
+            if (booleanMenge == false) {
                 textfeldMenge.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
             }
-            if (booleanRabatt) {
+            if (booleanRabatt == false) {
                 textfeldRabatt.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
             }
-            if (booleanLagerbestand) {
+            if (booleanLagerbestand == false) {
                 textfeldLagerbestand.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
             }
         }
@@ -192,6 +188,8 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<String> werte = FXCollections.observableArrayList("Stk", "g", "kg", "ml", "l");
         comboboxMenge.setItems(werte);
-
+        File file = new File("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png");
+        Image image = new Image(file.getAbsolutePath());
+        imageView.setImage(image);
     }
 }

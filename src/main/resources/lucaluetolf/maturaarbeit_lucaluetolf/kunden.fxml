@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableView?>
@@ -44,15 +43,5 @@
          </content>
       </ScrollPane>
       <JFXButton layoutX="916.0" layoutY="57.0" onAction="#toSceneKundeErfassen" style="-fx-background-radius: 20; -fx-background-color: #E8CFB0; -fx-font-size: 20; -fx-text-fill: ffffff;" text="+ Kunde Hinzufügen" textFill="#d00909" />
-      <Pane layoutX="288.0" layoutY="57.0" prefHeight="43.0" prefWidth="313.0" style="-fx-background-radius: 20; -fx-background-color: #E8CFB0;">
-         <children>
-            <ComboBox fx:id="sortierenKunde" layoutX="149.0" layoutY="9.0" prefWidth="150.0" promptText="hinzugefügt" style="-fx-background-color: ffffff;" />
-            <Label layoutX="8.0" layoutY="7.0" text="Sortieren nach:" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
    </children>
 </AnchorPane>

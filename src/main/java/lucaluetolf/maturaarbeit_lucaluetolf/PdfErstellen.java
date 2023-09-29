@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 public class PdfErstellen {
 
     static Statement statement;
+
     {
         try {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
@@ -31,6 +32,7 @@ public class PdfErstellen {
             throw new RuntimeException(e);
         }
     }
+
     //Linkedlist
     //public static LinkedList linkedlistAbsenderAdressat = new LinkedList<>();
     //public static LinkedList<Artikel> linkedlistBestellung = new LinkedList<>();
@@ -43,7 +45,7 @@ public class PdfErstellen {
     private static String pfadRechnung = "Rechnungen\\test3.pdf";
 
 
-    public static void layout1(){
+    public static void layout1(int rechnung1Quittung2) {
         Statement statement;
         {
             try {
@@ -94,8 +96,8 @@ public class PdfErstellen {
         PdfWriter writer = null;
         try {
             ResultSet resultSetAdresse = statement.executeQuery("SELECT * FROM unternehmen, kunden, bearbeiter WHERE rechnungsnummer = bestellung_id AND kundenId = kunden_id");
-            if (resultSetAdresse.next()){
-                writer = new PdfWriter("Rechnungen\\" + resultSetAdresse.getInt("kundenId") + " " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "\\" + formatterPfad.format(datum) + "_" + resultSetAdresse.getInt("rechnungsnummer")+ ".pdf");
+            if (resultSetAdresse.next()) {
+                writer = new PdfWriter("Rechnungen\\" + resultSetAdresse.getInt("kundenId") + " " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "\\" + formatterPfad.format(datum) + "_" + resultSetAdresse.getInt("rechnungsnummer") + ".pdf");
 
             }
             resultSetAdresse.close();
@@ -134,25 +136,33 @@ public class PdfErstellen {
 
         try {
             ResultSet resultSetKunde = statement.executeQuery("SELECT * FROM kunden, bearbeiter, unternehmen WHERE bestellung_id = rechnungsnummer and kundenId = kunden_id");
-            if(resultSetKunde.next()){
-                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("Datum")).setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(formatter.format(datum))).setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(resultSetKunde.getString("nachname") + " " + resultSetKunde.getString("vorname")))).setBorder(Border.NO_BORDER));
-                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("Kundennummer")).setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(String.valueOf(resultSetKunde.getInt("kundenId")))).setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(resultSetKunde.getString("adresse"))).setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("Verkäufer")).setBorder(Border.NO_BORDER)));
-                //tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem( + " " + mitarbeiter.getVorname())).setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(resultSetKunde.getInt("postleitzahl") + " " + resultSetKunde.getString("ort"))).setBorder(Border.NO_BORDER)));
-                document.add(tabelleAbsenderAdressat);
-                document.add(absatz);
+            resultSetKunde.next();
+            tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("Datum")).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(formatter.format(datum))).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(resultSetKunde.getString("nachname") + " " + resultSetKunde.getString("vorname")))).setBorder(Border.NO_BORDER));
+            tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("Kundennummer")).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(String.valueOf(resultSetKunde.getInt("kundenId")))).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(resultSetKunde.getString("adresse"))).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("Verkäufer")).setBorder(Border.NO_BORDER)));
+            //tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem( + " " + mitarbeiter.getVorname())).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(resultSetKunde.getInt("postleitzahl") + " " + resultSetKunde.getString("ort"))).setBorder(Border.NO_BORDER)));
+            document.add(tabelleAbsenderAdressat);
+            document.add(absatz);
 
-                //Paragraph Rechnungsnummer
-                Paragraph paragraphRechnungsnummer = new Paragraph("Rechnungsnummer " + resultSetKunde.getInt("rechnungsnummer")).setBorder(Border.NO_BORDER).setFontSize(15F).setBold();
-                document.add(paragraphRechnungsnummer);
-                document.add(absatz);
+
+            //TODO Quittung
+            //Paragraph Rechnungsnummer
+            Paragraph paragraphQuittungRechnungsnummer = null;
+            if (rechnung1Quittung2 == 1){
+                paragraphQuittungRechnungsnummer = new Paragraph("Rechnungsnummer " + resultSetKunde.getInt("rechnungsnummer")).setBorder(Border.NO_BORDER).setFontSize(15F).setBold();
+
+            } else if (rechnung1Quittung2 == 2) {
+                paragraphQuittungRechnungsnummer = new Paragraph("Quittung " + resultSetKunde.getInt("rechnungsnummer")).setBorder(Border.NO_BORDER).setFontSize(15F).setBold();
 
             }
+            document.add(paragraphQuittungRechnungsnummer);
+            document.add(absatz);
+
             resultSetKunde.close();
 
             //Bestellung
@@ -184,19 +194,18 @@ public class PdfErstellen {
             linkedlistTabelleBestellungoR.add(new Table(bestellungoR));
 
 
-            while (resultSetBestellung.next()){
-                if (resultSetBestellung.getDouble("rabatt") != 0){
+            while (resultSetBestellung.next()) {
+                if (resultSetBestellung.getDouble("rabatt") != 0) {
                     rabatt1 = 100 - resultSetBestellung.getDouble("rabatt");
                     preisInklRabatt = resultSetBestellung.getDouble("preis") / 100 * rabatt1;
                     totalArtikel = preisInklRabatt * resultSetBestellung.getInt("anzahl");
-                }
-                else{
+                } else {
                     totalArtikel = resultSetBestellung.getDouble("preis") * resultSetBestellung.getInt("anzahl");
                 }
                 totalArtikel = Math.round(20.00 * totalArtikel) / 20.00; //TODO Zwei Kommastellen
                 uebertrag = uebertrag + totalArtikel; //TODO Überprüfen
 
-                if (seitenZaehler == 0){
+                if (seitenZaehler == 0) {
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(resultSetBestellung.getString("name"))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT));
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("artikelId")))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("anzahl")))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
@@ -215,14 +224,14 @@ public class PdfErstellen {
                     linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("anzahl")))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
                     linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getDouble("preis")))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
                     linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(totalArtikel))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
-                    zeilenZaehler = zeilenZaehler+1;
-                    if (zeilenZaehler == 16){
+                    zeilenZaehler = zeilenZaehler + 1;
+                    if (zeilenZaehler == 16) {
                         seitenZaehler = 1;
                         linkedlistTabelleBestellungmR.add(new Table(bestellungmR));
                         linkedlistTabelleBestellungoR.add(new Table(bestellungoR));
                     }
                 }
-                if (seitenZaehler == 1){
+                if (seitenZaehler == 1) {
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(resultSetBestellung.getString("name"))).setBorder(Border.NO_BORDER));
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("artikelId")))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("anzahl")))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
@@ -241,8 +250,8 @@ public class PdfErstellen {
                     linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("anzahl")))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
                     linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getDouble("preis")))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
                     linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(totalArtikel))).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
-                    if (zeilenZaehler == 32){
-                        seitenZaehler = seitenZaehler +1;
+                    if (zeilenZaehler == 32) {
+                        seitenZaehler = seitenZaehler + 1;
                         zeilenZaehler = 0;
                         linkedlistTabelleBestellungmR.addLast(new Table(bestellungmR));
                         linkedlistTabelleBestellungoR.addLast(new Table(bestellungoR));
@@ -250,16 +259,16 @@ public class PdfErstellen {
                 }
             }
             resultSetBestellung.close();
-            if (rabatttester == true){
-                for (int i = 0; i < seitenZaehler+1; i++) {
+            if (rabatttester == true) {
+                for (int i = 0; i < seitenZaehler + 1; i++) {
                     document.add(tabelleTitelBestellungmR);
                     document.add(absatz);
                     document.add(linkedlistTabelleBestellungmR.get(i));
                 }
                 seitenZaehler = 0;
                 rabatttester = false;
-            }else{
-                for (int i = 0; i < seitenZaehler+1; i++) {
+            } else {
+                for (int i = 0; i < seitenZaehler + 1; i++) {
                     document.add(tabelleTitelBestellungoR);
                     document.add(absatz);
                     document.add(linkedlistTabelleBestellungoR.get(i));

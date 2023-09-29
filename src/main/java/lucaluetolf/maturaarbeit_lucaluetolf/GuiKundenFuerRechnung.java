@@ -14,12 +14,11 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class GuiKundeFuerRechnung extends GuiTaskleiste implements Initializable {
+public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializable {
     Statement statement;
 
     {
@@ -197,10 +196,14 @@ public class GuiKundeFuerRechnung extends GuiTaskleiste implements Initializable
                             resultSetRechnungsnummer = statement.executeQuery("SELECT rechnungsnummer FROM unternehmen");
                             resultSetRechnungsnummer.next();
                             rechnungsnummer = resultSetRechnungsnummer.getInt("rechnungsnummer");
+                            resultSetRechnungsnummer.close();
+                            ResultSet resultsetDokumenttyp = statement.executeQuery("SELECT dokumenttyp FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
+                            resultsetDokumenttyp.next();
+                            int dokumenttyp = resultsetDokumenttyp.getInt("dokumenttyp");
+                            resultsetDokumenttyp.close();
                             statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
-                            statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id) VALUES (" + rechnungsnummer + "," + kundennummer + ")");
+                            statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp) VALUES (" + rechnungsnummer + "," + kundennummer + "," + dokumenttyp + ")");
                             root = FXMLLoader.load(getClass().getResource("artikelFuerRechnung.fxml"));
-                        resultSetRechnungsnummer.close();
                         } catch (Exception e) {
                             AllgemeineMethoden.fehlermeldung(e);
                         }

@@ -75,16 +75,16 @@ public class GuiKundeErfassen extends GuiTaskleiste {
 
     @FXML
     protected void textfieldNachnameKey() {
-        textfeldNachname.setText(textfeldNachname.getText().replaceAll("[^A-Z, ^a-z]", ""));
+        textfeldNachname.setText(textfeldNachname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ]", ""));
         textfeldNachname.positionCaret(textfeldNachname.getLength());
-        booleanNachname = tester("^[A-Z][a-z]+(\\s[A-Z][a-z]+)?$", textfeldNachname);
+        booleanNachname = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldNachname);
     }
 
     @FXML
     protected void textfieldVornameKey() {
-        textfeldVorname.setText(textfeldVorname.getText().replaceAll("[^A-Z, ^a-z]", ""));
+        textfeldVorname.setText(textfeldVorname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ]", ""));
         textfeldVorname.positionCaret(textfeldVorname.getLength());
-        booleanVorname = tester("^[A-Z][a-z]+(\\s[A-Z][a-z]+)?$", textfeldVorname);
+        booleanVorname = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldVorname);
     }
 
     @FXML

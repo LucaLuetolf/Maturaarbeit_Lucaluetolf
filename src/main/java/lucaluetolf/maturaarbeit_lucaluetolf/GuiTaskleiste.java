@@ -9,21 +9,23 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.*;
 
 public class GuiTaskleiste {
-    private int kundennummerBearbeiten;
-
-    public int getKundennummerBearbeiten() {
-        return kundennummerBearbeiten;
-    }
-
-    public void setKundennummerBearbeiten(int kundennummerBearbeiten) {
-        this.kundennummerBearbeiten = kundennummerBearbeiten;
-    }
-
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    Statement statement;
+
+    {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     protected void toSceneStartseite(ActionEvent event) {
@@ -69,26 +71,33 @@ public class GuiTaskleiste {
     protected void toSceneNeueRechnung(ActionEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("kundenFuerRechnung.fxml"));
-        } catch (IOException e) {
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            ResultSet resultSetRechnungsnummer = statement.executeQuery("SELECT rechnungsnummer FROM unternehmen");
+            resultSetRechnungsnummer.next();
+            statement.execute("INSERT INTO bearbeiter (bestellung_id, dokumenttyp) VALUES (" + resultSetRechnungsnummer.getInt("rechnungsnummer") + ",1)");
+        } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+
     }
 
     @FXML
     protected void toSceneVerkauf(ActionEvent event) {
         try {
-            root = FXMLLoader.load(getClass().getResource("Verkauf.fxml"));
-        } catch (IOException e) {
+            root = FXMLLoader.load(getClass().getResource("kundenFuerRechnung.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            ResultSet resultSetRechnungsnummer = statement.executeQuery("SELECT rechnungsnummer FROM unternehmen");
+            resultSetRechnungsnummer.next();
+            statement.execute("INSERT INTO bearbeiter (bestellung_id, dokumenttyp) VALUES (" + resultSetRechnungsnummer.getInt("rechnungsnummer") + ",2)");
+        } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
 
     }
 

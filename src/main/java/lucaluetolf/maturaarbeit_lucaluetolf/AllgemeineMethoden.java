@@ -7,13 +7,12 @@ import java.nio.file.Files;
 
 public class AllgemeineMethoden {
 
-    public static void dateiKopieren(String Pfad) {
-        String Ort = "C:\\Users\\Luca Schule\\Maturaarbeit_LucaLuetolf\\src\\main\\Bilder\\Artikel";
+    public static void dateiKopieren(String Pfad, String ort) {
+        //String ort = "C:\\Users\\Luca Schule\\Maturaarbeit_LucaLuetolf\\src\\main\\Bilder\\Artikel";
         File sourceFile = new File(Pfad);
-        File destinationFile = new File(Ort + sourceFile.getName());
+        File destinationFile = new File(ort + sourceFile.getName());
         try {
             Files.copy(sourceFile.toPath(), destinationFile.toPath());
-
         } catch (Exception e) {
             new RuntimeException(e);
         }

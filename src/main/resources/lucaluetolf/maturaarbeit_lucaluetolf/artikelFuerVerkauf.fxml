@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiArtikelFuerRechnung">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiArtikelFuerVerkauf">
     <children>
         <ScrollPane fitToWidth="true" layoutX="42.0" layoutY="137.0" prefHeight="582.0" prefWidth="852.0">
             <content>
@@ -54,7 +54,7 @@
       </Pane>
       <Pane fx:id="paneAdressat1" layoutX="999.0" layoutY="631.0" prefHeight="90.0" prefWidth="200.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px;">
          <children>
-            <JFXButton fx:id="dokumentAbschliessen" layoutX="35.0" layoutY="58.0" onAction="#buttonRechnungErstellen" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-text-fill: #ba8759;" />
+            <JFXButton layoutX="35.0" layoutY="58.0" onAction="#buttonRechnungErstellen" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-text-fill: #ba8759;" text="Rechnung erstellen" />
             <Label fx:id="labelAdressatKundennummer1" layoutX="14.0" layoutY="5.0" text="Total:" textFill="WHITE" />
             <Label fx:id="labelAdressatAdresse1" layoutX="14.0" layoutY="21.0" text="- Rabatte:" textFill="WHITE" />
             <Label fx:id="labelRabatte" layoutX="157.0" layoutY="21.0" text="0" textFill="WHITE" />
@@ -63,5 +63,6 @@
             <Label fx:id="labelSumme" layoutX="157.0" layoutY="37.0" text="0" textFill="WHITE" />
          </children>
       </Pane>
+      <JFXButton layoutX="660.0" layoutY="748.0" onAction="#buttonRechnungErstellen" />
     </children>
 </AnchorPane>

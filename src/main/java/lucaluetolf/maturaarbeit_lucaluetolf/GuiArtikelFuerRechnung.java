@@ -7,13 +7,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -25,13 +27,18 @@ import java.util.ResourceBundle;
 public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializable {
     Statement statement;
     Connection connection;
+    private int modus;
 
     {
         try {
             connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
             statement = connection.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ResultSet resultSetModus = statement.executeQuery("SELECT * FROM unternehmen, bearbeiter WHERE rechnungsnummer = bestellung_id");
+            resultSetModus.next();
+            modus = resultSetModus.getInt("dokumenttyp");
+            resultSetModus.close();
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
         }
     }
 
@@ -60,9 +67,19 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
     private Label labelRabatte;
     @FXML
     private Label labelSumme;
+    @FXML
+    private JFXButton dokumentAbschliessen;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if (modus == 1){
+            dokumentAbschliessen.setText("Rechnung erstellen");
+        } else if (modus == 2) {
+            dokumentAbschliessen.setText("Verkauf abschliessen");
+
+        }
         int column = 0;
         int row = 0;
         int prefHeight = 193;
@@ -171,7 +188,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 labelWarenkorbTotal.setLayoutX(151);
                 labelWarenkorbTotal.setLayoutY(49);
 
-
                 buttonMinus.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -231,14 +247,14 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                             }else{
                                 textFieldAnzahl.setText(String.valueOf(anzahl));
                             }
-                            paneFuerWarenkorb(statement.executeQuery("SELECT * FROM artikel WHERE artikelId=" + textFieldAnzahl.getId()), anzahl);
                             resultSet.close();
+                            paneFuerWarenkorb(statement.executeQuery("SELECT * FROM artikel WHERE artikelId=" + textFieldAnzahl.getId()), anzahl);
+
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
                     }
                 });
-
 
             }
             //TODO
@@ -267,9 +283,10 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     stage.show();
                 }
             });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
         }
+
 
         gridpaneArtikel.setStyle("-fx-border-color: #FFFFFF");
 
@@ -351,20 +368,19 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             resultSetSumme.close();
             ResultSet resultSetRabatt = statement.executeQuery("SELECT * FROM artikel, bestellung, unternehmen WHERE rechnungsnummer = bestellungId AND artikelId = artikel_id");
             double rabattTotal = 0;
-            while (resultSet.next()){
+            while (resultSetRabatt.next()){
                 int rabattArtikel = resultSetRabatt.getInt("bestellung.rabatt");
                 double preisArtikel = resultSetRabatt.getDouble("preis");
                 int anzahlArtikel = resultSetRabatt.getInt("anzahl");
                 rabattTotal = (preisArtikel / 100 * (rabattArtikel))*anzahlArtikel;
-                Math.round(rabattTotal);
             }
-            if(resultSetRabatt.next()){
-                labelRabatte.setText("-" + rabattTotal);
-                labelRabatte.setTextAlignment(TextAlignment.LEFT);
-            }
+            double gerundet = Math.round(rabattTotal * 20.0) / 20.0;
+
+            labelRabatte.setText("-" + gerundet);
+            labelRabatte.setTextAlignment(TextAlignment.LEFT);
             resultSetRabatt.close();
 
-            labelSumme.setText(String.valueOf(Double.parseDouble(labelTotal.getText()) - Double.parseDouble(labelRabatte.getText())));
+            labelSumme.setText(String.valueOf(Double.parseDouble(labelTotal.getText()) + Double.parseDouble(labelRabatte.getText())));
             System.out.println(Double.parseDouble(labelTotal.getText()));
             System.out.println(Double.parseDouble(labelTotal.getText()) + Double.parseDouble(labelRabatte.getText()));
             labelSumme.setTextAlignment(TextAlignment.RIGHT);
@@ -377,7 +393,12 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
     }
     @FXML
     protected void buttonRechnungErstellen(ActionEvent event) {
-        PdfErstellen.layout1();
+
+        if (modus == 1){
+            modusRechnung();
+        } else if (modus == 2) {
+            modusQuittung();
+        }
         try {
             ResultSet resultSetLagerbestand = statement.executeQuery("SELECT * FROM unternehmen, bestellung WHERE rechnungsnummer = bestellungId");
             while (resultSetLagerbestand.next()){
@@ -407,4 +428,59 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         stage.show();
     }
 
+    private void modusRechnung(){
+        PdfErstellen.layout1(1);
+    }
+    private void modusQuittung() {
+        Dialog dialog = new Dialog<>();
+        dialog.setTitle("Zahlen-Alert");
+        dialog.setHeaderText("Hier steht der Text");
+
+        TextField textField = new TextField();
+        textField.setPromptText("0");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 20, 20, 20));
+
+        // Buttons für die Zahlen 1-9, Clear, 0 und OK
+        for (int i = 1; i <= 9; i++) {
+            Button button = new Button(Integer.toString(i));
+            button.setOnAction(e -> {
+                textField.appendText(button.getText());
+            });
+            grid.add(button, (i - 1) % 3, (i - 1) / 3);
+        }
+
+        Button clearButton = new Button("Clear");
+        clearButton.setOnAction(e -> {
+            textField.setText("0");
+        });
+        grid.add(clearButton, 0, 3);
+
+        Button zeroButton = new Button("0");
+        zeroButton.setOnAction(e -> {
+            textField.appendText("0");
+        });
+        grid.add(zeroButton, 1, 3);
+
+        Button okButton = new Button("OK");
+        okButton.setOnAction(e -> {
+            String resultText = textField.getText();
+            if (!resultText.isEmpty()) {
+                dialog.setResult(Integer.parseInt(resultText));
+            }
+            dialog.close();
+        });
+        grid.add(okButton, 2, 3);
+
+
+        VBox content = new VBox(textField, grid);
+        dialog.getDialogPane().setContent(content);
+
+        // Ergebnis des Dialogs abrufen
+        int result = (int) dialog.showAndWait().orElse(null);
+
+    }
 }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiArtikelEinzeln">
+   <children>
+      <Pane layoutX="57.0" layoutY="50.0" prefHeight="700.0" prefWidth="480.0" style="-fx-background-color: #E8CFB0; -fx-border-radius: 20px; -fx-background-radius: 20px;">
+         <children>
+            <ImageView fx:id="imageviewArtikel" fitHeight="612.0" fitWidth="430.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+            <JFXButton fx:id="buttonBildAendern" layoutX="183.0" layoutY="647.0" onAction="#bildAendern" text="Bild ändern" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+      <TextField fx:id="textfeldArtikelnummer" layoutX="894.0" layoutY="281.0" onKeyReleased="#textfieldArtikelnummerKey" prefHeight="25.0" prefWidth="202.0" />
+      <JFXButton fx:id="buttonArtikelBearbeiten" layoutX="894.0" layoutY="523.0" onAction="#artikelBearbeiten" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="bearbeiten" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="712.0" layoutY="276.0" prefHeight="35.0" prefWidth="171.0" text="Artikelnummer" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textfeldLagerbestand" layoutX="894.0" layoutY="447.0" onKeyReleased="#textfieldLagerbestandKey" prefHeight="25.0" prefWidth="202.0" />
+      <TextField fx:id="textfeldName" layoutX="894.0" layoutY="316.0" onKeyReleased="#textfieldNameKey" prefHeight="25.0" prefWidth="202.0" />
+      <TextField fx:id="textfeldPreis" layoutX="894.0" layoutY="350.0" onKeyReleased="#textfieldPreisKey" prefHeight="25.0" prefWidth="202.0" />
+      <TextField fx:id="textfeldMenge" layoutX="894.0" layoutY="382.0" onKeyReleased="#textfieldMengeKey" prefHeight="25.0" prefWidth="125.0" />
+      <Label layoutX="712.0" layoutY="311.0" prefHeight="35.0" prefWidth="171.0" text="Name" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="712.0" layoutY="345.0" prefHeight="35.0" prefWidth="171.0" text="Preis" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="712.0" layoutY="377.0" prefHeight="35.0" prefWidth="171.0" text="Menge" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="712.0" layoutY="442.0" prefHeight="35.0" prefWidth="171.0" text="Lagerbestand" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textfeldRabatt" layoutX="894.0" layoutY="415.0" onKeyReleased="#textfieldRabattKey" prefHeight="25.0" prefWidth="202.0" />
+      <Label layoutX="712.0" layoutY="410.0" prefHeight="35.0" prefWidth="171.0" text="Rabatt" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="choiceboxMenge" layoutX="1021.0" layoutY="382.0" prefHeight="25.0" prefWidth="75.0" />
+      <Label fx:id="labelArtikelnummer" layoutX="896.0" layoutY="276.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelName" layoutX="896.0" layoutY="311.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelPreis" layoutX="896.0" layoutY="345.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMenge" layoutX="896.0" layoutY="377.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelLagerbestand" layoutX="896.0" layoutY="442.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelRabatt" layoutX="896.0" layoutY="410.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="buttonZurueck" layoutX="718.0" layoutY="523.0" onAction="#abbrechen" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E8CFB0; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-width: 4;" text="zurück" textFill="#ba8759">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

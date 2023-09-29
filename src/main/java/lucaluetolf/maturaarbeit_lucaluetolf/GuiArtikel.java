@@ -10,12 +10,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -49,10 +53,10 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
             ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
 
             int orange = 0;
-            if (resultSetUnternehmen.next()) {
-                orange = resultSetUnternehmen.getInt("lagerbestandOrange");
-            }
+            resultSetUnternehmen.next();
+            orange = resultSetUnternehmen.getInt("lagerbestandOrange");
             resultSetUnternehmen.close();
+
             ResultSet resultSet = statement.executeQuery("SELECT * FROM artikel");
             while (resultSet.next()) {
                 if (column == 5) {
@@ -76,15 +80,9 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 labelTitelPreis.setStyle("-fx-text-fill: #FFFFFF ");
                 Label labelName = new Label(resultSet.getString("name"));
                 Label labelPreis = new Label(resultSet.getString("preis"));
-                /*Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//System//Artikel//Artikel.png");
-                ImageView imageView = new ImageView(image);
-                if (new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSet.getString("id")) == null){
-                    Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//System//Artikel//Artikel.png"); //TODO Bild festlegen
-                    imageView.setImage(image);
-                }else{
-                    Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSet.getString("id"));
-                    imageView.setImage(image);
-                }*/
+
+                ImageView imageView = new ImageView();
+                bildAnzeigen(imageView, resultSet.getInt("artikelId"));
 
                 Line lineLagerbestand = new Line();
 
@@ -96,6 +94,7 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 pane.getChildren().add(labelTitelName);
                 pane.getChildren().add(labelTitelPreis);
                 pane.getChildren().add(lineLagerbestand);
+                pane.getChildren().add(imageView);
                 labelTitelArtikelnummer.setLayoutX(14);
                 labelTitelArtikelnummer.setLayoutY(88);
                 labelTitelName.setLayoutX(14);
@@ -115,6 +114,10 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 lineLagerbestand.setLayoutY(179);
                 lineLagerbestand.setStartX(-68.125);
                 lineLagerbestand.setEndX(71.625);
+                imageView.setLayoutX(53);
+                imageView.setLayoutY(14);
+                imageView.setFitHeight(65);
+                imageView.setFitWidth(65);
                 pane.getChildren().add(button);
 
                 int bestand = resultSet.getInt("lagerbestand");
@@ -127,18 +130,22 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                     lineLagerbestand.setStyle("-fx-stroke: #00dd76; -fx-stroke-width: 2px");
                 }
 
-                /*pane.getChildren().add(imageView);
-                imageView.setLayoutX(54);
-                imageView.setLayoutY(14);
-                imageView.setFitWidth(65);
-                imageView.setFitHeight(65);*/
                 button.setLayoutX(50);
                 button.setLayoutY(145);//152
                 button.setId(resultSet.getString("artikelId"));
                 button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        System.out.println(button.getId());
+                        try {
+                            statement.execute("UPDATE unternehmen SET bearbeiten = " + button.getId());
+                            root = FXMLLoader.load(getClass().getResource("artikelEinzeln.fxml"));
+                        } catch (Exception e) {
+                            AllgemeineMethoden.fehlermeldung(e);
+                        }
+                        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
                     }
                 });
                 pane.setStyle("-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px");
@@ -165,5 +172,42 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static void bildAnzeigen(ImageView imageviewArtikel, int artikelnummer){
+        String imagePath = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/Benutzer/Artikel/" + artikelnummer;
+        try {
+            Image image = new Image(new FileInputStream(imagePath + ".png"));
+            imageviewArtikel.setImage(image);
+        } catch (IOException e) {
+            try {
+                Image image = new Image(new FileInputStream(imagePath + ".jpg"));
+                imageviewArtikel.setImage(image);
+            } catch (IOException ex) {
+                try {
+                    Image image = new Image(new FileInputStream(imagePath + ".jpeg"));
+                    imageviewArtikel.setImage(image);
+                } catch (FileNotFoundException exc) {
+                    try {
+                        Image image = new Image(new FileInputStream(imagePath + ".gif"));
+                        imageviewArtikel.setImage(image);
+                    } catch (FileNotFoundException exce) {
+                        Image image = null;
+                        try {
+                            image = new Image(new FileInputStream(imagePath + ".svg"));
+                            imageviewArtikel.setImage(image);
+                        } catch (FileNotFoundException excep) {
+                            try {
+                                image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png"));
+                                imageviewArtikel.setImage(image);
+                            } catch (FileNotFoundException except){
+                                AllgemeineMethoden.fehlermeldung(except);
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@
       <Pane layoutX="300.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
          <children>
             <TextField fx:id="textfeldArtikelnummer" layoutX="300.0" layoutY="265.0" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="53.0" layoutY="43.0" text="Artikel Erfassen" textFill="#ba8759">
+            <Label layoutX="53.0" layoutY="43.0" text="Artikel bearbeiten" textFill="#ba8759">
                <font>
                   <Font size="36.0" />
                </font>
