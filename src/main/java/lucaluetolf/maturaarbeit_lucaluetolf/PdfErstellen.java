@@ -1,4 +1,4 @@
-package lucaluetolf.maturaarbeit_lucaluetolf;
+/*package lucaluetolf.maturaarbeit_lucaluetolf;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -39,23 +39,7 @@ public class PdfErstellen {
     public static LinkedList<Table> linkedlistTabelleBestellungmR = new LinkedList<>();
     public static LinkedList<Table> linkedlistTabelleBestellungoR = new LinkedList<>();
 
-    //Pfade
-    private static String pfadLogo = "C:\\Users\\Luca Schule\\OneDrive - sluz\\Desktop\\Bild.jpeg";
-
-    private static String pfadRechnung = "Rechnungen\\test3.pdf";
-
-
     public static void layout1(int rechnung1Quittung2) {
-        Statement statement;
-        {
-            try {
-                Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
-                statement = connection.createStatement();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
 
         //Grössen der Zellen
         float ganzeseite = 570F;
@@ -96,15 +80,17 @@ public class PdfErstellen {
         PdfWriter writer = null;
         try {
             ResultSet resultSetAdresse = statement.executeQuery("SELECT * FROM unternehmen, kunden, bearbeiter WHERE rechnungsnummer = bestellung_id AND kundenId = kunden_id");
-            if (resultSetAdresse.next()) {
-                writer = new PdfWriter("Rechnungen\\" + resultSetAdresse.getInt("kundenId") + " " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "\\" + formatterPfad.format(datum) + "_" + resultSetAdresse.getInt("rechnungsnummer") + ".pdf");
+            resultSetAdresse.next();
+            if (rechnung1Quittung2 == 1) {
+                writer = new PdfWriter("Kundendateien\\" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "\\Rechnungen\\" + formatterPfad.format(datum) + "_" + resultSetAdresse.getInt("rechnungsnummer") + ".pdf");
+            }else if(rechnung1Quittung2 == 2){
+                writer = new PdfWriter("Kundendateien\\" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "\\Quittungen\\" + formatterPfad.format(datum) + "_" + resultSetAdresse.getInt("rechnungsnummer") + ".pdf");
 
             }
+
             resultSetAdresse.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
         }
 
         PdfDocument rechnung = new PdfDocument(writer);
@@ -115,7 +101,7 @@ public class PdfErstellen {
         //TODO ResultSet Pfad Logo
         ImageData datenLogo = null;
         try {
-            datenLogo = ImageDataFactory.create("C:\\Users\\Luca Schule\\OneDrive - sluz\\Desktop\\Bild.jpeg");
+            datenLogo = ImageDataFactory.create("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\Logo.png");
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -125,13 +111,13 @@ public class PdfErstellen {
         document.add(logo);
         document.add(absatz).add(absatz);
 
-        /*ImageData datenQRCode = null;
+        ImageData datenQRCode = null;
         try {
             datenQRCode = ImageDataFactory.create(getPfadQRCode());
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        Image QRCode = new Image(datenQRCode);*/
+        Image QRCode = new Image(datenQRCode);
 
 
         try {
@@ -144,6 +130,7 @@ public class PdfErstellen {
             tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(String.valueOf(resultSetKunde.getInt("kundenId")))).setBorder(Border.NO_BORDER)));
             tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(resultSetKunde.getString("adresse"))).setBorder(Border.NO_BORDER)));
             tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("Verkäufer")).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(""))));
             //tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem( + " " + mitarbeiter.getVorname())).setBorder(Border.NO_BORDER)));
             tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(resultSetKunde.getInt("postleitzahl") + " " + resultSetKunde.getString("ort"))).setBorder(Border.NO_BORDER)));
             document.add(tabelleAbsenderAdressat);
@@ -154,7 +141,7 @@ public class PdfErstellen {
             //Paragraph Rechnungsnummer
             Paragraph paragraphQuittungRechnungsnummer = null;
             if (rechnung1Quittung2 == 1){
-                paragraphQuittungRechnungsnummer = new Paragraph("Rechnungsnummer " + resultSetKunde.getInt("rechnungsnummer")).setBorder(Border.NO_BORDER).setFontSize(15F).setBold();
+                paragraphQuittungRechnungsnummer = new Paragraph("Rechnung " + resultSetKunde.getInt("rechnungsnummer")).setBorder(Border.NO_BORDER).setFontSize(15F).setBold();
 
             } else if (rechnung1Quittung2 == 2) {
                 paragraphQuittungRechnungsnummer = new Paragraph("Quittung " + resultSetKunde.getInt("rechnungsnummer")).setBorder(Border.NO_BORDER).setFontSize(15F).setBold();
@@ -180,7 +167,7 @@ public class PdfErstellen {
             tabelleTitelBestellungoR.addCell(new Cell().add(new ListItem("Gesamt")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(TextAlignment.RIGHT));
 
 
-            ResultSet resultSetBestellung = statement.executeQuery("SELECT * FROM unternehmen, bestellung, artikel WHERE rechnungsnummer = bestellungId AND artikel_id = artikelId");
+            ResultSet resultSetBestellung = statement.executeQuery("SELECT * FROM unternehmen, bestellung, artikel, einheiten WHERE rechnungsnummer = bestellungId AND artikel_id = artikelId AND einheitId = einheit_id");
 
             double totalArtikel;
             double uebertrag = 0;
@@ -283,4 +270,4 @@ public class PdfErstellen {
 
 
     }
-}
+}*/

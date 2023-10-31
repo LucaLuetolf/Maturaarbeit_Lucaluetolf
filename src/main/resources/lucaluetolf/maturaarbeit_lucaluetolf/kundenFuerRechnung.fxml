@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiKundenFuerRechnung">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiKundenFuerRechnung">
     <children>
         <ScrollPane fitToWidth="true" layoutX="288.0" layoutY="146.0" prefHeight="582.0" prefWidth="850.0">
             <content>
@@ -31,7 +31,7 @@
                   <Font size="48.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="26.0" layoutY="681.0" onAction="#toSceneStartseite" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurück">
+            <JFXButton layoutX="26.0" layoutY="681.0" onAction="#zurueck" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurück">
                <font>
                   <Font size="48.0" />
                </font>
@@ -43,5 +43,6 @@
             </JFXButton>
          </children>
       </Pane>
+      <JFXButton fx:id="buttonOhneKunde" layoutX="911.0" layoutY="66.0" onAction="#ohneKunde" style="-fx-background-radius: 20; -fx-background-color: #E8CFB0; -fx-font-size: 20; -fx-text-fill: ffffff;" text="ohne Kunde fortfahren" textFill="#d00909" />
     </children>
 </AnchorPane>

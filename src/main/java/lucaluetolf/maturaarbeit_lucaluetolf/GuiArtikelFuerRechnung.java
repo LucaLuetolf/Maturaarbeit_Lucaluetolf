@@ -1,5 +1,17 @@
 package lucaluetolf.maturaarbeit_lucaluetolf;
 
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.ListItem;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -13,15 +25,28 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializable {
@@ -37,6 +62,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             resultSetModus.next();
             modus = resultSetModus.getInt("dokumenttyp");
             resultSetModus.close();
+
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
@@ -70,6 +96,9 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
     @FXML
     private JFXButton dokumentAbschliessen;
 
+    private LinkedList<Table> linkedlistTabelleBestellungmR = new LinkedList<>();
+    private LinkedList<Table> linkedlistTabelleBestellungoR = new LinkedList<>();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -78,14 +107,14 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             dokumentAbschliessen.setText("Rechnung erstellen");
         } else if (modus == 2) {
             dokumentAbschliessen.setText("Verkauf abschliessen");
-
         }
+
         int column = 0;
         int row = 0;
-        int prefHeight = 193;
-        int prefHeightPerColumn = 193;
+        int prefHeight = 220;
+        int prefHeightPerColumn = 220;
         try {
-            ResultSet resultSetArtikel = statement.executeQuery("SELECT * FROM artikel");
+            ResultSet resultSetArtikel = statement.executeQuery("SELECT * FROM artikel, einheiten WHERE einheitId = einheit_id");
             while(resultSetArtikel.next()) {
                 if(column == 5){
                     row = row + 1;
@@ -112,17 +141,8 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 labelTitelPreis.setStyle("-fx-text-fill: #FFFFFF ");
                 Label labelName = new Label(resultSetArtikel.getString("name"));
                 Label labelPreis = new Label(resultSetArtikel.getString("preis"));
-                /*Image image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//System//Artikel//Artikel.png");
-                ImageView imageView = new ImageView(image);
-                if (new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSetArtikel.getString("id")) == null){
-                    image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//System//Artikel//Artikel.png"); //TODO Bild festlegen
-                    imageView.setImage(image);
-                }else{
-                    image = new Image("C://Users//Luca Schule//Maturaarbeit_LucaLuetolf//Bilder//Benutzer//Artikel//"+ resultSetArtikel.getString("id") + ".png");
-                    imageView.setImage(image);
-                }*/
 
-                paneArtikel.setPrefSize(170,193);
+                paneArtikel.setPrefSize(170,220);
                 paneArtikel.getChildren().add(labelArtikelnummer);
                 paneArtikel.getChildren().add(labelName);
                 paneArtikel.getChildren().add(labelPreis);
@@ -145,11 +165,24 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 labelPreis.setLayoutY(122);
                 labelPreis.setStyle("-fx-text-fill: #FFFFFF ");
 
-                /*pane.getChildren().add(imageView);
+                ImageView imageView = null;
+                if (resultSetArtikel.getString("dateityp") == null){
+                    String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Artikel\\Artikel.png";
+                    Image image = new Image(new FileInputStream(imagePath));
+                    imageView = new ImageView();
+                    imageView.setImage(image);
+                }else{
+                    String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + resultSetArtikel.getInt("artikelId") + "\\" + resultSetArtikel.getInt("bildnummer") + "." + resultSetArtikel.getString("dateityp");
+                    Image image = new Image(new FileInputStream(imagePath));
+                    imageView = new ImageView();
+                    imageView.setImage(image);
+                }
+
+                paneArtikel.getChildren().add(imageView);
                 imageView.setLayoutX(54);
                 imageView.setLayoutY(14);
                 imageView.setFitWidth(65);
-                imageView.setFitHeight(65);*/
+                imageView.setFitHeight(65);
 
                 paneArtikel.getChildren().add(buttonMinus);
                 paneArtikel.getChildren().add(buttonPlus);
@@ -257,18 +290,29 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 });
 
             }
-            //TODO
             resultSetArtikel.close();
 
-            ResultSet resultSetBearbeiter = statement.executeQuery("SELECT * FROM kunden, bearbeiter, unternehmen WHERE bestellung_id = rechnungsnummer AND kunden_id = kundenId ");
-            if(resultSetBearbeiter.next()){
-                labelAdressatKundennummer.setText(resultSetBearbeiter.getString("kundenId"));
-                labelAdressatNachname.setText(resultSetBearbeiter.getString("nachname"));
-                labelAdressatVorname.setText(resultSetBearbeiter.getString("vorname"));
-                labelAdressatAdresse.setText(resultSetBearbeiter.getString("adresse"));
+            //TODO überarbeiten wenn ohne Kunde fortfahren
+
+            ResultSet resultSetExistiertKunde = statement.executeQuery("SELECT * FROM bearbeiter, unternehmen WHERE bestellung_id = rechnungsnummer");
+            resultSetExistiertKunde.next();
+            if (resultSetExistiertKunde.getString("kunden_Id") ==  null) {
+                labelAdressatKundennummer.setText("kein Kunde ausgewählt");
+                labelAdressatNachname.setVisible(false);
+                labelAdressatVorname.setVisible(false);
+                labelAdressatAdresse.setVisible(false);
+                resultSetExistiertKunde.close();
+            }else{
+                resultSetExistiertKunde.close();
+                ResultSet resultSetKunde = statement.executeQuery("SELECT * FROM kunden, bearbeiter, unternehmen WHERE bestellung_id = rechnungsnummer AND kunden_id = kundenId");
+                resultSetKunde.next();
+                labelAdressatKundennummer.setText(resultSetKunde.getString("kundenId"));
+                labelAdressatNachname.setText(resultSetKunde.getString("nachname"));
+                labelAdressatVorname.setText(resultSetKunde.getString("vorname"));
+                labelAdressatAdresse.setText(resultSetKunde.getString("adresse"));
+                resultSetKunde.close();
             }
-            //TODO
-            resultSetBearbeiter.close();
+
             buttonAdressatAendern.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -316,13 +360,23 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 rechnungsnr = resultSetRechnungsnummer.getInt("rechnungsnummer");
             }
             resultSetRechnungsnummer.close();
+            ResultSet resultSetUeberpruefen = statement.executeQuery("SELECT COUNT(artikelId) AS summe FROM artikel, bestellung WHERE artikel_id = " + id);
+            resultSetUeberpruefen.next();
 
-            if(anzahl != 0){
+            if(anzahl == 0){
                 statement.execute("DELETE FROM bestellung WHERE artikel_id = " + id );
-                statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, rabatt) VALUES (" + rechnungsnr+ "," + artikelnummer + "," + anzahl + "," + rabatt + ")");
             }else{
-                statement.execute("DELETE FROM bestellung WHERE artikel_id = " + id );
+                //statement.execute("UPDATE bestellung SET anzahl = " + anzahl + " WHERE artikel_id = " + id);
+                if (resultSetUeberpruefen.getInt("summe") == 0){
+                    statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, rabatt) VALUES (" + rechnungsnr+ "," + artikelnummer + "," + anzahl + "," + rabatt + ")");
+                }
+                else {
+                    statement.execute("UPDATE bestellung SET anzahl = " + anzahl + " WHERE artikel_id = " + id);
+                }
+                //statement.execute("DELETE FROM bestellung WHERE artikel_id = " + id );
+                //statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, rabatt) VALUES (" + rechnungsnr+ "," + artikelnummer + "," + anzahl + "," + rabatt + ")");
             }
+            resultSetUeberpruefen.close();
 
 
             ResultSet resultSetWarenkorb = statement.executeQuery("SELECT * FROM unternehmen, bestellung, artikel WHERE rechnungsnummer = bestellungId AND artikelId = artikel_id");
@@ -381,13 +435,12 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             resultSetRabatt.close();
 
             labelSumme.setText(String.valueOf(Double.parseDouble(labelTotal.getText()) + Double.parseDouble(labelRabatte.getText())));
-            System.out.println(Double.parseDouble(labelTotal.getText()));
-            System.out.println(Double.parseDouble(labelTotal.getText()) + Double.parseDouble(labelRabatte.getText()));
             labelSumme.setTextAlignment(TextAlignment.RIGHT);
 
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
+
 
 
     }
@@ -429,58 +482,351 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
     }
 
     private void modusRechnung(){
-        PdfErstellen.layout1(1);
+        layout1(1);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("new Information-Dialog");
+        alert.setContentText("Die Rechnung wurde erfolgreich erstellt");
+        alert.showAndWait();
+
     }
     private void modusQuittung() {
-        Dialog dialog = new Dialog<>();
-        dialog.setTitle("Zahlen-Alert");
-        dialog.setHeaderText("Hier steht der Text");
+        Alert barOderKarteAlert = new Alert(Alert.AlertType.NONE);
+        barOderKarteAlert.setTitle("Zahlungsmethode");
+        barOderKarteAlert.setHeaderText("Wie wird bezahlt?");
+        CheckBox checkBox = new CheckBox("Quittung als PDF erstellen");
+        ButtonType buttonType = new ButtonType("abbrechen");
+        barOderKarteAlert.getButtonTypes().add(buttonType);
 
-        TextField textField = new TextField();
-        textField.setPromptText("0");
+        Button bar = new Button("Bar");
+        bar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (checkBox.isSelected()){
+                    layout1(2);
+                }
+                barOderKarteAlert.close();
+                Alert zahlen = new Alert(Alert.AlertType.INFORMATION);
+                zahlen.setTitle("Zahlen-Alert");
+                zahlen.setHeaderText("Hier steht der Text");
 
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 20, 20, 20));
+                TextField textField = new TextField();
+                textField.setPromptText("0");
 
-        // Buttons für die Zahlen 1-9, Clear, 0 und OK
-        for (int i = 1; i <= 9; i++) {
-            Button button = new Button(Integer.toString(i));
-            button.setOnAction(e -> {
-                textField.appendText(button.getText());
-            });
-            grid.add(button, (i - 1) % 3, (i - 1) / 3);
+                GridPane grid = new GridPane();
+                grid.setHgap(10);
+                grid.setVgap(10);
+                grid.setPadding(new Insets(20, 20, 20, 20));
+
+                for (int i = 1; i <= 9; i++) {
+                    Button button = new Button(Integer.toString(i));
+                    button.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            textField.appendText(button.getText());
+                        }
+                    });
+
+                    grid.add(button, (i - 1) % 3, (i - 1) / 3);
+                }
+
+                Button clearButton = new Button("Clear");
+                clearButton.setOnAction(e -> {
+                    textField.setText("0");
+                });
+                grid.add(clearButton, 0, 3);
+
+                Button zeroButton = new Button("0");
+                zeroButton.setOnAction(e -> {
+                    textField.appendText("0");
+                });
+                grid.add(zeroButton, 1, 3);
+
+                Button okButton = new Button(".");
+                okButton.setOnAction(e -> {
+                    textField.appendText(".");
+                });
+                grid.add(okButton, 2, 3);
+
+
+                VBox content = new VBox(textField, grid);
+                zahlen.getDialogPane().setContent(content);
+
+                ButtonType ok = new ButtonType("OK");
+                Optional<ButtonType> optional = zahlen.showAndWait();
+                double result = 0;
+                if (optional.isPresent() && optional.get() == ok) {
+                    // Ergebnis des Dialogs abrufen
+                    result = Double.parseDouble(textField.getText());
+                }
+                zahlen.showAndWait();
+
+                Alert betrag = new Alert(Alert.AlertType.INFORMATION);
+                betrag.setTitle("Barzahlung");
+                double rückgeld;
+                rückgeld = result - Double.parseDouble(labelTotal.getText());
+                betrag.setHeaderText("Total: " + labelTotal.getText() + "\ngegeben: " + result + "\nzurück: " + rückgeld);
+                betrag.showAndWait();
+
+            }
+        });
+        Button karte = new Button("Karte");
+        karte.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (checkBox.isSelected()){
+                    layout1(2);
+                }
+                barOderKarteAlert.close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Kartenzahlung");
+                alert.setHeaderText("Der folgende Betrag: " + labelTotal.getText() + " CHF ist zu bezahlen");
+                alert.showAndWait();
+            }
+        });
+
+        bar.setPrefSize(80, 60);
+        karte.setPrefSize(80, 60);
+        HBox hBox = new HBox(bar, karte);
+        VBox vBox = new VBox(hBox, checkBox);
+        barOderKarteAlert.getDialogPane().setContent(vBox);
+        //barOderKarteAlert.showAndWait();
+        Optional<ButtonType> result = barOderKarteAlert.showAndWait();
+        if (result.isPresent() && result.get() == buttonType) {
+            barOderKarteAlert.close();
         }
 
-        Button clearButton = new Button("Clear");
-        clearButton.setOnAction(e -> {
-            textField.setText("0");
-        });
-        grid.add(clearButton, 0, 3);
+    }
 
-        Button zeroButton = new Button("0");
-        zeroButton.setOnAction(e -> {
-            textField.appendText("0");
-        });
-        grid.add(zeroButton, 1, 3);
 
-        Button okButton = new Button("OK");
-        okButton.setOnAction(e -> {
-            String resultText = textField.getText();
-            if (!resultText.isEmpty()) {
-                dialog.setResult(Integer.parseInt(resultText));
+    private void layout1(int rechnung1Quittung2) {
+
+        //Grössen der Zellen
+        float ganzeseite = 570F;
+        float absender1 = 100F;
+        float absender2 = 223F;
+        float adressat = 143F;
+
+        //Bestellung
+        float bezeichnungmR = 207F; //mR = mit Rabatt
+        float bezeichnungoR = 267F; //oR = ohne Rabatt
+        float artikelnummer = 79F;
+        float menge = 79F;
+        float preis = 70F;
+        float rabatt = 60;
+        float gesamt = 75F;
+
+        //Grössen für Tabelle
+        float ganzeseite1[] = {ganzeseite};
+        float absenderAdressat[] = {absender1, absender2, adressat};
+        float bestellungmR[] = {bezeichnungmR, artikelnummer, menge, preis, rabatt, gesamt};
+        float bestellungoR[] = {bezeichnungoR, artikelnummer, menge, preis, gesamt};
+
+        //Tabellen
+        Table absatz = new Table(ganzeseite1);
+        Table tabelleAbsenderAdressat = new Table(absenderAdressat);
+        Table tabelleTitelBestellungoR = new Table(bestellungoR);
+        Table tabelleTitelBestellungmR = new Table(bestellungmR);
+
+        //Absatz
+        absatz.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("\n")).setBorder(Border.NO_BORDER));
+
+        //Zeit
+        LocalDateTime datum = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MMMM yyyy"); //EEEE für Wochentag
+        DateTimeFormatter formatterPfad = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+
+        //Pdf Definieren
+        PdfWriter writer = null;
+        try {
+            ResultSet resultSetAdresse = statement.executeQuery("SELECT * FROM unternehmen, kunden, bearbeiter WHERE rechnungsnummer = bestellung_id AND kundenId = kunden_id");
+            resultSetAdresse.next();
+            if (rechnung1Quittung2 == 1) {
+                writer = new PdfWriter("Kundendateien\\" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "\\Rechnungen\\" + formatterPfad.format(datum) + "_" + resultSetAdresse.getInt("rechnungsnummer") + ".pdf");
+            }else if(rechnung1Quittung2 == 2){
+                writer = new PdfWriter("Kundendateien\\" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "\\Quittungen\\" + formatterPfad.format(datum) + "_" + resultSetAdresse.getInt("rechnungsnummer") + ".pdf");
+
             }
-            dialog.close();
-        });
-        grid.add(okButton, 2, 3);
+
+            resultSetAdresse.close();
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
+
+        PdfDocument rechnung = new PdfDocument(writer);
+        rechnung.setDefaultPageSize(PageSize.A4);
+        Document document = new Document(rechnung);
+
+        //Bilder
+        //TODO ResultSet Pfad Logo
+        ImageData datenLogo = null;
+        try {
+            datenLogo = ImageDataFactory.create("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\Logo.png");
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        com.itextpdf.layout.element.Image logo = new com.itextpdf.layout.element.Image(datenLogo);
+        logo.setHeight(60F);
+        logo.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        document.add(logo);
+        document.add(absatz).add(absatz);
+
+        /*ImageData datenQRCode = null;
+        try {
+            datenQRCode = ImageDataFactory.create(getPfadQRCode());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        Image QRCode = new Image(datenQRCode);*/
 
 
-        VBox content = new VBox(textField, grid);
-        dialog.getDialogPane().setContent(content);
+        try {
+            ResultSet resultSetKunde = statement.executeQuery("SELECT * FROM kunden, bearbeiter, unternehmen WHERE bestellung_id = rechnungsnummer and kundenId = kunden_id");
+            resultSetKunde.next();
+            tabelleAbsenderAdressat.addCell((new com.itextpdf.layout.element.Cell().add(new ListItem("Datum")).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new com.itextpdf.layout.element.Cell().add(new ListItem(formatter.format(datum))).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new com.itextpdf.layout.element.Cell().add(new ListItem(resultSetKunde.getString("nachname") + " " + resultSetKunde.getString("vorname")))).setBorder(Border.NO_BORDER));
+            tabelleAbsenderAdressat.addCell((new com.itextpdf.layout.element.Cell().add(new ListItem("Kundennummer")).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetKunde.getInt("kundenId")))).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new com.itextpdf.layout.element.Cell().add(new ListItem(resultSetKunde.getString("adresse"))).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new com.itextpdf.layout.element.Cell().add(new ListItem("Verkäufer")).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new com.itextpdf.layout.element.Cell().add(new ListItem("")).setBorder(Border.NO_BORDER)));
+            //tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem( + " " + mitarbeiter.getVorname())).setBorder(Border.NO_BORDER)));
+            tabelleAbsenderAdressat.addCell((new com.itextpdf.layout.element.Cell().add(new ListItem(resultSetKunde.getInt("postleitzahl") + " " + resultSetKunde.getString("ort"))).setBorder(Border.NO_BORDER)));
+            document.add(tabelleAbsenderAdressat);
+            document.add(absatz);
 
-        // Ergebnis des Dialogs abrufen
-        int result = (int) dialog.showAndWait().orElse(null);
+
+            //TODO Quittung
+            //Paragraph Rechnungsnummer
+            Paragraph paragraphQuittungRechnungsnummer = null;
+            if (rechnung1Quittung2 == 1){
+                paragraphQuittungRechnungsnummer = new Paragraph("Rechnung " + resultSetKunde.getInt("rechnungsnummer")).setBorder(Border.NO_BORDER).setFontSize(15F).setBold();
+
+            } else if (rechnung1Quittung2 == 2) {
+                paragraphQuittungRechnungsnummer = new Paragraph("Quittung " + resultSetKunde.getInt("rechnungsnummer")).setBorder(Border.NO_BORDER).setFontSize(15F).setBold();
+
+            }
+            document.add(paragraphQuittungRechnungsnummer);
+            document.add(absatz);
+
+            resultSetKunde.close();
+
+            //Bestellung
+            tabelleTitelBestellungmR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Bezeichnung")).setBorder(Border.NO_BORDER).setBold());
+            tabelleTitelBestellungmR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Artikel-NR")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+            tabelleTitelBestellungmR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Anzahl")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+            tabelleTitelBestellungmR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Preis")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+            tabelleTitelBestellungmR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Rabatt")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+            tabelleTitelBestellungmR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Gesamt")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+
+            tabelleTitelBestellungoR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Bezeichnung")).setBorder(Border.NO_BORDER).setBold());
+            tabelleTitelBestellungoR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Artikel-NR")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+            tabelleTitelBestellungoR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Anzahl")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+            tabelleTitelBestellungoR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Preis")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+            tabelleTitelBestellungoR.addCell(new com.itextpdf.layout.element.Cell().add(new ListItem("Gesamt")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+
+
+            ResultSet resultSetBestellung = statement.executeQuery("SELECT * FROM unternehmen, bestellung, artikel, einheiten WHERE rechnungsnummer = bestellungId AND artikel_id = artikelId AND einheitId = einheit_id");
+
+            double totalArtikel;
+            double uebertrag = 0;
+            double preisInklRabatt;
+            double rabatt1;
+
+            int seitenZaehler = 0;
+            int zeilenZaehler = 0;
+            boolean rabatttester = false;
+            linkedlistTabelleBestellungmR.add(new Table(bestellungmR));
+            linkedlistTabelleBestellungoR.add(new Table(bestellungoR));
+
+
+            while (resultSetBestellung.next()) {
+                if (resultSetBestellung.getDouble("rabatt") != 0) {
+                    rabatt1 = 100 - resultSetBestellung.getDouble("rabatt");
+                    preisInklRabatt = resultSetBestellung.getDouble("preis") / 100 * rabatt1;
+                    totalArtikel = preisInklRabatt * resultSetBestellung.getInt("anzahl");
+                } else {
+                    totalArtikel = resultSetBestellung.getDouble("preis") * resultSetBestellung.getInt("anzahl");
+                }
+                totalArtikel = Math.round(20.00 * totalArtikel) / 20.00; //TODO Zwei Kommastellen
+                uebertrag = uebertrag + totalArtikel; //TODO Überprüfen
+
+                if (seitenZaehler == 0) {
+                    linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(resultSetBestellung.getString("name"))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.LEFT));
+                    linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("artikelId")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("anzahl")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getDouble("preis")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    if (resultSetBestellung.getDouble("rabatt") == 0) {
+                        linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem()).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+
+                    } else {
+                        linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getDouble("rabatt")) + "%")).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                        rabatttester = true;
+                    }
+                    linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(totalArtikel))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+
+                    linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(resultSetBestellung.getString("name"))).setBorder(Border.NO_BORDER));
+                    linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("artikelId")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("anzahl")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getDouble("preis")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(totalArtikel))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    zeilenZaehler = zeilenZaehler + 1;
+                    if (zeilenZaehler == 16) {
+                        seitenZaehler = 1;
+                        linkedlistTabelleBestellungmR.add(new Table(bestellungmR));
+                        linkedlistTabelleBestellungoR.add(new Table(bestellungoR));
+                    }
+                }
+                if (seitenZaehler == 1) {
+                    linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(resultSetBestellung.getString("name"))).setBorder(Border.NO_BORDER));
+                    linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("artikelId")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("anzahl")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getDouble("preis")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    if (resultSetBestellung.getDouble("rabatt") == 0) {
+                        linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem()).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+
+                    } else {
+                        linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(resultSetBestellung.getDouble("rabatt") + "%")).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                        rabatttester = true;
+                    }
+                    linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(totalArtikel))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+
+                    linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(resultSetBestellung.getString("name"))).setBorder(Border.NO_BORDER));
+                    linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("artikelId")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("anzahl")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new com.itextpdf.layout.element.Cell().add(new ListItem(String.valueOf(resultSetBestellung.getDouble("preis")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(totalArtikel))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                    if (zeilenZaehler == 32) {
+                        seitenZaehler = seitenZaehler + 1;
+                        zeilenZaehler = 0;
+                        linkedlistTabelleBestellungmR.addLast(new Table(bestellungmR));
+                        linkedlistTabelleBestellungoR.addLast(new Table(bestellungoR));
+                    }
+                }
+            }
+            resultSetBestellung.close();
+            if (rabatttester == true) {
+                for (int i = 0; i < seitenZaehler + 1; i++) {
+                    document.add(tabelleTitelBestellungmR);
+                    document.add(absatz);
+                    document.add(linkedlistTabelleBestellungmR.get(i));
+                }
+                seitenZaehler = 0;
+                rabatttester = false;
+            } else {
+                for (int i = 0; i < seitenZaehler + 1; i++) {
+                    document.add(tabelleTitelBestellungoR);
+                    document.add(absatz);
+                    document.add(linkedlistTabelleBestellungoR.get(i));
+                }
+                seitenZaehler = 0;
+            }
+            document.close();
+            System.out.println("pdf generated");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 }

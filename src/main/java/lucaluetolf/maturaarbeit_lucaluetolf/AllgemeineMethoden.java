@@ -8,17 +8,16 @@ import java.nio.file.Files;
 public class AllgemeineMethoden {
 
     public static void dateiKopieren(String Pfad, String ort) {
-        //String ort = "C:\\Users\\Luca Schule\\Maturaarbeit_LucaLuetolf\\src\\main\\Bilder\\Artikel";
         File sourceFile = new File(Pfad);
         File destinationFile = new File(ort + sourceFile.getName());
         try {
             Files.copy(sourceFile.toPath(), destinationFile.toPath());
         } catch (Exception e) {
-            new RuntimeException(e);
+            fehlermeldung(e);
         }
     }
-    public static void ordnerErstellen(String kundennummer, String nachname, String vorname){
-        String pfad = "Rechnungen\\"+kundennummer + " " + nachname + " " + vorname;
+    public static void ordnerErstellen(String pfad){
+        //String pfad = "Rechnungen\\"+kundennummer + " " + nachname + " " + vorname;
         File ordner = new File(pfad);
         ordner.mkdirs();
     }

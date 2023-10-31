@@ -70,14 +70,15 @@ public class GuiTaskleiste {
     @FXML
     protected void toSceneNeueRechnung(ActionEvent event) {
         try {
+            ResultSet resultSetRechnungsnummer = statement.executeQuery("SELECT rechnungsnummer FROM unternehmen");
+            resultSetRechnungsnummer.next();
+            statement.execute("INSERT INTO bearbeiter (bestellung_id, dokumenttyp) VALUES (" + resultSetRechnungsnummer.getInt("rechnungsnummer") + ",1);");
+            resultSetRechnungsnummer.close();
             root = FXMLLoader.load(getClass().getResource("kundenFuerRechnung.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            ResultSet resultSetRechnungsnummer = statement.executeQuery("SELECT rechnungsnummer FROM unternehmen");
-            resultSetRechnungsnummer.next();
-            statement.execute("INSERT INTO bearbeiter (bestellung_id, dokumenttyp) VALUES (" + resultSetRechnungsnummer.getInt("rechnungsnummer") + ",1)");
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
@@ -87,14 +88,15 @@ public class GuiTaskleiste {
     @FXML
     protected void toSceneVerkauf(ActionEvent event) {
         try {
+            ResultSet resultSetRechnungsnummer = statement.executeQuery("SELECT rechnungsnummer FROM unternehmen");
+            resultSetRechnungsnummer.next();
+            statement.execute("INSERT INTO bearbeiter (bestellung_id, dokumenttyp) VALUES (" + resultSetRechnungsnummer.getInt("rechnungsnummer") + ",2);");
+            resultSetRechnungsnummer.close();
             root = FXMLLoader.load(getClass().getResource("kundenFuerRechnung.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            ResultSet resultSetRechnungsnummer = statement.executeQuery("SELECT rechnungsnummer FROM unternehmen");
-            resultSetRechnungsnummer.next();
-            statement.execute("INSERT INTO bearbeiter (bestellung_id, dokumenttyp) VALUES (" + resultSetRechnungsnummer.getInt("rechnungsnummer") + ",2)");
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }

@@ -63,7 +63,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="choiceboxMenge" layoutX="1021.0" layoutY="382.0" prefHeight="25.0" prefWidth="75.0" />
+      <ChoiceBox fx:id="choiceBoxMenge" layoutX="1021.0" layoutY="382.0" prefHeight="25.0" prefWidth="75.0" />
       <Label fx:id="labelArtikelnummer" layoutX="896.0" layoutY="276.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
          <font>
             <Font size="24.0" />

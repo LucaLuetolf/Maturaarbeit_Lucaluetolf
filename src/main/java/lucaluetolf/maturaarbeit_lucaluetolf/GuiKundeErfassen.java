@@ -9,10 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class GuiKundeErfassen extends GuiTaskleiste {
 
@@ -71,6 +68,22 @@ public class GuiKundeErfassen extends GuiTaskleiste {
         textfeldKundennummer.setText(textfeldKundennummer.getText().replaceAll("[^0-9]", ""));
         textfeldKundennummer.positionCaret(textfeldKundennummer.getLength());
         booleanKundennummer = tester("^[1-9]\\d*$", textfeldKundennummer);
+        if (textfeldKundennummer.getText() != ""){
+            try {
+                ResultSet resultsetArtikel = statement.executeQuery("SELECT COUNT(kundenId) AS summe FROM kunden WHERE kundenId = " + textfeldKundennummer.getText());
+                resultsetArtikel.next();
+                int res = resultsetArtikel.getInt("summe");
+                if (res == 0){
+                    textfeldKundennummer.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+                }
+                else{
+                    textfeldKundennummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                resultsetArtikel.close();
+            } catch (Exception e) {
+                AllgemeineMethoden.fehlermeldung(e);
+            }
+        }
     }
 
     @FXML
@@ -126,7 +139,9 @@ public class GuiKundeErfassen extends GuiTaskleiste {
             try {
                 statement.execute("INSERT INTO kunden (kundenId, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer) VALUES (" + textfeldKundennummer.getText() + ",'" + textfeldNachname.getText() + "','" + textfeldVorname.getText() + "','" + textfeldAdresse.getText() + "'," + textfeldPostleitzahl.getText() + ",'" + textfeldOrt.getText() + "','" + textfeldEmail.getText() + "'," + textfeldNatelnummer.getText() + ")");
                 root = FXMLLoader.load(getClass().getResource("kunden.fxml"));
-                AllgemeineMethoden.ordnerErstellen(String.valueOf(textfeldKundennummer.getText()), textfeldNachname.getText(), textfeldVorname.getText());
+                AllgemeineMethoden.ordnerErstellen("Kundendateien\\" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText());
+                AllgemeineMethoden.ordnerErstellen("Kundendateien\\" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "\\Quittungen");
+                AllgemeineMethoden.ordnerErstellen("Kundendateien\\" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "\\Rechnungen");
             } catch (Exception e) {
                 AllgemeineMethoden.fehlermeldung(e);
             }

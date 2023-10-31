@@ -84,8 +84,8 @@ public class GuiKunde extends GuiTaskleiste implements Initializable {
 
                         try {
                             int zahl = tableViewKunden.getSelectionModel().getFocusedIndex();
-                            int kundennummer1 = Integer.parseInt(spalteKundennummer.getCellData(zahl));
-                            statement.execute("UPDATE unternehmen SET bearbeiten = " + kundennummer1);
+                            int kundennummer = Integer.parseInt(spalteKundennummer.getCellData(zahl));
+                            statement.execute("UPDATE unternehmen SET bearbeiten = " + kundennummer);
                             root = FXMLLoader.load(getClass().getResource("kundeBearbeiten.fxml"));
                         } catch (Exception e) {
                             throw new RuntimeException(e);

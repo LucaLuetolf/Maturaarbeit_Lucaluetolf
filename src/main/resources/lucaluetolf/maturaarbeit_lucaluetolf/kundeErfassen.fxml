@@ -17,17 +17,11 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <JFXButton layoutX="300.0" layoutY="469.0" onAction="#kundeErfassen" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="Erfassen" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </JFXButton>
             <Label layoutX="118.0" layoutY="155.0" prefHeight="35.0" prefWidth="171.0" text="Kundennummer" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldOrt" layoutX="300.0" layoutY="326.0" onKeyReleased="#textfieldOrtKey" prefHeight="25.0" prefWidth="202.0" />
             <TextField fx:id="textfeldNachname" layoutX="300.0" layoutY="195.0" onKeyReleased="#textfieldNachnameKey" prefHeight="25.0" prefWidth="202.0" />
             <TextField fx:id="textfeldVorname" layoutX="300.0" layoutY="229.0" onKeyReleased="#textfieldVornameKey" prefHeight="25.0" prefWidth="202.0" />
             <TextField fx:id="textfeldAdresse" layoutX="300.0" layoutY="261.0" onKeyReleased="#textfieldAdresseKey" prefHeight="25.0" prefWidth="202.0" />
@@ -57,6 +51,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
+            <TextField fx:id="textfeldOrt" layoutX="300.0" layoutY="326.0" onKeyReleased="#textfieldOrtKey" prefHeight="25.0" prefWidth="202.0" />
             <TextField fx:id="textfeldEmail" layoutX="300.0" layoutY="358.0" onKeyReleased="#textfieldEmailKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="118.0" layoutY="353.0" prefHeight="35.0" prefWidth="171.0" text="E-Mail" textFill="#ba8759">
                <font>
@@ -70,6 +65,11 @@
                </font>
             </Label>
             <JFXButton layoutX="118.0" layoutY="469.0" onAction="#toSceneKunden" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E8CFB0; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-width: 4;" text="zurück" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="300.0" layoutY="469.0" onAction="#kundeErfassen" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="Erfassen" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>

@@ -47,17 +47,16 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         int column = 0;
         int row = 0;
-        int prefHeight = 193;
-        int prefHeightPerColumn = 193;
+        int prefHeight = 220;
+        int prefHeightPerColumn = 220;
         try {
             ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
-
-            int orange = 0;
+            int orange;
             resultSetUnternehmen.next();
             orange = resultSetUnternehmen.getInt("lagerbestandOrange");
             resultSetUnternehmen.close();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM artikel");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM artikel, einheiten WHERE einheitId = einheit_id");
             while (resultSet.next()) {
                 if (column == 5) {
                     row = row + 1;
@@ -73,26 +72,42 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 Label labelTitelArtikelnummer = new Label("Artikelnr.:");
                 Label labelTitelName = new Label("Name:");
                 Label labelTitelPreis = new Label("Preis:");
+                Label labelTitelMenge = new Label("Menge: ");
                 Label labelArtikelnummer = new Label(resultSet.getString("artikelId"));
+
 
                 labelTitelArtikelnummer.setStyle("-fx-text-fill: #FFFFFF ");
                 labelTitelName.setStyle("-fx-text-fill: #FFFFFF ");
                 labelTitelPreis.setStyle("-fx-text-fill: #FFFFFF ");
+                labelTitelMenge.setStyle("-fx-text-fill: #FFFFFF ");
                 Label labelName = new Label(resultSet.getString("name"));
                 Label labelPreis = new Label(resultSet.getString("preis"));
+                Label labelMenge = new Label(resultSet.getInt("menge") + " " + resultSet.getString("abkuerzung"));
 
-                ImageView imageView = new ImageView();
-                bildAnzeigen(imageView, resultSet.getInt("artikelId"));
+                ImageView imageView = null;
+                if (resultSet.getString("dateityp") == null){
+                    String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Artikel\\Artikel.png";
+                    Image image = new Image(new FileInputStream(imagePath));
+                    imageView = new ImageView();
+                    imageView.setImage(image);
+                }else{
+                    String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + resultSet.getInt("artikelId") + "\\" + resultSet.getInt("bildnummer") + "." + resultSet.getString("dateityp");
+                    Image image = new Image(new FileInputStream(imagePath));
+                    imageView = new ImageView();
+                    imageView.setImage(image);
+                }
 
                 Line lineLagerbestand = new Line();
 
-                pane.setPrefSize(170, 193);
+                pane.setPrefSize(170, 220);
                 pane.getChildren().add(labelArtikelnummer);
                 pane.getChildren().add(labelName);
                 pane.getChildren().add(labelPreis);
+                pane.getChildren().add(labelMenge);
                 pane.getChildren().add(labelTitelArtikelnummer);
                 pane.getChildren().add(labelTitelName);
                 pane.getChildren().add(labelTitelPreis);
+                pane.getChildren().add(labelTitelMenge);
                 pane.getChildren().add(lineLagerbestand);
                 pane.getChildren().add(imageView);
                 labelTitelArtikelnummer.setLayoutX(14);
@@ -101,6 +116,8 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 labelTitelName.setLayoutY(105);
                 labelTitelPreis.setLayoutX(14);
                 labelTitelPreis.setLayoutY(122);
+                labelTitelMenge.setLayoutX(14);
+                labelTitelMenge.setLayoutY(139);
                 labelArtikelnummer.setLayoutX(76);
                 labelArtikelnummer.setLayoutY(88);
                 labelArtikelnummer.setStyle("-fx-text-fill: #FFFFFF ");
@@ -110,8 +127,13 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 labelPreis.setLayoutX(76);
                 labelPreis.setLayoutY(122);
                 labelPreis.setStyle("-fx-text-fill: #FFFFFF ");
+
+                labelMenge.setLayoutX(76);
+                labelMenge.setLayoutY(139);
+                labelMenge.setStyle("-fx-text-fill: #FFFFFF ");
+
                 lineLagerbestand.setLayoutX(84);
-                lineLagerbestand.setLayoutY(179);
+                lineLagerbestand.setLayoutY(196);
                 lineLagerbestand.setStartX(-68.125);
                 lineLagerbestand.setEndX(71.625);
                 imageView.setLayoutX(53);
@@ -131,7 +153,7 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 }
 
                 button.setLayoutX(50);
-                button.setLayoutY(145);//152
+                button.setLayoutY(162);//152
                 button.setId(resultSet.getString("artikelId"));
                 button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -153,8 +175,8 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 column++;
 
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
         }
 
         gridpaneArtikel.setStyle("-fx-border-color: #FFFFFF");
@@ -172,42 +194,5 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void bildAnzeigen(ImageView imageviewArtikel, int artikelnummer){
-        String imagePath = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/Benutzer/Artikel/" + artikelnummer;
-        try {
-            Image image = new Image(new FileInputStream(imagePath + ".png"));
-            imageviewArtikel.setImage(image);
-        } catch (IOException e) {
-            try {
-                Image image = new Image(new FileInputStream(imagePath + ".jpg"));
-                imageviewArtikel.setImage(image);
-            } catch (IOException ex) {
-                try {
-                    Image image = new Image(new FileInputStream(imagePath + ".jpeg"));
-                    imageviewArtikel.setImage(image);
-                } catch (FileNotFoundException exc) {
-                    try {
-                        Image image = new Image(new FileInputStream(imagePath + ".gif"));
-                        imageviewArtikel.setImage(image);
-                    } catch (FileNotFoundException exce) {
-                        Image image = null;
-                        try {
-                            image = new Image(new FileInputStream(imagePath + ".svg"));
-                            imageviewArtikel.setImage(image);
-                        } catch (FileNotFoundException excep) {
-                            try {
-                                image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png"));
-                                imageviewArtikel.setImage(image);
-                            } catch (FileNotFoundException except){
-                                AllgemeineMethoden.fehlermeldung(except);
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
     }
 }

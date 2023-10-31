@@ -79,7 +79,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <ChoiceBox fx:id="comboboxMenge" layoutX="427.0" layoutY="366.0" prefHeight="25.0" prefWidth="75.0" />
+            <ChoiceBox fx:id="choiceBoxMenge" layoutX="427.0" layoutY="366.0" prefHeight="25.0" prefWidth="75.0" />
          </children>
       </Pane>
    </children>

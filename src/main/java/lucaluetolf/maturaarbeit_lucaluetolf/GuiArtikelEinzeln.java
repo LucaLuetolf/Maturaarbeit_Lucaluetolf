@@ -1,7 +1,10 @@
 package lucaluetolf.maturaarbeit_lucaluetolf;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.*;
 import java.util.ResourceBundle;
 
@@ -49,7 +53,7 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
     @FXML
     private TextField textfeldLagerbestand;
     @FXML
-    private ChoiceBox<String> choiceboxMenge;
+    private ChoiceBox<String> choiceBoxMenge;
     @FXML
     private JFXButton buttonArtikelBearbeiten;
     @FXML
@@ -72,17 +76,20 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
     private Label labelLagerbestand;
 
 
-    private boolean booleanArtikelnummer = false;
-    private boolean booleanName = false;
-    private boolean booleanPreis = false;
-    private boolean booleanMenge = false;
-    private boolean booleanRabatt = false;
-    private boolean booleanLagerbestand = false;
+    private boolean booleanArtikelnummer = true;
+    private boolean booleanName = true;
+    private boolean booleanPreis = true;
+    private boolean booleanMenge = true;
+    private boolean booleanRabatt = true;
+    private boolean booleanLagerbestand = true;
     private Stage stage;
     private Scene scene;
     private Parent root;
 
     int artikelnummer;
+    private String filePath = "";
+    private String newPath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\";
+    private String oldFilePath = "";
 
 
     @Override
@@ -92,17 +99,33 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
             resultSet.next();
             artikelnummer = resultSet.getInt("bearbeiten");
             resultSet.close();
-            //TODO Wieso nicht delete-Statement?
             statement.execute("UPDATE unternehmen SET bearbeiten = null");
             option1();
             buttonArtikelBearbeiten.setId("1");
             buttonZurueck.setId("1");
-            GuiArtikel.bildAnzeigen(imageviewArtikel, artikelnummer);
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
+        ObservableList<String> werte = FXCollections.observableArrayList();
+        try {
+            ResultSet resultSetEinheiten = statement.executeQuery("SELECT * FROM einheiten WHERE aktiv = true");
+            while (resultSetEinheiten.next()){
+                werte.add(resultSetEinheiten.getString("abkuerzung"));
+            }
+            resultSetEinheiten.close();
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
 
-
+        choiceBoxMenge.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (choiceBoxMenge.getSelectionModel().getSelectedIndex() >= 0){
+                    choiceBoxMenge.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+                }
+            }
+        });
+        choiceBoxMenge.setItems(werte);
     }
 
     @FXML
@@ -114,12 +137,67 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
             buttonZurueck.setId("2");
             buttonZurueck.setText("abbrechen");
         } else {
-            option1();
-            //TODO Update statement Artikel
-            buttonArtikelBearbeiten.setId("1");
-            buttonArtikelBearbeiten.setText("bearbeiten");
-            buttonZurueck.setId("1");
-            buttonZurueck.setText("zurück");
+            if (booleanName && booleanPreis && booleanMenge && booleanRabatt && booleanLagerbestand) {
+                try {
+                    ResultSet resultsetEinheit = statement.executeQuery("SELECT * FROM einheiten WHERE abkuerzung = '" + choiceBoxMenge.getSelectionModel().getSelectedItem()+ "'");
+                    resultsetEinheit.next();
+                    statement.execute("UPDATE artikel SET " + "name = '" + textfeldName.getText() + "', " + "preis = " + textfeldPreis.getText() + ", " + "menge = " + textfeldMenge.getText() + ", " + "einheit_id = " + resultsetEinheit.getInt("einheitId") + ", " + "rabatt = " + textfeldRabatt.getText() + ", " + "lagerbestand = " + textfeldLagerbestand.getText() + " WHERE artikelId = " + textfeldArtikelnummer.getText());
+                    resultsetEinheit.close();
+
+                    if (filePath != ""){
+                        newPath = newPath + textfeldArtikelnummer.getText() + "\\";
+                        AllgemeineMethoden.dateiKopieren(filePath, newPath);
+                        ResultSet resultSetDateityp = statement.executeQuery("SELECT * FROM artikel WHERE artikelId = " + artikelnummer);
+                        resultSetDateityp.next();
+                        String dateityp = resultSetDateityp.getString("dateityp");
+                        int bildnummer = resultSetDateityp.getInt("bildnummer");
+                        resultSetDateityp.close();
+                        if (bildnummer != 0){
+                            statement.execute("INSERT INTO loeschen (artikel_Id, bildnummer, dateityp) VALUES (" + textfeldArtikelnummer.getText() + "," + bildnummer + ",'" + dateityp + "')");
+                        }
+
+                        File neuesBildAlterPfad = new File(filePath);
+                        File neuesBildAlterName = new File(newPath + "\\" + neuesBildAlterPfad.getName());
+                        String dateitypNeu = "";
+                        int index = neuesBildAlterPfad.getName().lastIndexOf(".");
+                        if (index > 0) {
+                            dateitypNeu = neuesBildAlterPfad.getName().substring(index + 1);
+                        }
+                        File neuesBildNeuerName = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + textfeldArtikelnummer.getText() + "\\" + (bildnummer+1) + "." + dateitypNeu);
+                        neuesBildAlterName.renameTo(neuesBildNeuerName);
+                        statement.execute("UPDATE artikel SET dateityp = '" + dateitypNeu + "', bildnummer = " + (bildnummer+1) + "WHERE artikelId = " + textfeldArtikelnummer.getText());
+                    }
+
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                option1();
+                buttonArtikelBearbeiten.setId("1");
+                buttonArtikelBearbeiten.setText("bearbeiten");
+                buttonZurueck.setId("1");
+                buttonZurueck.setText("zurück");
+
+            } else {
+                if (booleanArtikelnummer == false) {
+                    textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                if (booleanName == false) {
+                    textfeldName.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                if (booleanPreis == false) {
+                    textfeldPreis.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                if (booleanMenge == false) {
+                    textfeldMenge.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                if (booleanRabatt == false) {
+                    textfeldRabatt.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                if (booleanLagerbestand == false) {
+                    textfeldLagerbestand.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+            }
+
         }
     }
 
@@ -151,117 +229,12 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Bilddateien", "*.png;*.jpeg;*.jpg;*.gif;*.svg");
         fileChooser.getExtensionFilters().add(filter);
 
-        /*File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            String filePath = selectedFile.getAbsolutePath();
-            String ort = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/Benutzer/Artikel/";
-            AllgemeineMethoden.dateiKopieren(filePath, ort);
-            String name = selectedFile.getName();
-            int indexPunkt = name.lastIndexOf(".");
-            String dateityp = name.substring(indexPunkt + 1);
-            File file = new File(ort + name);
-            File folder = new File(ort);
-            String filePath1 = "";
-
-            if (folder.exists() && folder.isDirectory()) {
-                // Erstellen Sie einen FilenameFilter, um Dateien mit passender Nummer zu filtern
-                FilenameFilter filter1 = new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        // Extrahieren Sie die Nummer aus dem Dateinamen (ohne Erweiterung)
-                        String[] parts = name.split("\\.");
-                        if (parts.length == 2) {
-                            try {
-                                int fileNumber = Integer.parseInt(parts[0]);
-                                return fileNumber == artikelnummer;
-                            } catch (NumberFormatException e) {
-                                // Wenn die Nummer nicht geparst werden kann, ignorieren Sie die Datei
-                                return false;
-                            }
-                        }
-                        return false;
-                    }
-                };
-
-                // Durchsuchen Sie den Ordner nach passenden Dateien
-                File[] matchingFiles = folder.listFiles(filter1);
-
-                if (matchingFiles != null && matchingFiles.length > 0) {
-                    // Der Pfad zur gefundenen Datei
-                    filePath1 = matchingFiles[0].getAbsolutePath();
-                    System.out.println("Gefundene Datei: " + filePath1);
-                } else {
-                    System.out.println("Keine Datei mit der Nummer " + ort + " gefunden.");
-                }
-            } else {
-                System.out.println("Der angegebene Ordner existiert nicht oder ist kein Verzeichnis.");
-            }
-            selectedFile.renameTo(new File(ort + artikelnummer + "." + dateityp));
-            File fileToDelete = new File(filePath1);
-            file.renameTo(new File(ort + "fileToDelete." + dateityp));
-
-            imageviewArtikel.setImage(null);
-
-            fileToDelete.deleteOnExit();
-            Image image = new Image(filePath);
-            imageviewArtikel.setImage(image);
-            file.renameTo(new File(ort + artikelnummer + "." + dateityp));
-        }*/
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
-            String pfadAusgewaehltesBild = selectedFile.getAbsolutePath();
-            String pfadOrdner = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/Benutzer/Artikel/";
-            String dateinameAusgewaehltesBild = selectedFile.getName();
-            int indexPunkt = dateinameAusgewaehltesBild.lastIndexOf(".");
-            String dateitypAusgewaehltesBild = dateinameAusgewaehltesBild.substring(indexPunkt + 1);
-            String pfadAltesBild = "";
-            String dateitypAltesBild = "";
-            File ordner = new File(pfadOrdner);
-
-            if(ordner.exists() && ordner.isDirectory()){
-                FilenameFilter filenameFilter = new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        // Extrahieren Sie die Nummer aus dem Dateinamen (ohne Erweiterung)
-                        String[] parts = name.split("\\.");
-                        if (parts.length == 2) {
-                            try {
-                                int fileNumber = Integer.parseInt(parts[0]);
-                                return fileNumber == artikelnummer;
-                            } catch (NumberFormatException e) {
-                                // Wenn die Nummer nicht geparst werden kann, ignorieren Sie die Datei
-                                return false;
-                            }
-                        }
-                        return false;
-                    }
-                };
-
-                // Durchsuchen Sie den Ordner nach passenden Dateien
-                File[] matchingFiles = ordner.listFiles(filenameFilter);
-
-                if (matchingFiles != null && matchingFiles.length > 0) {
-                    // Der Pfad zur gefundenen Datei
-                    pfadAltesBild = matchingFiles[0].getAbsolutePath();
-                    System.out.println("Gefundene Datei: " + pfadAltesBild);
-                } else {
-                    System.out.println("Keine Datei mit der Nummer " + artikelnummer + " gefunden.");
-                }
-            } else {
-                System.out.println("Der angegebene Ordner existiert nicht oder ist kein Verzeichnis.");
-            }
-            File altesBild = new File(pfadAltesBild);
-            altesBild.renameTo(new File(pfadOrdner + "fileToDelete"));
-            File fileToDelete = new File(pfadOrdner + "fileToDelete");
-            //fileToDelete.delete();
-            selectedFile.renameTo(new File(pfadOrdner + artikelnummer + "." + dateitypAusgewaehltesBild));
-            Image image = new Image(selectedFile.getAbsolutePath());
+            filePath = selectedFile.getAbsolutePath();
+            Image image = new Image(filePath);
             imageviewArtikel.setImage(image);
-            /*if (altesBild.exists()){
-                altesBild.delete();
-            }*/
         }
-
 
     }
 
@@ -280,26 +253,44 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
         textfeldArtikelnummer.setText(textfeldArtikelnummer.getText().replaceAll("[^0-9]", ""));
         textfeldArtikelnummer.positionCaret(textfeldArtikelnummer.getLength());
         booleanArtikelnummer = tester("[0-9]", textfeldArtikelnummer);
+        if (textfeldArtikelnummer.getText() != ""){
+            try {
+                ResultSet resultsetArtikel = statement.executeQuery("SELECT COUNT(artikelId) AS summe FROM artikel WHERE artikelId = " + textfeldArtikelnummer.getText());
+                resultsetArtikel.next();
+                int res = resultsetArtikel.getInt("summe");
+                if (res == 0){
+                    textfeldArtikelnummer.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+                }
+                else{
+                    textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                resultsetArtikel.close();
+            } catch (Exception e) {
+                AllgemeineMethoden.fehlermeldung(e);
+            }
+        }
     }
 
     @FXML
     protected void textfieldNameKey() {
-        booleanName = tester("", textfeldName);
+        textfeldName.setText(textfeldName.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ0-9]", ""));
+        textfeldName.positionCaret(textfeldName.getLength());
+        booleanName = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldName);
     }
 
     //TODO Regex Preis anpassen, momentan keine Stelle vor dem Punkt. Unendlich viele Punkte möglich
     @FXML
     protected void textfieldPreisKey() {
-        //textfeldPreis.setText(textfeldPreis.getText().replaceAll("[^0-9]+\\.[^0-9]", ""));
-        textfeldPreis.setText(textfeldPreis.getText().replaceAll("^(?!.*\\..*\\.)\\d+(\\.\\d{1,2})?$", ""));
+        textfeldPreis.setText(textfeldPreis.getText().replaceAll("[^0-9.]", ""));
         textfeldPreis.positionCaret(textfeldPreis.getLength());
-        booleanPreis = tester("^[0-9]+\\.[0-9]", textfeldPreis);
-
+        booleanPreis = tester("^\\d+(\\.\\d{1}(0|5)?)?$", textfeldPreis);
     }
 
     @FXML
     protected void textfieldMengeKey() {
         //TODO replaceAll
+        textfeldMenge.setText(textfeldMenge.getText().replaceAll("^[0-9]+\\.[0-9]",""));
+        textfeldMenge.positionCaret(textfeldMenge.getLength());
         booleanMenge = tester("^[0-9]+\\.[0-9]", textfeldMenge);
     }
 
@@ -323,25 +314,35 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
     protected void textfieldLagerbestandKey() {
         textfeldLagerbestand.setText(textfeldLagerbestand.getText().replaceAll("[^0-9]", ""));
         textfeldLagerbestand.positionCaret(textfeldLagerbestand.getLength());
-        booleanLagerbestand = tester("[0-9]", textfeldLagerbestand);
+        booleanLagerbestand = tester("^[0-9]\\d*$", textfeldLagerbestand);
     }
 
     private void option1() {
         try {
-            ResultSet resultSetArtikel = statement.executeQuery("SELECT * FROM ARTIKEL WHERE artikelId = " + artikelnummer);
+            ResultSet resultSetArtikel = statement.executeQuery("SELECT * FROM artikel, einheiten WHERE artikelId = " + artikelnummer + " AND einheitId = einheit_id");
             resultSetArtikel.next();
             labelArtikelnummer.setText(String.valueOf(resultSetArtikel.getInt("artikelId")));
             labelName.setText(resultSetArtikel.getString("name"));
             labelPreis.setText(String.valueOf(resultSetArtikel.getDouble("preis")));
-            labelMenge.setText(String.valueOf(resultSetArtikel.getDouble("menge")));
+            labelMenge.setText(String.valueOf(resultSetArtikel.getDouble("menge") + " " + resultSetArtikel.getString("abkuerzung")));
             labelRabatt.setText(String.valueOf(resultSetArtikel.getDouble("rabatt")));
             labelLagerbestand.setText(String.valueOf(resultSetArtikel.getInt("lagerbestand")));
+            if (resultSetArtikel.getString("dateityp") == null){
+                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Artikel\\Artikel.png";
+                Image image = new Image(new FileInputStream(imagePath));
+                imageviewArtikel.setImage(image);
+            }else{
+                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + resultSetArtikel.getInt("artikelId") + "\\" + resultSetArtikel.getInt("bildnummer") + "." + resultSetArtikel.getString("dateityp");
+                System.out.println(imagePath);
+                Image image = new Image(new FileInputStream(imagePath));
+                imageviewArtikel.setImage(image);
+            }
             resultSetArtikel.close();
             textfeldArtikelnummer.setVisible(false);
             textfeldName.setVisible(false);
             textfeldPreis.setVisible(false);
             textfeldMenge.setVisible(false);
-            choiceboxMenge.setVisible(false);
+            choiceBoxMenge.setVisible(false);
             textfeldRabatt.setVisible(false);
             textfeldLagerbestand.setVisible(false);
             buttonBildAendern.setVisible(false);
@@ -358,7 +359,7 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
 
     private void option2() {
         try {
-            ResultSet resultSetArtikel = statement.executeQuery("SELECT * FROM ARTIKEL WHERE artikelId = " + artikelnummer);
+            ResultSet resultSetArtikel = statement.executeQuery("SELECT * FROM artikel, einheiten WHERE artikelId = " + artikelnummer + " AND einheitId = einheit_id");
             resultSetArtikel.next();
             textfeldArtikelnummer.setText(String.valueOf(resultSetArtikel.getInt("artikelId")));
             textfeldName.setText(resultSetArtikel.getString("name"));
@@ -366,15 +367,35 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
             textfeldMenge.setText(String.valueOf(resultSetArtikel.getDouble("menge")));
             textfeldRabatt.setText(String.valueOf(resultSetArtikel.getDouble("rabatt")));
             textfeldLagerbestand.setText(String.valueOf(resultSetArtikel.getInt("lagerbestand")));
+            choiceBoxMenge.setValue(resultSetArtikel.getString("abkuerzung"));
+            ImageView imageView = null;
+            if (resultSetArtikel.getString("dateityp") == null){
+                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Artikel\\Artikel.png";
+                Image image = new Image(new FileInputStream(imagePath));
+                imageView = new ImageView();
+                imageView.setImage(image);
+            }else{
+                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + resultSetArtikel.getInt("artikelId") + "\\" + resultSetArtikel.getInt("bildnummer") + "." + resultSetArtikel.getString("dateityp");
+                Image image = new Image(new FileInputStream(imagePath));
+                imageView = new ImageView();
+                imageView.setImage(image);
+            }
             resultSetArtikel.close();
             textfeldArtikelnummer.setVisible(true);
             textfeldArtikelnummer.setEditable(false);
+            textfeldArtikelnummer.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
             textfeldName.setVisible(true);
+            textfeldName.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
             textfeldPreis.setVisible(true);
+            textfeldPreis.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
             textfeldMenge.setVisible(true);
-            choiceboxMenge.setVisible(true);
+            textfeldMenge.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+            choiceBoxMenge.setVisible(true);
+            choiceBoxMenge.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
             textfeldRabatt.setVisible(true);
+            textfeldRabatt.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
             textfeldLagerbestand.setVisible(true);
+            textfeldLagerbestand.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
             buttonBildAendern.setVisible(true);
             labelArtikelnummer.setVisible(false);
             labelName.setVisible(false);
@@ -382,6 +403,8 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
             labelMenge.setVisible(false);
             labelRabatt.setVisible(false);
             labelLagerbestand.setVisible(false);
+            resultSetArtikel.close();
+
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }

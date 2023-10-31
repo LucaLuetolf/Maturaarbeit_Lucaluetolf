@@ -1,8 +1,10 @@
 package lucaluetolf.maturaarbeit_lucaluetolf;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,9 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializable {
@@ -30,7 +35,6 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
         }
     }
 
-    private int rechnungsnummer;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -46,13 +50,24 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
     private TextField textfieldFilterVorname;
     @FXML
     private TextField textfieldFilterPostleitzahl;
+    @FXML
+    private JFXButton buttonOhneKunde;
     private String stringResultset;
+    private int dokumenttyp = 0;
+    private int rechnungsnummer = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             kundenAnzeigen(statement.executeQuery("SELECT * FROM kunden"));
-        } catch (SQLException e) {
+            ResultSet resultSetDokumenttyp = statement.executeQuery("SELECT * FROM unternehmen, bearbeiter WHERE rechnungsnummer = bestellung_id");
+            resultSetDokumenttyp.next();
+            dokumenttyp = resultSetDokumenttyp.getInt("dokumenttyp");
+            rechnungsnummer = resultSetDokumenttyp.getInt("rechnungsnummer");
+            if (dokumenttyp == 1){
+                buttonOhneKunde.setVisible(false);
+            }
+        } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
     }
@@ -191,18 +206,11 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
                         int zeilennummer = tableViewKunden.getSelectionModel().getFocusedIndex();
                         int kundennummer = Integer.parseInt(spalteKundennummer.getCellData(zeilennummer));
 
-                        ResultSet resultSetRechnungsnummer = null;
                         try {
-                            resultSetRechnungsnummer = statement.executeQuery("SELECT rechnungsnummer FROM unternehmen");
-                            resultSetRechnungsnummer.next();
-                            rechnungsnummer = resultSetRechnungsnummer.getInt("rechnungsnummer");
-                            resultSetRechnungsnummer.close();
-                            ResultSet resultsetDokumenttyp = statement.executeQuery("SELECT dokumenttyp FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
-                            resultsetDokumenttyp.next();
-                            int dokumenttyp = resultsetDokumenttyp.getInt("dokumenttyp");
-                            resultsetDokumenttyp.close();
                             statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
-                            statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp) VALUES (" + rechnungsnummer + "," + kundennummer + "," + dokumenttyp + ")");
+                            LocalDate datum = LocalDate.now();
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (" + rechnungsnummer + "," + kundennummer + "," + dokumenttyp + ", '" + formatter.format(datum) + "')");
                             root = FXMLLoader.load(getClass().getResource("artikelFuerRechnung.fxml"));
                         } catch (Exception e) {
                             AllgemeineMethoden.fehlermeldung(e);
@@ -217,6 +225,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
             }
 
             tableViewKunden.setItems(observableList);
+
         } catch (SQLException e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
@@ -230,6 +239,39 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
         spalteEmail.setPrefWidth(130);
         spalteNatelnummer.setPrefWidth(110);
 
+    }
+
+    @FXML
+    protected void ohneKunde(ActionEvent event){
+        try {
+            statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
+            LocalDate datum = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (" + rechnungsnummer + ", null," + dokumenttyp + ",'" + formatter.format(datum) + "')");
+            root = FXMLLoader.load(getClass().getResource("artikelFuerRechnung.fxml"));
+
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
+            System.out.println(e.getMessage());
+        }
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    protected void zurueck(ActionEvent event){
+        try {
+            statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
+            root = FXMLLoader.load(getClass().getResource("startseite.fxml"));
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 

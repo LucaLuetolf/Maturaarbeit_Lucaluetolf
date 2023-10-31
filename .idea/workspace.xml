@@ -4,34 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="27ec528c-de88-4b84-b51d-6e541a5319f5" name="Changes" comment="Regex beim erfassen hinzugefügt, bei Artikel sind jedoch noch fehler.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelEinzeln.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelEinzeln.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelFuerVerkauf.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundenFuerVerkauf.fxml" afterDir="false" />
+    <list default="true" id="0c83b20a-dc7f-4f42-a697-cf44f1813abe" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/Notizen.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Textdokumente/Notizen.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/SQL" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/artikel" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/kunden" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/mitarbeiter" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/AllgemeineMethoden.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/AllgemeineMethoden.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelEinzeln.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelEinzeln.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelErfassen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelErfassen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKunde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKunde.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeBearbeiten.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeBearbeiten.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeErfassen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeErfassen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeFuerRechnung.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundenFuerRechnung.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundenFuerRechnung.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundenFuerRechnung.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiStartseite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiStartseite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiTaskleiste.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiTaskleiste.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/PdfErstellen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/PdfErstellen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelBearbeiten.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelBearbeiten.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelFuerRechnung.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelFuerRechnung.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundeBearbeiten.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundeBearbeiten.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kunden.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kunden.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikel.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelEinzeln.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelEinzeln.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelErfassen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelErfassen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundeErfassen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundeErfassen.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundenFuerRechnung.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundenFuerRechnung.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/startseite.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/startseite.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,23 +48,7 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Maturaarbeit_LucaLuetolf" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Maturaarbeit_LucaLuetolf" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Maturaarbeit_LucaLuetolf" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="application" type="c8890929:TasksNode$1" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -77,156 +58,71 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaFXApplication" />
-        <option value="module-info" />
         <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;LucaLuetolf&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="6c6333cf-83cb-4879-a1e1-5cf1822b311b" />
-        <option name="url" value="https://github.com/LucaLuetolf/Maturaarbeit_Lucaluetolf" />
+        <option name="accountId" value="7582b2e8-d7a1-4e12-871e-bd5b4a02480a" />
+        <option name="url" value="https://github.com/LucaLuetolf/Maturaarbeit_Lucaluetolf.git" />
       </UrlAndAccount>
     </option>
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/Textdokumente/Tutorial Pdf" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/AllgemeineMethoden.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/Gui.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/schriftlicherTeil.java" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="workspaceImportEnabled" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectId" id="2LK3IGP0HNcsEp8ZRe9iZlKDMPV" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2W4BpKFFpTGl0fR4RboIHIvp6i3" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luca Schule/Maturaarbeit_LucaLuetolf/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.General&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/Luca Schule/Maturaarbeit_LucaLuetolf/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelFuerRechnung.fxml&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/Luca_Luetolf1/IdeaProjects/Maturaarbeit_Lucaluetolf/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "two.files.diff.last.used.file": "C:/Users/Luca_Luetolf1/IdeaProjects/Maturaarbeit_Lucaluetolf/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/startseite.fxml"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Luca Schule\Maturaarbeit_LucaLuetolf\src\main\resources\lucaluetolf\maturaarbeit_lucaluetolf" />
-      <recent name="C:\Users\Luca Schule\Maturaarbeit_LucaLuetolf\src\main\resources\lucaluetolf\maturaarbeit_lucaluetolf\Bilder\System\Login" />
-      <recent name="C:\Users\Luca Schule\Maturaarbeit_LucaLuetolf" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Luca Schule\Maturaarbeit_LucaLuetolf\src\main" />
-    </key>
-    <key name="ExtractSuperBase.RECENT_KEYS">
-      <recent name="lucaluetolf.maturaarbeit_lucaluetolf" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="lucaluetolf.maturaarbeit_lucaluetolf" />
+      <recent name="C:\Users\Luca_Luetolf1\IdeaProjects\Maturaarbeit_Lucaluetolf\src\main\resources\lucaluetolf\maturaarbeit_lucaluetolf\Bilder\System\Erstanmeldung" />
+      <recent name="C:\Users\Luca_Luetolf1\IdeaProjects\Maturaarbeit_Lucaluetolf\src\main\resources\lucaluetolf\maturaarbeit_lucaluetolf" />
+      <recent name="C:\Users\Luca_Luetolf1\IdeaProjects\Maturaarbeit_Lucaluetolf\src\main\resources\lucaluetolf\maturaarbeit_lucaluetolf\Bilder\Benutzer\Artikel" />
+      <recent name="C:\Users\Luca_Luetolf1\IdeaProjects\Maturaarbeit_Lucaluetolf\src\main\resources\lucaluetolf\maturaarbeit_lucaluetolf\Bilder\Benutzer\Artikel\Löschen" />
+      <recent name="C:\Users\Luca_Luetolf1\IdeaProjects\Maturaarbeit_Lucaluetolf\src\main\resources\lucaluetolf\maturaarbeit_lucaluetolf\Bilder\System\Artikel\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Maturaarbeit_LucaLuetolf [run]">
-    <configuration name="PdfErstellen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="lucaluetolf.maturaarbeit_lucaluetolf.PdfErstellen" />
-      <module name="Maturaarbeit_LucaLuetolf.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="lucaluetolf.maturaarbeit_lucaluetolf.Gui" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestRun" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="lucaluetolf.maturaarbeit_lucaluetolf.TestRun" />
-      <module name="Maturaarbeit_LucaLuetolf.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="lucaluetolf.maturaarbeit_lucaluetolf.Gui" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Maturaarbeit_LucaLuetolf [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="check" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="Maturaarbeit_LucaLuetolf [jpackage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jpackage" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="Maturaarbeit_LucaLuetolf [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager">
+    <configuration name="Maturaarbeit_Lucaluetolf [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -245,287 +141,24 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Maturaarbeit_LucaLuetolf [run]" />
-        <item itemvalue="Gradle.Maturaarbeit_LucaLuetolf [jpackage]" />
-        <item itemvalue="Gradle.Maturaarbeit_LucaLuetolf [check]" />
-        <item itemvalue="Application.TestRun" />
-        <item itemvalue="Application.PdfErstellen" />
+        <item itemvalue="Gradle.Maturaarbeit_Lucaluetolf [run]" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="27ec528c-de88-4b84-b51d-6e541a5319f5" name="Changes" comment="" />
-      <created>1675605867896</created>
+      <changelist id="0c83b20a-dc7f-4f42-a697-cf44f1813abe" name="Changes" comment="" />
+      <created>1695982154509</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1675605867896</updated>
+      <updated>1695982154509</updated>
     </task>
-    <task id="LOCAL-00001" summary="test123">
-      <created>1675606577665</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1675606577665</updated>
-    </task>
-    <task id="LOCAL-00002" summary=".">
-      <created>1675622724987</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1675622724987</updated>
-    </task>
-    <task id="LOCAL-00003" summary=".">
-      <created>1675622865689</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1675622865689</updated>
-    </task>
-    <task id="LOCAL-00004" summary=".">
-      <created>1675622996399</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1675622996399</updated>
-    </task>
-    <task id="LOCAL-00005" summary=".">
-      <created>1675623060824</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1675623060824</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Projekt am 05/02/2023 erstellt">
-      <created>1675623391180</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1675623391180</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Projekt am 05/02/2023 erstellt">
-      <created>1675623457491</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1675623457491</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Projekt am 05/02/2023 erstellt">
-      <created>1675623552409</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1675623552409</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Projekt am 05/02/2023 erstellt">
-      <created>1675623609947</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1675623609947</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Projekt am 05/02/2023 erstellt">
-      <created>1675623753527</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1675623753527</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Kunden Klasse erstellt, Getter, Setter programmiert, bei setupKunden angefangen">
-      <created>1675955945162</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1675955945162</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Musterkunden erstellt">
-      <created>1675955973135</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1675955973135</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Erstellt am 09/02/2023">
-      <created>1675956000800</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1675956000800</updated>
-    </task>
-    <task id="LOCAL-00014" summary="geändert am 09/02/2023">
-      <created>1675956108836</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1675956108836</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Kunden Klasse erstellt, Getter, Setter programmiert, bei setupKunden angefangen">
-      <created>1675960097080</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1675960097080</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Setup Methoden wurden in der Klasse Setup erstellt">
-      <created>1676998814144</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1676998814145</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Methode speichern wurde erstellt">
-      <created>1677428072719</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1677428072719</updated>
-    </task>
-    <task id="LOCAL-00018" summary="itextpdf importiert">
-      <created>1677586063282</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1677586063282</updated>
-    </task>
-    <task id="LOCAL-00019" summary="generate Klasse für Tests erstellt">
-      <created>1677586111411</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1677586111411</updated>
-    </task>
-    <task id="LOCAL-00020" summary="diverse Klassen erstellt, Pdf erstellen und Javafx läuft wieder">
-      <created>1678478326259</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1678478326260</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Klasse Person erstellt, setupMitarbeiter und speichernMitarbeiter Methode erstellt">
-      <created>1678823962343</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1678823962343</updated>
-    </task>
-    <task id="LOCAL-00022" summary="von Array zu Linkedlist gewechselt">
-      <created>1679329675863</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1679329675863</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Methode zum Pdf erstellen angefangen (Schluss fehlt noch)">
-      <created>1680119208337</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1680119208337</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Mit dem GUI angefangen">
-      <created>1682323129288</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1682323129288</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Die Seite Artikel und Kunden wurden angefangen, jedoch sind sie nicht Fertig. Das Fenster neue Rechnung ist in bearbeitung.">
-      <created>1686565660401</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1686565660401</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Die Rechnung kann erstellt werden, jedoch werden die Stückzahlen noch nicht vom Lagerbestand abgezogen.">
-      <created>1688567971186</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1688567971186</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Die Rechnung kann erstellt werden">
-      <created>1688636323893</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1688636323893</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Regex beim erfassen hinzugefügt, bei Artikel sind jedoch noch fehler.">
-      <created>1692855609075</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1692855609075</updated>
-    </task>
-    <option name="localTasksCounter" value="29" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="test" />
-    <MESSAGE value="test123" />
-    <MESSAGE value="." />
-    <MESSAGE value="Projekt am 05/02/2023 erstellt" />
-    <MESSAGE value="Musterkunden erstellt" />
-    <MESSAGE value="Erstellt am 09/02/2023" />
-    <MESSAGE value="geändert am 09/02/2023" />
-    <MESSAGE value="Kunden Klasse erstellt, Getter, Setter programmiert, bei setupKunden angefangen" />
-    <MESSAGE value="Setup Methoden wurden in der Klasse Setup erstellt" />
-    <MESSAGE value="Methode speichern wurde erstellt" />
-    <MESSAGE value="itextpdf importiert" />
-    <MESSAGE value="generate Klasse erstellt" />
-    <MESSAGE value="generate Klasse für Tests erstellt" />
-    <MESSAGE value="Klassen erstellt, Pdf erstellen und Javafx läuft wieder" />
-    <MESSAGE value="diverse Klassen erstellt, Pdf erstellen und Javafx läuft wieder" />
-    <MESSAGE value="Klasse Person erstellt, setupMitarbeiter und speichernMitarbeiter Methode erstellt" />
-    <MESSAGE value="von Array zu Linkedlist gewechselt" />
-    <MESSAGE value="Methode zum Pdf erstellen angefangen (Schluss fehlt noch)" />
-    <MESSAGE value="Mit dem GUI angefangen" />
-    <MESSAGE value="Die Seite Artikel und Kunden wurden angefangen, jedoch sind sie nicht Fertig. Das Fenster neue Rechnung ist in bearbeitung." />
-    <MESSAGE value="Die Rechnung kann erstellt werden, jedoch werden die Stückzahlen noch nicht vom Lagerbestand abgezogen." />
-    <MESSAGE value="Die Rechnung kann erstellt werden" />
-    <MESSAGE value="Regex beim erfassen hinzugefügt, bei Artikel sind jedoch noch fehler." />
-    <option name="LAST_COMMIT_MESSAGE" value="Regex beim erfassen hinzugefügt, bei Artikel sind jedoch noch fehler." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.IllegalStateException" package="java.lang" />
-          <option name="timeStamp" value="2" />
-        </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.RuntimeException" package="java.lang" />
-          <option name="timeStamp" value="3" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-    <watches-manager>
-      <configuration name="GradleRunConfiguration">
-        <watch expression="kunde" />
-      </configuration>
-    </watches-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Maturaarbeit_LucaLuetolf$Maturaarbeit_LucaLuetolf__run_.ic" NAME="Maturaarbeit_LucaLuetolf [run] Coverage Results" MODIFIED="1692003803197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
