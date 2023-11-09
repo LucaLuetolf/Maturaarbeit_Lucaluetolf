@@ -39,9 +39,19 @@ public class GuiKunde extends GuiTaskleiste implements Initializable {
 
     @FXML
     private TableView tableViewKunden;
+    @FXML
+    private Label labelName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT unternehmensname FROM unternehmen");
+            resultSet.next();
+            labelName.setText(resultSet.getString(1));
+            resultSet.close();
+        } catch (SQLException e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
         ObservableList<ObservableList<String>> observableList = FXCollections.observableArrayList();
         TableColumn<ObservableList<String>, String> spalteKundennummer = new TableColumn<>("Kundennummer");
         TableColumn<ObservableList<String>, String> spalteNachname = new TableColumn<>("Nachname");

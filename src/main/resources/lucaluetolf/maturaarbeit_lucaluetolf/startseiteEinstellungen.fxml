@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="800.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiEinstellungen">
+   <children>
+      <Pane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="70.0">
+         <children>
+            <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="- Unternehmensdaten anzeigen" textFill="#ba8759" />
+                  <Label layoutX="14.0" layoutY="31.0" text="- Passwort ändern" textFill="#ba8759" />
+                  <Label layoutX="14.0" layoutY="48.0" text="- Kontodaten anpassen" textFill="#ba8759" />
+               </children>
+            </Pane>
+            <Label layoutX="50.0" layoutY="20.0" text="Konto" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="85.0" layoutY="236.0" onAction="#konto" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zu Konto wechseln">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Pane layoutX="515.0" layoutY="70.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="70.0">
+         <children>
+            <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="- Einheiten anzeigen" textFill="#ba8759" />
+                  <Label layoutX="14.0" layoutY="31.0" text="- Einheiten aktivieren oder deaktivieren" textFill="#ba8759" />
+                  <Label layoutX="14.0" layoutY="48.0" text="- neue Einheiten erfassen" textFill="#ba8759" />
+               </children>
+            </Pane>
+            <Label layoutX="50.0" layoutY="20.0" text="Einheiten" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="85.0" layoutY="236.0" onAction="#einheiten" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zu Einheiten wechseln">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Pane layoutX="525.0" layoutY="80.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="55.0">
+         <children>
+            <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="- Entwicklerdaten anzeigen" textFill="#ba8759" />
+                  <Label layoutX="14.0" layoutY="31.0" textFill="#ba8759" />
+                  <Label layoutX="14.0" layoutY="48.0" textFill="#ba8759" />
+               </children>
+            </Pane>
+            <Label layoutX="50.0" layoutY="20.0" text="App-Infos" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="85.0" layoutY="236.0" onAction="#appInfos" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zu Konto wechseln">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Pane layoutX="535.0" layoutY="90.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="55.0">
+         <children>
+            <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="271.0" text="- Die App wird auf die Starteinstellungen" textFill="#ba8759" />
+                  <Label layoutX="14.0" layoutY="31.0" text="   zurückgesetzt" textFill="#ba8759" />
+                  <Label layoutX="14.0" layoutY="48.0" text="- Achtung: Alle Daten gehen verloren" textFill="#ba8759" />
+               </children>
+            </Pane>
+            <Label layoutX="50.0" layoutY="20.0" text="Zurücksetzten" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="85.0" layoutY="236.0" onAction="#appZuruecksetzten" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="App Zurücksetzten">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -5,9 +5,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -15,6 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -32,11 +37,18 @@ public class GuiStartseite extends GuiTaskleiste implements Initializable {
 
     @FXML
     private Label labelWillkommen;
+    @FXML
+    private Label labelName;
+    @FXML
+    private Label labelBesterArtikel;
+    @FXML
+    private LineChart<String, Integer> lineChart;
+    XYChart.Series<String, Integer> series;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         int time1 = Integer.parseInt(formatter.format(time));
-        /*if (time1 >= 6 && time1 < 11) {
+        if (time1 >= 6 && time1 < 11) {
             labelWillkommen.setText("Good Morning");
         }
         if (time1 >= 11 && time1 < 13) {
@@ -48,9 +60,42 @@ public class GuiStartseite extends GuiTaskleiste implements Initializable {
         if (time1 >= 17 && time1 < 22) {
             labelWillkommen.setText("Good Evening");
         }
-        if (time1 >= 22 && time1 < 6) {
+        if (time1 >= 22 || time1 < 6) {
             labelWillkommen.setText("Good Night");
-        }*/
+        }
+
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT unternehmensname FROM unternehmen");
+            resultSet.next();
+            labelName.setText(resultSet.getString(1));
+            resultSet.close();
+        } catch (SQLException e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
+
+        try {
+            lineChart.getXAxis().setAnimated(false);
+            lineChart.getYAxis().setAnimated(false);
+            series = new XYChart.Series<>();
+            ResultSet resultsetArtikelId = statement.executeQuery("SELECT artikel_id, SUM(Anzahl) AS Gesamtverkauf FROM verkaufteStueck GROUP BY Artikel_id ORDER BY Gesamtverkauf DESC");
+            resultsetArtikelId.next();
+            int artikelId = resultsetArtikelId.getInt(1);
+            labelBesterArtikel.setAlignment(Pos.CENTER);
+            resultsetArtikelId.close();
+            ResultSet resultsetName = statement.executeQuery("SELECT name FROM artikel WHERE artikelId = " + artikelId);
+            resultsetName.next();
+            String name = resultsetName.getString(1);
+            labelBesterArtikel.setText("Bestseller: " + name);
+            resultsetName.close();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM verkaufteStueck WHERE artikel_id = " + artikelId + " AND anzahl != 0 ORDER BY datum ASC");
+            while (resultSet.next()){
+                series.getData().add(new XYChart.Data<String, Integer>(resultSet.getDate("datum").toString(), resultSet.getInt("anzahl")));
+            }
+            resultSet.close();
+            lineChart.getData().add(series);
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
     }
 
     @FXML

@@ -52,14 +52,14 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
     private Button buttonWeiter;
 
 
-    private String s1 = "Herzlich Willkommen, nachfolgend wird die App erklärt und die wichtigen Inhalte werden erfasst";
-    private String s2 = "Login";
+    private String s1 = "Herzlich Willkommen, nachfolgend wird die ERP-Software erklärt. Auf dem Bild ist die Startseite zu sehen. Hier sind alle Funktionen der App zum auswählen bereit.";
+    private String s2 = "Beim starten der App wird das Loginfeld angezeigt. Hier muss der festgelegte Benutzername und das Passwort eingegeben werden. Bei richtiger Eingabe gelangen sie zur Startseite";
     private String s3 = "Startseite";
-    private String s4 = "Artikel";
-    private String s5 = "Artikel Erfassen";
-    private String s6 = "mehr Infos";
-    private String s7 = "Kunden";
-    private String s8 = "Kunde Erfassen";
+    private String s4 = "Auf dem Bild ist die Auflistung der Artikel zu sehen. Via Button Artikel erfassen können neue Artikel erfasst und bei mehr Infos bearbeitet, werden. ";
+    private String s5 = "Beim Erfassen der Daten werden falsch eingegeben Zeichen direkt herausgefiltert. Ist eine Eingabe ungültig, wird das Textfeld rot angezeigt.";
+    private String s6 = "Auf dieser Seite kann ein Artikel angepasst werden. Das einzige, was nicht geändert werden kann ist die Artikelnummer.";
+    private String s7 = "Auf diesem Bild ist die Seite Kunden zu sehen. Neue Kunden können via Kunde erfassen erfasst werden. Möchten sie einen Kunden bearbeiten, klicken sie in der Tabelle auf die gewünschte Zeile";
+    private String s8 = "Wie bei den Artikel auch, werden hier die falschen Eingaben direkt herausgefiltert.";
     private String s9 = "Kunde bearbeiten";
     private String s10 = "Rechnung erstellen, Kunde";
     private String s11 = "Rechnung erstellen, Artikel";
@@ -84,6 +84,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s1);
+                break;
             case 2:
                 buttonZurueck.setVisible(true);
                 try {
@@ -93,6 +94,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s2);
+                break;
             case 3:
                 try {
                     Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) + ".jpg"));
@@ -101,6 +103,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s3);
+                break;
             case 4:
                 try {
                     Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) + ".jpg"));
@@ -109,6 +112,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s4);
+                break;
             case 5:
                 try {
                     Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) + ".jpg"));
@@ -117,6 +121,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s5);
+                break;
             case 6:
                 try {
                     Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) + ".jpg"));
@@ -125,74 +130,97 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s6);
+                break;
         }
     }
 
     @FXML
     protected void weiter(){
         buttonWeiter.setId(String.valueOf(Integer.parseInt(buttonWeiter.getId())+1));
-
         switch (Integer.parseInt(buttonWeiter.getId())){
-            case 1:
-                try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) +".jpg"));
-                    imageviewBeschreibung.setImage(image);
-                } catch (Exception e) {
-                    AllgemeineMethoden.fehlermeldung(e);
-                }
-                labelBeschreibung.setText(s1);
             case 2:
                 buttonZurueck.setVisible(true);
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) +".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelAnzeigen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s2);
+                break;
             case 3:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) +".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelErfassen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s3);
+                break;
             case 4:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) +".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelBearbeiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s4);
+                break;
             case 5:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) +".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundenAnzeigen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s5);
+                break;
             case 6:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) +".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeErfassen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s6);
+                break;
             case 7:
-                /*try {
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeBearbeiten.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s6);
+                break;
+            case 8:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\neueRechnungKundeAuswählen.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s6);
+                break;
+            case 9:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\neueRechnungArtikelAuswählen.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s6);
+                break;
+            case 100:
+                try {
                     root = FXMLLoader.load(getClass().getResource("erstanmeldungDatenErfassen.fxml"));
                 } catch (IOException e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
-                ActionEvent event = new ActionEvent();
-                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage = (Stage) buttonWeiter.getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
-                stage.show();*/
+                stage.show();
         }
     }
 

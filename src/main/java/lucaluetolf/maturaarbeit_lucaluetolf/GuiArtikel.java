@@ -42,9 +42,19 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
     private Parent root;
     @FXML
     private GridPane gridpaneArtikel;
+    @FXML
+    private Label labelName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT unternehmensname FROM unternehmen");
+            resultSet.next();
+            labelName.setText(resultSet.getString(1));
+            resultSet.close();
+        } catch (SQLException e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
         int column = 0;
         int row = 0;
         int prefHeight = 220;
@@ -121,16 +131,19 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 labelArtikelnummer.setLayoutX(76);
                 labelArtikelnummer.setLayoutY(88);
                 labelArtikelnummer.setStyle("-fx-text-fill: #FFFFFF ");
+                labelArtikelnummer.setMaxWidth(90);
                 labelName.setLayoutX(76);
                 labelName.setLayoutY(105);
                 labelName.setStyle("-fx-text-fill: #FFFFFF ");
+                labelName.setMaxWidth(90);
                 labelPreis.setLayoutX(76);
                 labelPreis.setLayoutY(122);
                 labelPreis.setStyle("-fx-text-fill: #FFFFFF ");
-
+                labelPreis.setMaxWidth(90);
                 labelMenge.setLayoutX(76);
                 labelMenge.setLayoutY(139);
                 labelMenge.setStyle("-fx-text-fill: #FFFFFF ");
+                labelMenge.setMaxWidth(90);
 
                 lineLagerbestand.setLayoutX(84);
                 lineLagerbestand.setLayoutY(196);

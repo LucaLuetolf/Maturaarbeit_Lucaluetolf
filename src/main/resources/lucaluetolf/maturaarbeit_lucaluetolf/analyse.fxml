@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiAnalyse">
+   <children>
+      <Pane prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px;">
+         <children>
+            <Label layoutX="26.0" layoutY="164.0" prefHeight="30.0" prefWidth="149.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Artikelnummer" />
+            <TextField fx:id="textfieldArtikelnummer" layoutX="26.0" layoutY="200.0" onKeyReleased="#textfieldArtikelnummerKey" />
+            <Label layoutX="26.0" layoutY="246.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Datum von:" />
+            <Label layoutX="26.0" layoutY="322.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Datum bis:" />
+            <JFXButton layoutX="26.0" layoutY="493.0" onAction="#anwenden" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Anwenden">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="26.0" layoutY="681.0" onAction="#toSceneStartseite" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurück">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="buttonZuruecksetzten" layoutX="26.0" layoutY="553.0" onAction="#zuruecksetzten" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurüchsetzen">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </JFXButton>
+            <DatePicker fx:id="datePickerVon" layoutX="26.0" layoutY="276.0" prefWidth="149.0" />
+            <DatePicker fx:id="datePickerBis" layoutX="26.0" layoutY="358.0" prefWidth="149.0" />
+            <CheckBox fx:id="checkboxVergleich" layoutX="26.0" layoutY="400.0" mnemonicParsing="false" text="Vergleich" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </Pane>
+      <LineChart fx:id="lineChart" layoutX="307.0" layoutY="100.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+   </children>
+</AnchorPane>

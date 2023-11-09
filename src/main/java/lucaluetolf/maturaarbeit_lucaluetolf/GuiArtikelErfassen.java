@@ -188,13 +188,15 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
                         dateityp = altesBild.getName().substring(index + 1);
                     }
                     File neuerName = new File(newPath + "\\1." + dateityp);
-                    System.out.println(newPath);
                     neuesBild.renameTo(neuerName);
-                    File ordner1 = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\test");
+                    File ordner1 = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang");
                     File ordner2 = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + textfeldArtikelnummer.getText());
                     ordner1.renameTo(ordner2);
                     AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang");
                     statement.execute("UPDATE artikel SET dateityp = '" + dateityp + "', bildnummer = 1 WHERE artikelId = " + textfeldArtikelnummer.getText());
+                }
+                else{
+                    AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + textfeldArtikelnummer.getText());
                 }
                 root = FXMLLoader.load(getClass().getResource("artikel.fxml"));
             } catch (Exception e) {

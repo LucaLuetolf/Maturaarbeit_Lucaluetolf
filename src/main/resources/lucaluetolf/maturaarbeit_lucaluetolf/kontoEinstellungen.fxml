@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiVerkauf"
-            prefHeight="800.0" prefWidth="1200.0">
+            fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiEinstellungen"
+            prefHeight="800.0" prefWidth="970.0">
 
 </AnchorPane>

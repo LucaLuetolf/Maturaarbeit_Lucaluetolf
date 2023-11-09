@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -11,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiStartseite">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiStartseite">
    <children>
       <VBox prefHeight="800.0" prefWidth="230.0">
          <children>
@@ -19,9 +22,9 @@
                <children>
                   <Pane layoutX="15.0" layoutY="26.0" prefHeight="80.0" prefWidth="200.0" styleClass="panelinkslogo" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="1.0" layoutY="5.0" prefHeight="70.0" prefWidth="196.0" text="Name" textFill="#ba8759">
+                        <Label fx:id="labelName" alignment="CENTER" contentDisplay="TOP" layoutX="1.0" layoutY="5.0" maxWidth="180.0" prefHeight="70.0" prefWidth="180.0" text="Name" textFill="#ba8759">
                            <font>
-                              <Font size="48.0" />
+                              <Font size="32.0" />
                            </font>
                         </Label>
                      </children>
@@ -31,10 +34,8 @@
                   <JFXButton layoutX="17.0" layoutY="295.0" onAction="#toSceneKunden" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Kunden" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="270.0" />
                   <JFXButton layoutX="14.0" layoutY="359.0" onAction="#toSceneNeueRechnung" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="neue Rechnung" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="330.0" />
                   <JFXButton layoutX="17.0" layoutY="425.0" onAction="#toSceneVerkauf" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Verkauf" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="390.0" />
-                  <JFXButton layoutX="18.0" layoutY="421.0" onAction="#toSceneLagerbestand" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Lagerbestand" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="450.0" />
-                  <JFXButton layoutX="15.0" layoutY="495.0" onAction="#toSceneMitarbeiter" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Mitarbeiter" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="510.0" />
-                  <JFXButton layoutX="12.0" layoutY="559.0" onAction="#toSceneArchiv" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Archiv" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="570.0" />
-                  <JFXButton layoutX="15.0" layoutY="625.0" onAction="#toSceneBuchhaltung" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Buchhaltung" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="630.0" />
+                  <JFXButton layoutX="18.0" layoutY="421.0" onAction="#toScenePdfBearbeiten" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Pdf Bearbeiten" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="450.0" />
+                  <JFXButton layoutX="15.0" layoutY="495.0" onAction="#toSceneAnalyse" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Analyse" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="510.0" />
                </children>
             </AnchorPane>
          </children>
@@ -99,61 +100,33 @@
             </Pane>
             <Pane layoutX="62.0" layoutY="479.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
                <children>
-                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneLagerbestand" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Lagerbestand">
+                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toScenePdfBearbeiten" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Pdf Bearbeiten">
                      <font>
                         <Font size="48.0" />
                      </font>
                   </JFXButton>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Bilder/System/Startseite/Lagerbestand.png" />
+                        <Image url="@Bilder/System/Startseite/PdfBearbeiten.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="284.0" layoutY="479.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
+            <Pane layoutX="285.0" layoutY="479.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
                <children>
-                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneMitarbeiter" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Mitarbeiter">
+                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneAnalyse" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Analyse">
                      <font>
                         <Font size="48.0" />
                      </font>
                   </JFXButton>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Bilder/System/Startseite/Mitarbeiter.png" />
+                        <Image url="@Bilder/System/Startseite/Analyse.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="507.0" layoutY="479.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
-               <children>
-                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneArchiv" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Archiv">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </JFXButton>
-                  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Bilder/System/Startseite/Archiv.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane layoutX="727.0" layoutY="479.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
-               <children>
-                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneBuchhaltung" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Buchhaltung">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </JFXButton>
-                  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Bilder/System/Startseite/buchhaltung.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Label fx:id="labelWillkommen" layoutX="64.0" layoutY="121.0" prefHeight="50.0" prefWidth="441.0" styleClass="labelWillkommen" />
+            <Label fx:id="labelWillkommen" layoutX="64.0" layoutY="121.0" prefHeight="50.0" prefWidth="441.0" styleClass="labelWillkommen" text="Label" textFill="#ba8759" />
             <Button layoutX="798.0" layoutY="121.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 25;">
                <graphic>
                   <ImageView fx:id="logout" fitHeight="55.0" fitWidth="55.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
@@ -172,6 +145,23 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Pane layoutX="505.0" layoutY="479.0" prefHeight="200.0" prefWidth="420.0" styleClass="panebutton">
+               <children>
+                  <LineChart fx:id="lineChart" animated="false" layoutX="5.0" layoutY="27.0" prefHeight="173.0" prefWidth="411.0">
+                    <xAxis>
+                      <CategoryAxis animated="false" side="BOTTOM" tickLabelFill="WHITE" visible="false" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" tickLabelFill="WHITE" />
+                    </yAxis>
+                  </LineChart>
+                  <Label fx:id="labelBesterArtikel" layoutX="48.0" layoutY="6.0" maxWidth="355.0" prefHeight="30.0" prefWidth="355.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>

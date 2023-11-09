@@ -6,6 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -104,10 +108,33 @@ public class GuiTaskleiste {
     }
 
     @FXML
-    protected void toSceneLagerbestand(ActionEvent event) {
+    protected void toScenePdfBearbeiten(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        TextField textfield = new TextField();
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Bitte geben sie die Rechnungs- oder Quittungsnummer ein:");
+
+
+        alert.getDialogPane().setContent(textfield);
+        alert.showAndWait();
+        int rechnungsnummer = Integer.parseInt(textfield.getText());
+
         try {
-            root = FXMLLoader.load(getClass().getResource("lagerbestand.fxml"));
-        } catch (IOException e) {
+            ResultSet resultsetUeberpruefen = statement.executeQuery("SELECT COUNT(bestellung_Id) FROM bearbeiter WHERE bestellung_Id = " + rechnungsnummer);
+            resultsetUeberpruefen.next();
+            if (resultsetUeberpruefen.getInt(1) == 1){
+                statement.execute("UPDATE unternehmen SET bearbeiten = " + rechnungsnummer);
+                root = FXMLLoader.load(getClass().getResource("artikelFuerRechnung.fxml"));
+            } else{
+                Alert alertKeineRechnung = new Alert(Alert.AlertType.INFORMATION);
+                alertKeineRechnung.setTitle("Information Dialog");
+                alertKeineRechnung.setHeaderText("Neue Information:");
+                alertKeineRechnung.setContentText("Leider wurde keine Rechnung oder Quittung mit der Nummer: " + rechnungsnummer + " gefunden");
+                alertKeineRechnung.showAndWait();
+                root = FXMLLoader.load(getClass().getResource("startseite.fxml"));
+            }
+
+        } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -118,37 +145,9 @@ public class GuiTaskleiste {
     }
 
     @FXML
-    protected void toSceneMitarbeiter(ActionEvent event) {
+    protected void toSceneAnalyse(ActionEvent event) {
         try {
-            root = FXMLLoader.load(getClass().getResource("mitarbeiter.fxml"));
-        } catch (IOException e) {
-            AllgemeineMethoden.fehlermeldung(e);
-        }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    @FXML
-    protected void toSceneArchiv(ActionEvent event) {
-        try {
-            root = FXMLLoader.load(getClass().getResource("archiv.fxml"));
-        } catch (IOException e) {
-            AllgemeineMethoden.fehlermeldung(e);
-        }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    @FXML
-    protected void toSceneBuchhaltung(ActionEvent event) {
-        try {
-            root = FXMLLoader.load(getClass().getResource("buchhaltung.fxml"));
+            root = FXMLLoader.load(getClass().getResource("analyse.fxml"));
         } catch (IOException e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
