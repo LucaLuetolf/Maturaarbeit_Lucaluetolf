@@ -52,14 +52,13 @@ jlink {
         name = 'app'
     }
 }
-
 jlinkZip {
     group = 'distribution'
 }
 
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'edu.andreasgut.Launcher'
+        attributes 'Main-Class': 'lucaluetolf.maturaarbeit_lucaluetolf.Main'
     }
     archiveBaseName = project.name + 'Fat-Jar'
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }

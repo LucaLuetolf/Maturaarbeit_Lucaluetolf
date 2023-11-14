@@ -88,7 +88,7 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
 
     int artikelnummer;
     private String filePath = "";
-    private String newPath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\";
+    private String newPath = "Bilder/Benutzer/Artikel/";
 
 
     @Override
@@ -144,7 +144,7 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
                     resultsetEinheit.close();
 
                     if (filePath != ""){
-                        newPath = newPath + textfeldArtikelnummer.getText() + "\\";
+                        newPath = newPath + textfeldArtikelnummer.getText() + "/";
                         AllgemeineMethoden.dateiKopieren(filePath, newPath);
                         ResultSet resultSetDateityp = statement.executeQuery("SELECT * FROM artikel WHERE artikelId = " + artikelnummer);
                         resultSetDateityp.next();
@@ -156,13 +156,13 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
                         }
 
                         File neuesBildAlterPfad = new File(filePath);
-                        File neuesBildAlterName = new File(newPath + "\\" + neuesBildAlterPfad.getName());
+                        File neuesBildAlterName = new File(newPath + "/" + neuesBildAlterPfad.getName());
                         String dateitypNeu = "";
                         int index = neuesBildAlterPfad.getName().lastIndexOf(".");
                         if (index > 0) {
                             dateitypNeu = neuesBildAlterPfad.getName().substring(index + 1);
                         }
-                        File neuesBildNeuerName = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + textfeldArtikelnummer.getText() + "\\" + (bildnummer+1) + "." + dateitypNeu);
+                        File neuesBildNeuerName = new File("Bilder/Benutzer/Artikel/" + textfeldArtikelnummer.getText() + "/" + (bildnummer+1) + "." + dateitypNeu);
                         neuesBildAlterName.renameTo(neuesBildNeuerName);
                         statement.execute("UPDATE artikel SET dateityp = '" + dateitypNeu + "', bildnummer = " + (bildnummer+1) + "WHERE artikelId = " + textfeldArtikelnummer.getText());
                     }
@@ -326,11 +326,11 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
             labelRabatt.setText(String.valueOf(resultSetArtikel.getDouble("rabatt")));
             labelLagerbestand.setText(String.valueOf(resultSetArtikel.getInt("lagerbestand")));
             if (resultSetArtikel.getString("dateityp") == null){
-                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Artikel\\Artikel.png";
+                String imagePath = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png";
                 Image image = new Image(new FileInputStream(imagePath));
                 imageviewArtikel.setImage(image);
             }else{
-                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + resultSetArtikel.getInt("artikelId") + "\\" + resultSetArtikel.getInt("bildnummer") + "." + resultSetArtikel.getString("dateityp");
+                String imagePath = "Bilder/Benutzer/Artikel/" + resultSetArtikel.getInt("artikelId") + "/" + resultSetArtikel.getInt("bildnummer") + "." + resultSetArtikel.getString("dateityp");
                 System.out.println(imagePath);
                 Image image = new Image(new FileInputStream(imagePath));
                 imageviewArtikel.setImage(image);
@@ -366,17 +366,15 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
             textfeldRabatt.setText(String.valueOf(resultSetArtikel.getDouble("rabatt")));
             textfeldLagerbestand.setText(String.valueOf(resultSetArtikel.getInt("lagerbestand")));
             choiceBoxMenge.setValue(resultSetArtikel.getString("abkuerzung"));
-            ImageView imageView = null;
             if (resultSetArtikel.getString("dateityp") == null){
-                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Artikel\\Artikel.png";
+                String imagePath = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png";
                 Image image = new Image(new FileInputStream(imagePath));
-                imageView = new ImageView();
-                imageView.setImage(image);
+                imageviewArtikel.setImage(image);
             }else{
-                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + resultSetArtikel.getInt("artikelId") + "\\" + resultSetArtikel.getInt("bildnummer") + "." + resultSetArtikel.getString("dateityp");
+                String imagePath = "Bilder/Benutzer/Artikel/" + resultSetArtikel.getInt("artikelId") + "/" + resultSetArtikel.getInt("bildnummer") + "." + resultSetArtikel.getString("dateityp");
+                System.out.println(imagePath);
                 Image image = new Image(new FileInputStream(imagePath));
-                imageView = new ImageView();
-                imageView.setImage(image);
+                imageviewArtikel.setImage(image);
             }
             resultSetArtikel.close();
             textfeldArtikelnummer.setVisible(true);

@@ -12,24 +12,53 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializable {
     Statement statement;
+    Connection connection;
+    private int rechnungsnummer = 0;
+    private int modus = 0;
+    private boolean bearbeiten = false;
 
     {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
+            connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
             statement = connection.createStatement();
+            ResultSet resultsetBearbeiten = statement.executeQuery("SELECT COUNT(bearbeiten) FROM unternehmen");
+            resultsetBearbeiten.next();
+            int exists = resultsetBearbeiten.getInt(1);
+            resultsetBearbeiten.close();
+            if (exists == 1){
+                bearbeiten = true;
+                ResultSet resultsetRechnungsnummer = statement.executeQuery("SELECT * FROM unternehmen");
+                resultsetRechnungsnummer.next();
+                rechnungsnummer = resultsetRechnungsnummer.getInt("bearbeiten");
+                resultsetRechnungsnummer.close();
+                ResultSet resultSetModus = statement.executeQuery("SELECT * FROM unternehmen, bearbeiter WHERE bearbeiten = bestellung_id");
+                resultSetModus.next();
+                modus = resultSetModus.getInt("dokumenttyp");
+                resultSetModus.close();
+            }else{
+                ResultSet resultsetRechnungsnummer = statement.executeQuery("SELECT * FROM unternehmen");
+                resultsetRechnungsnummer.next();
+                rechnungsnummer = resultsetRechnungsnummer.getInt("rechnungsnummer");
+                resultsetRechnungsnummer.close();
+                ResultSet resultSetModus = statement.executeQuery("SELECT * FROM unternehmen, bearbeiter WHERE rechnungsnummer = bestellung_id");
+                resultSetModus.next();
+                modus = resultSetModus.getInt("dokumenttyp");
+                resultSetModus.close();
+            }
         } catch (SQLException e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
@@ -54,17 +83,12 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
     private JFXButton buttonOhneKunde;
     private String stringResultset;
     private int dokumenttyp = 0;
-    private int rechnungsnummer = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             kundenAnzeigen(statement.executeQuery("SELECT * FROM kunden"));
-            ResultSet resultSetDokumenttyp = statement.executeQuery("SELECT * FROM unternehmen, bearbeiter WHERE rechnungsnummer = bestellung_id");
-            resultSetDokumenttyp.next();
-            dokumenttyp = resultSetDokumenttyp.getInt("dokumenttyp");
-            rechnungsnummer = resultSetDokumenttyp.getInt("rechnungsnummer");
-            if (dokumenttyp == 1){
+            if (modus == 1){
                 buttonOhneKunde.setVisible(false);
             }
         } catch (Exception e) {
@@ -210,7 +234,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
                             statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
                             LocalDate datum = LocalDate.now();
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                            statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (" + rechnungsnummer + "," + kundennummer + "," + dokumenttyp + ", '" + formatter.format(datum) + "')");
+                            statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (" + rechnungsnummer + "," + kundennummer + "," + modus + ", '" + formatter.format(datum) + "')");
                             root = FXMLLoader.load(getClass().getResource("artikelFuerRechnung.fxml"));
                         } catch (Exception e) {
                             AllgemeineMethoden.fehlermeldung(e);
@@ -247,7 +271,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
             statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
             LocalDate datum = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (" + rechnungsnummer + ", null," + dokumenttyp + ",'" + formatter.format(datum) + "')");
+            statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (" + rechnungsnummer + ", null," + modus + ",'" + formatter.format(datum) + "')");
             root = FXMLLoader.load(getClass().getResource("artikelFuerRechnung.fxml"));
 
         } catch (Exception e) {
@@ -263,7 +287,22 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
     @FXML
     protected void zurueck(ActionEvent event){
         try {
-            statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
+            if (bearbeiten == true){
+                ResultSet resultsetLagerbestandAendern = statement.executeQuery("SELECT * FROM bestellung, bearbeiter WHERE bestellungId = 0");
+                while (resultsetLagerbestandAendern.next()){
+                    statement.execute("UPDATE artikel SET lagerbestand = lagerbestand - " + resultsetLagerbestandAendern.getInt("anzahl") + " WHERE artikelId = " + resultsetLagerbestandAendern.getInt("artikel_id"));
+                    statement.execute("UPDATE verkaufteStueck SET anzahl = anzahl + " + resultsetLagerbestandAendern.getInt("anzahl") + " WHERE artikelId = " + resultsetLagerbestandAendern.getInt("artikel_id") + " AND WHERE datum = '" + resultsetLagerbestandAendern.getDate("datum") + "'");
+                }
+                resultsetLagerbestandAendern.close();
+                statement.execute("DELETE FROM bestellung WHERE bestellungId = " + rechnungsnummer);
+                statement.execute("UPDATE bestellung SET bestellungId = " + rechnungsnummer + "WHERE bestellungId = 0");
+                statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
+                statement.execute("UPDATE bearbeiter SET bestellung_id = " + rechnungsnummer + " WHERE bestellung_id = 0");
+                statement.execute("UPDATE unternehmen SET bearbeiten = null");
+            } else{
+                statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
+            }
+
             root = FXMLLoader.load(getClass().getResource("startseite.fxml"));
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);

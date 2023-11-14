@@ -131,7 +131,7 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
     private boolean booleanIban = true;
 
     private String filePath = "";
-    private String newPath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\";
+    private String newPath = "Bilder/Benutzer/Unternehmen/";
 
     private boolean booleanEinheitId = false;
     private boolean booleanBezeichnung = false;
@@ -285,11 +285,11 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
             ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
             resultSetUnternehmen.next();
             if (resultSetUnternehmen.getString("dateityp") == null){
-                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Unternehmen\\Logo.png";
+                String imagePath = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Unternehmen/Logo.png";
                 Image image = new Image(new FileInputStream(imagePath));
                 imageviewUnternehmen.setImage(image);
             }else{
-                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\" + resultSetUnternehmen.getInt("bildnummer") + "." + resultSetUnternehmen.getString("dateityp");
+                String imagePath = "Bilder/Benutzer/Unternehmen/" + resultSetUnternehmen.getInt("bildnummer") + "." + resultSetUnternehmen.getString("dateityp");
                 Image image = new Image(new FileInputStream(imagePath));
                 imageviewUnternehmen.setImage(image);
             }
@@ -360,13 +360,13 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
                         resultSetDateityp.close();
 
                         File neuesBildAlterPfad = new File(filePath);
-                        File neuesBildAlterName = new File(newPath + "\\" + neuesBildAlterPfad.getName());
+                        File neuesBildAlterName = new File(newPath + "/" + neuesBildAlterPfad.getName());
                         String dateitypNeu = "";
                         int index = neuesBildAlterPfad.getName().lastIndexOf(".");
                         if (index > 0) {
                             dateitypNeu = neuesBildAlterPfad.getName().substring(index + 1);
                         }
-                        File neuesBildNeuerName = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\" + (bildnummer+1) + "." + dateitypNeu);
+                        File neuesBildNeuerName = new File("Bilder/Benutzer/Unternehmen/" + (bildnummer+1) + "." + dateitypNeu);
                         neuesBildAlterName.renameTo(neuesBildNeuerName);
                         statement.execute("UPDATE unternehmen SET dateityp = '" + dateitypNeu + "', bildnummer = " + (bildnummer+1));
                     }

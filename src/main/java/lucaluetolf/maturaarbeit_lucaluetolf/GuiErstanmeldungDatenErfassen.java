@@ -99,7 +99,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     private boolean booleanIban = true;
 
     private String filePathLogo = "";
-    private String newPathLogo = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\";
+    private String newPathLogo = "Bilder/Benutzer/Unternehmen/";
 
 
     //Artikel:
@@ -129,7 +129,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     private boolean booleanLagerbestand = false;
 
     private String filePath = "";
-    private String newPath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang\\";
+    private String newPath = "Bilder/Benutzer/Artikel/Übergang/";
 
     //Kunden:
 
@@ -255,7 +255,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                     if (index > 0) {
                         dateityp = altesBild.getName().substring(index + 1);
                     }
-                    File neuerName = new File(newPathLogo + "\\1." + dateityp);
+                    File neuerName = new File(newPathLogo + "/1." + dateityp);
                     neuesBild.renameTo(neuerName);
                     statement.execute("UPDATE unternehmen SET dateityp = '" + dateityp + "', bildnummer = 1");
                 }
@@ -384,16 +384,16 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                     if (index > 0) {
                         dateityp = altesBild.getName().substring(index + 1);
                     }
-                    File neuerName = new File(newPath + "\\1." + dateityp);
+                    File neuerName = new File(newPath + "/1." + dateityp);
                     neuesBild.renameTo(neuerName);
-                    File ordner1 = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang");
-                    File ordner2 = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + artikelnummer);
+                    File ordner1 = new File("Bilder/Benutzer/Artikel/Übergang");
+                    File ordner2 = new File("Bilder/Benutzer/Artikel/" + artikelnummer);
                     ordner1.renameTo(ordner2);
-                    AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang");
+                    AllgemeineMethoden.ordnerErstellen("Bilder/Benutzer/Artikel/Übergang");
                     statement.execute("UPDATE artikel SET dateityp = '" + dateityp + "', bildnummer = 1 WHERE artikelId = " + artikelnummer);
                 }
                 else{
-                    AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + textfeldArtikelnummer.getText());
+                    AllgemeineMethoden.ordnerErstellen("Bilder/Benutzer/Artikel/" + textfeldArtikelnummer.getText());
                 }
             } catch (Exception e) {
                 AllgemeineMethoden.fehlermeldung(e);
@@ -515,9 +515,9 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
         if (booleanKundennummer && booleanNachname && booleanVorname && booleanAdresse && booleanPostleitzahl && booleanOrt && booleanEmail && booleanNatelnummer) {
             try {
                 statement.execute("INSERT INTO kunden (kundenId, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer) VALUES (" + textfeldKundennummer.getText() + ",'" + textfeldNachname.getText() + "','" + textfeldVorname.getText() + "','" + textfeldAdresse.getText() + "'," + textfeldPostleitzahl.getText() + ",'" + textfeldOrt.getText() + "','" + textfeldEmail.getText() + "'," + textfeldNatelnummer.getText() + ")");
-                AllgemeineMethoden.ordnerErstellen("Kundendateien\\" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText());
-                AllgemeineMethoden.ordnerErstellen("Kundendateien\\" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "\\Quittungen");
-                AllgemeineMethoden.ordnerErstellen("Kundendateien\\" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "\\Rechnungen");
+                AllgemeineMethoden.ordnerErstellen("Kundendateien/" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText());
+                AllgemeineMethoden.ordnerErstellen("Kundendateien/" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "/Quittungen");
+                AllgemeineMethoden.ordnerErstellen("Kundendateien/" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "/Rechnungen");
             } catch (Exception e) {
                 AllgemeineMethoden.fehlermeldung(e);
             }
@@ -597,7 +597,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                 choiceBoxMenge.setItems(werte);
                 Image image = null;
                 try {
-                    image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Artikel\\Artikel.png"));
+                    image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png"));
                     imageView.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);

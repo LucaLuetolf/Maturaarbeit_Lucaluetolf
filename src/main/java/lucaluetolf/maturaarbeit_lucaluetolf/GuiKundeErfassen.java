@@ -141,9 +141,9 @@ public class GuiKundeErfassen extends GuiTaskleiste {
             try {
                 statement.execute("INSERT INTO kunden (kundenId, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer) VALUES (" + textfeldKundennummer.getText() + ",'" + textfeldNachname.getText() + "','" + textfeldVorname.getText() + "','" + textfeldAdresse.getText() + "'," + textfeldPostleitzahl.getText() + ",'" + textfeldOrt.getText() + "','" + textfeldEmail.getText() + "'," + textfeldNatelnummer.getText() + ")");
                 root = FXMLLoader.load(getClass().getResource("kunden.fxml"));
-                AllgemeineMethoden.ordnerErstellen("Kundendateien\\" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText());
-                AllgemeineMethoden.ordnerErstellen("Kundendateien\\" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "\\Quittungen");
-                AllgemeineMethoden.ordnerErstellen("Kundendateien\\" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "\\Rechnungen");
+                AllgemeineMethoden.ordnerErstellen("Kundendateien/" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText());
+                AllgemeineMethoden.ordnerErstellen("Kundendateien/" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "/Quittungen");
+                AllgemeineMethoden.ordnerErstellen("Kundendateien/" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "/Rechnungen");
             } catch (Exception e) {
                 AllgemeineMethoden.fehlermeldung(e);
             }

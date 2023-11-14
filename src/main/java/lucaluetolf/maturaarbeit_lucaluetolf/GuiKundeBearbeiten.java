@@ -99,8 +99,8 @@ public class GuiKundeBearbeiten extends GuiTaskleiste implements Initializable {
             try {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM kunden WHERE kundenId = " + kundennummer);
                 resultSet.next();
-                File file = new File("Kundendateien\\" + kundennummer + ", " + resultSet.getString("nachname") + " " + resultSet.getString("vorname"));
-                file.renameTo(new File("Kundendateien\\" + kundennummer + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText()));
+                File file = new File("Kundendateien/" + kundennummer + ", " + resultSet.getString("nachname") + " " + resultSet.getString("vorname"));
+                file.renameTo(new File("Kundendateien/" + kundennummer + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText()));
                 statement.execute("UPDATE kunden SET nachname = '" + textfeldNachname.getText() + "', vorname = '" + textfeldVorname.getText() + "', adresse = '" + textfeldAdresse.getText() + "', postleitzahl = " + textfeldPostleitzahl.getText() + ", ort = '" + textfeldOrt.getText() + "', email = '" + textfeldEmail.getText() + "', natelnummer = " + textfeldNatelnummer.getText() + "WHERE kundenId = " + kundennummer);
                 root = FXMLLoader.load(getClass().getResource("kunden.fxml"));
             } catch (Exception e) {

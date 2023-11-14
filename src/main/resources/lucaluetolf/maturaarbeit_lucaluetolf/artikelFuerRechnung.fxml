@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiArtikelFuerRechnung3">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiArtikelFuerRechnung">
     <children>
         <ScrollPane fitToWidth="true" layoutX="42.0" layoutY="137.0" prefHeight="582.0" prefWidth="852.0">
             <content>

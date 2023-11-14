@@ -96,12 +96,12 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
 
                 ImageView imageView = null;
                 if (resultSet.getString("dateityp") == null){
-                    String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Artikel\\Artikel.png";
+                    String imagePath = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png";
                     Image image = new Image(new FileInputStream(imagePath));
                     imageView = new ImageView();
                     imageView.setImage(image);
                 }else{
-                    String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + resultSet.getInt("artikelId") + "\\" + resultSet.getInt("bildnummer") + "." + resultSet.getString("dateityp");
+                    String imagePath = "Bilder/Benutzer/Artikel/" + resultSet.getInt("artikelId") + "/" + resultSet.getInt("bildnummer") + "." + resultSet.getString("dateityp");
                     Image image = new Image(new FileInputStream(imagePath));
                     imageView = new ImageView();
                     imageView.setImage(image);

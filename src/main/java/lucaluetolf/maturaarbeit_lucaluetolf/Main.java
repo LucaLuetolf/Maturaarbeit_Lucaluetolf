@@ -66,10 +66,11 @@ public class Main extends Application {
             resultSetUnternehmen.next();
             if (resultSetUnternehmen.getInt(1) == 0) {
                 AllgemeineMethoden.ordnerErstellen("Kundendateien");
-                AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer");
-                AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel");
-                AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang");
-                AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen");
+                AllgemeineMethoden.ordnerErstellen("Bilder");
+                AllgemeineMethoden.ordnerErstellen("Bilder/Benutzer");
+                AllgemeineMethoden.ordnerErstellen("Bilder/Benutzer/Artikel");
+                AllgemeineMethoden.ordnerErstellen("Bilder/Benutzer/Artikel/Übergang");
+                AllgemeineMethoden.ordnerErstellen("Bilder/Benutzer/Unternehmen");
 
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("erstanmeldung.fxml"));
                 scene = new Scene(fxmlLoader.load(), 1200, 800);
@@ -95,7 +96,7 @@ public class Main extends Application {
                 resultSet.close();
                 ResultSet resultsetLoeschen = statement.executeQuery("SELECT * FROM loeschen");
                 while (resultsetLoeschen.next()){
-                    Files.delete(Path.of("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + resultsetLoeschen.getInt("artikel_Id") + "\\" + resultsetLoeschen.getInt("bildnummer") + "." + resultsetLoeschen.getString("dateityp")));
+                    Files.delete(Path.of("Bilder/Benutzer/Artikel/" + resultsetLoeschen.getInt("artikel_Id") + "/" + resultsetLoeschen.getInt("bildnummer") + "." + resultsetLoeschen.getString("dateityp")));
                 }
                 resultsetLoeschen.close();
                 statement.execute("DROP TABLE IF EXISTS loeschen");
@@ -106,7 +107,7 @@ public class Main extends Application {
 
         stage.setTitle("ERP-Software");
         try {
-            Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Icon\\AppIcon.png"));
+            Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Icon/AppIcon.png"));
             stage.getIcons().add(image);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

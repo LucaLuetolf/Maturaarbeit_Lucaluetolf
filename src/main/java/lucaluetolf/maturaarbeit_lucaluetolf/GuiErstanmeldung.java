@@ -81,7 +81,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
             case 1:
                 buttonZurueck.setVisible(true);
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\startseite.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/startseite.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -91,7 +91,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
             case 2:
                 buttonZurueck.setVisible(true);
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\login.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/login.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -101,7 +101,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
             case 3:
                 buttonZurueck.setVisible(true);
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelAnzeigen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/artikelAnzeigen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -110,7 +110,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 4:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelErfassen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/artikelErfassen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -119,7 +119,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 5:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelBearbeiten.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/artikelBearbeiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -128,7 +128,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 6:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundenAnzeigen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/kundenAnzeigen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -137,7 +137,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 7:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeErfassen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/kundeErfassen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -146,7 +146,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 8:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeBearbeiten.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/kundeBearbeiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -155,7 +155,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 9:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\neueRechnungKundeAuswählen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/neueRechnungKundeAuswählen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -164,7 +164,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 10:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\pdfDokument.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/pdfDokument.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -173,7 +173,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 11:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\verkauf.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/verkauf.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -182,7 +182,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 12:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\pdfBearbeiten.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/pdfBearbeiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -191,7 +191,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 13:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\analyse.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/analyse.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -200,7 +200,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 14:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\neueRechnungArtikelAuswählen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/neueRechnungArtikelAuswählen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -209,7 +209,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 15:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\einstellungen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/einstellungen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -218,7 +218,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 16:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\konto.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/konto.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -227,7 +227,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 17:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\einheiten.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/einheiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -244,7 +244,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
             case 2:
                 buttonZurueck.setVisible(true);
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\login.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/login.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -254,7 +254,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
             case 3:
                 buttonZurueck.setVisible(true);
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelAnzeigen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/artikelAnzeigen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -263,7 +263,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 4:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelErfassen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/artikelErfassen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -272,7 +272,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 5:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelBearbeiten.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/artikelBearbeiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -281,7 +281,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 6:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundenAnzeigen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/kundenAnzeigen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -290,7 +290,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 7:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeErfassen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/kundeErfassen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -299,7 +299,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 8:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeBearbeiten.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/kundeBearbeiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -308,7 +308,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 9:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\neueRechnungKundeAuswählen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/neueRechnungKundeAuswählen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -317,7 +317,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 10:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\pdfDokument.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/pdfDokument.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -326,7 +326,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 11:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\verkauf.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/verkauf.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -335,7 +335,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 12:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\pdfBearbeiten.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/pdfBearbeiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -344,7 +344,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 13:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\analyse.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/analyse.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -353,7 +353,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 14:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\neueRechnungArtikelAuswählen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/neueRechnungArtikelAuswählen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -362,7 +362,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 15:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\einstellungen.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/einstellungen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -371,7 +371,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 16:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\konto.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/konto.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -380,7 +380,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 17:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\einheiten.png"));
+                    Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/einheiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -413,7 +413,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
         buttonWeiter.setId("1");
         buttonZurueck.setVisible(false);
         try {
-            Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\startseite.png"));
+            Image image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/startseite.png"));
             imageviewBeschreibung.setImage(image);
             labelBeschreibung.setText(s1);
         } catch (Exception e) {
@@ -422,3 +422,4 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
     }
 
 }
+

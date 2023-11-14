@@ -71,7 +71,7 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
     private boolean booleanLagerbestand = false;
 
     private String filePath = "";
-    private String newPath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang\\";
+    private String newPath = "Bilder/Benutzer/Artikel/Übergang/";
 
     private boolean tester(String regex, TextField textField) {
         boolean boolean1 = textField.getText().matches(regex);
@@ -187,16 +187,16 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
                     if (index > 0) {
                         dateityp = altesBild.getName().substring(index + 1);
                     }
-                    File neuerName = new File(newPath + "\\1." + dateityp);
+                    File neuerName = new File(newPath + "/1." + dateityp);
                     neuesBild.renameTo(neuerName);
-                    File ordner1 = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang");
-                    File ordner2 = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + textfeldArtikelnummer.getText());
+                    File ordner1 = new File("Bilder/Benutzer/Artikel/Übergang");
+                    File ordner2 = new File("Bilder/Benutzer/Artikel/" + textfeldArtikelnummer.getText());
                     ordner1.renameTo(ordner2);
-                    AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang");
+                    AllgemeineMethoden.ordnerErstellen("Bilder/Benutzer/Artikel/Übergang");
                     statement.execute("UPDATE artikel SET dateityp = '" + dateityp + "', bildnummer = 1 WHERE artikelId = " + textfeldArtikelnummer.getText());
                 }
                 else{
-                    AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + textfeldArtikelnummer.getText());
+                    AllgemeineMethoden.ordnerErstellen("Bilder/Benutzer/Artikel/" + textfeldArtikelnummer.getText());
                 }
                 root = FXMLLoader.load(getClass().getResource("artikel.fxml"));
             } catch (Exception e) {
@@ -255,7 +255,7 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
         choiceBoxMenge.setItems(werte);
         Image image = null;
         try {
-            image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Artikel\\Artikel.png"));
+            image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png"));
             imageView.setImage(image);
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
