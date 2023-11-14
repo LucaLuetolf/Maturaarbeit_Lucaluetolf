@@ -88,12 +88,19 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     @FXML
     private TextField textfeldIban;
 
+    @FXML
+    private ImageView imageviewLogo;
+
     private boolean booleanUnternehmen = false;
     private boolean booleanBenutzername = false;
     private boolean booleanPasswort = false;
     private boolean booleanLagerbestandAnzeige = false;
-    private boolean booleanBank = false;
-    private boolean booleanIban = false;
+    private boolean booleanBank = true;
+    private boolean booleanIban = true;
+
+    private String filePathLogo = "";
+    private String newPathLogo = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\";
+
 
     //Artikel:
 
@@ -189,12 +196,20 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     }
     @FXML
     protected void textfieldBankKey(){
+        if(textfeldIban.getText() == "" && textfeldBank.getText() == ""){
+            booleanIban = true;
+            booleanBank = true;
+        }
         textfeldBank.setText(textfeldBank.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
         textfeldBank.positionCaret(textfeldBank.getLength());
         booleanBank = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?(?:\\sAG)?$", textfeldBank);
     }
     @FXML
     protected void textfieldIbanKey(){
+        if(textfeldIban.getText() == "" && textfeldBank.getText() == ""){
+            booleanIban = true;
+            booleanBank = true;
+        }
         textfeldIban.setText(textfeldIban.getText().replaceAll("[^CH0-9]", ""));
         textfeldIban.positionCaret(textfeldIban.getLength());
         booleanIban = tester("^CH[0-9]{19}$", textfeldIban);
@@ -208,11 +223,43 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
         paneLagerbestand.setVisible(false);
     }
 
+    @FXML
+    protected void bildAendernLogo(){
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Bilddateien", "*.png;*.jpeg;*.jpg;*.gif;*.svg");
+        fileChooser.getExtensionFilters().add(filter);
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            filePathLogo = selectedFile.getAbsolutePath();
+            Image image = new Image(filePathLogo);
+            imageviewLogo.setImage(image);
+        }
+    }
+
     private boolean unternehmensdatenErfassen(){
         boolean booleanUnternehmensdatenErfassen = false;
         if (booleanUnternehmen && booleanBenutzername && booleanPasswort && booleanLagerbestandAnzeige && booleanBank && booleanIban) {
             try {
-                statement.execute("INSERT INTO unternehmen (unternehmensname, rechnungsnummer, benutzername, passwort, lagerbestandOrange, bank, iban) VALUES ('" + textfeldUnternehmen.getText() + "', 1, '" + textfeldBenutzername.getText() + "','" + textfeldPasswort.getText() + "'," + textfeldLagerbestandAnzeige.getText() + ",'" + textfeldBank.getText() + "','" + textfeldIban.getText() + "')");
+                if (textfeldBank.getText() == "" && textfeldIban.getText() == ""){
+                    statement.execute("INSERT INTO unternehmen (unternehmensname, rechnungsnummer, benutzername, passwort, lagerbestandOrange) VALUES ('" + textfeldUnternehmen.getText() + "', 1, '" + textfeldBenutzername.getText() + "','" + textfeldPasswort.getText() + "'," + textfeldLagerbestandAnzeige.getText() + ")");
+                } else{
+                    statement.execute("INSERT INTO unternehmen (unternehmensname, rechnungsnummer, benutzername, passwort, lagerbestandOrange, bank, iban) VALUES ('" + textfeldUnternehmen.getText() + "', 1, '" + textfeldBenutzername.getText() + "','" + textfeldPasswort.getText() + "'," + textfeldLagerbestandAnzeige.getText() + ",'" + textfeldBank.getText() + "','" + textfeldIban.getText() + "')");
+                }
+                if (filePathLogo != ""){
+                    AllgemeineMethoden.dateiKopieren(filePathLogo, newPathLogo);
+                    File altesBild = new File(filePathLogo);
+                    File neuesBild = new File(newPathLogo + altesBild.getName());
+                    String dateityp = "";
+                    int index = altesBild.getName().lastIndexOf(".");
+                    if (index > 0) {
+                        dateityp = altesBild.getName().substring(index + 1);
+                    }
+                    File neuerName = new File(newPathLogo + "\\1." + dateityp);
+                    neuesBild.renameTo(neuerName);
+                    statement.execute("UPDATE unternehmen SET dateityp = '" + dateityp + "', bildnummer = 1");
+                }
+
             } catch (Exception e) {
                 AllgemeineMethoden.fehlermeldung(e);
             }
@@ -338,7 +385,6 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                         dateityp = altesBild.getName().substring(index + 1);
                     }
                     File neuerName = new File(newPath + "\\1." + dateityp);
-                    System.out.println(newPath);
                     neuesBild.renameTo(neuerName);
                     File ordner1 = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang");
                     File ordner2 = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\" + artikelnummer);
@@ -514,7 +560,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     @FXML
     protected void weiter(){
         int artikelnummer = 0;
-        if (Integer.parseInt(buttonWeiter.getId()) == 1 && textfeldArtikelnummer.getText() != ""){
+        if (Integer.parseInt(buttonWeiter.getId()) == 2 && textfeldArtikelnummer.getText() != "" && booleanArtikelnummer){
             artikelnummer = Integer.parseInt(textfeldArtikelnummer.getText());
         }
         buttonWeiter.setId(String.valueOf(Integer.parseInt(buttonWeiter.getId())+1));

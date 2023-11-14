@@ -130,7 +130,9 @@ public class GuiKundeErfassen extends GuiTaskleiste {
     protected void textfieldNatelnummerKey() {
         textfeldNatelnummer.setText(textfeldNatelnummer.getText().replaceAll("[^0-9]", ""));
         textfeldNatelnummer.positionCaret(textfeldNatelnummer.getLength());
-        booleanNatelnummer = tester("^[1-9]\\d*$", textfeldNatelnummer);
+        if (textfeldNatelnummer.getLength() == 10){
+            booleanNatelnummer = tester("^[1-9]\\d*$", textfeldNatelnummer);
+        }
     }
 
     @FXML

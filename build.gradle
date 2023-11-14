@@ -25,7 +25,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'lucaluetolf.maturaarbeit_lucaluetolf'
-    mainClass = 'lucaluetolf.maturaarbeit_lucaluetolf.HelloApplication'
+    mainClass = 'lucaluetolf.maturaarbeit_lucaluetolf.Main'
 }
 
 javafx {
@@ -55,4 +55,13 @@ jlink {
 
 jlinkZip {
     group = 'distribution'
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'edu.andreasgut.Launcher'
+    }
+    archiveBaseName = project.name + 'Fat-Jar'
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }

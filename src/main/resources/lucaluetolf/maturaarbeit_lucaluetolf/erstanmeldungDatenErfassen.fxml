@@ -82,7 +82,15 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Pane fx:id="paneLagerbestand" layoutX="917.0" layoutY="360.0" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" AnchorPane.bottomAnchor="280.0" />
+      <Pane fx:id="paneLagerbestand" layoutX="916.0" layoutY="352.0" prefHeight="248.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" AnchorPane.bottomAnchor="200.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="144.0" layoutX="43.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Bilder/System/Erstanmeldung/lagerbestandAnzeige.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="11.0" layoutY="172.0" prefHeight="69.0" prefWidth="181.0" text="Ab welcher Stückzahl soll der wechsel der Linie von grün auf orange stattfinden (rot wird sie bei 0 Stück)" textFill="#ba8759" wrapText="true" />
+         </children></Pane>
       <Pane fx:id="paneKundeErfassen" layoutX="310.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
          <children>
             <TextField fx:id="textfeldKundennummer" layoutX="300.0" layoutY="160.0" onKeyReleased="#textfieldKundennummerKey" prefHeight="25.0" prefWidth="202.0" />
@@ -145,54 +153,68 @@
             </JFXButton>
          </children>
       </Pane>
-      <Pane fx:id="paneUnternehmensdatenErfassen" layoutX="310.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 20px; -fx-background-color: #FFFFFF;" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
+      <Pane fx:id="paneUnternehmensdatenErfassen" layoutX="310.0" layoutY="110.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-radius: 20px; -fx-background-color: #FFFFFF;" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
          <children>
-            <TextField fx:id="textfeldUnternehmen" layoutX="300.0" layoutY="160.0" onKeyReleased="#textfieldUnternehmenKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldUnternehmen" layoutX="296.0" layoutY="276.0" onKeyReleased="#textfieldUnternehmenKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="53.0" layoutY="43.0" text="Unternehmensdaten erfassen" textFill="#ba8759">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label layoutX="118.0" layoutY="155.0" prefHeight="35.0" prefWidth="171.0" text="Unternehmen" textFill="#ba8759">
+            <Label layoutX="114.0" layoutY="271.0" prefHeight="35.0" prefWidth="171.0" text="Unternehmen" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldBenutzername" layoutX="300.0" layoutY="195.0" onKeyReleased="#textfieldBenutzernameKey" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldPasswort" layoutX="300.0" layoutY="229.0" onKeyReleased="#textfieldPasswortKey" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldLagerbestandAnzeige" layoutX="300.0" layoutY="261.0" onKeyReleased="#textfieldLagerbestandAnzeigeKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="118.0" layoutY="190.0" prefHeight="35.0" prefWidth="171.0" text="Benutzername" textFill="#ba8759">
+            <TextField fx:id="textfeldBenutzername" layoutX="296.0" layoutY="311.0" onKeyReleased="#textfieldBenutzernameKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldPasswort" layoutX="296.0" layoutY="345.0" onKeyReleased="#textfieldPasswortKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldLagerbestandAnzeige" layoutX="296.0" layoutY="377.0" onKeyReleased="#textfieldLagerbestandAnzeigeKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="114.0" layoutY="306.0" prefHeight="35.0" prefWidth="171.0" text="Benutzername" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="118.0" layoutY="224.0" prefHeight="35.0" prefWidth="171.0" text="Passwort" textFill="#ba8759">
+            <Label layoutX="114.0" layoutY="340.0" prefHeight="35.0" prefWidth="171.0" text="Passwort" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="118.0" layoutY="256.0" prefHeight="35.0" prefWidth="171.0" text="Lagerbestand" textFill="#ba8759">
+            <Label layoutX="114.0" layoutY="372.0" prefHeight="35.0" prefWidth="171.0" text="Lagerbestand" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="118.0" layoutY="321.0" prefHeight="35.0" prefWidth="171.0" text="IBAN" textFill="#ba8759">
+            <Label layoutX="114.0" layoutY="437.0" prefHeight="35.0" prefWidth="171.0" text="IBAN" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldBank" layoutX="300.0" layoutY="294.0" onKeyReleased="#textfieldBankKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="118.0" layoutY="289.0" prefHeight="35.0" prefWidth="171.0" text="Bank" textFill="#ba8759">
+            <TextField fx:id="textfeldBank" layoutX="296.0" layoutY="410.0" onKeyReleased="#textfieldBankKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="114.0" layoutY="405.0" prefHeight="35.0" prefWidth="171.0" text="Bank" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldIban" layoutX="300.0" layoutY="326.0" onKeyReleased="#textfieldIbanKey" prefHeight="25.0" prefWidth="202.0" />
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="518.0" layoutY="261.0" onMouseEntered="#imageViewLagerbestandEntered" onMouseExited="#imageViewLagerbestandExited" pickOnBounds="true" preserveRatio="true">
+            <TextField fx:id="textfeldIban" layoutX="296.0" layoutY="442.0" onKeyReleased="#textfieldIbanKey" prefHeight="25.0" prefWidth="202.0" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="514.0" layoutY="377.0" onMouseEntered="#imageViewLagerbestandEntered" onMouseExited="#imageViewLagerbestandExited" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Bilder/System/Erstanmeldung/Unternehmensdaten/Ausrufezeichen.png" />
                </image>
             </ImageView>
+            <JFXButton layoutX="243.0" layoutY="226.0" onAction="#bildAendernLogo" text="Bild ändern" textFill="#ba8759">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <Pane layoutX="238.0" layoutY="96.0" prefHeight="125.0" prefWidth="125.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;">
+               <children>
+                  <ImageView fx:id="imageviewLogo" fitHeight="110.0" fitWidth="110.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Bilder/System/Artikel/Artikel.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

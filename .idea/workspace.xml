@@ -5,75 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d32342c-e604-4824-b681-7f47ff856665" name="Changes" comment="Die Funktion Analyse wurde erstellt. Es besteht momentan noch ein Fehler beim Verkauf. In den Einstellungen können die Einheiten angepasst, eingefügt und aktiviert werden. Die Erstanmeldung ist noch Fehlerhaft, es fehlen noch die dazugehörigen Texte. Das erfassen der notwendigen Daten bei der erstverwendung Funktioniert hingegen.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiAnalyse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundenFuerRechnung1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/Unternehmensdaten/Ausrufezeichen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/analyse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/artikelAnzeigen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/artikelBearbeiten.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/artikelErfassen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/einstellungen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/kundeBearbeiten.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/kundeErfassen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/kundenAnzeigen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/neueRechnungArtikelAuswählen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/neueRechnungKundeAuswählen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Icon/AppIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Analyse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/PdfBearbeiten.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Unternehmen/Logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/analyse.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/einheitenEinstellungen.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/startseiteEinstellungen.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/unternehmensdaten.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/Gui.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArchiv.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiAnalyse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiAnalyse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelBearbeiten.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelEinzeln.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelEinzeln.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelErfassen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelErfassen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiBuchhaltung.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiEinstellungen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiEinstellungen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiErstanmeldung.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiErstanmeldung.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiErstanmeldungDatenErfassen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiErstanmeldungDatenErfassen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKunde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKunde.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeBearbeiten.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeBearbeiten.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeErfassen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeErfassen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiMitarbeiter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiMitarbeiterLogin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiNeueRechnung.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiStartseite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiStartseite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiTaskleiste.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiTaskleiste.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiVerkauf.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/Verkauf.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/schriftlicherTeil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/Benutzer/Unternehmen/Logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/Benutzer/Unternehmen/Logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Archiv.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Lagerbestand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/Mitarbeiter.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Startseite/buchhaltung.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/archiv.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikel.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelFuerRechnung.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelFuerRechnung.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/Benutzer/Unternehmen/Logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/analyse.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/analyse.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/einstellungen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/einstellungen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/erstanmeldung.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/erstanmeldung.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/erstanmeldungDatenErfassen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/erstanmeldungDatenErfassen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kunden.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kunden.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundenFuerRechnung.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundenFuerRechnung.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/lagerbestand.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kontoEinstellungen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/mitarbeiter.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/mitarbeiterLogin.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/neueRechnung.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/appInfosEinstellungen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/paneForWarenkorb.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/paneforArtikel.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/schriftlicherTeil.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kontoEinstellungen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kontoEinstellungen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundeBearbeiten.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/kundeBearbeiten.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/startseite.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/startseite.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/verkauf.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,12 +70,12 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "LucaLuetolf"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;LucaLuetolf&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -147,6 +101,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/Luca Schule/IdeaProjects/Maturaarbeit_Lucaluetolf/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/Benutzer/Unternehmen",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
   }
 }]]></component>
@@ -162,9 +119,9 @@
       <recent name="lucaluetolf.maturaarbeit_lucaluetolf" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Maturaarbeit_Lucaluetolf [run]">
-    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="lucaluetolf.maturaarbeit_lucaluetolf.HelloApplication" />
+  <component name="RunManager" selected="Gradle.Maturaarbeit_Lucaluetolf [fatJar]">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="lucaluetolf.maturaarbeit_lucaluetolf.Main" />
       <module name="Maturaarbeit_LucaLuetolf.main" />
       <extension name="coverage">
         <pattern>
@@ -175,6 +132,28 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="Maturaarbeit_Lucaluetolf [fatJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="fatJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
     </configuration>
     <configuration name="Maturaarbeit_Lucaluetolf [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -235,9 +214,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Maturaarbeit_Lucaluetolf [fatJar]" />
         <item itemvalue="Gradle.Maturaarbeit_Lucaluetolf [run]" />
         <item itemvalue="Gradle.Maturaarbeit_Lucaluetolf [jar]" />
-        <item itemvalue="Application.HelloApplication" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -250,6 +230,15 @@
       <option name="presentableId" value="Default" />
       <updated>1698842792873</updated>
     </task>
+    <task id="LOCAL-00001" summary="Die Funktion Analyse wurde erstellt. Es besteht momentan noch ein Fehler beim Verkauf. In den Einstellungen können die Einheiten angepasst, eingefügt und aktiviert werden. Die Erstanmeldung ist noch Fehlerhaft, es fehlen noch die dazugehörigen Texte. Das erfassen der notwendigen Daten bei der erstverwendung Funktioniert hingegen.">
+      <option name="closed" value="true" />
+      <created>1699531981190</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1699531981191</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

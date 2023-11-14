@@ -68,7 +68,7 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM artikel, einheiten WHERE einheitId = einheit_id");
             while (resultSet.next()) {
-                if (column == 5) {
+                if (column == 4) {
                     row = row + 1;
                     gridpaneArtikel.addColumn(row);
                     prefHeight = prefHeight + prefHeightPerColumn;
@@ -106,9 +106,11 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                     imageView = new ImageView();
                     imageView.setImage(image);
                 }
+                imageView.setPreserveRatio(true);
 
                 Line lineLagerbestand = new Line();
-
+                //170, 220
+                //212,290
                 pane.setPrefSize(170, 220);
                 pane.getChildren().add(labelArtikelnummer);
                 pane.getChildren().add(labelName);

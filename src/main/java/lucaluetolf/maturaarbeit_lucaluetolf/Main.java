@@ -19,7 +19,7 @@ import java.sql.*;
 
 
 
-public class HelloApplication extends Application {
+public class Main extends Application {
     Statement statement;
 
     Scene scene;
@@ -40,10 +40,10 @@ public class HelloApplication extends Application {
 
             statement.execute("CREATE TABLE IF NOT EXISTS kunden (kundenId INT NOT NULL AUTO_INCREMENT PRIMARY KEY, nachname VARCHAR(30), vorname VARCHAR(30), adresse VARCHAR(30), postleitzahl INT, ort VARCHAR(30), email VARCHAR(30), natelnummer INT)");
             statement.execute("CREATE TABLE IF NOT EXISTS artikel (artikelId INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30), preis DOUBLE, menge DOUBLE, einheit_id INT, rabatt INT, lagerbestand INT, dateityp VARCHAR(30), bildnummer INT)");
-            statement.execute("CREATE TABLE IF NOT EXISTS mitarbeiter (mitarbeiterId INT NOT NULL AUTO_INCREMENT PRIMARY KEY, nachname VARCHAR(30), vorname VARCHAR(30), adresse VARCHAR(30), postleitzahl INT, ort VARCHAR(30), email VARCHAR(30), natelnummer INT, pin INT)");
+            statement.execute("CREATE TABLE IF NOT EXISTS mitarbeiter (mitarbeiterId INT NOT NULL AUTO_INCREMENT PRIMARY KEY, nachname VARCHAR(30), vorname VARCHAR(30), adresse VARCHAR(30), postleitzahl INT, ort VARCHAR(30), email VARCHAR(30), natelnummer VARCHAR(10), pin INT)");
             statement.execute("CREATE TABLE IF NOT EXISTS bestellung (bestellungId INT NOT NULL, artikel_id INT, anzahl INT, name_bestellung VARCHAR(30), preis_bestellung DOUBLE, menge_bestellung DOUBLE, einheit_id_bestellung INT, rabatt_bestellung INT)");
             statement.execute("CREATE TABLE IF NOT EXISTS bearbeiter (bestellung_id INT NOT NULL, mitarbeiter_id INT, kunden_id INT, dokumenttyp INT, datum DATE)");
-            statement.execute("CREATE TABLE IF NOT EXISTS unternehmen (unternehmensname VARCHAR(30), rechnungsnummer INT, benutzername VARCHAR(30), passwort VARCHAR(30), lagerbestandOrange INT, Bank VARCHAR(30), IBAN VARCHAR (30), bearbeiten INT)");
+            statement.execute("CREATE TABLE IF NOT EXISTS unternehmen (unternehmensname VARCHAR(30), rechnungsnummer INT, benutzername VARCHAR(30), passwort VARCHAR(30), lagerbestandOrange INT, Bank VARCHAR(30), IBAN VARCHAR (30), bearbeiten INT, bildnummer INT, dateityp VARCHAR(30))");
             statement.execute("CREATE TABLE IF NOT EXISTS einheiten (einheitId INT NOT NULL AUTO_INCREMENT PRIMARY KEY, bezeichnung VARCHAR(30), abkuerzung VARCHAR(30), aktiv BOOLEAN)");
             statement.execute("CREATE TABLE IF NOT EXISTS loeschen (artikel_Id INT, bildnummer INT, dateityp VARCHAR(30))");
             statement.execute("CREATE TABLE IF NOT EXISTS verkaufteStueck (datum DATE, artikel_id INT, anzahl INT)");
@@ -54,7 +54,6 @@ public class HelloApplication extends Application {
             //statement.execute("INSERT INTO unternehmen (rechnungsnummer, benutzername, passwort, lagerbestandOrange) VALUES (1, 'Hans','Hans', 10)");
             //statement.execute("INSERT INTO artikel(artikelId, name, menge, preis, rabatt, lagerbestand, einheit_id) VALUES (1, 'test', 12, 1, 12, 12, 1)");
             //statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, rabatt) VALUES (1,1,1,1)");
-
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
@@ -72,7 +71,7 @@ public class HelloApplication extends Application {
                 AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\Übergang");
                 AllgemeineMethoden.ordnerErstellen("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen");
 
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("erstanmeldung.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("erstanmeldung.fxml"));
                 scene = new Scene(fxmlLoader.load(), 1200, 800);
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override
@@ -86,7 +85,7 @@ public class HelloApplication extends Application {
                     }
                 });
             } else{
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("startseite.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("startseite.fxml"));
                 scene = new Scene(fxmlLoader.load(), 1200, 800);
                 ResultSet resultSet = statement.executeQuery("SELECT rechnungsnummer FROM unternehmen");
                 resultSet.next();

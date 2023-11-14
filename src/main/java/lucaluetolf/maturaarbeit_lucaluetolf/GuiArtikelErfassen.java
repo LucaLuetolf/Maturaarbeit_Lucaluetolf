@@ -149,14 +149,14 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
     protected void textfieldRabattKey() {
         textfeldRabatt.setText(textfeldRabatt.getText().replaceAll("[^0-9]", ""));
         booleanRabatt = tester("^[0-9]\\d*$", textfeldRabatt);
-        if (100 < Integer.parseInt(textfeldRabatt.getText())) {
+        if (textfeldRabatt.getLength() != 0 && 100 < Integer.parseInt(textfeldRabatt.getText())) {
             textfeldRabatt.setText("");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
             alert.setHeaderText("Fehlermeldung");
             alert.setContentText("Der gewünschte Rabatt beträgt mehr als 100%");
             alert.showAndWait();
-
+            textfeldRabatt.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
         }
         textfeldRabatt.positionCaret(textfeldRabatt.getLength());
 

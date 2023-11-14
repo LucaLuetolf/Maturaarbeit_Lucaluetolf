@@ -54,18 +54,21 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
 
     private String s1 = "Herzlich Willkommen, nachfolgend wird die ERP-Software erklärt. Auf dem Bild ist die Startseite zu sehen. Hier sind alle Funktionen der App zum auswählen bereit.";
     private String s2 = "Beim starten der App wird das Loginfeld angezeigt. Hier muss der festgelegte Benutzername und das Passwort eingegeben werden. Bei richtiger Eingabe gelangen sie zur Startseite";
-    private String s3 = "Startseite";
-    private String s4 = "Auf dem Bild ist die Auflistung der Artikel zu sehen. Via Button Artikel erfassen können neue Artikel erfasst und bei mehr Infos bearbeitet, werden. ";
-    private String s5 = "Beim Erfassen der Daten werden falsch eingegeben Zeichen direkt herausgefiltert. Ist eine Eingabe ungültig, wird das Textfeld rot angezeigt.";
-    private String s6 = "Auf dieser Seite kann ein Artikel angepasst werden. Das einzige, was nicht geändert werden kann ist die Artikelnummer.";
-    private String s7 = "Auf diesem Bild ist die Seite Kunden zu sehen. Neue Kunden können via Kunde erfassen erfasst werden. Möchten sie einen Kunden bearbeiten, klicken sie in der Tabelle auf die gewünschte Zeile";
-    private String s8 = "Wie bei den Artikel auch, werden hier die falschen Eingaben direkt herausgefiltert.";
-    private String s9 = "Kunde bearbeiten";
-    private String s10 = "Rechnung erstellen, Kunde";
-    private String s11 = "Rechnung erstellen, Artikel";
-    private String s12 = "Pdf Dokument";
-    private String s13 = "mehr Infos";
-    private String s14 = "mehr Infos";
+    private String s3 = "Auf dem Bild ist die Auflistung der Artikel zu sehen. Via Button Artikel erfassen können neue Artikel erfasst und bei mehr Infos bearbeitet, werden. ";
+    private String s4 = "Beim Erfassen der Daten werden falsch eingegeben Zeichen direkt herausgefiltert. Ist eine Eingabe ungültig, wird das Textfeld rot angezeigt.";
+    private String s5 = "Auf dieser Seite kann ein Artikel angepasst werden. Das einzige, was nicht geändert werden kann ist die Artikelnummer.";
+    private String s6 = "Auf diesem Bild ist die Seite Kunden zu sehen. Neue Kunden können via Kunde erfassen erfasst werden. Möchten sie einen Kunden bearbeiten, klicken sie in der Tabelle auf die gewünschte Zeile";
+    private String s7 = "Wie bei den Artikel auch, werden hier die falschen Eingaben direkt herausgefiltert.";
+    private String s8 = "Das Fenster Kunde bearbeiten sieht gleich aus, wie das Fenster Kunde erfassen. Hier können die Daten in den Textfeldern geändert werden, um sie anzupassen";
+    private String s9 = "Um eine Rechnung zu erstellen, wird erstmals der gewünschte Kunde (via klick auf die entsprechende Zeile) ausgewählt";
+    private String s10 = "Im nächsten Schritt kann die Anzahl der Artikel via +, - oder anhand einer Eingabe im Textfeld festgelegt werden";
+    private String s11 = "Anschliessend wird eine Rechnung in Form von Pdf generiert";
+    private String s12 = "Die Seite Verkauf ist ähnlich aufgebaut, wie die Seite Rechnung erstellen. Der Unterschied liegt darin, dass ohne Kunde fortgefahren werden kann. Beim Abschliessen des Verkaufes kann zudem das Retourgeld berechnet werden. ";
+    private String s13 = "Falls eine Rechnung oder Quittung Fehler enthält, kann sie hier geändert werden. Wissen muss man nur die Rechnungs- oder Quittungsnummer.";
+    private String s14 = "Diese Funktion ermöglicht es, die Verkaufszahlen von einem oder mehreren Artikel über den gewünschten Zeitraum in einem Diagram anzuzeigen.";
+    private String s15 = "Einstellungen";
+    private String s16 = "Bei dieser Seite können die Unternehmensdaten angepasst werden.";
+    private String s17 = "Hier können die Verkaufseinheiten erfasst, aktiviert oder deaktiviert werden.";
 
 
     @FXML
@@ -74,11 +77,11 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
         if (Integer.parseInt(buttonWeiter.getId()) == 1){
             buttonZurueck.setVisible(false);
         }
-        switch (Integer.parseInt(buttonWeiter.getId())) {
+        switch (Integer.parseInt(buttonWeiter.getId())){
             case 1:
+                buttonZurueck.setVisible(true);
                 try {
-                    buttonZurueck.setVisible(false);
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) + ".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\startseite.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -88,16 +91,17 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
             case 2:
                 buttonZurueck.setVisible(true);
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) + ".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\login.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
-                labelBeschreibung.setText(s2);
+                labelBeschreibung.setText(s1);
                 break;
             case 3:
+                buttonZurueck.setVisible(true);
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) + ".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelAnzeigen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -106,7 +110,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 4:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) + ".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelErfassen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -115,7 +119,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 5:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) + ".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelBearbeiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -124,12 +128,111 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 6:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\" + (buttonWeiter.getId()) + ".jpg"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundenAnzeigen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 labelBeschreibung.setText(s6);
+                break;
+            case 7:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeErfassen.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s7);
+                break;
+            case 8:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeBearbeiten.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s8);
+                break;
+            case 9:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\neueRechnungKundeAuswählen.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s9);
+                break;
+            case 10:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\pdfDokument.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s10);
+                break;
+            case 11:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\verkauf.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s11);
+                break;
+            case 12:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\pdfBearbeiten.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s12);
+                break;
+            case 13:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\analyse.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s13);
+                break;
+            case 14:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\neueRechnungArtikelAuswählen.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s14);
+                break;
+            case 15:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\einstellungen.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s15);
+                break;
+            case 16:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\konto.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s16);
+                break;
+            case 17:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\einheiten.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s17);
                 break;
         }
     }
@@ -141,16 +244,17 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
             case 2:
                 buttonZurueck.setVisible(true);
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelAnzeigen.png"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\login.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
-                labelBeschreibung.setText(s2);
+                labelBeschreibung.setText(s1);
                 break;
             case 3:
+                buttonZurueck.setVisible(true);
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelErfassen.png"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelAnzeigen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -159,7 +263,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 4:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelBearbeiten.png"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelErfassen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -168,7 +272,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 5:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundenAnzeigen.png"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\artikelBearbeiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -177,7 +281,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 6:
                 try {
-                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeErfassen.png"));
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundenAnzeigen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -186,35 +290,114 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
                 break;
             case 7:
                 try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeErfassen.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s7);
+                break;
+            case 8:
+                try {
                     Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\kundeBearbeiten.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
-                labelBeschreibung.setText(s6);
+                labelBeschreibung.setText(s8);
                 break;
-            case 8:
+            case 9:
                 try {
                     Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\neueRechnungKundeAuswählen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
-                labelBeschreibung.setText(s6);
+                labelBeschreibung.setText(s9);
                 break;
-            case 9:
+            case 10:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\pdfDokument.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s10);
+                break;
+            case 11:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\verkauf.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s11);
+                break;
+            case 12:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\pdfBearbeiten.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s12);
+                break;
+            case 13:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\analyse.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s13);
+                break;
+            case 14:
                 try {
                     Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\neueRechnungArtikelAuswählen.png"));
                     imageviewBeschreibung.setImage(image);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
-                labelBeschreibung.setText(s6);
+                labelBeschreibung.setText(s14);
                 break;
-            case 100:
+            case 15:
                 try {
-                    root = FXMLLoader.load(getClass().getResource("erstanmeldungDatenErfassen.fxml"));
-                } catch (IOException e) {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\einstellungen.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s15);
+                break;
+            case 16:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\konto.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s16);
+                break;
+            case 17:
+                try {
+                    Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\einheiten.png"));
+                    imageviewBeschreibung.setImage(image);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+                labelBeschreibung.setText(s17);
+                break;
+            case 18:
+                try {
+                    ResultSet resultsetUnternehmen = statement.executeQuery("SELECT COUNT(unternehmensname) FROM unternehmen");
+                    resultsetUnternehmen.next();
+                    if (resultsetUnternehmen.getInt(1) == 0){
+                        root = FXMLLoader.load(getClass().getResource("erstanmeldungDatenErfassen.fxml"));
+                    }else{
+                        root = FXMLLoader.load(getClass().getResource("einstellungen.fxml"));
+                    }
+
+                } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }
                 stage = (Stage) buttonWeiter.getScene().getWindow();
@@ -230,7 +413,7 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
         buttonWeiter.setId("1");
         buttonZurueck.setVisible(false);
         try {
-            Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\1.jpg"));
+            Image image = new Image(new FileInputStream("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Erstanmeldung\\startseite.png"));
             imageviewBeschreibung.setImage(image);
             labelBeschreibung.setText(s1);
         } catch (Exception e) {

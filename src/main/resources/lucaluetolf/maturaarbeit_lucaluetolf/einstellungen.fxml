@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiEinstellungen">
    <children>
       <AnchorPane prefHeight="800.0" prefWidth="230.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #ba8759; -fx-border-radius: 20px; -fx-border-style: solid; -fx-border-width: 2px;" styleClass="anchorpanelink">
@@ -59,7 +58,7 @@
                         <Font size="48.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton layoutX="26.0" layoutY="553.0" onAction="#einheitErfassenZuruecksetzten" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurüchsetzen">
+                  <JFXButton layoutX="26.0" layoutY="553.0" onAction="#einheitErfassenZuruecksetzten" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurücksetzen">
                      <font>
                         <Font size="48.0" />
                      </font>
@@ -167,6 +166,101 @@
                   </JFXButton>
                </children>
             </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorPaneKonto" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="970.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane layoutX="36.0" layoutY="53.0" prefHeight="700.0" prefWidth="416.0" style="-fx-background-color: #E8CFB0; -fx-border-radius: 20px; -fx-background-radius: 20px;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <ImageView fx:id="imageviewUnternehmen" fitHeight="612.0" fitWidth="377.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <JFXButton fx:id="buttonBildAendern" layoutX="151.0" layoutY="647.0" onAction="#bildAendern" text="Bild ändern" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
+            <TextField fx:id="textfeldUnternehmen" layoutX="653.0" layoutY="320.0" onKeyReleased="#textfieldUnternehmenKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="471.0" layoutY="203.0" prefHeight="107.0" prefWidth="350.0" text="Unternehmensdaten bearbeiten:" textFill="#ba8759" wrapText="true">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label layoutX="471.0" layoutY="315.0" prefHeight="35.0" prefWidth="171.0" text="Unternehmen" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldBenutzername" layoutX="653.0" layoutY="355.0" onKeyReleased="#textfieldBenutzernameKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldPasswort" layoutX="653.0" layoutY="389.0" onKeyReleased="#textfieldPasswortKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldLagerbestandAnzeige" layoutX="653.0" layoutY="421.0" onKeyReleased="#textfieldLagerbestandAnzeigeKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="471.0" layoutY="350.0" prefHeight="35.0" prefWidth="171.0" text="Benutzername" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="471.0" layoutY="384.0" prefHeight="35.0" prefWidth="171.0" text="Passwort" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="471.0" layoutY="416.0" prefHeight="35.0" prefWidth="171.0" text="Lagerbestand" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="471.0" layoutY="481.0" prefHeight="35.0" prefWidth="171.0" text="IBAN" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldBank" layoutX="653.0" layoutY="454.0" onKeyReleased="#textfieldBankKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="471.0" layoutY="449.0" prefHeight="35.0" prefWidth="171.0" text="Bank" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldIban" layoutX="653.0" layoutY="486.0" onKeyReleased="#textfieldIbanKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label fx:id="labelUnternehmen" layoutX="656.0" layoutY="315.0" maxWidth="290.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelBenutzername" layoutX="656.0" layoutY="350.0" maxWidth="290.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelPasswort" layoutX="656.0" layoutY="384.0" maxWidth="290.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelLagerbestand" layoutX="656.0" layoutY="416.0" maxWidth="290.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelIban" layoutX="656.0" layoutY="481.0" maxWidth="290.0" prefHeight="35.0" prefWidth="290.0" text="CH1234567890987654321" textFill="#ba8759" wrapText="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelBank" layoutX="656.0" layoutY="449.0" maxWidth="290.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="buttonBearbeitenKonto" layoutX="650.0" layoutY="527.0" onAction="#buttonBearbeitenKonto" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="bearbeiten" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="buttonAbbrechenKonto" layoutX="474.0" layoutY="527.0" onAction="#buttonAbbrechenKonto" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E8CFB0; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-width: 4;" text="zurück" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>

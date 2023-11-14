@@ -43,7 +43,7 @@ public class GuiAnalyse extends GuiTaskleiste implements Initializable {
         textfieldArtikelnummer.setText(textfieldArtikelnummer.getText().replaceAll("[^0-9]", ""));
         textfieldArtikelnummer.positionCaret(textfieldArtikelnummer.getLength());
 
-        if (textfieldArtikelnummer.getText() != "" && textfieldArtikelnummer.getLength() <= 8){
+        if (textfieldArtikelnummer.getLength() != 0 && textfieldArtikelnummer.getLength() <= 8){
             try {
                 ResultSet resultsetArtikel = statement.executeQuery("SELECT COUNT(artikelId) AS summe FROM artikel WHERE artikelId = " + textfieldArtikelnummer.getText());
                 resultsetArtikel.next();

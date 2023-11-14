@@ -119,6 +119,8 @@ public class GuiArtikelFuerRechnung3 extends GuiTaskleiste implements Initializa
     @FXML
     private JFXButton dokumentAbschliessen;
 
+    private int barKarte;
+
     private int column = 0;
     private int row = 0;
     private int prefHeight = 220;
@@ -498,14 +500,16 @@ public class GuiArtikelFuerRechnung3 extends GuiTaskleiste implements Initializa
             }
             resultsetArtikelExistiert.close();
             if (artikelExistiert){
-                statement.execute("UPDATE bestellung SET anzahl = " + anzahl + " WHERE artikel_id = " + artikelId + " AND bestellungId = " + rechnungsnummer);
-            } else if (artikelExistiert == false) {
+                if (anzahl == 0){
+                    statement.execute("DELETE FROM bestellung WHERE artikel_id = " + artikelId);
+                } else{
+                    statement.execute("UPDATE bestellung SET anzahl = " + anzahl + " WHERE artikel_id = " + artikelId + " AND bestellungId = " + rechnungsnummer);
+                }
+            } else {
                 ResultSet resultsetArtikel = statement.executeQuery("SELECT * FROM artikel WHERE artikelId = " + artikelId);
                 resultsetArtikel.next();
                 statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, name_bestellung, preis_bestellung, menge_bestellung, einheit_id_bestellung, rabatt_bestellung) VALUES (" + rechnungsnummer + ", " + artikelId + "," + anzahl + ",'" + resultsetArtikel.getString("name") + "'," + resultsetArtikel.getDouble("preis") + ", " + resultsetArtikel.getDouble("menge") + ", " + resultsetArtikel.getInt("einheit_id") + ", " + resultsetArtikel.getInt("rabatt") + ")");
                 resultsetArtikel.close();
-            } else {
-                statement.execute("UPDATE bestellung SET anzahl = " + anzahl + " WHERE artikel_id = " + artikelId);
             }
 
             ResultSet resultsetWarenkorb = statement.executeQuery("SELECT * FROM bestellung WHERE bestellungId = " + rechnungsnummer);
@@ -616,7 +620,7 @@ public class GuiArtikelFuerRechnung3 extends GuiTaskleiste implements Initializa
             resultSetUeberpruefen.close();
 
 
-            ResultSet resultSetWarenkorb = statement.executeQuery("SELECT * FROM bestellung, artikel WHERE " + rechnungsnummer + " = bestellungId AND artikelId = artikel_id");
+            ResultSet resultSetWarenkorb = statement.executeQuery("SELECT * FROM bestellung, artikel WHERE " + rechnungsnummer + " = bestellungId AND artikelId = artikel_id AND anzahl != 0");
             while (resultSetWarenkorb.next()) {
                 Pane paneWarenkorb = new Pane();
                 paneWarenkorb.setPrefSize(200, 82);
@@ -684,11 +688,158 @@ public class GuiArtikelFuerRechnung3 extends GuiTaskleiste implements Initializa
 
     @FXML
     protected void buttonRechnungErstellen(ActionEvent event) {
+        if (gridpaneWarenkorb.getRowCount() == 0){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Fehlermeldung");
+            alert.setContentText("Es wurden keine Artikel ausgewählt");
+            alert.showAndWait();
+            return;
+        }
 
-        if (modus == 1){
-            modusRechnung();
+        if (modus == 1) {
+            layout1(1);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("new Information-Dialog");
+            alert.setContentText("Die Rechnung wurde erfolgreich erstellt");
+            alert.showAndWait();
         } else if (modus == 2) {
-            modusQuittung();
+            Alert barOderKarteAlert = new Alert(Alert.AlertType.NONE);
+            barOderKarteAlert.setTitle("Zahlungsmethode");
+            barOderKarteAlert.setHeaderText("Wie wird bezahlt?");
+            CheckBox checkBox = new CheckBox("Quittung als PDF erstellen");
+            ButtonType buttonTypeAbbrechenBarKarte = new ButtonType("abbrechen");
+            barOderKarteAlert.getButtonTypes().add(buttonTypeAbbrechenBarKarte);
+
+            Button bar = new Button("Bar");
+            bar.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (checkBox.isSelected()) {
+                        layout1(2);
+                    }
+                    barKarte = 1;
+                    barOderKarteAlert.close();
+                }
+            });
+            Button karte = new Button("Karte");
+            karte.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (checkBox.isSelected()) {
+                        layout1(2);
+                    }
+                    barKarte = 2;
+                    barOderKarteAlert.close();
+
+                }
+            });
+
+            bar.setPrefSize(80, 60);
+            karte.setPrefSize(80, 60);
+            HBox hBox = new HBox(bar, karte);
+            VBox vBox = new VBox(hBox, checkBox);
+            barOderKarteAlert.getDialogPane().setContent(vBox);
+
+            Optional<ButtonType> result = barOderKarteAlert.showAndWait();
+            if (result.isPresent() && result.get() == buttonTypeAbbrechenBarKarte) {
+                return;
+            }
+            if (barKarte == 1) {
+                Alert zahlen = new Alert(Alert.AlertType.INFORMATION);
+                zahlen.setTitle("Zahlen-Alert");
+                zahlen.setHeaderText("Geben sie den Betrag\ndes gegebenen Geldes ein: ");
+
+                TextField textField = new TextField();
+                textField.setText("0");
+
+                GridPane grid = new GridPane();
+                grid.setHgap(10);
+                grid.setVgap(10);
+
+                for (int i = 1; i <= 9; i++) {
+                    Button button = new Button(Integer.toString(i));
+                    button.setPrefSize(60,60);
+                    button.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            if (textField.getText().contains("0") && textField.getLength() == 1){
+                                textField.setText(button.getText());
+                            }else{
+                                textField.appendText(button.getText());
+                            }
+
+                        }
+                    });
+
+                    grid.add(button, (i - 1) % 3, (i - 1) / 3);
+                }
+
+
+
+                Button zeroButton = new Button("0");
+                zeroButton.setPrefSize(60,60);
+
+                zeroButton.setOnAction(e -> {
+                    textField.appendText("0");
+                });
+                grid.add(zeroButton, 1, 3);
+
+                Button punktButton = new Button(".");
+                punktButton.setPrefSize(60,60);
+                punktButton.setOnAction(e -> {
+                    punktButton.setDisable(true);
+                    textField.appendText(".");
+                });
+                grid.add(punktButton, 2, 3);
+
+                Button clearButton = new Button("Clear");
+                clearButton.setPrefSize(60,60);
+
+                clearButton.setOnAction(e -> {
+                    punktButton.setDisable(false);
+                    textField.setText("0");
+                });
+                grid.add(clearButton, 0, 3);
+
+                VBox content = new VBox(textField, grid);
+                zahlen.getDialogPane().setContent(content);
+
+                ButtonType ok = new ButtonType("OK");
+                ButtonType abbrechen = new ButtonType("abbrechen");
+                zahlen.getButtonTypes().setAll(ok, abbrechen);
+                Optional<ButtonType> optional = zahlen.showAndWait();
+                if (optional.isPresent() && optional.get() == ok) {
+                    if (Double.parseDouble(textField.getText()) >= Double.parseDouble(labelTotal.getText())){
+                        Alert rueckgeld = new Alert(Alert.AlertType.INFORMATION);
+                        rueckgeld.setHeaderText("Abschluss:");
+                        rueckgeld.setContentText("Total:" + labelTotal.getText() +"\ngegeben: " + Double.parseDouble(textField.getText()) +"\nRückgeld: " + (Double.parseDouble(textField.getText())-Double.parseDouble(labelTotal.getText())));
+                        rueckgeld.showAndWait();
+                    } else{
+                        Alert zuwenigRueckgeld = new Alert(Alert.AlertType.INFORMATION);
+                        zuwenigRueckgeld.setHeaderText("Fehlermeldung");
+                        zuwenigRueckgeld.setContentText("Zu wenig Geld gegeben");
+                        ButtonType buttonTypeOkZuWenigRueckgeld = new ButtonType("ok");
+                        ButtonType buttonTypeAbbrechenZuWenigRückgeld = new ButtonType("abbrechen");
+                        zuwenigRueckgeld.getButtonTypes().setAll(buttonTypeOkZuWenigRueckgeld, buttonTypeAbbrechenZuWenigRückgeld);
+                        Optional<ButtonType> optional1 = zuwenigRueckgeld.showAndWait();
+                        if (optional1.isPresent() && optional1.get() == buttonTypeOkZuWenigRueckgeld){
+                            textField.setText("0");
+                            zahlen.showAndWait();
+                        }else{
+                            return;
+                        }
+                    }
+                } else {
+                    return;
+                }
+
+            } else if (barKarte == 2) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Kartenzahlung");
+                alert.setHeaderText("Der folgende Betrag: " + labelTotal.getText() + " CHF ist zu bezahlen");
+                alert.showAndWait();
+            }
+
         }
         try {
             LocalDate datum = LocalDate.now();
@@ -698,7 +849,7 @@ public class GuiArtikelFuerRechnung3 extends GuiTaskleiste implements Initializa
             resultsetExists.next();
             int exists = resultsetExists.getInt(1);
             resultsetExists.close();
-            if (exists == 0){
+            if (exists == 0) {
                 ResultSet resultsetUebrigeArtikelLaenge = statement.executeQuery("SELECT COUNT(artikelId) FROM artikel");
                 resultsetUebrigeArtikelLaenge.next();
                 int laenge = resultsetUebrigeArtikelLaenge.getInt(1);
@@ -706,7 +857,7 @@ public class GuiArtikelFuerRechnung3 extends GuiTaskleiste implements Initializa
                 for (int i = 0; i < laenge; i++) {
                     ResultSet resultsetArtikelId = statement.executeQuery("SELECT artikelId FROM artikel");
                     resultsetArtikelId.next();
-                    if (resultsetArtikelId.absolute(i+1)){
+                    if (resultsetArtikelId.absolute(i + 1)) {
                         int artikelId = resultsetArtikelId.getInt("artikelId");
                         resultsetArtikelId.close();
                         statement.execute("INSERT INTO verkaufteStueck (artikel_id, anzahl, datum) VALUES ( " + artikelId + ", 0, '" + formatter.format(datum) + "')");
@@ -723,20 +874,20 @@ public class GuiArtikelFuerRechnung3 extends GuiTaskleiste implements Initializa
 
                 int artikelId = 0;
                 int anzahl = 0;
-                ResultSet resultsetArtikelIdUndAnzahl = statement.executeQuery("SELECT * FROM bestellung, bearbeiter WHERE bestellungId = " + rechnungsnummer + " AND bestellung_id = " + rechnungsnummer +" AND datum = '" + formatter.format(datum) + "'");
+                ResultSet resultsetArtikelIdUndAnzahl = statement.executeQuery("SELECT * FROM bestellung, bearbeiter WHERE bestellungId = " + rechnungsnummer + " AND bestellung_id = " + rechnungsnummer + " AND datum = '" + formatter.format(datum) + "'");
                 if (resultsetArtikelIdUndAnzahl.absolute(i + 1)) {
                     artikelId = resultsetArtikelIdUndAnzahl.getInt("artikel_Id");
                     anzahl = resultsetArtikelIdUndAnzahl.getInt("anzahl");
                 }
                 resultsetArtikelIdUndAnzahl.close();
-                statement.execute("UPDATE artikel SET lagerbestand = lagerbestand - " + anzahl + " WHERE artikelId = " + artikelId );
+                statement.execute("UPDATE artikel SET lagerbestand = lagerbestand - " + anzahl + " WHERE artikelId = " + artikelId);
                 statement.execute("UPDATE verkaufteStueck SET anzahl = anzahl + " + anzahl + " WHERE artikel_id = " + artikelId + " AND datum = '" + formatter.format(datum) + "'");
 
             }
-            if (bearbeiten == true){
+            if (bearbeiten == true) {
                 statement.execute("UPDATE unternehmen SET bearbeiten = null");
-            }else{
-                statement.execute("UPDATE unternehmen SET rechnungsnummer="+ (rechnungsnummer+1) +"WHERE rechnungsnummer="+rechnungsnummer);
+            } else {
+                statement.execute("UPDATE unternehmen SET rechnungsnummer=" + (rechnungsnummer + 1) + "WHERE rechnungsnummer=" + rechnungsnummer);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -751,151 +902,6 @@ public class GuiArtikelFuerRechnung3 extends GuiTaskleiste implements Initializa
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    private void modusRechnung(){
-        layout1(1);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("new Information-Dialog");
-        alert.setContentText("Die Rechnung wurde erfolgreich erstellt");
-        alert.showAndWait();
-
-    }
-    private void modusQuittung() {
-        Alert barOderKarteAlert = new Alert(Alert.AlertType.NONE);
-        barOderKarteAlert.setTitle("Zahlungsmethode");
-        barOderKarteAlert.setHeaderText("Wie wird bezahlt?");
-        CheckBox checkBox = new CheckBox("Quittung als PDF erstellen");
-        ButtonType buttonType = new ButtonType("abbrechen");
-        barOderKarteAlert.getButtonTypes().add(buttonType);
-
-        Button bar = new Button("Bar");
-        bar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (checkBox.isSelected()) {
-                    layout1(2);
-                }
-                barOderKarteAlert.close();
-
-                Alert zahlen = new Alert(Alert.AlertType.CONFIRMATION);
-                zahlen.setTitle("Zahlen-Alert");
-                zahlen.setHeaderText("0");
-
-                TextField textField = new TextField();
-                textField.setText("0");
-
-                GridPane grid = new GridPane();
-                grid.setHgap(10);
-                grid.setVgap(10);
-                grid.setPadding(new Insets(20, 20, 20, 20));
-
-                for (int i = 1; i <= 9; i++) {
-                    Button button = new Button(Integer.toString(i));
-                    button.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            textField.appendText(button.getText());
-                        }
-                    });
-
-                    grid.add(button, (i - 1) % 3, (i - 1) / 3);
-                }
-
-                Button clearButton = new Button("Clear");
-                clearButton.setOnAction(e -> {
-                    textField.setText("0");
-                });
-                grid.add(clearButton, 0, 3);
-
-                Button zeroButton = new Button("0");
-                zeroButton.setOnAction(e -> {
-                    textField.appendText("0");
-                });
-                grid.add(zeroButton, 1, 3);
-
-                Button punktButton = new Button(".");
-                punktButton.setOnAction(e -> {
-                    textField.appendText(".");
-                    zahlen.setHeaderText(zahlen.getHeaderText() + ".");
-                });
-                grid.add(punktButton, 2, 3);
-
-                VBox content = new VBox(textField, grid);
-                zahlen.getDialogPane().setContent(content);
-
-                ButtonType buttonTypeFortfahren = new ButtonType("OK", ButtonBar.ButtonData.RIGHT);
-                ButtonType buttonTypeAbbrechen = new ButtonType("Abbrechen", ButtonBar.ButtonData.RIGHT);
-
-                //zahlen.getButtonTypes().setAll(buttonTypeFortfahren, buttonTypeAbbrechen);
-                ButtonType ok = new ButtonType("OK");
-                Optional<ButtonType> optional = zahlen.showAndWait();
-                double result = 0;
-                if (optional.isPresent() && optional.get() == ok) {
-                    // Ergebnis des Dialogs abrufen
-                    result = Double.parseDouble(textField.getText());
-                }
-
-                /*zahlen.showAndWait().ifPresent(response -> {
-                    if (response == buttonTypeFortfahren) {
-                        double result = Double.parseDouble(textField.getText());
-                        double rückgeld = result - Double.parseDouble(labelTotal.getText());
-                        zahlen.close();
-
-                        Alert betrag = new Alert(Alert.AlertType.INFORMATION);
-                        betrag.setTitle("Barzahlung");
-                        betrag.setHeaderText("Total: " + labelTotal.getText() + "\ngegeben: " + result + "\nzurück: " + rückgeld);
-                        betrag.showAndWait();
-                    } else if (response == buttonTypeAbbrechen) {
-                        zahlen.close();
-                    }
-                });*/
-
-
-
-            }
-        });
-        Button karte = new Button("Karte");
-        karte.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (checkBox.isSelected()){
-                    layout1(2);
-                }
-                barOderKarteAlert.close();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Kartenzahlung");
-                alert.setHeaderText("Der folgende Betrag: " + labelTotal.getText() + " CHF ist zu bezahlen");
-                alert.showAndWait();
-            }
-        });
-
-        bar.setPrefSize(80, 60);
-        karte.setPrefSize(80, 60);
-        HBox hBox = new HBox(bar, karte);
-
-
-
-        ResultSet resultsetOhneKunde = null;
-        try {
-            resultsetOhneKunde = statement.executeQuery("SELECT COUNT(kunden_id) FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
-            resultsetOhneKunde.next();
-            if(resultsetOhneKunde.getInt(1) == 1){
-                VBox vBox = new VBox(hBox, checkBox);
-                barOderKarteAlert.getDialogPane().setContent(vBox);
-            }
-            else {
-                barOderKarteAlert.getDialogPane().setContent(hBox);
-            }
-        } catch (Exception e) {
-            AllgemeineMethoden.fehlermeldung(e);
-        }
-
-        Optional<ButtonType> result = barOderKarteAlert.showAndWait();
-        if (result.isPresent() && result.get() == buttonType) {
-            barOderKarteAlert.close();
-        }
-
     }
 
 
@@ -989,7 +995,7 @@ public class GuiArtikelFuerRechnung3 extends GuiTaskleiste implements Initializa
         //TODO ResultSet Pfad Logo
         ImageData datenLogo = null;
         try {
-            datenLogo = ImageDataFactory.create("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\Logo.png");
+            datenLogo = ImageDataFactory.create("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Unternehmen\\Logo.png");
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

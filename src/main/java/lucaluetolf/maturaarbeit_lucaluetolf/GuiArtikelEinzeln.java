@@ -89,7 +89,6 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
     int artikelnummer;
     private String filePath = "";
     private String newPath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Artikel\\";
-    private String oldFilePath = "";
 
 
     @Override
@@ -288,10 +287,9 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
 
     @FXML
     protected void textfieldMengeKey() {
-        //TODO replaceAll
-        textfeldMenge.setText(textfeldMenge.getText().replaceAll("^[0-9]+\\.[0-9]",""));
+        textfeldMenge.setText(textfeldMenge.getText().replaceAll("[^0-9.]",""));
         textfeldMenge.positionCaret(textfeldMenge.getLength());
-        booleanMenge = tester("^[0-9]+\\.[0-9]", textfeldMenge);
+        booleanMenge = tester("^\\d+(\\.\\d{1}(0|5)?)?$", textfeldMenge);
     }
 
     @FXML
@@ -304,7 +302,7 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
             alert.setHeaderText("Fehlermeldung");
             alert.setContentText("Der gewünschte Rabatt beträgt mehr als 100%");
             alert.showAndWait();
-            tester("[0-9]", textfeldRabatt);
+            booleanRabatt = tester("[0-9]", textfeldRabatt);
         }
         textfeldRabatt.positionCaret(textfeldRabatt.getLength());
 

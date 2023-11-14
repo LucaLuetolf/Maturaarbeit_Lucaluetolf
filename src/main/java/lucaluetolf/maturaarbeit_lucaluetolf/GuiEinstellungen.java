@@ -10,11 +10,16 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -80,6 +85,54 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
     private Label labelUnternehmensname;
 
 
+    // Konto einstellungen:
+    @FXML
+    private Label labelUnternehmen;
+    @FXML
+    private Label labelBenutzername;
+    @FXML
+    private Label labelPasswort;
+    @FXML
+    private Label labelLagerbestand;
+    @FXML
+    private Label labelBank;
+    @FXML
+    private Label labelIban;
+
+    @FXML
+    private TextField textfeldUnternehmen;
+    @FXML
+    private TextField textfeldBenutzername;
+    @FXML
+    private TextField textfeldPasswort;
+    @FXML
+    private TextField textfeldLagerbestandAnzeige;
+    @FXML
+    private TextField textfeldBank;
+    @FXML
+    private TextField textfeldIban;
+
+    @FXML
+    private JFXButton buttonBearbeitenKonto;
+    @FXML
+    private JFXButton buttonAbbrechenKonto;
+    @FXML
+    private JFXButton buttonBildAendern;
+
+    @FXML
+    private ImageView imageviewUnternehmen;
+
+
+    private boolean booleanUnternehmen = true;
+    private boolean booleanBenutzername = true;
+    private boolean booleanPasswort = true;
+    private boolean booleanLagerbestandAnzeige = true;
+    private boolean booleanBank = true;
+    private boolean booleanIban = true;
+
+    private String filePath = "";
+    private String newPath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\";
+
     private boolean booleanEinheitId = false;
     private boolean booleanBezeichnung = false;
     private boolean booleanAbkuerzung = false;
@@ -96,6 +149,7 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
         }
 
         anchorPaneStartseite.setVisible(true);
+        anchorPaneKonto.setVisible(false);
         anchorPaneEinheiten.setVisible(false);
     }
 
@@ -107,6 +161,7 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
     void einheiten(ActionEvent event) {
         anchorPaneStartseite.setVisible(false);
         anchorPaneEinheiten.setVisible(true);
+        anchorPaneKonto.setVisible(false);
         radioButtonAktivErfassen.setSelected(true);
         tableViewEinheiten = einheitenAnzeigen();
     }
@@ -170,7 +225,6 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
                 });
                 spalten.add(radioButtonAktiv);
 
-
                 radioButtonInaktiv.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -213,12 +267,254 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
 
     @FXML
     void konto(ActionEvent event) {
+        buttonBearbeitenKonto.setId("1");
+        anchorPaneStartseite.setVisible(false);
+        anchorPaneKonto.setVisible(true);
+        anchorPaneEinheiten.setVisible(false);
 
+        buttonAbbrechenKonto.setVisible(false);
+        buttonBildAendern.setVisible(false);
+
+        textfeldUnternehmen.setVisible(false);
+        textfeldBenutzername.setVisible(false);
+        textfeldPasswort.setVisible(false);
+        textfeldLagerbestandAnzeige.setVisible(false);
+        textfeldBank.setVisible(false);
+        textfeldIban.setVisible(false);
+        try {
+            ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
+            resultSetUnternehmen.next();
+            if (resultSetUnternehmen.getString("dateityp") == null){
+                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\System\\Unternehmen\\Logo.png";
+                Image image = new Image(new FileInputStream(imagePath));
+                imageviewUnternehmen.setImage(image);
+            }else{
+                String imagePath = "src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\" + resultSetUnternehmen.getInt("bildnummer") + "." + resultSetUnternehmen.getString("dateityp");
+                Image image = new Image(new FileInputStream(imagePath));
+                imageviewUnternehmen.setImage(image);
+            }
+
+            labelUnternehmen.setText(resultSetUnternehmen.getString("unternehmensname"));
+            labelBenutzername.setText(resultSetUnternehmen.getString("benutzername"));
+            labelPasswort.setText(resultSetUnternehmen.getString("passwort"));
+            labelLagerbestand.setText(String.valueOf(resultSetUnternehmen.getInt("lagerbestandOrange")));
+            labelBank.setText(resultSetUnternehmen.getString("bank"));
+            labelIban.setText(resultSetUnternehmen.getString("iban"));
+            resultSetUnternehmen.close();
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
     }
+    @FXML
+    void buttonBearbeitenKonto(ActionEvent event) {
+        if (Integer.parseInt(buttonBearbeitenKonto.getId()) == 1){
+            buttonBearbeitenKonto.setId("2");
+            buttonBearbeitenKonto.setText("speichern");
+            buttonBildAendern.setVisible(true);
+            buttonAbbrechenKonto.setVisible(true);
+            labelUnternehmen.setVisible(false);
+            labelBenutzername.setVisible(false);
+            labelPasswort.setVisible(false);
+            labelLagerbestand.setVisible(false);
+            labelBank.setVisible(false);
+            labelIban.setVisible(false);
+            textfeldUnternehmen.setVisible(true);
+            textfeldBenutzername.setVisible(true);
+            textfeldPasswort.setVisible(true);
+            textfeldLagerbestandAnzeige.setVisible(true);
+            textfeldBank.setVisible(true);
+            textfeldIban.setVisible(true);
+
+            textfeldUnternehmen.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+            textfeldBenutzername.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+            textfeldPasswort.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+            textfeldLagerbestandAnzeige.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+            textfeldBank.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+            textfeldIban.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+
+            try {
+                ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
+                resultSetUnternehmen.next();
+                textfeldUnternehmen.setText(resultSetUnternehmen.getString("unternehmensname"));
+                textfeldBenutzername.setText(resultSetUnternehmen.getString("benutzername"));
+                textfeldPasswort.setText(resultSetUnternehmen.getString("passwort"));
+                textfeldLagerbestandAnzeige.setText(String.valueOf(resultSetUnternehmen.getInt("lagerbestandOrange")));
+                textfeldBank.setText(resultSetUnternehmen.getString("bank"));
+                textfeldIban.setText(resultSetUnternehmen.getString("iban"));
+                resultSetUnternehmen.close();
+            } catch (Exception e) {
+                AllgemeineMethoden.fehlermeldung(e);
+            }
+
+        } else {
+            if (booleanUnternehmen && booleanBenutzername && booleanPasswort && booleanLagerbestandAnzeige && booleanBank && booleanIban) {
+                try {
+                    statement.execute("UPDATE unternehmen SET unternehmensname = '" + textfeldUnternehmen.getText() + "', benutzername = '" + textfeldBenutzername.getText() + "', passwort = '" + textfeldPasswort.getText() + "', lagerbestandOrange = " + textfeldLagerbestandAnzeige.getText() + ", bank = '" + textfeldBank.getText() + "', iban = '" + textfeldIban.getText() + "'");
+
+                    if (filePath != ""){
+                        AllgemeineMethoden.dateiKopieren(filePath, newPath);
+                        ResultSet resultSetDateityp = statement.executeQuery("SELECT * FROM unternehmen");
+                        resultSetDateityp.next();
+                        String dateityp = resultSetDateityp.getString("dateityp");
+                        int bildnummer = resultSetDateityp.getInt("bildnummer");
+                        resultSetDateityp.close();
+
+                        File neuesBildAlterPfad = new File(filePath);
+                        File neuesBildAlterName = new File(newPath + "\\" + neuesBildAlterPfad.getName());
+                        String dateitypNeu = "";
+                        int index = neuesBildAlterPfad.getName().lastIndexOf(".");
+                        if (index > 0) {
+                            dateitypNeu = neuesBildAlterPfad.getName().substring(index + 1);
+                        }
+                        File neuesBildNeuerName = new File("src\\main\\resources\\lucaluetolf\\maturaarbeit_lucaluetolf\\Bilder\\Benutzer\\Unternehmen\\" + (bildnummer+1) + "." + dateitypNeu);
+                        neuesBildAlterName.renameTo(neuesBildNeuerName);
+                        statement.execute("UPDATE unternehmen SET dateityp = '" + dateitypNeu + "', bildnummer = " + (bildnummer+1));
+                    }
+
+                    buttonBearbeitenKonto.setId("1");
+                    buttonBearbeitenKonto.setText("bearbeiten");
+
+                    buttonAbbrechenKonto.setVisible(false);
+                    buttonBildAendern.setVisible(false);
+
+                    labelUnternehmen.setVisible(true);
+                    labelBenutzername.setVisible(true);
+                    labelPasswort.setVisible(true);
+                    labelLagerbestand.setVisible(true);
+                    labelBank.setVisible(true);
+                    labelIban.setVisible(true);
+
+                    ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
+                    resultSetUnternehmen.next();
+                    labelUnternehmen.setText(resultSetUnternehmen.getString("unternehmensname"));
+                    labelBenutzername.setText(resultSetUnternehmen.getString("benutzername"));
+                    labelPasswort.setText(resultSetUnternehmen.getString("passwort"));
+                    labelLagerbestand.setText(String.valueOf(resultSetUnternehmen.getInt("lagerbestandOrange")));
+                    labelBank.setText(resultSetUnternehmen.getString("bank"));
+                    labelIban.setText(resultSetUnternehmen.getString("iban"));
+                    resultSetUnternehmen.close();
+
+                    textfeldUnternehmen.setVisible(false);
+                    textfeldBenutzername.setVisible(false);
+                    textfeldPasswort.setVisible(false);
+                    textfeldLagerbestandAnzeige.setVisible(false);
+                    textfeldBank.setVisible(false);
+                    textfeldIban.setVisible(false);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                }
+
+            } else {
+                if (booleanUnternehmen == false) {
+                    textfeldUnternehmen.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                if (booleanBenutzername == false) {
+                    textfeldBenutzername.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                if (booleanPasswort == false) {
+                    textfeldPasswort.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                if (booleanLagerbestandAnzeige == false) {
+                    textfeldLagerbestandAnzeige.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                if (booleanBank == false) {
+                    textfeldBank.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+                if (booleanIban == false) {
+                    textfeldIban.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                }
+            }
+        }
+    }
+    @FXML
+    void buttonAbbrechenKonto(ActionEvent event) {
+        buttonAbbrechenKonto.setVisible(false);
+        labelUnternehmen.setVisible(true);
+        labelBenutzername.setVisible(true);
+        labelPasswort.setVisible(true);
+        labelLagerbestand.setVisible(true);
+        labelBank.setVisible(true);
+        labelIban.setVisible(true);
+        try {
+            ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
+            resultSetUnternehmen.next();
+            labelUnternehmen.setText(resultSetUnternehmen.getString("unternehmensname"));
+            labelBenutzername.setText(resultSetUnternehmen.getString("benutzername"));
+            labelPasswort.setText(resultSetUnternehmen.getString("passwort"));
+            labelLagerbestand.setText(String.valueOf(resultSetUnternehmen.getInt("lagerbestandOrange")));
+            labelBank.setText(resultSetUnternehmen.getString("bank"));
+            labelIban.setText(resultSetUnternehmen.getString("iban"));
+            resultSetUnternehmen.close();
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
+
+        buttonBildAendern.setVisible(false);
+
+        textfeldUnternehmen.setVisible(false);
+        textfeldBenutzername.setVisible(false);
+        textfeldPasswort.setVisible(false);
+        textfeldLagerbestandAnzeige.setVisible(false);
+        textfeldBank.setVisible(false);
+        textfeldIban.setVisible(false);
+    }
+
+    @FXML
+    void bildAendern(){
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Bilddateien", "*.png;*.jpeg;*.jpg;*.gif;*.svg");
+        fileChooser.getExtensionFilters().add(filter);
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            filePath = selectedFile.getAbsolutePath();
+            Image image = new Image(filePath);
+            imageviewUnternehmen.setImage(image);
+        }
+    }
+
+    @FXML
+    protected void textfieldUnternehmenKey(){
+        textfeldUnternehmen.setText(textfeldUnternehmen.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
+        textfeldUnternehmen.positionCaret(textfeldUnternehmen.getLength());
+        booleanUnternehmen = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldUnternehmen);
+    }
+    @FXML
+    protected void textfieldBenutzernameKey(){
+        textfeldBenutzername.setText(textfeldBenutzername.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
+        textfeldBenutzername.positionCaret(textfeldBenutzername.getLength());
+        booleanBenutzername = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldBenutzername);
+    }
+    @FXML
+    protected void textfieldPasswortKey(){
+        textfeldPasswort.setText(textfeldPasswort.getText().replaceAll("[^A-Za-z0-9éàèöäüÉÀÈÖÄÜ,.;:-_?!]", ""));
+        textfeldPasswort.positionCaret(textfeldPasswort.getLength());
+        booleanPasswort = tester("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$", textfeldPasswort);
+    }
+    @FXML
+    protected void textfieldLagerbestandAnzeigeKey(){
+        textfeldLagerbestandAnzeige.setText(textfeldLagerbestandAnzeige.getText().replaceAll("[^0-9]", ""));
+        textfeldLagerbestandAnzeige.positionCaret(textfeldLagerbestandAnzeige.getLength());
+        booleanLagerbestandAnzeige = tester("^[1-9]\\d*$", textfeldLagerbestandAnzeige);
+    }
+    @FXML
+    protected void textfieldBankKey(){
+        textfeldBank.setText(textfeldBank.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
+        textfeldBank.positionCaret(textfeldBank.getLength());
+        booleanBank = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?(?:\\sAG)?$", textfeldBank);
+    }
+    @FXML
+    protected void textfieldIbanKey(){
+        textfeldIban.setText(textfeldIban.getText().replaceAll("[^CH0-9]", ""));
+        textfeldIban.positionCaret(textfeldIban.getLength());
+        booleanIban = tester("^CH[0-9]{19}$", textfeldIban);
+    }
+
 
     @FXML
     void startseite(ActionEvent event) {
         anchorPaneStartseite.setVisible(true);
+        anchorPaneKonto.setVisible(false);
         anchorPaneEinheiten.setVisible(false);
     }
 
