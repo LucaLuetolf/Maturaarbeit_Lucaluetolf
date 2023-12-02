@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" styleClass="backgroundlogin" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiKundeErfassen">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #E8CFB0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiKundeErfassen">
    <children>
-      <Pane layoutX="300.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
+      <Pane layoutX="300.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
          <children>
             <TextField fx:id="textfeldKundennummer" layoutX="300.0" layoutY="160.0" onKeyReleased="#textfieldKundennummerKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="53.0" layoutY="43.0" text="Kunde erfassen" textFill="#ba8759">
@@ -69,7 +69,7 @@
                   <Font size="24.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="300.0" layoutY="469.0" onAction="#kundeErfassen" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="Erfassen" textFill="WHITE">
+            <JFXButton layoutX="300.0" layoutY="469.0" onAction="#kundeErfassen" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="erfassen" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>

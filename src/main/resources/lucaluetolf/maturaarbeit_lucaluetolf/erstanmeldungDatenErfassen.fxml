@@ -12,72 +12,12 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #E8CFB0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiErstanmeldungDatenErfassen">
    <children>
-      <Pane fx:id="paneArtikelErfassen" layoutX="310.0" layoutY="110.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15px;" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
-         <children>
-            <TextField fx:id="textfeldArtikelnummer" layoutX="300.0" layoutY="265.0" onKeyReleased="#textfieldArtikelnummerKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="53.0" layoutY="43.0" text="Artikel erfassen" textFill="#ba8759">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-            <Label layoutX="118.0" layoutY="260.0" prefHeight="35.0" prefWidth="171.0" text="Artikelnummer" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="textfeldLagerbestand" layoutX="300.0" layoutY="431.0" onKeyReleased="#textfieldLagerbestandKey" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldName" layoutX="300.0" layoutY="300.0" onKeyReleased="#textfieldNameKey" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldPreis" layoutX="300.0" layoutY="334.0" onKeyReleased="#textfieldPreisKey" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldMenge" layoutX="300.0" layoutY="366.0" onKeyReleased="#textfieldMengeKey" prefHeight="25.0" prefWidth="125.0" />
-            <Label layoutX="118.0" layoutY="295.0" prefHeight="35.0" prefWidth="171.0" text="Name" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="118.0" layoutY="329.0" prefHeight="35.0" prefWidth="171.0" text="Preis" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="118.0" layoutY="361.0" prefHeight="35.0" prefWidth="171.0" text="Menge" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="118.0" layoutY="426.0" prefHeight="35.0" prefWidth="171.0" text="Lagerbestand" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="textfeldRabatt" layoutX="300.0" layoutY="399.0" onKeyReleased="#textfieldRabattKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="118.0" layoutY="394.0" prefHeight="35.0" prefWidth="171.0" text="Rabatt" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <JFXButton layoutX="238.0" layoutY="211.0" onAction="#bildAendern" text="Bild ändern" textFill="#ba8759">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </JFXButton>
-            <Pane layoutX="232.0" layoutY="93.0" prefHeight="125.0" prefWidth="125.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;">
-               <children>
-                  <ImageView fx:id="imageView" fitHeight="110.0" fitWidth="110.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Bilder/System/Artikel/Artikel.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <ChoiceBox fx:id="choiceBoxMenge" layoutX="427.0" layoutY="366.0" prefHeight="25.0" prefWidth="75.0" />
-         </children>
-      </Pane>
       <JFXButton fx:id="buttonWeiter" layoutX="1009.0" layoutY="701.0" onAction="#weiter" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" text="&gt;" textFill="#ba8759">
          <font>
             <Font size="24.0" />
          </font>
       </JFXButton>
-      <Label fx:id="labelBeschreibung" layoutX="220.0" layoutY="682.0" prefHeight="90.0" prefWidth="767.0" text="Label" textFill="WHITE">
+      <Label fx:id="labelBeschreibung" layoutX="220.0" layoutY="682.0" prefHeight="90.0" prefWidth="767.0" text="Label" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="660.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -91,68 +31,6 @@
             </ImageView>
             <Label layoutX="11.0" layoutY="172.0" prefHeight="69.0" prefWidth="181.0" text="Ab welcher Stückzahl soll der wechsel der Linie von grün auf orange stattfinden (rot wird sie bei 0 Stück)" textFill="#ba8759" wrapText="true" />
          </children></Pane>
-      <Pane fx:id="paneKundeErfassen" layoutX="310.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
-         <children>
-            <TextField fx:id="textfeldKundennummer" layoutX="300.0" layoutY="160.0" onKeyReleased="#textfieldKundennummerKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="53.0" layoutY="43.0" text="Kunde erfassen" textFill="#ba8759">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-            <Label layoutX="118.0" layoutY="155.0" prefHeight="35.0" prefWidth="171.0" text="Kundennummer" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="textfeldNachname" layoutX="300.0" layoutY="195.0" onKeyReleased="#textfieldNachnameKey" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldVorname" layoutX="300.0" layoutY="229.0" onKeyReleased="#textfieldVornameKey" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldAdresse" layoutX="300.0" layoutY="261.0" onKeyReleased="#textfieldAdresseKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="118.0" layoutY="190.0" prefHeight="35.0" prefWidth="171.0" text="Nachname" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="118.0" layoutY="224.0" prefHeight="35.0" prefWidth="171.0" text="Vorname" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="118.0" layoutY="256.0" prefHeight="35.0" prefWidth="171.0" text="Adresse" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="118.0" layoutY="321.0" prefHeight="35.0" prefWidth="171.0" text="Ort" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="textfeldPostleitzahl" layoutX="300.0" layoutY="294.0" onKeyReleased="#textfieldPostleitzahlKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="118.0" layoutY="289.0" prefHeight="35.0" prefWidth="171.0" text="Postleitzahl" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="textfeldOrt" layoutX="300.0" layoutY="326.0" onKeyReleased="#textfieldOrtKey" prefHeight="25.0" prefWidth="202.0" />
-            <TextField fx:id="textfeldEmail" layoutX="300.0" layoutY="358.0" onKeyReleased="#textfieldEmailKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="118.0" layoutY="353.0" prefHeight="35.0" prefWidth="171.0" text="E-Mail" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="textfeldNatelnummer" layoutX="300.0" layoutY="390.0" onKeyReleased="#textfieldNatelnummerKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="118.0" layoutY="385.0" prefHeight="35.0" prefWidth="171.0" text="Natelnummer" textFill="#ba8759">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <JFXButton layoutX="140.0" layoutY="420.0" onAction="#ohneKundeFortfahren" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="ohne Kunde fortfahren" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </Pane>
       <Pane fx:id="paneUnternehmensdatenErfassen" layoutX="310.0" layoutY="110.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-radius: 20px; -fx-background-color: #FFFFFF;" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
          <children>
             <TextField fx:id="textfeldUnternehmen" layoutX="296.0" layoutY="276.0" onKeyReleased="#textfieldUnternehmenKey" prefHeight="25.0" prefWidth="202.0" />
@@ -215,6 +93,128 @@
                   </ImageView>
                </children>
             </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="paneKundeErfassen" layoutX="310.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <TextField fx:id="textfeldKundennummer" layoutX="300.0" layoutY="160.0" onKeyReleased="#textfieldKundennummerKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="53.0" layoutY="43.0" text="Kunde erfassen" textFill="#ba8759">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="155.0" prefHeight="35.0" prefWidth="171.0" text="Kundennummer" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldNachname" layoutX="300.0" layoutY="195.0" onKeyReleased="#textfieldNachnameKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldVorname" layoutX="300.0" layoutY="229.0" onKeyReleased="#textfieldVornameKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldAdresse" layoutX="300.0" layoutY="261.0" onKeyReleased="#textfieldAdresseKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="118.0" layoutY="190.0" prefHeight="35.0" prefWidth="171.0" text="Nachname" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="224.0" prefHeight="35.0" prefWidth="171.0" text="Vorname" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="256.0" prefHeight="35.0" prefWidth="171.0" text="Adresse" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="321.0" prefHeight="35.0" prefWidth="171.0" text="Ort" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldPostleitzahl" layoutX="300.0" layoutY="294.0" onKeyReleased="#textfieldPostleitzahlKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="118.0" layoutY="289.0" prefHeight="35.0" prefWidth="171.0" text="Postleitzahl" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldOrt" layoutX="300.0" layoutY="326.0" onKeyReleased="#textfieldOrtKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldEmail" layoutX="300.0" layoutY="358.0" onKeyReleased="#textfieldEmailKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="118.0" layoutY="353.0" prefHeight="35.0" prefWidth="171.0" text="E-Mail" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldNatelnummer" layoutX="300.0" layoutY="390.0" onKeyReleased="#textfieldNatelnummerKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="118.0" layoutY="385.0" prefHeight="35.0" prefWidth="171.0" text="Natelnummer" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="140.0" layoutY="420.0" onAction="#ohneKundeFortfahren" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="ohne Kunde fortfahren" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Pane fx:id="paneArtikelErfassen" layoutX="310.0" layoutY="110.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15px;" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <TextField fx:id="textfeldArtikelnummer" layoutX="300.0" layoutY="265.0" onKeyReleased="#textfieldArtikelnummerKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="53.0" layoutY="43.0" text="Artikel erfassen" textFill="#ba8759">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="260.0" prefHeight="35.0" prefWidth="171.0" text="Artikelnummer" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldLagerbestand" layoutX="300.0" layoutY="431.0" onKeyReleased="#textfieldLagerbestandKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldName" layoutX="300.0" layoutY="300.0" onKeyReleased="#textfieldNameKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldPreis" layoutX="300.0" layoutY="334.0" onKeyReleased="#textfieldPreisKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldMenge" layoutX="300.0" layoutY="366.0" onKeyReleased="#textfieldMengeKey" prefHeight="25.0" prefWidth="125.0" />
+            <Label layoutX="118.0" layoutY="295.0" prefHeight="35.0" prefWidth="171.0" text="Name" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="329.0" prefHeight="35.0" prefWidth="171.0" text="Preis (CHF)" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="361.0" prefHeight="35.0" prefWidth="171.0" text="Menge/ Einheit" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="118.0" layoutY="426.0" prefHeight="35.0" prefWidth="171.0" text="Lagerbestand" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfeldRabatt" layoutX="300.0" layoutY="399.0" onKeyReleased="#textfieldRabattKey" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="118.0" layoutY="394.0" prefHeight="35.0" prefWidth="171.0" text="Rabatt (%)" textFill="#ba8759">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="238.0" layoutY="211.0" onAction="#bildAendern" text="Bild ändern" textFill="#ba8759">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <Pane layoutX="232.0" layoutY="93.0" prefHeight="125.0" prefWidth="125.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;">
+               <children>
+                  <ImageView fx:id="imageView" fitHeight="110.0" fitWidth="110.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Bilder/System/Artikel/Artikel.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <ChoiceBox fx:id="choiceBoxMenge" layoutX="427.0" layoutY="365.0" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #ffffff; -fx-border-radius: 5px; -fx-border-color: #BABABA;" />
          </children>
       </Pane>
    </children>

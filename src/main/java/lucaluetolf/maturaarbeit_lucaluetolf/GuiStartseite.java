@@ -74,25 +74,35 @@ public class GuiStartseite extends GuiTaskleiste implements Initializable {
         }
 
         try {
-            lineChart.getXAxis().setAnimated(false);
-            lineChart.getYAxis().setAnimated(false);
-            series = new XYChart.Series<>();
-            ResultSet resultsetArtikelId = statement.executeQuery("SELECT artikel_id, SUM(Anzahl) AS Gesamtverkauf FROM verkaufteStueck GROUP BY Artikel_id ORDER BY Gesamtverkauf DESC");
-            resultsetArtikelId.next();
-            int artikelId = resultsetArtikelId.getInt(1);
-            labelBesterArtikel.setAlignment(Pos.CENTER);
-            resultsetArtikelId.close();
-            ResultSet resultsetName = statement.executeQuery("SELECT name FROM artikel WHERE artikelId = " + artikelId);
-            resultsetName.next();
-            String name = resultsetName.getString(1);
-            labelBesterArtikel.setText("Bestseller: " + name);
-            resultsetName.close();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM verkaufteStueck WHERE artikel_id = " + artikelId + " AND anzahl != 0 ORDER BY datum ASC");
-            while (resultSet.next()){
-                series.getData().add(new XYChart.Data<String, Integer>(resultSet.getDate("datum").toString(), resultSet.getInt("anzahl")));
+            ResultSet resultSetBestseller = statement.executeQuery("SELECT COUNT(artikel_id) FROM verkaufteStueck");
+            resultSetBestseller.next();
+            int sum = resultSetBestseller.getInt(1);
+            resultSetBestseller.close();
+            if(sum == 0){
+                labelBesterArtikel.setText("bisher wurde kein Artikel verkauft");
             }
-            resultSet.close();
-            lineChart.getData().add(series);
+            else{
+                lineChart.getXAxis().setAnimated(false);
+                lineChart.getYAxis().setAnimated(false);
+                series = new XYChart.Series<>();
+                ResultSet resultsetArtikelId = statement.executeQuery("SELECT artikel_id, SUM(Anzahl) AS Gesamtverkauf FROM verkaufteStueck GROUP BY Artikel_id ORDER BY Gesamtverkauf DESC");
+                resultsetArtikelId.next();
+                int artikelId = resultsetArtikelId.getInt(1);
+                labelBesterArtikel.setAlignment(Pos.CENTER);
+                resultsetArtikelId.close();
+                ResultSet resultsetName = statement.executeQuery("SELECT name FROM artikel WHERE artikelId = " + artikelId);
+                resultsetName.next();
+                String name = resultsetName.getString(1);
+                labelBesterArtikel.setText("Bestseller: " + name);
+                resultsetName.close();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM verkaufteStueck WHERE artikel_id = " + artikelId + " AND anzahl != 0 ORDER BY datum ASC");
+                while (resultSet.next()){
+                    series.getData().add(new XYChart.Data<String, Integer>(resultSet.getDate("datum").toString(), resultSet.getInt("anzahl")));
+                }
+                resultSet.close();
+                lineChart.getData().add(series);
+            }
+
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }

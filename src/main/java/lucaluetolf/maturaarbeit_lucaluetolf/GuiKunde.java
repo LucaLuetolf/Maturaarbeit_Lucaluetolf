@@ -53,14 +53,14 @@ public class GuiKunde extends GuiTaskleiste implements Initializable {
             AllgemeineMethoden.fehlermeldung(e);
         }
         ObservableList<ObservableList<String>> observableList = FXCollections.observableArrayList();
-        TableColumn<ObservableList<String>, String> spalteKundennummer = new TableColumn<>("Kundennummer");
+        TableColumn<ObservableList<String>, String> spalteKundennummer = new TableColumn<>("Kundennr.");
         TableColumn<ObservableList<String>, String> spalteNachname = new TableColumn<>("Nachname");
         TableColumn<ObservableList<String>, String> spalteVorname = new TableColumn<>("Vorname");
         TableColumn<ObservableList<String>, String> spalteAdresse = new TableColumn<>("Adresse");
         TableColumn<ObservableList<String>, String> spalteOrt = new TableColumn<>("Ort");
         TableColumn<ObservableList<String>, String> spaltePostleitzahl = new TableColumn<>("PLZ");
         TableColumn<ObservableList<String>, String> spalteEmail = new TableColumn<>("E-Mail");
-        TableColumn<ObservableList<String>, String> spalteNatelnummer = new TableColumn<>("Natelnummer");
+        TableColumn<ObservableList<String>, String> spalteNatelnummer = new TableColumn<>("Natelnr.");
 
         spalteKundennummer.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(0)));
         spalteNachname.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(1)));
@@ -114,14 +114,14 @@ public class GuiKunde extends GuiTaskleiste implements Initializable {
 
         tableViewKunden.setItems(observableList);
 
-        spalteKundennummer.setPrefWidth(100);
+        spalteKundennummer.setPrefWidth(70);
         spalteNachname.setPrefWidth(113);
         spalteVorname.setPrefWidth(113);
-        spalteAdresse.setPrefWidth(120);
+        spalteAdresse.setPrefWidth(140);
         spalteOrt.setPrefWidth(120);
         spaltePostleitzahl.setPrefWidth(40);
-        spalteEmail.setPrefWidth(130);
-        spalteNatelnummer.setPrefWidth(110);
+        spalteEmail.setPrefWidth(160);
+        spalteNatelnummer.setPrefWidth(90);
 
     }
 

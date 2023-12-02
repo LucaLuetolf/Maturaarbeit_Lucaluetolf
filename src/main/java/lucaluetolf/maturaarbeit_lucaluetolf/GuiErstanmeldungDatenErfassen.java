@@ -57,20 +57,6 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     @FXML
     private Pane paneLagerbestand;
 
-    private String s1 = "Herzlich Willkommen, nachfolgend wird die App erklärt und die wichtigen Inhalte werden erfasst";
-    private String s2 = "Login";
-    private String s3 = "Startseite";
-    private String s4 = "Artikel";
-    private String s5 = "Artikel Erfassen";
-    private String s6 = "mehr Infos";
-    private String s7 = "Kunden";
-    private String s8 = "Kunde Erfassen";
-    private String s9 = "Kunde bearbeiten";
-    private String s10 = "Rechnung erstellen, Kunde";
-    private String s11 = "Rechnung erstellen, Artikel";
-    private String s12 = "Pdf Dokument";
-    private String s13 = "mehr Infos";
-    private String s14 = "mehr Infos";
 
     //Unternehmensdaten:
 
@@ -169,12 +155,24 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
         return boolean1;
     }
 
+    //Strings
+    private String s1 = "Der Benutzername muss am Anfang gross geschrieben sein. Das Passwort muss mindestens eine Zahl, einen Gross- und Kleinbuchstaben enthalten. Die Länge beträgt mindestens 8 Zeichen. ";
+    private String s2 = "Die Artikelnummer darf nicht mit 0 starten. Der Name muss am Anfang gross geschrieben werden. Bei der Menge ist die Menge pro Einheit gemeint.";
+    private String s3 = "Die Kundennummer darf nicht mit 0 starten";
+
     // Unternehmensdaten Erfassen
     @FXML
     protected void textfieldUnternehmenKey(){
-        textfeldUnternehmen.setText(textfeldUnternehmen.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
+        /*textfeldUnternehmen.setText(textfeldUnternehmen.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
         textfeldUnternehmen.positionCaret(textfeldUnternehmen.getLength());
-        booleanUnternehmen = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldUnternehmen);
+        booleanUnternehmen = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldUnternehmen);*/
+        if (textfeldUnternehmen.getLength() != 0){
+            booleanUnternehmen = true;
+            textfeldUnternehmen.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+        } else{
+            booleanUnternehmen = false;
+            textfeldUnternehmen.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
+        }
     }
     @FXML
     protected void textfieldBenutzernameKey(){
@@ -241,7 +239,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
         boolean booleanUnternehmensdatenErfassen = false;
         if (booleanUnternehmen && booleanBenutzername && booleanPasswort && booleanLagerbestandAnzeige && booleanBank && booleanIban) {
             try {
-                if (textfeldBank.getText() == "" && textfeldIban.getText() == ""){
+                if (textfeldBank.getLength() == 0 && textfeldIban.getLength() == 0){
                     statement.execute("INSERT INTO unternehmen (unternehmensname, rechnungsnummer, benutzername, passwort, lagerbestandOrange) VALUES ('" + textfeldUnternehmen.getText() + "', 1, '" + textfeldBenutzername.getText() + "','" + textfeldPasswort.getText() + "'," + textfeldLagerbestandAnzeige.getText() + ")");
                 } else{
                     statement.execute("INSERT INTO unternehmen (unternehmensname, rechnungsnummer, benutzername, passwort, lagerbestandOrange, bank, iban) VALUES ('" + textfeldUnternehmen.getText() + "', 1, '" + textfeldBenutzername.getText() + "','" + textfeldPasswort.getText() + "'," + textfeldLagerbestandAnzeige.getText() + ",'" + textfeldBank.getText() + "','" + textfeldIban.getText() + "')");
@@ -255,7 +253,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                     if (index > 0) {
                         dateityp = altesBild.getName().substring(index + 1);
                     }
-                    File neuerName = new File(newPathLogo + "/1." + dateityp);
+                    File neuerName = new File(newPathLogo + "1." + dateityp);
                     neuesBild.renameTo(neuerName);
                     statement.execute("UPDATE unternehmen SET dateityp = '" + dateityp + "', bildnummer = 1");
                 }
@@ -309,15 +307,17 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     protected void textfieldArtikelnummerKey() {
         textfeldArtikelnummer.setText(textfeldArtikelnummer.getText().replaceAll("[^0-9]", ""));
         textfeldArtikelnummer.positionCaret(textfeldArtikelnummer.getLength());
-        booleanArtikelnummer = tester("^[1-9]\\d{1,9}$", textfeldArtikelnummer);
-        if(textfeldArtikelnummer.getText() != ""){
-            if (textfeldArtikelnummer.getLength() <= 8){
+        booleanArtikelnummer = tester("^[1-9]\\d{0,8}$", textfeldArtikelnummer);
+        /*if(textfeldArtikelnummer.getText() != ""){
+            if (textfeldArtikelnummer.getLength() > 8){
                 textfeldArtikelnummer.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
+                booleanArtikelnummer = false;
             }
             else{
                 textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
             }
-        }
+        }*/
+
     }
 
     @FXML
@@ -445,6 +445,10 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                 AllgemeineMethoden.fehlermeldung(e);
             }
         }
+        if (textfeldKundennummer.getLength() > 8){
+            booleanKundennummer = false;
+            textfeldKundennummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+        }
     }
 
     @FXML
@@ -491,7 +495,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     protected void textfieldNatelnummerKey() {
         textfeldNatelnummer.setText(textfeldNatelnummer.getText().replaceAll("[^0-9]", ""));
         textfeldNatelnummer.positionCaret(textfeldNatelnummer.getLength());
-        booleanNatelnummer = tester("^[1-9]\\d*$", textfeldNatelnummer);
+        booleanNatelnummer = tester("^[0-9]\\d*$", textfeldNatelnummer);
     }
 
     @FXML
@@ -514,7 +518,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
         boolean booleanKundeErfassen = false;
         if (booleanKundennummer && booleanNachname && booleanVorname && booleanAdresse && booleanPostleitzahl && booleanOrt && booleanEmail && booleanNatelnummer) {
             try {
-                statement.execute("INSERT INTO kunden (kundenId, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer) VALUES (" + textfeldKundennummer.getText() + ",'" + textfeldNachname.getText() + "','" + textfeldVorname.getText() + "','" + textfeldAdresse.getText() + "'," + textfeldPostleitzahl.getText() + ",'" + textfeldOrt.getText() + "','" + textfeldEmail.getText() + "'," + textfeldNatelnummer.getText() + ")");
+                statement.execute("INSERT INTO kunden (kundenId, nachname, vorname, adresse, postleitzahl, ort, email, natelnummer) VALUES (" + textfeldKundennummer.getText() + ",'" + textfeldNachname.getText() + "','" + textfeldVorname.getText() + "','" + textfeldAdresse.getText() + "'," + textfeldPostleitzahl.getText() + ",'" + textfeldOrt.getText() + "','" + textfeldEmail.getText() + "','" + textfeldNatelnummer.getText() + "')");
                 AllgemeineMethoden.ordnerErstellen("Kundendateien/" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText());
                 AllgemeineMethoden.ordnerErstellen("Kundendateien/" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "/Quittungen");
                 AllgemeineMethoden.ordnerErstellen("Kundendateien/" + textfeldKundennummer.getText() + ", " + textfeldNachname.getText() + " " + textfeldVorname.getText() + "/Rechnungen");
@@ -553,6 +557,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buttonWeiter.setId("1");
+        labelBeschreibung.setText(s1);
         paneArtikelErfassen.setVisible(false);
         paneKundeErfassen.setVisible(false);
         paneLagerbestand.setVisible(false);
@@ -571,7 +576,6 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                     buttonWeiter.setId(String.valueOf(Integer.parseInt(buttonWeiter.getId())-1));
                     break;
                 }
-                labelBeschreibung.setText(s2);
                 paneUnternehmensdatenErfassen.setVisible(false);
                 paneArtikelErfassen.setVisible(true);
                 ObservableList<String> werte = FXCollections.observableArrayList();
@@ -597,8 +601,9 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                 choiceBoxMenge.setItems(werte);
                 Image image = null;
                 try {
-                    image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png"));
+                    image = new Image(String.valueOf(getClass().getResource("/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png")));
                     imageView.setImage(image);
+                    labelBeschreibung.setText(s2);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }

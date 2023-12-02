@@ -14,160 +14,6 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiEinstellungen">
    <children>
-      <AnchorPane prefHeight="800.0" prefWidth="230.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #ba8759; -fx-border-radius: 20px; -fx-border-style: solid; -fx-border-width: 2px;" styleClass="anchorpanelink">
-         <children>
-            <JFXButton fx:id="buttonStartseite" layoutX="17.0" layoutY="153.0" onAction="#startseite" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Startseite" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="150.0" />
-            <JFXButton fx:id="buttonKonto" layoutX="20.0" layoutY="221.0" onAction="#konto" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Konto" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="210.0" />
-            <JFXButton fx:id="buttonEinheiten" layoutX="17.0" layoutY="295.0" onAction="#einheiten" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Einheiten" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="270.0" />
-            <JFXButton fx:id="buttonAppInfos" layoutX="14.0" layoutY="359.0" onAction="#appInfos" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="App-Infos" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="330.0" />
-            <JFXButton fx:id="buttonTitelKonto" onAction="#konto" prefHeight="80.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15px;" text=" " AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0" />
-            <Pane layoutX="29.0" layoutY="47.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 25px;">
-               <children>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Bilder/System/Login/Profil.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Label fx:id="labelUnternehmensname" layoutX="89.0" layoutY="59.0" maxWidth="120.0" text="Label" textFill="#ba8759">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <JFXButton layoutX="41.0" layoutY="679.0" onAction="#toSceneStartseite" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurück" AnchorPane.bottomAnchor="70.0">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="anchorPaneEinheiten" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="970.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Pane layoutX="770.0" layoutY="1.0" prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px;">
-               <children>
-                  <Label layoutX="26.0" layoutY="137.0" prefHeight="30.0" prefWidth="149.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Id:" />
-                  <TextField fx:id="textfieldEinheitId" layoutX="26.0" layoutY="173.0" onKeyReleased="#textfieldEinheitIdKey" />
-                  <Label layoutX="26.0" layoutY="214.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Bezeichnung:" />
-                  <TextField fx:id="textfieldBezeichnung" layoutX="29.0" layoutY="250.0" onKeyReleased="#textfieldBezeichnungKey" />
-                  <Label layoutX="26.0" layoutY="295.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Abkürzung:" />
-                  <TextField fx:id="textfieldAbkuerzung" layoutX="26.0" layoutY="331.0" onKeyReleased="#textfieldAbkuerzungKey" />
-                  <Label layoutX="26.0" layoutY="373.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Aktiv/ Inaktiv:" />
-                  <JFXButton layoutX="26.0" layoutY="493.0" onAction="#einheitErfassen" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Erfassen">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="26.0" layoutY="553.0" onAction="#einheitErfassenZuruecksetzten" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurücksetzen">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </JFXButton>
-                  <Pane layoutX="25.0" layoutY="410.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10px;">
-                     <children>
-                        <RadioButton fx:id="radioButtonAktivErfassen" layoutX="15.0" layoutY="5.0" mnemonicParsing="false" onAction="#radioButtonAktivErfassen" text="Aktiv" />
-                        <RadioButton fx:id="radioButtonInaktivErfassen" layoutX="15.0" layoutY="30.0" mnemonicParsing="false" onAction="#radioButtonInaktivErfassen" text="inaktiv" />
-                     </children>
-                  </Pane>
-               </children>
-            </Pane>
-            <ScrollPane fitToWidth="true" layoutX="72.0" layoutY="200.0" prefHeight="442.0">
-               <content>
-                  <TableView fx:id="tableViewEinheiten" prefHeight="440.0" prefWidth="630.0" />
-               </content>
-            </ScrollPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="anchorPaneStartseite" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="970.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Pane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="70.0">
-               <children>
-                  <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="- Unternehmensdaten anzeigen" textFill="#ba8759" />
-                        <Label layoutX="14.0" layoutY="31.0" text="- Passwort ändern" textFill="#ba8759" />
-                        <Label layoutX="14.0" layoutY="48.0" text="- Kontodaten anpassen" textFill="#ba8759" />
-                     </children>
-                  </Pane>
-                  <Label layoutX="50.0" layoutY="20.0" text="Konto" textFill="WHITE">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <JFXButton layoutX="85.0" layoutY="236.0" onAction="#konto" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zu Konto wechseln">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </Pane>
-            <Pane layoutX="515.0" layoutY="70.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="70.0">
-               <children>
-                  <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="- Einheiten anzeigen" textFill="#ba8759" />
-                        <Label layoutX="14.0" layoutY="31.0" text="- Einheiten aktivieren oder deaktivieren" textFill="#ba8759" />
-                        <Label layoutX="14.0" layoutY="48.0" text="- neue Einheiten erfassen" textFill="#ba8759" />
-                     </children>
-                  </Pane>
-                  <Label layoutX="50.0" layoutY="20.0" text="Einheiten" textFill="WHITE">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <JFXButton layoutX="85.0" layoutY="236.0" onAction="#einheiten" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zu Einheiten wechseln">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </Pane>
-            <Pane layoutX="525.0" layoutY="80.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="55.0">
-               <children>
-                  <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="- Entwicklerdaten anzeigen" textFill="#ba8759" />
-                        <Label layoutX="14.0" layoutY="31.0" textFill="#ba8759" />
-                        <Label layoutX="14.0" layoutY="48.0" textFill="#ba8759" />
-                     </children>
-                  </Pane>
-                  <Label layoutX="50.0" layoutY="20.0" text="App-Infos" textFill="WHITE">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <JFXButton layoutX="85.0" layoutY="236.0" onAction="#appInfos" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zu App-Infos wechseln">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </Pane>
-            <Pane layoutX="535.0" layoutY="90.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="55.0">
-               <children>
-                  <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
-                     <children>
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="271.0" text="- Die App wird auf die Starteinstellungen" textFill="#ba8759" />
-                        <Label layoutX="23.0" layoutY="31.0" text="zurückgesetzt" textFill="#ba8759" />
-                        <Label layoutX="14.0" layoutY="48.0" text="- Achtung: Alle Daten gehen verloren" textFill="#ba8759" />
-                        <Label layoutX="14.0" layoutY="65.0" prefHeight="17.0" prefWidth="271.0" text="- Achtung: Alle Rechnungen und Quittungen" textFill="#ba8759" />
-                        <Label layoutX="22.0" layoutY="80.0" text="werden gelöscht" textFill="#ba8759" />
-                     </children>
-                  </Pane>
-                  <Label layoutX="50.0" layoutY="20.0" text="Zurücksetzten" textFill="WHITE">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <JFXButton layoutX="85.0" layoutY="236.0" onAction="#appZuruecksetzten" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="App Zurücksetzten">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </Pane>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="anchorPaneKonto" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="970.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane layoutX="36.0" layoutY="53.0" prefHeight="700.0" prefWidth="416.0" style="-fx-background-color: #E8CFB0; -fx-border-radius: 20px; -fx-background-radius: 20px;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0">
@@ -241,12 +87,12 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="labelIban" layoutX="656.0" layoutY="481.0" maxWidth="290.0" prefHeight="35.0" prefWidth="290.0" text="CH1234567890987654321" textFill="#ba8759" wrapText="true">
+            <Label fx:id="labelIban" layoutX="656.0" layoutY="481.0" maxWidth="290.0" prefHeight="35.0" prefWidth="290.0" textFill="#ba8759" wrapText="true">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="labelBank" layoutX="656.0" layoutY="449.0" maxWidth="290.0" prefHeight="35.0" prefWidth="171.0" textFill="#ba8759">
+            <Label fx:id="labelBank" layoutX="656.0" layoutY="449.0" maxWidth="290.0" prefHeight="35.0" prefWidth="290.0" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
@@ -261,6 +107,157 @@
                   <Font size="24.0" />
                </font>
             </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="800.0" prefWidth="230.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #ba8759; -fx-border-radius: 20px; -fx-border-style: solid; -fx-border-width: 2px;" styleClass="anchorpanelink">
+         <children>
+            <JFXButton fx:id="buttonStartseite" layoutX="17.0" layoutY="153.0" onAction="#startseite" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Startseite" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="150.0" />
+            <JFXButton fx:id="buttonKonto" layoutX="20.0" layoutY="221.0" onAction="#konto" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Konto" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="210.0" />
+            <JFXButton fx:id="buttonEinheiten" layoutX="17.0" layoutY="295.0" onAction="#einheiten" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Einheiten" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="270.0" />
+            <JFXButton fx:id="buttonAppInfos" layoutX="14.0" layoutY="359.0" onAction="#appInfos" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Tutorial anzeigen" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="330.0" />
+            <JFXButton fx:id="buttonTitelKonto" onAction="#konto" prefHeight="80.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15px;" text=" " AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0" />
+            <Pane layoutX="29.0" layoutY="47.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 25px;">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Bilder/System/Login/Profil.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Label fx:id="labelUnternehmensname" layoutX="89.0" layoutY="36.0" maxWidth="120.0" prefHeight="73.0" prefWidth="114.0" text="Label" textFill="#ba8759" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="41.0" layoutY="679.0" onAction="#toSceneStartseite" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurück" AnchorPane.bottomAnchor="70.0">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorPaneStartseite" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="970.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="70.0">
+               <children>
+                  <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="- Unternehmensdaten anzeigen" textFill="#ba8759" />
+                        <Label layoutX="14.0" layoutY="31.0" text="- Passwort ändern" textFill="#ba8759" />
+                        <Label layoutX="14.0" layoutY="48.0" text="- Kontodaten anpassen" textFill="#ba8759" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="50.0" layoutY="20.0" text="Konto" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <JFXButton layoutX="85.0" layoutY="236.0" onAction="#konto" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zu Konto wechseln">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
+            <Pane layoutX="515.0" layoutY="70.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="70.0">
+               <children>
+                  <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="- Einheiten anzeigen" textFill="#ba8759" />
+                        <Label layoutX="14.0" layoutY="31.0" text="- Einheiten aktivieren oder deaktivieren" textFill="#ba8759" />
+                        <Label layoutX="14.0" layoutY="48.0" text="- neue Einheiten erfassen" textFill="#ba8759" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="50.0" layoutY="20.0" text="Einheiten" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <JFXButton layoutX="85.0" layoutY="236.0" onAction="#einheiten" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zu Einheiten wechseln">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
+            <Pane layoutX="525.0" layoutY="80.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="55.0">
+               <children>
+                  <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="- Tutorial (vom Anfang) anzeigen" textFill="#ba8759" />
+                        <Label layoutX="14.0" layoutY="31.0" textFill="#ba8759" />
+                        <Label layoutX="14.0" layoutY="48.0" textFill="#ba8759" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="50.0" layoutY="20.0" text="App-Infos" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <JFXButton layoutX="85.0" layoutY="236.0" onAction="#appInfos" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Tutorial anzeigen">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
+            <Pane layoutX="535.0" layoutY="90.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20;" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="55.0">
+               <children>
+                  <Pane layoutX="50.0" layoutY="61.0" prefHeight="160.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="271.0" text="- Die App wird auf die Starteinstellungen zurückgesetzt" textFill="#ba8759" wrapText="true" />
+                        <Label layoutX="14.0" layoutY="48.0" prefHeight="60.0" prefWidth="270.0" text="- Achtung: Die Ordner Bilder und Kundendatein (beim Speicherort der App) müssen gelöscht oder umbennant werden." textFill="#ba8759" wrapText="true" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="50.0" layoutY="20.0" text="zurücksetzen" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <JFXButton layoutX="85.0" layoutY="236.0" onAction="#appZuruecksetzten" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="App zurücksetzen">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorPaneEinheiten" layoutX="10.0" layoutY="10.0" prefHeight="800.0" prefWidth="970.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane layoutX="770.0" layoutY="1.0" prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px;">
+               <children>
+                  <Label layoutX="26.0" layoutY="137.0" prefHeight="30.0" prefWidth="149.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Id:" />
+                  <TextField fx:id="textfieldEinheitId" layoutX="26.0" layoutY="173.0" onKeyReleased="#textfieldEinheitIdKey" />
+                  <Label layoutX="26.0" layoutY="214.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Bezeichnung:" />
+                  <TextField fx:id="textfieldBezeichnung" layoutX="29.0" layoutY="250.0" onKeyReleased="#textfieldBezeichnungKey" />
+                  <Label layoutX="26.0" layoutY="295.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Abkürzung:" />
+                  <TextField fx:id="textfieldAbkuerzung" layoutX="26.0" layoutY="331.0" onKeyReleased="#textfieldAbkuerzungKey" />
+                  <Label layoutX="26.0" layoutY="373.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Aktiv/ Inaktiv:" />
+                  <JFXButton layoutX="26.0" layoutY="493.0" onAction="#einheitErfassen" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="erfassen">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="26.0" layoutY="553.0" onAction="#einheitErfassenZuruecksetzten" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurücksetzen">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </JFXButton>
+                  <Pane layoutX="25.0" layoutY="410.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10px;">
+                     <children>
+                        <RadioButton fx:id="radioButtonAktivErfassen" layoutX="15.0" layoutY="5.0" mnemonicParsing="false" onAction="#radioButtonAktivErfassen" text="Aktiv" />
+                        <RadioButton fx:id="radioButtonInaktivErfassen" layoutX="15.0" layoutY="30.0" mnemonicParsing="false" onAction="#radioButtonInaktivErfassen" text="Inaktiv" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <ScrollPane fitToWidth="true" layoutX="72.0" layoutY="200.0" prefHeight="442.0">
+               <content>
+                  <TableView fx:id="tableViewEinheiten" prefHeight="440.0" prefWidth="630.0" />
+               </content>
+            </ScrollPane>
          </children>
       </AnchorPane>
    </children>

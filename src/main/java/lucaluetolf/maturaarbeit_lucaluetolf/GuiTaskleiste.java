@@ -13,6 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.sql.*;
@@ -85,6 +86,17 @@ public class GuiTaskleiste {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    event.consume();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText("Neue Nachricht:");
+                    alert.setContentText("Die App kann momentan nicht geschlossen werden");
+                    alert.showAndWait();
+                }
+            });
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
@@ -103,6 +115,17 @@ public class GuiTaskleiste {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    event.consume();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText("Neue Nachricht:");
+                    alert.setContentText("Die App kann momentan nicht geschlossen werden");
+                    alert.showAndWait();
+                }
+            });
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
@@ -117,8 +140,9 @@ public class GuiTaskleiste {
         alert.setHeaderText("Bitte geben sie die Rechnungs- oder Quittungsnummer ein:");
         textfield.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent event) {
-                textfield.getText().replaceAll("[^0-9]", "");
+            public void handle(KeyEvent event1) {
+                textfield.setText(textfield.getText().replaceAll("[^0-9]", ""));
+                textfield.positionCaret(textfield.getLength());
             }
         });
 
@@ -148,6 +172,17 @@ public class GuiTaskleiste {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                event.consume();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Neue Nachricht:");
+                alert.setContentText("Die App kann momentan nicht geschlossen werden");
+                alert.showAndWait();
+            }
+        });
 
     }
 

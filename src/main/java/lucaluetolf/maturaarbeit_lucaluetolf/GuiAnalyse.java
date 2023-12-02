@@ -28,6 +28,8 @@ public class GuiAnalyse extends GuiTaskleiste implements Initializable {
     private CheckBox checkboxVergleich;
     @FXML
     private JFXButton buttonZuruecksetzten;
+    @FXML
+    private JFXButton buttonAnwenden;
     XYChart.Series<String, Integer> series;
     private boolean booleanArtikelnummer = false;
 
@@ -68,7 +70,7 @@ public class GuiAnalyse extends GuiTaskleiste implements Initializable {
     @FXML
     protected void anwenden(){
         buttonZuruecksetzten.setDisable(false);
-        if (booleanArtikelnummer == true && datePickerVon.getValue() != null && datePickerBis.getValue() != null && datePickerBis.getValue().isAfter(datePickerVon.getValue())){
+        if (booleanArtikelnummer == true && datePickerVon.getValue() != null && datePickerBis.getValue() != null && (datePickerBis.getValue().isAfter(datePickerVon.getValue()) || datePickerBis.getValue().isEqual(datePickerVon.getValue()))){
             checkboxVergleich.setDisable(true);
             datePickerVon.setEditable(false);
             datePickerVon.setMouseTransparent(true);
@@ -83,20 +85,24 @@ public class GuiAnalyse extends GuiTaskleiste implements Initializable {
                         series.getData().add(new XYChart.Data<String, Integer>(resultSet.getDate("datum").toString(), resultSet.getInt("anzahl")));
                     }
                     resultSet.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                    //throw new RuntimeException(e);
                 }
                 lineChart.getData().add(series);
             } else{
                 try {
                     textfieldArtikelnummer.setEditable(false);
+                    buttonAnwenden.setDisable(true);
+
                     ResultSet resultSet = statement.executeQuery("SELECT * FROM verkaufteStueck WHERE artikel_id = " + textfieldArtikelnummer.getText() + " AND ANZAHL != 0 AND datum BETWEEN '" + datePickerVon.getValue() + "' AND '" + datePickerBis.getValue() + "' ORDER BY datum ASC");
                     while (resultSet.next()){
                         series.getData().add(new XYChart.Data<String, Integer>(resultSet.getDate("datum").toString(), resultSet.getInt("anzahl")));
                     }
                     resultSet.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                } catch (Exception e) {
+                    AllgemeineMethoden.fehlermeldung(e);
+                    //throw new RuntimeException(e);
                 }
                 lineChart.getData().add(series);
             }
@@ -126,6 +132,7 @@ public class GuiAnalyse extends GuiTaskleiste implements Initializable {
         checkboxVergleich.setSelected(false);
 
         buttonZuruecksetzten.setDisable(true);
+        buttonAnwenden.setDisable(false);
         textfieldArtikelnummer.setText("");
         textfieldArtikelnummer.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
         datePickerVon.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");

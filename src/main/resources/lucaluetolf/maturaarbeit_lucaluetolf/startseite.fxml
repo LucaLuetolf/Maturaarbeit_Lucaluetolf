@@ -14,15 +14,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiStartseite">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiStartseite">
    <children>
       <VBox prefHeight="800.0" prefWidth="230.0">
          <children>
-            <AnchorPane prefHeight="800.0" prefWidth="230.0" styleClass="anchorpanelink">
+            <AnchorPane prefHeight="800.0" prefWidth="230.0" style="-fx-background-color: #E8CFB0; -fx-border-radius: 20px; -fx-background-radius: 20px; -fx-border-style: solid; -fx-border-color: #ba8759; -fx-border-width: 2px;">
                <children>
-                  <Pane layoutX="15.0" layoutY="26.0" prefHeight="80.0" prefWidth="200.0" styleClass="panelinkslogo" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
+                  <Pane layoutX="15.0" layoutY="26.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
                      <children>
-                        <Label fx:id="labelName" alignment="CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="-9.0" maxWidth="180.0" prefHeight="100.0" prefWidth="171.0" text="Name" textFill="#ba8759" wrapText="true">
+                        <Label fx:id="labelName" alignment="CENTER" contentDisplay="TOP" layoutX="13.0" maxWidth="180.0" prefHeight="100.0" prefWidth="171.0" text="Name" textFill="#ba8759" wrapText="true">
                            <font>
                               <Font size="32.0" />
                            </font>
@@ -32,21 +32,21 @@
                   <JFXButton layoutX="17.0" layoutY="153.0" onAction="#toSceneStartseite" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Startseite" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="150.0" />
                   <JFXButton layoutX="20.0" layoutY="221.0" onAction="#toSceneArtikel" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Artikel" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="210.0" />
                   <JFXButton layoutX="17.0" layoutY="295.0" onAction="#toSceneKunden" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Kunden" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="270.0" />
-                  <JFXButton layoutX="14.0" layoutY="359.0" onAction="#toSceneNeueRechnung" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="neue Rechnung" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="330.0" />
+                  <JFXButton layoutX="14.0" layoutY="359.0" onAction="#toSceneNeueRechnung" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Rechnung" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="330.0" />
                   <JFXButton layoutX="17.0" layoutY="425.0" onAction="#toSceneVerkauf" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Verkauf" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="390.0" />
-                  <JFXButton layoutX="18.0" layoutY="421.0" onAction="#toScenePdfBearbeiten" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Pdf Bearbeiten" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="450.0" />
+                  <JFXButton layoutX="18.0" layoutY="421.0" onAction="#toScenePdfBearbeiten" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Pdf bearbeiten" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="450.0" />
                   <JFXButton layoutX="15.0" layoutY="495.0" onAction="#toSceneAnalyse" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Analyse" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="510.0" />
                </children>
             </AnchorPane>
          </children>
       </VBox>
-      <AnchorPane prefHeight="800.0" prefWidth="990.0">
+      <AnchorPane prefHeight="800.0" prefWidth="970.0">
          <children>
-            <Pane layoutX="62.0" layoutY="257.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
+            <Pane layoutX="62.0" layoutY="257.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 20px; -fx-background-color: #E8CFB0;">
                <children>
-                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneArtikel" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Artikel">
+                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneArtikel" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Artikel" textFill="#ba8759">
                      <font>
-                        <Font size="48.0" />
+                        <Font size="20.0" />
                      </font>
                   </JFXButton>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
@@ -56,11 +56,11 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="285.0" layoutY="257.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
+            <Pane layoutX="285.0" layoutY="257.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 20px; -fx-background-color: #E8CFB0;">
                <children>
-                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneKunden" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Kunden">
+                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneKunden" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Kunden" textFill="#ba8759">
                      <font>
-                        <Font size="48.0" />
+                        <Font size="20.0" />
                      </font>
                   </JFXButton>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
@@ -70,11 +70,11 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="505.0" layoutY="257.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
+            <Pane layoutX="505.0" layoutY="257.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px;">
                <children>
-                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneNeueRechnung" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="neue Rechnung">
+                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneNeueRechnung" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Rechnung" textFill="#ba8759">
                      <font>
-                        <Font size="48.0" />
+                        <Font size="20.0" />
                      </font>
                   </JFXButton>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
@@ -84,11 +84,11 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="725.0" layoutY="257.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
+            <Pane layoutX="725.0" layoutY="257.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px;">
                <children>
-                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneVerkauf" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" styleClass="jfxbutton" text="Verkauf">
+                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneVerkauf" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Verkauf" textFill="#ba8759">
                      <font>
-                        <Font size="48.0" />
+                        <Font size="20.0" />
                      </font>
                   </JFXButton>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
@@ -98,11 +98,11 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="62.0" layoutY="479.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
+            <Pane layoutX="62.0" layoutY="479.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px;">
                <children>
-                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toScenePdfBearbeiten" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Pdf Bearbeiten">
+                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toScenePdfBearbeiten" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Pdf bearbeiten" textFill="#ba8759">
                      <font>
-                        <Font size="48.0" />
+                        <Font size="20.0" />
                      </font>
                   </JFXButton>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
@@ -112,11 +112,11 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="285.0" layoutY="479.0" prefHeight="200.0" prefWidth="200.0" styleClass="panebutton">
+            <Pane layoutX="285.0" layoutY="479.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 20px; -fx-background-color: #E8CFB0;">
                <children>
-                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneAnalyse" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Analyse">
+                  <JFXButton layoutX="10.0" layoutY="136.0" onAction="#toSceneAnalyse" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Analyse" textFill="#ba8759">
                      <font>
-                        <Font size="48.0" />
+                        <Font size="20.0" />
                      </font>
                   </JFXButton>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
@@ -126,7 +126,10 @@
                   </ImageView>
                </children>
             </Pane>
-            <Label fx:id="labelWillkommen" layoutX="64.0" layoutY="121.0" prefHeight="50.0" prefWidth="441.0" styleClass="labelWillkommen" text="Label" textFill="#ba8759" />
+            <Label fx:id="labelWillkommen" layoutX="64.0" layoutY="121.0" prefHeight="50.0" prefWidth="441.0" text="Label" textFill="#ba8759">
+               <font>
+                  <Font size="35.0" />
+               </font></Label>
             <Button layoutX="798.0" layoutY="121.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 25;">
                <graphic>
                   <ImageView fx:id="logout" fitHeight="55.0" fitWidth="55.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
@@ -145,7 +148,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Pane layoutX="505.0" layoutY="479.0" prefHeight="200.0" prefWidth="420.0" styleClass="panebutton">
+            <Pane layoutX="505.0" layoutY="479.0" prefHeight="200.0" prefWidth="420.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px;">
                <children>
                   <LineChart fx:id="lineChart" animated="false" layoutX="5.0" layoutY="27.0" prefHeight="173.0" prefWidth="411.0">
                     <xAxis>

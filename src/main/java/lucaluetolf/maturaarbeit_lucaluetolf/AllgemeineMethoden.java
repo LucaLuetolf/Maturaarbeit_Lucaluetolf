@@ -17,7 +17,6 @@ public class AllgemeineMethoden {
         }
     }
     public static void ordnerErstellen(String pfad){
-        //String pfad = "Rechnungen\\"+kundennummer + " " + nachname + " " + vorname;
         File ordner = new File(pfad);
         ordner.mkdirs();
     }

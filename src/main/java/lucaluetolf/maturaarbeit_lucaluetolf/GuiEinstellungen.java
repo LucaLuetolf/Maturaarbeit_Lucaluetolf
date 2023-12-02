@@ -8,7 +8,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,9 +21,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,7 +44,9 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    Stage stage;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     @FXML
     private JFXButton buttonAppInfos;
@@ -155,6 +163,15 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
 
     @FXML
     void appInfos(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("erstanmeldung.fxml"));
+        } catch (IOException e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -285,8 +302,7 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
             ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
             resultSetUnternehmen.next();
             if (resultSetUnternehmen.getString("dateityp") == null){
-                String imagePath = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Unternehmen/Logo.png";
-                Image image = new Image(new FileInputStream(imagePath));
+                Image image = new Image(String.valueOf(getClass().getResource("/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Unternehmen/Logo.png")));
                 imageviewUnternehmen.setImage(image);
             }else{
                 String imagePath = "Bilder/Benutzer/Unternehmen/" + resultSetUnternehmen.getInt("bildnummer") + "." + resultSetUnternehmen.getString("dateityp");
@@ -347,62 +363,68 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
             }
 
         } else {
-            if (booleanUnternehmen && booleanBenutzername && booleanPasswort && booleanLagerbestandAnzeige && booleanBank && booleanIban) {
-                try {
-                    statement.execute("UPDATE unternehmen SET unternehmensname = '" + textfeldUnternehmen.getText() + "', benutzername = '" + textfeldBenutzername.getText() + "', passwort = '" + textfeldPasswort.getText() + "', lagerbestandOrange = " + textfeldLagerbestandAnzeige.getText() + ", bank = '" + textfeldBank.getText() + "', iban = '" + textfeldIban.getText() + "'");
+            if (booleanUnternehmen && booleanBenutzername && booleanPasswort && booleanLagerbestandAnzeige && booleanBank && booleanIban){
+                if ((textfeldBank.getLength() != 0 && textfeldIban.getLength() != 0) || (textfeldBank.getLength() == 0 && textfeldIban.getLength() ==0)){
+                    try {
+                        statement.execute("UPDATE unternehmen SET unternehmensname = '" + textfeldUnternehmen.getText() + "', benutzername = '" + textfeldBenutzername.getText() + "', passwort = '" + textfeldPasswort.getText() + "', lagerbestandOrange = " + textfeldLagerbestandAnzeige.getText() + ", bank = '" + textfeldBank.getText() + "', iban = '" + textfeldIban.getText() + "'");
 
-                    if (filePath != ""){
-                        AllgemeineMethoden.dateiKopieren(filePath, newPath);
-                        ResultSet resultSetDateityp = statement.executeQuery("SELECT * FROM unternehmen");
-                        resultSetDateityp.next();
-                        String dateityp = resultSetDateityp.getString("dateityp");
-                        int bildnummer = resultSetDateityp.getInt("bildnummer");
-                        resultSetDateityp.close();
+                        if (filePath != ""){
+                            AllgemeineMethoden.dateiKopieren(filePath, newPath);
+                            ResultSet resultSetDateityp = statement.executeQuery("SELECT * FROM unternehmen");
+                            resultSetDateityp.next();
+                            String dateityp = resultSetDateityp.getString("dateityp");
+                            int bildnummer = resultSetDateityp.getInt("bildnummer");
+                            resultSetDateityp.close();
 
-                        File neuesBildAlterPfad = new File(filePath);
-                        File neuesBildAlterName = new File(newPath + "/" + neuesBildAlterPfad.getName());
-                        String dateitypNeu = "";
-                        int index = neuesBildAlterPfad.getName().lastIndexOf(".");
-                        if (index > 0) {
-                            dateitypNeu = neuesBildAlterPfad.getName().substring(index + 1);
+                            File neuesBildAlterPfad = new File(filePath);
+                            File neuesBildAlterName = new File(newPath + "/" + neuesBildAlterPfad.getName());
+                            String dateitypNeu = "";
+                            int index = neuesBildAlterPfad.getName().lastIndexOf(".");
+                            if (index > 0) {
+                                dateitypNeu = neuesBildAlterPfad.getName().substring(index + 1);
+                            }
+                            File neuesBildNeuerName = new File(String.valueOf("Bilder/Benutzer/Unternehmen/" + (bildnummer+1) + "." + dateitypNeu));
+                            neuesBildAlterName.renameTo(neuesBildNeuerName);
+                            statement.execute("UPDATE unternehmen SET dateityp = '" + dateitypNeu + "', bildnummer = " + (bildnummer+1));
                         }
-                        File neuesBildNeuerName = new File("Bilder/Benutzer/Unternehmen/" + (bildnummer+1) + "." + dateitypNeu);
-                        neuesBildAlterName.renameTo(neuesBildNeuerName);
-                        statement.execute("UPDATE unternehmen SET dateityp = '" + dateitypNeu + "', bildnummer = " + (bildnummer+1));
+
+                        buttonBearbeitenKonto.setId("1");
+                        buttonBearbeitenKonto.setText("bearbeiten");
+
+                        buttonAbbrechenKonto.setVisible(false);
+                        buttonBildAendern.setVisible(false);
+
+                        labelUnternehmen.setVisible(true);
+                        labelBenutzername.setVisible(true);
+                        labelPasswort.setVisible(true);
+                        labelLagerbestand.setVisible(true);
+                        labelBank.setVisible(true);
+                        labelIban.setVisible(true);
+
+                        ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
+                        resultSetUnternehmen.next();
+                        labelUnternehmen.setText(resultSetUnternehmen.getString("unternehmensname"));
+                        labelBenutzername.setText(resultSetUnternehmen.getString("benutzername"));
+                        labelPasswort.setText(resultSetUnternehmen.getString("passwort"));
+                        labelLagerbestand.setText(String.valueOf(resultSetUnternehmen.getInt("lagerbestandOrange")));
+                        labelBank.setText(resultSetUnternehmen.getString("bank"));
+                        labelIban.setText(resultSetUnternehmen.getString("iban"));
+                        resultSetUnternehmen.close();
+
+                        textfeldUnternehmen.setVisible(false);
+                        textfeldBenutzername.setVisible(false);
+                        textfeldPasswort.setVisible(false);
+                        textfeldLagerbestandAnzeige.setVisible(false);
+                        textfeldBank.setVisible(false);
+                        textfeldIban.setVisible(false);
+                    } catch (Exception e) {
+                        AllgemeineMethoden.fehlermeldung(e);
                     }
-
-                    buttonBearbeitenKonto.setId("1");
-                    buttonBearbeitenKonto.setText("bearbeiten");
-
-                    buttonAbbrechenKonto.setVisible(false);
-                    buttonBildAendern.setVisible(false);
-
-                    labelUnternehmen.setVisible(true);
-                    labelBenutzername.setVisible(true);
-                    labelPasswort.setVisible(true);
-                    labelLagerbestand.setVisible(true);
-                    labelBank.setVisible(true);
-                    labelIban.setVisible(true);
-
-                    ResultSet resultSetUnternehmen = statement.executeQuery("SELECT * FROM unternehmen");
-                    resultSetUnternehmen.next();
-                    labelUnternehmen.setText(resultSetUnternehmen.getString("unternehmensname"));
-                    labelBenutzername.setText(resultSetUnternehmen.getString("benutzername"));
-                    labelPasswort.setText(resultSetUnternehmen.getString("passwort"));
-                    labelLagerbestand.setText(String.valueOf(resultSetUnternehmen.getInt("lagerbestandOrange")));
-                    labelBank.setText(resultSetUnternehmen.getString("bank"));
-                    labelIban.setText(resultSetUnternehmen.getString("iban"));
-                    resultSetUnternehmen.close();
-
-                    textfeldUnternehmen.setVisible(false);
-                    textfeldBenutzername.setVisible(false);
-                    textfeldPasswort.setVisible(false);
-                    textfeldLagerbestandAnzeige.setVisible(false);
-                    textfeldBank.setVisible(false);
-                    textfeldIban.setVisible(false);
-                } catch (Exception e) {
-                    AllgemeineMethoden.fehlermeldung(e);
+                } else {
+                    textfeldBank.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                    textfeldIban.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
                 }
+
 
             } else {
                 if (booleanUnternehmen == false) {
@@ -428,6 +450,8 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
     }
     @FXML
     void buttonAbbrechenKonto(ActionEvent event) {
+        buttonBearbeitenKonto.setId("1");
+        buttonBearbeitenKonto.setText("bearbeiten");
         buttonAbbrechenKonto.setVisible(false);
         labelUnternehmen.setVisible(true);
         labelBenutzername.setVisible(true);
@@ -502,12 +526,18 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
         textfeldBank.setText(textfeldBank.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
         textfeldBank.positionCaret(textfeldBank.getLength());
         booleanBank = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?(?:\\sAG)?$", textfeldBank);
+        if (textfeldBank.getLength() == 0){
+            booleanBank = true;
+        }
     }
     @FXML
     protected void textfieldIbanKey(){
         textfeldIban.setText(textfeldIban.getText().replaceAll("[^CH0-9]", ""));
         textfeldIban.positionCaret(textfeldIban.getLength());
         booleanIban = tester("^CH[0-9]{19}$", textfeldIban);
+        if (textfeldIban.getLength() == 0){
+            booleanIban = true;
+        }
     }
 
 
@@ -652,8 +682,27 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
                     statement.execute("DROP TABLE IF EXISTS bestellung");
                     statement.execute("DROP TABLE IF EXISTS verkaufteStueck");
                     statement.execute("DROP TABLE IF EXISTS loeschen");
-                    Stage stage = (Stage) buttonEinheiten.getScene().getWindow();
-                    stage.close();
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("erstanmeldung.fxml"));
+                    } catch (IOException e) {
+                        AllgemeineMethoden.fehlermeldung(e);
+                    }
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent event) {
+                            event.consume();
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Information Dialog");
+                            alert.setHeaderText("Neue Nachricht:");
+                            alert.setContentText("Die App kann momentan nicht geschlossen werden");
+                            alert.showAndWait();
+                        }
+                    });
+
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }

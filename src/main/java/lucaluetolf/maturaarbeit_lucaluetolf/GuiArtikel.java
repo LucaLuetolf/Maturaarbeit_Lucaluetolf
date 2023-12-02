@@ -68,7 +68,7 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM artikel, einheiten WHERE einheitId = einheit_id");
             while (resultSet.next()) {
-                if (column == 4) {
+                if (column == 5) {
                     row = row + 1;
                     gridpaneArtikel.addColumn(row);
                     prefHeight = prefHeight + prefHeightPerColumn;
@@ -96,12 +96,12 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
 
                 ImageView imageView = null;
                 if (resultSet.getString("dateityp") == null){
-                    String imagePath = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png";
-                    Image image = new Image(new FileInputStream(imagePath));
+                    String imagePath = String.valueOf(getClass().getResource("/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png"));
+                    Image image = new Image(imagePath);
                     imageView = new ImageView();
                     imageView.setImage(image);
                 }else{
-                    String imagePath = "Bilder/Benutzer/Artikel/" + resultSet.getInt("artikelId") + "/" + resultSet.getInt("bildnummer") + "." + resultSet.getString("dateityp");
+                    String imagePath = String.valueOf("Bilder/Benutzer/Artikel/" + resultSet.getInt("artikelId") + "/" + resultSet.getInt("bildnummer") + "." + resultSet.getString("dateityp"));
                     Image image = new Image(new FileInputStream(imagePath));
                     imageView = new ImageView();
                     imageView.setImage(image);
@@ -110,7 +110,7 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
 
                 Line lineLagerbestand = new Line();
                 //170, 220
-                //212,290
+                //212, 290
                 pane.setPrefSize(170, 220);
                 pane.getChildren().add(labelArtikelnummer);
                 pane.getChildren().add(labelName);

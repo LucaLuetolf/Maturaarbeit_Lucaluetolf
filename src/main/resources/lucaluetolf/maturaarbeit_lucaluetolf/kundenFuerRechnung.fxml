@@ -9,34 +9,34 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiKundenFuerRechnung">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiKundenFuerRechnung">
     <children>
         <ScrollPane fitToWidth="true" layoutX="288.0" layoutY="146.0" prefHeight="582.0" prefWidth="850.0">
             <content>
                 <TableView fx:id="tableViewKunden" prefHeight="580.0" prefWidth="848.0" />
             </content>
         </ScrollPane>
-      <Pane prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px;">
+      <Pane prefHeight="800.0" prefWidth="230.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-style: solid; -fx-border-color: #ba8759; -fx-border-width: 2px;">
          <children>
-            <Label layoutX="26.0" layoutY="164.0" prefHeight="30.0" prefWidth="149.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Kundennummer:" />
-            <TextField fx:id="textfieldFilterKundennummer" layoutX="26.0" layoutY="200.0" onKeyReleased="#textfieldFilterKundennummerKey" />
-            <Label layoutX="26.0" layoutY="241.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Nachname:" />
-            <TextField fx:id="textfieldFilterNachname" layoutX="29.0" layoutY="277.0" onKeyReleased="#textfieldFilterNachnameKey" />
-            <Label layoutX="26.0" layoutY="322.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Vorname:" />
-            <TextField fx:id="textfieldFilterVorname" layoutX="26.0" layoutY="358.0" onKeyReleased="#textfieldFilterVornameKey" />
-            <Label layoutX="26.0" layoutY="400.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Postleitzahl:" />
-            <TextField fx:id="textfieldFilterPostleitzahl" layoutX="26.0" layoutY="436.0" onKeyReleased="#textfieldFilterPostleitzahlKey" />
-            <JFXButton layoutX="26.0" layoutY="493.0" onAction="#kundenRechnungFilterAnwenden" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Anwenden">
+            <Label layoutX="41.0" layoutY="166.0" prefHeight="30.0" prefWidth="149.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Kundennummer:" />
+            <TextField fx:id="textfieldFilterKundennummer" layoutX="41.0" layoutY="202.0" onKeyReleased="#textfieldFilterKundennummerKey" />
+            <Label layoutX="41.0" layoutY="243.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Nachname:" />
+            <TextField fx:id="textfieldFilterNachname" layoutX="41.0" layoutY="279.0" onKeyReleased="#textfieldFilterNachnameKey" />
+            <Label layoutX="41.0" layoutY="324.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Vorname:" />
+            <TextField fx:id="textfieldFilterVorname" layoutX="41.0" layoutY="360.0" onKeyReleased="#textfieldFilterVornameKey" />
+            <Label layoutX="41.0" layoutY="402.0" prefHeight="30.0" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-fill: #FFFFFF;" text="Postleitzahl:" />
+            <TextField fx:id="textfieldFilterPostleitzahl" layoutX="41.0" layoutY="438.0" onKeyReleased="#textfieldFilterPostleitzahlKey" />
+            <JFXButton layoutX="41.0" layoutY="495.0" onAction="#kundenRechnungFilterAnwenden" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="anwenden">
                <font>
                   <Font size="48.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="26.0" layoutY="681.0" onAction="#zurueck" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurück">
+            <JFXButton layoutX="41.0" layoutY="683.0" onAction="#zurueck" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurück">
                <font>
                   <Font size="48.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="26.0" layoutY="553.0" onAction="#kundenRechnungFilterZuruecksetzten" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurüchsetzen">
+            <JFXButton layoutX="41.0" layoutY="555.0" onAction="#kundenRechnungFilterZuruecksetzten" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: ffffff; -fx-background-radius: 10; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="zurücksetzen">
                <font>
                   <Font size="48.0" />
                </font>

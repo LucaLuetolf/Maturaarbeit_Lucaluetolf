@@ -58,9 +58,12 @@ jlinkZip {
 
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'lucaluetolf.maturaarbeit_lucaluetolf.Main'
+        attributes 'Main-Class': 'lucaluetolf.maturaarbeit_lucaluetolf.Launcher'
     }
     archiveBaseName = project.name + 'Fat-Jar'
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+    duplicatesStrategy 'exclude'
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+
 }

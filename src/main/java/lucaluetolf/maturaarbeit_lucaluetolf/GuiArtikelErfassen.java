@@ -104,7 +104,7 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
         textfeldArtikelnummer.setText(textfeldArtikelnummer.getText().replaceAll("[^0-9]", ""));
         textfeldArtikelnummer.positionCaret(textfeldArtikelnummer.getLength());
         booleanArtikelnummer = tester("^[1-9]\\d*$", textfeldArtikelnummer);
-        if (textfeldArtikelnummer.getText() != ""){
+        if (textfeldArtikelnummer.getText() != "" && booleanArtikelnummer){
             try {
                 ResultSet resultsetArtikel = statement.executeQuery("SELECT COUNT(artikelId) AS summe FROM artikel WHERE artikelId = " + textfeldArtikelnummer.getText());
                 resultsetArtikel.next();
@@ -114,11 +114,16 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
                 }
                 else{
                     textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                    booleanArtikelnummer = false;
                 }
                 resultsetArtikel.close();
             } catch (Exception e) {
                 AllgemeineMethoden.fehlermeldung(e);
             }
+        }
+        if (textfeldArtikelnummer.getLength() > 8){
+            booleanArtikelnummer = false;
+            textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
         }
 
     }
@@ -255,7 +260,7 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
         choiceBoxMenge.setItems(werte);
         Image image = null;
         try {
-            image = new Image(new FileInputStream("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png"));
+            image = new Image(String.valueOf(getClass().getResource("/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png")));
             imageView.setImage(image);
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);

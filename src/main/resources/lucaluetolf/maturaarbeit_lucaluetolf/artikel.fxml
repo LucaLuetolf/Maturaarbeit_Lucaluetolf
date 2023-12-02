@@ -11,16 +11,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@stil.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiArtikel">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiArtikel">
    <children>
       <VBox prefHeight="800.0" prefWidth="230.0">
          <children>
-            <AnchorPane prefHeight="800.0" prefWidth="230.0" styleClass="anchorpanelink">
+            <AnchorPane prefHeight="800.0" prefWidth="230.0" style="-fx-background-color: #E8CFB0; -fx-border-radius: 20px; -fx-background-radius: 20px; -fx-border-style: solid; -fx-border-color: #ba8759; -fx-border-width: 2px;">
                <children>
                   <JFXButton onAction="#toSceneStartseite" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Startseite" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="150.0" />
-                  <Pane layoutX="28.0" layoutY="43.0" prefHeight="80.0" prefWidth="200.0" styleClass="panelinkslogo" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
+                  <Pane layoutX="28.0" layoutY="43.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
                      <children>
-                        <Label fx:id="labelName" alignment="CENTER" contentDisplay="TOP" layoutX="8.0" layoutY="5.0" maxWidth="180.0" prefHeight="70.0" prefWidth="180.0" text="Name" textFill="#ba8759">
+                        <Label fx:id="labelName" alignment="CENTER" contentDisplay="TOP" layoutX="13.0" maxWidth="180.0" prefHeight="100.0" prefWidth="171.0" text="Name" textFill="#ba8759" wrapText="true">
                            <font>
                               <Font size="32.0" />
                            </font>
@@ -37,8 +37,8 @@
             </AnchorPane>
          </children>
       </VBox>
-      <JFXButton layoutX="906.0" layoutY="47.0" onAction="#toSceneArtikelErfassen" style="-fx-background-radius: 20; -fx-background-color: #E8CFB0; -fx-font-size: 20; -fx-text-fill: ffffff;" text="+ Artikel Hinzufügen" textFill="#d00909" />
-      <ScrollPane fitToWidth="true" layoutX="293.0" layoutY="139.0" prefHeight="582.0" prefWidth="852.0">
+      <JFXButton layoutX="906.0" layoutY="47.0" onAction="#toSceneArtikelErfassen" style="-fx-background-radius: 20; -fx-background-color: #E8CFB0; -fx-font-size: 20; -fx-text-fill: ffffff;" text="+ Artikel hinzufügen" textFill="#d00909" />
+      <ScrollPane fitToWidth="true" layoutX="293.0" layoutY="139.0" prefHeight="582.0" prefWidth="854.0">
          <content>
             <GridPane fx:id="gridpaneArtikel" prefHeight="580.0" prefWidth="850.0">
               <columnConstraints>

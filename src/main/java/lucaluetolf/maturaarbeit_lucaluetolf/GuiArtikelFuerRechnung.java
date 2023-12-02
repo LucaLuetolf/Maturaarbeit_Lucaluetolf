@@ -37,7 +37,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -61,25 +60,18 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             ResultSet resultsetBearbeiten = statement.executeQuery("SELECT COUNT(bearbeiten) FROM unternehmen");
             resultsetBearbeiten.next();
             int exists = resultsetBearbeiten.getInt(1);
-            System.out.println("exists: " + exists);
             resultsetBearbeiten.close();
-            if (exists == 1){
+            if (exists == 1) {
                 bearbeiten = true;
-                ResultSet resultsetRechnungsnummer = statement.executeQuery("SELECT * FROM unternehmen");
-                resultsetRechnungsnummer.next();
-                rechnungsnummer = resultsetRechnungsnummer.getInt("bearbeiten");
-                resultsetRechnungsnummer.close();
                 ResultSet resultSetModus = statement.executeQuery("SELECT * FROM unternehmen, bearbeiter WHERE bearbeiten = bestellung_id");
                 resultSetModus.next();
+                rechnungsnummer = resultSetModus.getInt("bearbeiten");
                 modus = resultSetModus.getInt("dokumenttyp");
                 resultSetModus.close();
-            }else{
-                ResultSet resultsetRechnungsnummer = statement.executeQuery("SELECT * FROM unternehmen");
-                resultsetRechnungsnummer.next();
-                rechnungsnummer = resultsetRechnungsnummer.getInt("rechnungsnummer");
-                resultsetRechnungsnummer.close();
+            } else {
                 ResultSet resultSetModus = statement.executeQuery("SELECT * FROM unternehmen, bearbeiter WHERE rechnungsnummer = bestellung_id");
                 resultSetModus.next();
+                rechnungsnummer = resultSetModus.getInt("rechnungsnummer");
                 modus = resultSetModus.getInt("dokumenttyp");
                 resultSetModus.close();
             }
@@ -121,18 +113,16 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
     private int column = 0;
     private int row = 0;
     private int prefHeight = 220;
-    private int prefHeightPerColumn = 220;
+    private final int prefHeightPerColumn = 220;
 
-    private LinkedList<Table> linkedlistTabelleBestellungmR = new LinkedList<>();
-    private LinkedList<Table> linkedlistTabelleBestellungoR = new LinkedList<>();
-
+    private final LinkedList<Table> linkedlistTabelleBestellungmR = new LinkedList<>();
+    private final LinkedList<Table> linkedlistTabelleBestellungoR = new LinkedList<>();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        //Text festlegen für den Button dokument abschliessen
-        if (modus == 1){
+        if (modus == 1) {
             dokumentAbschliessen.setText("Rechnung erstellen");
         } else if (modus == 2) {
             dokumentAbschliessen.setText("Verkauf abschliessen");
@@ -144,25 +134,35 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             resultSetUnternehmen.next();
             orange = resultSetUnternehmen.getInt("lagerbestandOrange");
             resultSetUnternehmen.close();
-            if (bearbeiten == true) {
-                //statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, name_bestellung, preis_bestellung, menge_bestellung, einheit_id_bestellung, rabatt_bestellung) SELECT 0,artikel_id, anzahl, name_bestellung, preis_bestellung, menge_bestellung, einheit_id_bestellung, rabatt_bestellung FROM bestellung WHERE bestellungId = " + rechnungsnummer);
-                //statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, mitarbeiter_id, dokumenttyp, datum) SELECT 0, kunden_id, mitarbeiter_id, dokumenttyp, datum FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
+            ResultSet resultsetAbgezogen = statement.executeQuery("SELECT COUNT(artikel_id) FROM bestellung WHERE bestellungId = 0");
+            resultsetAbgezogen.next();
+            int schonAbgezogen = resultsetAbgezogen.getInt(1);
+            resultsetAbgezogen.close();
+            if (bearbeiten && schonAbgezogen == 0) {
                 ResultSet resultsetLaenge = statement.executeQuery("SELECT COUNT(artikel_Id) FROM bestellung WHERE bestellungId = " + rechnungsnummer);
                 resultsetLaenge.next();
                 int laenge = resultsetLaenge.getInt(1);
                 resultsetLaenge.close();
                 ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
                 resultsetKunde.next();
+                //TODO kein Kunde
                 int kunden_id = resultsetKunde.getInt("kunden_id");
                 Date date = resultsetKunde.getDate("datum");
                 resultsetKunde.close();
-                statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (0, " + kunden_id + "," + modus + ",'" + date +"')");
+                if (kunden_id == 0){
+                    System.out.println("true");
+                    statement.execute("INSERT INTO bearbeiter (bestellung_id, dokumenttyp, datum) VALUES (0," + modus + ",'" + date + "')");
+
+                } else{
+                    System.out.println("false");
+                    statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (0, " + kunden_id + "," + modus + ",'" + date + "')");
+
+                }
                 for (int i = 0; i < laenge; i++) {
 
-                    //Artikelnummer für den jeweiligen Schleifen durchlauf
                     int artikelId = 0;
                     int anzahl = 0;
-                    String name ="";
+                    String name = "";
                     double preis = 0;
                     double menge = 0;
                     int einheitId = 0;
@@ -182,9 +182,8 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, name_bestellung, preis_bestellung, menge_bestellung, einheit_id_bestellung, rabatt_bestellung) VALUES (0," + artikelId + "," + anzahl + ",'" + name + "'," + preis + "," + menge + "," + einheitId + "," + rabatt + ")");
                     statement.execute("UPDATE artikel SET lagerbestand = (lagerbestand + " + anzahl + ") WHERE artikelId = " + artikelId);
                     statement.execute("UPDATE verkaufteStueck SET anzahl = anzahl - " + anzahl + " WHERE artikel_Id = " + artikelId + " AND datum = '" + date + "'");
-
                 }
-                }
+            }
 
             //Anzahl der Artikel:
             ResultSet resultsetLaenge = statement.executeQuery("SELECT COUNT(artikelId) FROM artikel");
@@ -198,7 +197,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 //Artikelnummer für den jeweiligen Schleifen durchlauf
                 int artikelId = 0;
                 ResultSet resultsetArtikelId = statement.executeQuery("SELECT * FROM artikel");
-                if(resultsetArtikelId.absolute(i+1)){
+                if (resultsetArtikelId.absolute(i + 1)) {
                     artikelId = resultsetArtikelId.getInt("artikelId");
                 }
                 resultsetArtikelId.close();
@@ -207,7 +206,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 resultsetArtikel.next();
 
                 //Festlegen, an welcher Position das Pane ist
-                if(column == 5){
+                if (column == 5) {
                     row = row + 1;
                     gridpaneArtikel.addColumn(row);
                     prefHeight = prefHeight + prefHeightPerColumn;
@@ -217,24 +216,24 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
 
                 //Pane für die Anzeige der Artikel
                 Pane paneArtikel = new Pane();
-                paneArtikel.setPrefSize(170,220);
+                paneArtikel.setPrefSize(170, 220);
                 paneArtikel.setStyle("-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px");
-                gridpaneArtikel.add(paneArtikel,column,row);
+                gridpaneArtikel.add(paneArtikel, column, row);
                 column++;
 
-                Label labelTitelArtikelnummer = new Label ("Artikelnr.:");
+                Label labelTitelArtikelnummer = new Label("Artikelnr.:");
                 labelTitelArtikelnummer.setLayoutX(14);
                 labelTitelArtikelnummer.setLayoutY(88);
                 labelTitelArtikelnummer.setStyle("-fx-text-fill: #FFFFFF ");
                 paneArtikel.getChildren().add(labelTitelArtikelnummer);
 
-                Label labelTitelName = new Label ("Name:");
+                Label labelTitelName = new Label("Name:");
                 labelTitelName.setLayoutX(14);
                 labelTitelName.setLayoutY(105);
                 labelTitelName.setStyle("-fx-text-fill: #FFFFFF ");
                 paneArtikel.getChildren().add(labelTitelName);
 
-                Label labelTitelPreis = new Label ("Preis:");
+                Label labelTitelPreis = new Label("Preis:");
                 labelTitelPreis.setLayoutX(14);
                 labelTitelPreis.setLayoutY(122);
                 labelTitelPreis.setStyle("-fx-text-fill: #FFFFFF ");
@@ -292,14 +291,12 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 }
 
                 ImageView imageView = null;
-                if (resultsetArtikel.getString("dateityp") == null){
-                    String imagePath = "src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png";
-                    Image image = new Image(new FileInputStream(imagePath));
+                if (resultsetArtikel.getString("dateityp") == null) {
+                    Image image = new Image(String.valueOf(getClass().getResource("/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png")));
                     imageView = new ImageView();
                     imageView.setImage(image);
-                }else{
-                    String imagePath = "Bilder/Benutzer/Artikel/" + resultsetArtikel.getInt("artikelId") + "/" + resultsetArtikel.getInt("bildnummer") + "." + resultsetArtikel.getString("dateityp");
-                    Image image = new Image(new FileInputStream(imagePath));
+                } else {
+                    Image image = new Image(new FileInputStream("Bilder/Benutzer/Artikel/" + resultsetArtikel.getInt("artikelId") + "/" + resultsetArtikel.getInt("bildnummer") + "." + resultsetArtikel.getString("dateityp")));
                     imageView = new ImageView();
                     imageView.setImage(image);
                 }
@@ -321,7 +318,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 JFXButton buttonPlus = new JFXButton("+");
                 buttonPlus.setLayoutX(125);
                 buttonPlus.setLayoutY(162);
-                buttonPlus.setPrefSize(25,25);
+                buttonPlus.setPrefSize(25, 25);
                 buttonPlus.setId(String.valueOf(artikelId));
                 buttonPlus.setStyle("-fx-border-radius: 15px; -fx-text-fill: #ba8759; -fx-background-color: #FFFFFF");
                 paneArtikel.getChildren().add(buttonPlus);
@@ -331,7 +328,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 textFieldAnzahl.setLayoutX(60);
                 textFieldAnzahl.setLayoutY(162);
                 textFieldAnzahl.setStyle("-fx-text-fill: #FFFFFF; -fx-background-color: #E8CFB0");
-                textFieldAnzahl.setPrefSize(50,25);
+                textFieldAnzahl.setPrefSize(50, 25);
                 textFieldAnzahl.setId(String.valueOf(artikelId));
                 paneArtikel.getChildren().add(textFieldAnzahl);
 
@@ -339,7 +336,8 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
 
                 ResultSet resultsetArtikelUeberpruefenObVerwendet = statement.executeQuery("SELECT COUNT(*) FROM bestellung WHERE bestellungId = " + rechnungsnummer + " AND artikel_Id = " + artikelId);
                 resultsetArtikelUeberpruefenObVerwendet.next();
-                if (bearbeiten == true && resultsetArtikelUeberpruefenObVerwendet.getInt(1) == 1){
+                //TODO bearbeiten == true
+                if (resultsetArtikelUeberpruefenObVerwendet.getInt(1) == 1) {
                     resultsetArtikelUeberpruefenObVerwendet.close();
                     ResultSet resultsetArtikelAngabenBestellung = statement.executeQuery("SELECT * FROM bestellung WHERE bestellungId = " + rechnungsnummer + " AND artikel_Id = " + artikelId);
                     resultsetArtikelAngabenBestellung.next();
@@ -349,10 +347,9 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     ResultSet resultsetAnzahl = statement.executeQuery("SELECT * FROM bestellung WHERE artikel_Id = " + artikelId + " AND " + rechnungsnummer + " = bestellungId");
                     resultsetAnzahl.next();
                     textFieldAnzahl.setText(String.valueOf(resultsetAnzahl.getInt("anzahl")));
-                    paneFuerWarenkorb1(artikelId, resultsetAnzahl.getInt("anzahl"));
+                    paneFuerWarenkorb(artikelId, resultsetAnzahl.getInt("anzahl"));
                     resultsetAnzahl.close();
-                    //paneFuerWarenkorb(statement.executeQuery("SELECT * FROM artikel WHERE artikelId=" + artikelId), resultsetAnzahl.getInt("anzahl"));
-                } else{
+                } else {
                     resultsetArtikelUeberpruefenObVerwendet.close();
                 }
 
@@ -360,32 +357,32 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     @Override
                     public void handle(ActionEvent event) {
                         int anzahl = Integer.parseInt(textFieldAnzahl.getText());
-                        if (anzahl != 0){
-                            anzahl = anzahl -1;
+                        if (anzahl != 0) {
+                            anzahl = anzahl - 1;
                         }
                         textFieldAnzahl.setText(String.valueOf(anzahl));
-                        paneFuerWarenkorb1(Integer.parseInt(buttonPlus.getId()), anzahl);
-                        //paneFuerWarenkorb(statement.executeQuery("SELECT * FROM artikel WHERE artikelId=" + buttonMinus.getId()), anzahl);
+                        paneFuerWarenkorb(Integer.parseInt(buttonPlus.getId()), anzahl);
+
                     }
                 });
 
-                buttonPlus.setOnAction(new EventHandler <ActionEvent>() {
+                buttonPlus.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         int lagerbestand = 0;
                         try {
                             ResultSet resultSet = statement.executeQuery("SELECT lagerbestand FROM artikel WHERE artikelId = " + buttonPlus.getId());
-                            if (resultSet.next()){
+                            if (resultSet.next()) {
                                 lagerbestand = resultSet.getInt("lagerbestand");
                             }
                             int anzahl = Integer.parseInt(textFieldAnzahl.getText());
-                            if (anzahl < lagerbestand){
-                                anzahl = anzahl +1;
+                            if (anzahl < lagerbestand) {
+                                anzahl = anzahl + 1;
                             }
                             resultSet.close();
                             textFieldAnzahl.setText(String.valueOf(anzahl));
-                            paneFuerWarenkorb1(Integer.parseInt(buttonPlus.getId()), anzahl);
-                            //paneFuerWarenkorb(statement.executeQuery("SELECT * FROM artikel WHERE artikelId =" + buttonPlus.getId()), anzahl);
+                            paneFuerWarenkorb(Integer.parseInt(buttonPlus.getId()), anzahl);
+
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -399,19 +396,18 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                         try {
                             int lagerbestand = 0;
                             ResultSet resultSet = statement.executeQuery("SELECT lagerbestand FROM artikel WHERE artikelId = " + buttonPlus.getId());
-                            if (resultSet.next()){
+                            if (resultSet.next()) {
                                 lagerbestand = resultSet.getInt("lagerbestand");
                             }
-                            int anzahl = Integer.parseInt(textFieldAnzahl.getText());;
-                            if(anzahl > lagerbestand){
+                            int anzahl = Integer.parseInt(textFieldAnzahl.getText());
+                            if (anzahl > lagerbestand) {
                                 textFieldAnzahl.setText(String.valueOf(lagerbestand));
                                 anzahl = lagerbestand;
-                            }else{
+                            } else {
                                 textFieldAnzahl.setText(String.valueOf(anzahl));
                             }
                             resultSet.close();
-                            paneFuerWarenkorb1(Integer.parseInt(buttonPlus.getId()), anzahl);
-                            //paneFuerWarenkorb(statement.executeQuery("SELECT * FROM artikel WHERE artikelId=" + textFieldAnzahl.getId()), anzahl);
+                            paneFuerWarenkorb(Integer.parseInt(buttonPlus.getId()), anzahl);
 
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -427,23 +423,22 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                             textFieldAnzahl.positionCaret(textFieldAnzahl.getLength());
                             int lagerbestand = 0;
                             ResultSet resultSet = statement.executeQuery("SELECT lagerbestand FROM artikel WHERE artikelId = " + buttonPlus.getId());
-                            if (resultSet.next()){
+                            if (resultSet.next()) {
                                 lagerbestand = resultSet.getInt("lagerbestand");
                             }
                             int anzahl = 0;
-                            if (!textFieldAnzahl.getText().isEmpty()){
+                            if (!textFieldAnzahl.getText().isEmpty()) {
                                 anzahl = Integer.parseInt(textFieldAnzahl.getText());
                             }
 
-                            if(anzahl > lagerbestand){
+                            if (anzahl > lagerbestand) {
                                 textFieldAnzahl.setText(String.valueOf(lagerbestand));
                                 anzahl = lagerbestand;
-                            }else{
+                            } else {
                                 textFieldAnzahl.setText(String.valueOf(anzahl));
                             }
                             resultSet.close();
-                            paneFuerWarenkorb1(Integer.parseInt(buttonPlus.getId()), anzahl);
-                            //paneFuerWarenkorb(statement.executeQuery("SELECT * FROM artikel WHERE artikelId=" + buttonPlus.getId()), anzahl);
+                            paneFuerWarenkorb(Integer.parseInt(buttonPlus.getId()), anzahl);
 
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -457,7 +452,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     resultSetExistiertKunde.close();
                     labelAdressatKundennummer.setText("kein Kunde ausgewählt");
                     labelAdressatAdresse.setVisible(false);
-                }else{
+                } else {
                     resultSetExistiertKunde.close();
                     ResultSet resultSetKunde = statement.executeQuery("SELECT * FROM kunden, bearbeiter WHERE bestellung_id = " + rechnungsnummer + " AND kunden_id = kundenId");
                     resultSetKunde.next();
@@ -471,7 +466,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     public void handle(ActionEvent event) {
                         try {
                             root = FXMLLoader.load(getClass().getResource("kundenFuerRechnung.fxml"));
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
                         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -486,20 +481,20 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         }
     }
 
-    private void paneFuerWarenkorb1(int artikelId, int anzahl){
+    private void paneFuerWarenkorb(int artikelId, int anzahl) {
         gridpaneWarenkorb.getChildren().clear();
         try {
             ResultSet resultsetArtikelExistiert = statement.executeQuery("SELECT COUNT(*) FROM bestellung WHERE artikel_id = " + artikelId + " AND bestellungId = " + rechnungsnummer);
             boolean artikelExistiert = false;
             resultsetArtikelExistiert.next();
-            if (resultsetArtikelExistiert.getInt(1) == 1){
+            if (resultsetArtikelExistiert.getInt(1) == 1) {
                 artikelExistiert = true;
             }
             resultsetArtikelExistiert.close();
-            if (artikelExistiert){
-                if (anzahl == 0){
+            if (artikelExistiert) {
+                if (anzahl == 0) {
                     statement.execute("DELETE FROM bestellung WHERE artikel_id = " + artikelId);
-                } else{
+                } else {
                     statement.execute("UPDATE bestellung SET anzahl = " + anzahl + " WHERE artikel_id = " + artikelId + " AND bestellungId = " + rechnungsnummer);
                 }
             } else {
@@ -510,35 +505,39 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             }
 
             ResultSet resultsetWarenkorb = statement.executeQuery("SELECT * FROM bestellung WHERE bestellungId = " + rechnungsnummer);
-            while (resultsetWarenkorb.next()){
+            while (resultsetWarenkorb.next()) {
                 gridpaneWarenkorb.setStyle("-fx-border-color: #FFFFFF");
 
                 Pane paneWarenkorb = new Pane();
                 paneWarenkorb.setPrefSize(200, 82);
                 paneWarenkorb.setStyle("-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px");
-                gridpaneWarenkorb.addRow(gridpaneWarenkorb.getRowCount()+1, paneWarenkorb);
+                gridpaneWarenkorb.addRow(gridpaneWarenkorb.getRowCount() + 1, paneWarenkorb);
 
                 Label labelWarenkorbArtikelnummer = new Label(resultsetWarenkorb.getString("artikel_Id"));
                 labelWarenkorbArtikelnummer.setLayoutX(11);
                 labelWarenkorbArtikelnummer.setLayoutY(16);
+                //labelWarenkorbArtikelnummer.setMaxWidth(60);
                 labelWarenkorbArtikelnummer.setStyle("-fx-text-fill: #FFFFFF ");
                 paneWarenkorb.getChildren().add(labelWarenkorbArtikelnummer);
 
                 Label labelWarenkorbName = new Label(resultsetWarenkorb.getString("name_bestellung"));
                 labelWarenkorbName.setLayoutX(71);
                 labelWarenkorbName.setLayoutY(16);
+                labelWarenkorbName.setMaxWidth(130);
                 labelWarenkorbName.setStyle("-fx-text-fill: #FFFFFF ");
                 paneWarenkorb.getChildren().add(labelWarenkorbName);
 
                 Label labelWarenkorbPreis = new Label(resultsetWarenkorb.getString("preis_bestellung"));
                 labelWarenkorbPreis.setLayoutX(11);
                 labelWarenkorbPreis.setLayoutY(49);
+                //labelWarenkorbPreis.setMaxWidth(55);
                 labelWarenkorbPreis.setStyle("-fx-text-fill: #FFFFFF ");
                 paneWarenkorb.getChildren().add(labelWarenkorbPreis);
 
                 Label labelWarenkorbAnzahl = new Label(String.valueOf(resultsetWarenkorb.getInt("anzahl")));
                 labelWarenkorbAnzahl.setLayoutX(71);
                 labelWarenkorbAnzahl.setLayoutY(49);
+                //labelWarenkorbAnzahl.setMaxWidth(20);
                 labelWarenkorbAnzahl.setStyle("-fx-text-fill: #FFFFFF ");
                 paneWarenkorb.getChildren().add(labelWarenkorbAnzahl);
 
@@ -552,10 +551,10 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             }
             resultsetWarenkorb.close();
 
-            ResultSet resultsetSumme = statement.executeQuery("SELECT SUM(anzahl * preis_bestellung) FROM bestellung WHERE " + rechnungsnummer +" = bestellungId");
+            ResultSet resultsetSumme = statement.executeQuery("SELECT SUM(anzahl * preis_bestellung) FROM bestellung WHERE " + rechnungsnummer + " = bestellungId");
             resultsetSumme.next();
             double total = resultsetSumme.getDouble(1);
-            double totalGerundet = Math.round(total*20.0) / 20.0;
+            double totalGerundet = Math.round(total * 20.0) / 20.0;
             labelTotal.setText(String.valueOf(totalGerundet));
             labelTotal.setTextAlignment(TextAlignment.LEFT);
             resultsetSumme.close();
@@ -566,7 +565,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 int rabattArtikel = resultsetRabatt.getInt("rabatt_bestellung");
                 double preisArtikel = resultsetRabatt.getDouble("preis_bestellung");
                 int anzahlArtikel = resultsetRabatt.getInt("anzahl");
-                rabattTotal = (preisArtikel / 100 * (rabattArtikel)) * anzahlArtikel;
+                rabattTotal = rabattTotal + (preisArtikel / 100 * (rabattArtikel)) * anzahlArtikel;
             }
             double rabattGerundet = Math.round(rabattTotal * 20.0) / 20.0;
 
@@ -574,123 +573,30 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             labelRabatte.setTextAlignment(TextAlignment.LEFT);
             resultsetRabatt.close();
 
-            labelSumme.setText(String.valueOf(Double.parseDouble(labelTotal.getText()) + Double.parseDouble(labelRabatte.getText())));
+            labelSumme.setText(String.valueOf(Math.round((Double.parseDouble(labelTotal.getText()) + Double.parseDouble(labelRabatte.getText())) * 20.0) / 20.0));
             labelSumme.setTextAlignment(TextAlignment.RIGHT);
 
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
-    }
-    private void paneFuerWarenkorb(ResultSet resultSet, int anzahl) {
-        gridpaneWarenkorb.getChildren().clear();
-
-
-        Label labelWarenkorbArtikelnummer;
-        Label labelWarenkorbName;
-        Label labelWarenkorbPreis;
-        Label labelWarenkorbAnzahl;
-        Label labelWarenkorbTotal;
-
-        int id = 0;
-        double rabatt = 0;
-        try {
-            if (resultSet.next()) {
-                id = resultSet.getInt("artikelId");
-                rabatt = resultSet.getDouble("rabatt");
-            }
-            resultSet.close();
-            ResultSet resultSetUeberpruefen = statement.executeQuery("SELECT COUNT(artikelId) AS summe FROM artikel, bestellung WHERE artikel_id = " + id);
-            resultSetUeberpruefen.next();
-
-            if (anzahl == 0) {
-                statement.execute("DELETE FROM bestellung WHERE artikel_id = " + id + " AND bestellungId = " + rechnungsnummer);
-            } else {
-                //statement.execute("UPDATE bestellung SET anzahl = " + anzahl + " WHERE artikel_id = " + id);
-                if (resultSetUeberpruefen.getInt("summe") == 0) {
-                    statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, rabatt) VALUES (" + rechnungsnummer + "," + id + "," + anzahl + "," + rabatt + ")");
-                } else {
-                    statement.execute("UPDATE bestellung SET anzahl = " + anzahl + " WHERE artikel_id = " + id + " AND bestellungId = " + rechnungsnummer);
-                }
-                //statement.execute("DELETE FROM bestellung WHERE artikel_id = " + id );
-                //statement.execute("INSERT INTO bestellung (bestellungId, artikel_id, anzahl, rabatt) VALUES (" + rechnungsnr+ "," + artikelnummer + "," + anzahl + "," + rabatt + ")");
-            }
-            resultSetUeberpruefen.close();
-
-
-            ResultSet resultSetWarenkorb = statement.executeQuery("SELECT * FROM bestellung, artikel WHERE " + rechnungsnummer + " = bestellungId AND artikelId = artikel_id AND anzahl != 0");
-            while (resultSetWarenkorb.next()) {
-                Pane paneWarenkorb = new Pane();
-                paneWarenkorb.setPrefSize(200, 82);
-
-                labelWarenkorbArtikelnummer = new Label(resultSetWarenkorb.getString("artikelId"));
-                labelWarenkorbName = new Label(resultSetWarenkorb.getString("name"));
-                labelWarenkorbPreis = new Label(resultSetWarenkorb.getString("preis"));
-                labelWarenkorbAnzahl = new Label(String.valueOf(resultSetWarenkorb.getInt("anzahl")));
-                labelWarenkorbTotal = new Label(String.valueOf(resultSetWarenkorb.getInt("anzahl") * Double.parseDouble(labelWarenkorbPreis.getText())));
-
-                paneWarenkorb.getChildren().addAll(labelWarenkorbArtikelnummer, labelWarenkorbName, labelWarenkorbPreis, labelWarenkorbAnzahl, labelWarenkorbTotal);
-                labelWarenkorbArtikelnummer.setLayoutX(11);
-                labelWarenkorbArtikelnummer.setLayoutY(16);
-                labelWarenkorbName.setLayoutX(71);
-                labelWarenkorbName.setLayoutY(16);
-                labelWarenkorbPreis.setLayoutX(11);
-                labelWarenkorbPreis.setLayoutY(49);
-                labelWarenkorbAnzahl.setLayoutX(71);
-                labelWarenkorbAnzahl.setLayoutY(49);
-                labelWarenkorbTotal.setLayoutX(151);
-                labelWarenkorbTotal.setLayoutY(49);
-                int counter = gridpaneWarenkorb.getRowCount();
-                paneWarenkorb.setStyle("-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px");
-                labelWarenkorbArtikelnummer.setStyle("-fx-text-fill: #FFFFFF ");
-                labelWarenkorbName.setStyle("-fx-text-fill: #FFFFFF ");
-                labelWarenkorbPreis.setStyle("-fx-text-fill: #FFFFFF ");
-                labelWarenkorbAnzahl.setStyle("-fx-text-fill: #FFFFFF ");
-                labelWarenkorbTotal.setStyle("-fx-text-fill: #FFFFFF ");
-                gridpaneWarenkorb.addRow(counter + 1, paneWarenkorb);
-                gridpaneWarenkorb.setStyle("-fx-border-color: #FFFFFF");
-
-            }
-            resultSetWarenkorb.close();
-            ResultSet resultSetSumme = statement.executeQuery("SELECT SUM(anzahl * preis) FROM bestellung, artikel WHERE " + rechnungsnummer +" = bestellungId AND artikelId = artikel_id");
-            resultSetSumme.next();
-            double summe = resultSetSumme.getDouble(1);
-            double gerundeteSumme = Math.round(summe * 20.0)/20.0;
-            labelTotal.setText(String.valueOf(resultSetSumme.getDouble("summe")));
-            labelTotal.setTextAlignment(TextAlignment.LEFT);
-
-            resultSetSumme.close();
-            ResultSet resultSetRabatt = statement.executeQuery("SELECT * FROM artikel, bestellung WHERE " + rechnungsnummer + " = bestellungId AND artikelId = artikel_id");
-            double rabattTotal = 0;
-            while (resultSetRabatt.next()) {
-                int rabattArtikel = resultSetRabatt.getInt("bestellung.rabatt");
-                double preisArtikel = resultSetRabatt.getDouble("preis");
-                int anzahlArtikel = resultSetRabatt.getInt("anzahl");
-                rabattTotal = (preisArtikel / 100 * (rabattArtikel)) * anzahlArtikel;
-            }
-            double gerundet = Math.round(rabattTotal * 20.0) / 20.0;
-
-            labelRabatte.setText("-" + gerundet);
-            labelRabatte.setTextAlignment(TextAlignment.LEFT);
-            resultSetRabatt.close();
-
-            labelSumme.setText(String.valueOf(Double.parseDouble(labelTotal.getText()) + Double.parseDouble(labelRabatte.getText())));
-            labelSumme.setTextAlignment(TextAlignment.RIGHT);
-
-        } catch (Exception e) {
-            AllgemeineMethoden.fehlermeldung(e);
-        }
-
-
     }
 
     @FXML
     protected void buttonRechnungErstellen(ActionEvent event) {
-        if (gridpaneWarenkorb.getRowCount() == 0){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Fehlermeldung");
-            alert.setContentText("Es wurden keine Artikel ausgewählt");
-            alert.showAndWait();
-            return;
+        try {
+            ResultSet resultsetBestellung = statement.executeQuery("SELECT COUNT(artikel_id) FROM bestellung WHERE bestellungId = " + rechnungsnummer);
+            resultsetBestellung.next();
+            int exists = resultsetBestellung.getInt(1);
+            resultsetBestellung.close();
+            if (exists == 0) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Fehlermeldung");
+                alert.setContentText("Es wurden keine Artikel ausgewählt");
+                alert.showAndWait();
+                return;
+            }
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
         }
 
         if (modus == 1) {
@@ -742,98 +648,11 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 return;
             }
             if (barKarte == 1) {
-                Alert zahlen = new Alert(Alert.AlertType.INFORMATION);
-                zahlen.setTitle("Zahlen-Alert");
-                zahlen.setHeaderText("Geben sie den Betrag\ndes gegebenen Geldes ein: ");
-
-                TextField textField = new TextField();
-                textField.setText("0");
-
-                GridPane grid = new GridPane();
-                grid.setHgap(10);
-                grid.setVgap(10);
-
-                for (int i = 1; i <= 9; i++) {
-                    Button button = new Button(Integer.toString(i));
-                    button.setPrefSize(60,60);
-                    button.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            if (textField.getText().contains("0") && textField.getLength() == 1){
-                                textField.setText(button.getText());
-                            }else{
-                                textField.appendText(button.getText());
-                            }
-
-                        }
-                    });
-
-                    grid.add(button, (i - 1) % 3, (i - 1) / 3);
-                }
-
-
-
-                Button zeroButton = new Button("0");
-                zeroButton.setPrefSize(60,60);
-
-                zeroButton.setOnAction(e -> {
-                    textField.appendText("0");
-                });
-                grid.add(zeroButton, 1, 3);
-
-                Button punktButton = new Button(".");
-                punktButton.setPrefSize(60,60);
-                punktButton.setOnAction(e -> {
-                    punktButton.setDisable(true);
-                    textField.appendText(".");
-                });
-                grid.add(punktButton, 2, 3);
-
-                Button clearButton = new Button("Clear");
-                clearButton.setPrefSize(60,60);
-
-                clearButton.setOnAction(e -> {
-                    punktButton.setDisable(false);
-                    textField.setText("0");
-                });
-                grid.add(clearButton, 0, 3);
-
-                VBox content = new VBox(textField, grid);
-                zahlen.getDialogPane().setContent(content);
-
-                ButtonType ok = new ButtonType("OK");
-                ButtonType abbrechen = new ButtonType("abbrechen");
-                zahlen.getButtonTypes().setAll(ok, abbrechen);
-                Optional<ButtonType> optional = zahlen.showAndWait();
-                if (optional.isPresent() && optional.get() == ok) {
-                    if (Double.parseDouble(textField.getText()) >= Double.parseDouble(labelTotal.getText())){
-                        Alert rueckgeld = new Alert(Alert.AlertType.INFORMATION);
-                        rueckgeld.setHeaderText("Abschluss:");
-                        rueckgeld.setContentText("Total:" + labelTotal.getText() +"\ngegeben: " + Double.parseDouble(textField.getText()) +"\nRückgeld: " + (Double.parseDouble(textField.getText())-Double.parseDouble(labelTotal.getText())));
-                        rueckgeld.showAndWait();
-                    } else{
-                        Alert zuwenigRueckgeld = new Alert(Alert.AlertType.INFORMATION);
-                        zuwenigRueckgeld.setHeaderText("Fehlermeldung");
-                        zuwenigRueckgeld.setContentText("Zu wenig Geld gegeben");
-                        ButtonType buttonTypeOkZuWenigRueckgeld = new ButtonType("ok");
-                        ButtonType buttonTypeAbbrechenZuWenigRückgeld = new ButtonType("abbrechen");
-                        zuwenigRueckgeld.getButtonTypes().setAll(buttonTypeOkZuWenigRueckgeld, buttonTypeAbbrechenZuWenigRückgeld);
-                        Optional<ButtonType> optional1 = zuwenigRueckgeld.showAndWait();
-                        if (optional1.isPresent() && optional1.get() == buttonTypeOkZuWenigRueckgeld){
-                            textField.setText("0");
-                            zahlen.showAndWait();
-                        }else{
-                            return;
-                        }
-                    }
-                } else {
-                    return;
-                }
-
+                barZahlung();
             } else if (barKarte == 2) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Kartenzahlung");
-                alert.setHeaderText("Der folgende Betrag: " + labelTotal.getText() + " CHF ist zu bezahlen");
+                alert.setHeaderText("Der folgende Betrag: " + labelSumme.getText() + " CHF ist zu bezahlen");
                 alert.showAndWait();
             }
 
@@ -881,7 +700,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 statement.execute("UPDATE verkaufteStueck SET anzahl = anzahl + " + anzahl + " WHERE artikel_id = " + artikelId + " AND datum = '" + formatter.format(datum) + "'");
 
             }
-            if (bearbeiten == true) {
+            if (bearbeiten) {
                 statement.execute("UPDATE unternehmen SET bearbeiten = null");
             } else {
                 statement.execute("UPDATE unternehmen SET rechnungsnummer=" + (rechnungsnummer + 1) + "WHERE rechnungsnummer=" + rechnungsnummer);
@@ -899,8 +718,98 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(event1 -> {
+            stage.close();
+        });
     }
 
+    public void barZahlung(){
+        Alert zahlen = new Alert(Alert.AlertType.INFORMATION);
+        zahlen.setTitle("Zahlen-Alert");
+        zahlen.setHeaderText("Geben sie den Betrag\ndes gegebenen Geldes ein: ");
+
+        TextField textField = new TextField();
+        textField.setText("0");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        for (int i = 1; i <= 9; i++) {
+            Button button = new Button(Integer.toString(i));
+            button.setPrefSize(60, 60);
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (textField.getText().contains("0") && textField.getLength() == 1) {
+                        textField.setText(button.getText());
+                    } else {
+                        textField.appendText(button.getText());
+                    }
+
+                }
+            });
+
+            grid.add(button, (i - 1) % 3, (i - 1) / 3);
+        }
+
+
+        Button zeroButton = new Button("0");
+        zeroButton.setPrefSize(60, 60);
+
+        zeroButton.setOnAction(e -> {
+            textField.appendText("0");
+        });
+        grid.add(zeroButton, 1, 3);
+
+        Button punktButton = new Button(".");
+        punktButton.setPrefSize(60, 60);
+        punktButton.setOnAction(e -> {
+            punktButton.setDisable(true);
+            textField.appendText(".");
+        });
+        grid.add(punktButton, 2, 3);
+
+        Button clearButton = new Button("Clear");
+        clearButton.setPrefSize(60, 60);
+
+        clearButton.setOnAction(e -> {
+            punktButton.setDisable(false);
+            textField.setText("0");
+        });
+        grid.add(clearButton, 0, 3);
+
+        VBox content = new VBox(textField, grid);
+        zahlen.getDialogPane().setContent(content);
+
+        ButtonType ok = new ButtonType("OK");
+        ButtonType abbrechen = new ButtonType("abbrechen");
+        zahlen.getButtonTypes().setAll(ok, abbrechen);
+        Optional<ButtonType> optional = zahlen.showAndWait();
+        if (optional.isPresent() && optional.get() == ok) {
+            if (Double.parseDouble(textField.getText()) >= Double.parseDouble(labelTotal.getText())) {
+                Alert rueckgeld = new Alert(Alert.AlertType.INFORMATION);
+                rueckgeld.setHeaderText("Abschluss:");
+                rueckgeld.setContentText("Total:" + labelSumme.getText() + "\ngegeben: " + Double.parseDouble(textField.getText()) + "\nRückgeld: " + (Double.parseDouble(textField.getText()) - Double.parseDouble(labelSumme.getText())));
+                rueckgeld.showAndWait();
+            } else {
+                Alert zuwenigRueckgeld = new Alert(Alert.AlertType.INFORMATION);
+                zuwenigRueckgeld.setHeaderText("Fehlermeldung");
+                zuwenigRueckgeld.setContentText("Zu wenig Geld gegeben");
+                ButtonType buttonTypeOkZuWenigRueckgeld = new ButtonType("OK");
+                ButtonType buttonTypeAbbrechenZuWenigRueckgeld = new ButtonType("abbrechen");
+                zuwenigRueckgeld.getButtonTypes().setAll(buttonTypeOkZuWenigRueckgeld, buttonTypeAbbrechenZuWenigRueckgeld);
+                Optional<ButtonType> optional1 = zuwenigRueckgeld.showAndWait();
+                if (optional1.isPresent() && optional1.get() == buttonTypeOkZuWenigRueckgeld) {
+                    barZahlung();
+                } else {
+                    return;
+                }
+            }
+        } else {
+            return;
+        }
+    }
 
     private void layout1(int rechnung1Quittung2) {
 
@@ -920,10 +829,10 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         float gesamt = 75F;
 
         //Grössen für Tabelle
-        float ganzeseite1[] = {ganzeseite};
-        float absenderAdressat[] = {absender1, absender2, adressat};
-        float bestellungmR[] = {bezeichnungmR, artikelnummer, menge, preis, rabatt, gesamt};
-        float bestellungoR[] = {bezeichnungoR, artikelnummer, menge, preis, gesamt};
+        float[] ganzeseite1 = {ganzeseite};
+        float[] absenderAdressat = {absender1, absender2, adressat};
+        float[] bestellungmR = {bezeichnungmR, artikelnummer, menge, preis, rabatt, gesamt};
+        float[] bestellungoR = {bezeichnungoR, artikelnummer, menge, preis, gesamt};
 
         //Tabellen
         Table absatz = new Table(ganzeseite1);
@@ -931,55 +840,96 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         Table tabelleTitelBestellungoR = new Table(bestellungoR);
         Table tabelleTitelBestellungmR = new Table(bestellungmR);
 
+        Table tabelleBankdaten = new Table(ganzeseite1);
+        Table tabelleTotal = new Table(ganzeseite1);
+
         //Absatz
         absatz.addCell(new Cell().add(new ListItem("\n")).setBorder(Border.NO_BORDER));
 
         //Zeit
         LocalDateTime datum = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MMMM yyyy"); //EEEE für Wochentag
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MMMM yyyy");
         DateTimeFormatter formatterPfad = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
-        //Pdf Definieren
+
+        //PDF definieren
         PdfWriter writer = null;
         try {
-            ResultSet resultSetAdresse = statement.executeQuery("SELECT * FROM kunden, bearbeiter WHERE " + rechnungsnummer + " = bestellung_id AND kundenId = kunden_id");
-            resultSetAdresse.next();
-            if (rechnung1Quittung2 == 1) {
-                if (bearbeiten == true) {
+            if (bearbeiten) {
+                if (modus == 1){
+                    ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter, kunden WHERE kunden_id = kundenId AND bestellung_id = " + rechnungsnummer);
+                    resultsetKunde.next();
+                    Date date = resultsetKunde.getDate("datum");
                     int i = 0;
                     boolean ueberpruefen = true;
-                    while (ueberpruefen == true) {
+                    while (ueberpruefen) {
                         i++;
-                        File alteRechnung = new File("Kundendateien/" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "/Rechnungen/" + formatterPfad.format(datum) + "/" + rechnungsnummer + "." + i + ".pdf");
-                        if (alteRechnung.exists() == false) {
+                        File alteRechnung = new File("Kundendateien/" + resultsetKunde.getInt("kundenId") + ", " + resultsetKunde.getString("nachname") + " " + resultsetKunde.getString("vorname") + "/Rechnungen/" + formatterPfad.format(date.toLocalDate()) + "/" + rechnungsnummer + "_" + i + ".pdf");
+                        if (!alteRechnung.exists()) {
                             ueberpruefen = false;
                         }
                     }
-                    writer = new PdfWriter("Kundendateien/" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "/Rechnungen/" + formatterPfad.format(datum) + "_" + rechnungsnummer + "_" + i + ".pdf");
-                } else {
-                    writer = new PdfWriter("Kundendateien/" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "/Rechnungen/" + formatterPfad.format(datum) + "_" + rechnungsnummer + ".pdf");
-                }
+                    writer = new PdfWriter("Kundendateien/" + resultsetKunde.getInt("kundenId") + ", " + resultsetKunde.getString("nachname") + " " + resultsetKunde.getString("vorname") + "/Rechnungen/" + formatterPfad.format(date.toLocalDate()) + "_" + rechnungsnummer + "_" + i + ".pdf");
+                } else if (modus == 2) {
+                    ResultSet resultsetKundeExistiert = statement.executeQuery("SELECT COUNT(kunden_Id) FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
+                    resultsetKundeExistiert.next();
+                    int exists = resultsetKundeExistiert.getInt(1);
+                    resultsetKundeExistiert.close();
 
-            }else if(rechnung1Quittung2 == 2){
-                File quittungExists = new File("Kundendateien/" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "/Quittungen/" + formatterPfad.format(datum) + "_" + rechnungsnummer + ".pdf");
-                if (quittungExists.exists()){
-                    int i = 0;
-                    boolean ueberpruefen = true;
-                    while (ueberpruefen == true){
-                        i++;
-                        File alteQuittung = new File("Kundendateien/" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "/Quittungen/" + formatterPfad.format(datum) + "/" + rechnungsnummer + "." + i + ".pdf");
-                        if (alteQuittung.exists() == false){
-                            ueberpruefen = false;
+                    if(exists == 0){
+                        ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
+                        resultsetKunde.next();
+                        Date date = resultsetKunde.getDate("datum");
+                        int i = 0;
+                        boolean ueberpruefen = true;
+                        while (ueberpruefen) {
+                            i++;
+                            File alteRechnung = new File("Kundendateien/übrige Quittungen/" + formatterPfad.format(date.toLocalDate()) + "_" + rechnungsnummer + "_" + i + ".pdf");
+                            if (!alteRechnung.exists()) {
+                                ueberpruefen = false;
+                            }
                         }
+                        writer = new PdfWriter("Kundendateien/übrige Quittungen/"  + formatterPfad.format(date.toLocalDate()) + "_" + rechnungsnummer + "_" + i + ".pdf");
+                        resultsetKunde.close();
+                    } else {
+                        ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter, kunden WHERE kunden_id = kundenId AND bestellung_id = " + rechnungsnummer);
+                        resultsetKunde.next();
+                        Date date = resultsetKunde.getDate("datum");
+                        int i = 0;
+                        boolean ueberpruefen = true;
+                        while (ueberpruefen) {
+                            i++;
+                            File alteRechnung = new File("Kundendateien/" + resultsetKunde.getInt("kundenId") + ", " + resultsetKunde.getString("nachname") + " " + resultsetKunde.getString("vorname") + "/Quittungen/" + formatterPfad.format(date.toLocalDate()) + "/" + rechnungsnummer + "_" + i + ".pdf");
+                            if (!alteRechnung.exists()) {
+                                ueberpruefen = false;
+                            }
+                            writer = new PdfWriter("Kundendateien/" + resultsetKunde.getInt("kundenId") + ", " + resultsetKunde.getString("nachname") + " " + resultsetKunde.getString("vorname") + "/Quittungen/" + formatterPfad.format(date.toLocalDate()) + "_" + rechnungsnummer + "_" + i + ".pdf");
+                        }
+                        resultsetKunde.close();
                     }
-                    writer = new PdfWriter("Kundendateien/" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "/Quittungen/" + formatterPfad.format(datum) + "_" + rechnungsnummer + "_" + i +".pdf");
-                } else{
-                    writer = new PdfWriter("Kundendateien/" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "/Quittungen/" + formatterPfad.format(datum) + "_" + rechnungsnummer + ".pdf");
-                }
-                writer = new PdfWriter("Kundendateien/" + resultSetAdresse.getInt("kundenId") + ", " + resultSetAdresse.getString("nachname") + " " + resultSetAdresse.getString("vorname") + "/Quittungen/" + formatterPfad.format(datum) + "_" + rechnungsnummer + ".pdf");
 
+                }
+            } else {
+                if (modus == 1) {
+                    ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter, kunden WHERE kunden_id = kundenId AND bestellung_id = " + rechnungsnummer);
+                    resultsetKunde.next();
+                    writer = new PdfWriter("Kundendateien/" + resultsetKunde.getInt("kundenId") + ", " + resultsetKunde.getString("nachname") + " " + resultsetKunde.getString("vorname") + "/Rechnungen/" + formatterPfad.format(datum) + "_" + rechnungsnummer + ".pdf");
+                    resultsetKunde.close();
+                } else if (modus == 2) {
+                    ResultSet resultsetKundeExistiert = statement.executeQuery("SELECT COUNT(kunden_Id) FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
+                    resultsetKundeExistiert.next();
+                    int exists = resultsetKundeExistiert.getInt(1);
+                    resultsetKundeExistiert.close();
+                    ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter, kunden WHERE kunden_id = kundenId AND bestellung_id = " + rechnungsnummer);
+                    resultsetKunde.next();
+                    if (exists == 0){
+                        writer = new PdfWriter("Kundendateien/übrige Quittungen/" + formatterPfad.format(datum) + "_" + rechnungsnummer + ".pdf");
+                    } else {
+                        writer = new PdfWriter("Kundendateien/" + resultsetKunde.getInt("kundenId") + ", " + resultsetKunde.getString("nachname") + " " + resultsetKunde.getString("vorname") + "/Quittungen/" + formatterPfad.format(datum) + "_" + rechnungsnummer + ".pdf");
+                    }
+                    resultsetKunde.close();
+                }
             }
-            resultSetAdresse.close();
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
@@ -988,19 +938,47 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         rechnung.setDefaultPageSize(PageSize.A4);
         Document document = new Document(rechnung);
 
+        //Bankdaten
+        try {
+            ResultSet resultSetBankdatenExists = statement.executeQuery("SELECT COUNT(IBAN) FROM unternehmen");
+            resultSetBankdatenExists.next();
+            int exists = resultSetBankdatenExists.getInt(1);
+            resultSetBankdatenExists.close();
+            if (exists == 0) {
+                tabelleBankdaten.addCell((new Cell().add(new ListItem("keine Bankdaten vorhanden")).setBorder(Border.NO_BORDER).setFontSize(10F)));
+                tabelleBankdaten.addCell((new Cell().add(new ListItem("Zahlbar innert 30 Tagen")).setBorder(Border.NO_BORDER).setFontSize(10F)));
+                tabelleBankdaten.addCell((new Cell().add(new ListItem("")).setBorder(Border.NO_BORDER).setFontSize(10F)));
+
+
+            } else {
+                ResultSet resultSetBankdaten = statement.executeQuery("SELECT * FROM unternehmen");
+                resultSetBankdaten.next();
+                tabelleBankdaten.addCell((new Cell().add(new ListItem("Bank: " + resultSetBankdaten.getString("bank"))).setBorder(Border.NO_BORDER).setFontSize(10F)));
+                tabelleBankdaten.addCell((new Cell().add(new ListItem("IBAN: " + resultSetBankdaten.getString("iban"))).setBorder(Border.NO_BORDER).setFontSize(10F)));
+                tabelleBankdaten.addCell((new Cell().add(new ListItem("Zahlbar innert 30 Tagen")).setBorder(Border.NO_BORDER)));
+                resultSetBankdaten.close();
+            }
+
+        } catch (Exception e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
+
         //Bilder
-        //TODO ResultSet Pfad Logo
         ImageData datenLogo = null;
         try {
             ResultSet resultsetUnternehmen = statement.executeQuery("SELECT COUNT(bildnummer) FROM unternehmen");
             resultsetUnternehmen.next();
             int exists = resultsetUnternehmen.getInt(1);
             resultsetUnternehmen.close();
-            if (exists == 0){
-                datenLogo = ImageDataFactory.create("src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Unternehmen/Logo.png");
-            } else{
-             ResultSet resultsetLogo = statement.executeQuery("SELECT * FROM unternehmen");
-             datenLogo = ImageDataFactory.create("Bilder/Benutzer/Unternehmen/" + resultsetUnternehmen.getInt("bildnummer") + "." + resultsetUnternehmen.getString("dateityp"));
+            if (exists == 0) {
+                datenLogo = ImageDataFactory.create(String.valueOf(getClass().getResource("/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Unternehmen/Logo.png")));
+            } else {
+                ResultSet resultsetLogo = statement.executeQuery("SELECT * FROM unternehmen");
+                resultsetLogo.next();
+                int bildnummer = resultsetLogo.getInt("bildnummer");
+                String dateityp = resultsetLogo.getString("Dateityp");
+                datenLogo = ImageDataFactory.create("Bilder/Benutzer/Unternehmen/" + bildnummer + "." + dateityp);
+                resultsetLogo.close();
             }
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
@@ -1011,22 +989,13 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         document.add(logo);
         document.add(absatz).add(absatz);
 
-        /*ImageData datenQRCode = null;
-        try {
-            datenQRCode = ImageDataFactory.create(getPfadQRCode());
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-        Image QRCode = new Image(datenQRCode);*/
-
-
         try {
             ResultSet resultsetExistiertKunde = statement.executeQuery("SELECT COUNT(kunden_id) FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
             resultsetExistiertKunde.next();
             int exists = resultsetExistiertKunde.getInt(1);
             resultsetExistiertKunde.close();
-            if (exists == 1){
-                ResultSet resultSetKunde = statement.executeQuery("SELECT * FROM kunden, bearbeiter WHERE bestellung_id = " + rechnungsnummer + " and kundenId = kunden_id");
+            if (exists == 1) {
+                ResultSet resultSetKunde = statement.executeQuery("SELECT * FROM kunden, bearbeiter, Unternehmen WHERE bestellung_id = " + rechnungsnummer + " and kundenId = kunden_id");
                 resultSetKunde.next();
                 tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("Datum")).setBorder(Border.NO_BORDER)));
                 tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(formatter.format(datum))).setBorder(Border.NO_BORDER)));
@@ -1034,33 +1003,32 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("Kundennummer")).setBorder(Border.NO_BORDER)));
                 tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(String.valueOf(resultSetKunde.getInt("kundenId")))).setBorder(Border.NO_BORDER)));
                 tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(resultSetKunde.getString("adresse"))).setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("")).setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("")).setBorder(Border.NO_BORDER)));
-                //tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("")).setBorder(Border.NO_BORDER)));
+                tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem("Verkäufer")).setBorder(Border.NO_BORDER)));
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem(resultSetKunde.getString("unternehmensname"))).setBorder(Border.NO_BORDER));
                 tabelleAbsenderAdressat.addCell((new Cell().add(new ListItem(resultSetKunde.getInt("postleitzahl") + " " + resultSetKunde.getString("ort"))).setBorder(Border.NO_BORDER)));
                 resultSetKunde.close();
-            } else{
-                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("Datum").setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem(formatter.format(datum)).setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("").setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("").setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("").setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("").setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("").setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("").setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("").setBorder(Border.NO_BORDER)));
-                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("").setBorder(Border.NO_BORDER)));
-
+            } else {
+                ResultSet resultsetUnternehmensname = statement.executeQuery("SELECT * FROM unternehmen");
+                resultsetUnternehmensname.next();
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("Datum")).setBorder(Border.NO_BORDER));
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem(formatter.format(datum))).setBorder(Border.NO_BORDER));
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("")).setBorder(Border.NO_BORDER));
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("kein Kundenkonto")).setBorder(Border.NO_BORDER));
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("")).setBorder(Border.NO_BORDER));
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("")).setBorder(Border.NO_BORDER));
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("Verkäufer")).setBorder(Border.NO_BORDER));
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem(resultsetUnternehmensname.getString("unternehmensname"))).setBorder(Border.NO_BORDER));
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("")).setBorder(Border.NO_BORDER));
+                tabelleAbsenderAdressat.addCell(new Cell().add(new ListItem("")).setBorder(Border.NO_BORDER));
+                resultsetUnternehmensname.close();
             }
 
             document.add(tabelleAbsenderAdressat);
             document.add(absatz);
 
-
-            //TODO Quittung
             //Paragraph Rechnungsnummer
             Paragraph paragraphQuittungRechnungsnummer = null;
-            if (rechnung1Quittung2 == 1){
+            if (rechnung1Quittung2 == 1) {
                 paragraphQuittungRechnungsnummer = new Paragraph("Rechnung " + rechnungsnummer).setBorder(Border.NO_BORDER).setFontSize(15F).setBold();
 
             } else if (rechnung1Quittung2 == 2) {
@@ -1085,7 +1053,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             tabelleTitelBestellungoR.addCell(new Cell().add(new ListItem("Gesamt")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
 
 
-            ResultSet resultSetBestellung = statement.executeQuery("SELECT * FROM bestellung, artikel, einheiten WHERE " + rechnungsnummer + " = bestellungId AND artikel_id = artikelId AND einheitId = einheit_id");
+            ResultSet resultSetBestellung = statement.executeQuery("SELECT * FROM bestellung, artikel, einheiten WHERE " + rechnungsnummer + " = bestellungId AND artikel_id = artikelId AND einheitId = einheit_id ORDER BY artikel_id");
 
             double totalArtikel;
             double uebertrag = 0;
@@ -1107,8 +1075,8 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 } else {
                     totalArtikel = resultSetBestellung.getDouble("preis") * resultSetBestellung.getInt("anzahl");
                 }
-                totalArtikel = Math.round(20.00 * totalArtikel) / 20.00; //TODO Zwei Kommastellen
-                uebertrag = uebertrag + totalArtikel; //TODO Überprüfen
+                totalArtikel = Math.round(20.00 * totalArtikel) / 20.00;
+                uebertrag = uebertrag + totalArtikel;
 
                 if (seitenZaehler == 0) {
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(resultSetBestellung.getString("name"))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.LEFT));
@@ -1119,7 +1087,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                         linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem()).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
 
                     } else {
-                        linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getDouble("rabatt")) + "%")).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+                        linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(resultSetBestellung.getDouble("rabatt") + "%")).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
                         rabatttester = true;
                     }
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(totalArtikel))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
@@ -1130,13 +1098,14 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getDouble("preis")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
                     linkedlistTabelleBestellungoR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(totalArtikel))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
                     zeilenZaehler = zeilenZaehler + 1;
-                    if (zeilenZaehler == 16) {
+                    if (zeilenZaehler == 22) {
                         seitenZaehler = 1;
-                        linkedlistTabelleBestellungmR.add(new Table(bestellungmR));
-                        linkedlistTabelleBestellungoR.add(new Table(bestellungoR));
+
+                        linkedlistTabelleBestellungmR.addLast(new Table(bestellungmR));
+                        linkedlistTabelleBestellungoR.addLast(new Table(bestellungoR));
                     }
                 }
-                if (seitenZaehler == 1) {
+                if (seitenZaehler >= 1) {
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(resultSetBestellung.getString("name"))).setBorder(Border.NO_BORDER));
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("artikelId")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
                     linkedlistTabelleBestellungmR.get(seitenZaehler).addCell(new Cell().add(new ListItem(String.valueOf(resultSetBestellung.getInt("anzahl")))).setBorder(Border.NO_BORDER).setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
@@ -1164,22 +1133,40 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 }
             }
             resultSetBestellung.close();
-            if (rabatttester == true) {
+
+            if (rabatttester) {
                 for (int i = 0; i < seitenZaehler + 1; i++) {
-                    document.add(tabelleTitelBestellungmR);
-                    document.add(absatz);
-                    document.add(linkedlistTabelleBestellungmR.get(i));
+                    if (i == 0) {
+                        document.add(tabelleTitelBestellungmR);
+                        document.add(absatz);
+                        document.add(linkedlistTabelleBestellungmR.get(0));
+                    } else {
+                        document.add(tabelleTitelBestellungmR);
+                        document.add(absatz);
+                        document.add(linkedlistTabelleBestellungmR.get(i));
+                    }
                 }
-                seitenZaehler = 0;
-                rabatttester = false;
+
             } else {
                 for (int i = 0; i < seitenZaehler + 1; i++) {
-                    document.add(tabelleTitelBestellungoR);
-                    document.add(absatz);
-                    document.add(linkedlistTabelleBestellungoR.get(i));
+                    if (i == 0) {
+                        document.add(tabelleTitelBestellungoR);
+                        document.add(absatz);
+                        document.add(linkedlistTabelleBestellungoR.get(0));
+                        /*document.add(absatz);
+                        document.add(linkedlistTabelleBestellungoR.get(1));*/
+                    } else {
+                        document.add(tabelleTitelBestellungoR);
+                        document.add(absatz);
+                        document.add(linkedlistTabelleBestellungoR.get(i));
+                    }
+
                 }
-                seitenZaehler = 0;
             }
+            document.add(absatz);
+            tabelleTotal.addCell(new Cell().add(new ListItem("Total: " + uebertrag)).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
+            document.add(tabelleTotal);
+            document.add(tabelleBankdaten);
             document.close();
             System.out.println("pdf generated");
         } catch (SQLException e) {
