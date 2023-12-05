@@ -43,14 +43,18 @@ public class Main extends Application {
             statement.execute("CREATE TABLE IF NOT EXISTS artikel (artikelId INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30), preis DOUBLE, menge DOUBLE, einheit_id INT, rabatt INT, lagerbestand INT, dateityp VARCHAR(30), bildnummer INT)");
             statement.execute("CREATE TABLE IF NOT EXISTS mitarbeiter (mitarbeiterId INT NOT NULL AUTO_INCREMENT PRIMARY KEY, nachname VARCHAR(30), vorname VARCHAR(30), adresse VARCHAR(30), postleitzahl INT, ort VARCHAR(30), email VARCHAR(30), natelnummer VARCHAR(10), pin INT)");
             statement.execute("CREATE TABLE IF NOT EXISTS bestellung (bestellungId INT NOT NULL, artikel_id INT, anzahl INT, name_bestellung VARCHAR(30), preis_bestellung DOUBLE, menge_bestellung DOUBLE, einheit_id_bestellung INT, rabatt_bestellung INT)");
-            statement.execute("CREATE TABLE IF NOT EXISTS bearbeiter (bestellung_id INT NOT NULL, mitarbeiter_id INT, kunden_id INT, dokumenttyp INT, datum DATE)");
+            statement.execute("CREATE TABLE IF NOT EXISTS bearbeiter (bestellung_id INT NOT NULL, kunden_id INT, dokumenttyp INT, datum DATE)");
             statement.execute("CREATE TABLE IF NOT EXISTS unternehmen (unternehmensname VARCHAR(30), rechnungsnummer INT, benutzername VARCHAR(30), passwort VARCHAR(30), lagerbestandOrange INT, Bank VARCHAR(30), IBAN VARCHAR (30), bearbeiten INT, bildnummer INT, dateityp VARCHAR(30))");
             statement.execute("CREATE TABLE IF NOT EXISTS einheiten (einheitId INT NOT NULL AUTO_INCREMENT PRIMARY KEY, bezeichnung VARCHAR(30), abkuerzung VARCHAR(30), aktiv BOOLEAN)");
             statement.execute("CREATE TABLE IF NOT EXISTS loeschen (artikel_Id INT, bildnummer INT, dateityp VARCHAR(30))");
             statement.execute("CREATE TABLE IF NOT EXISTS verkaufteStueck (datum DATE, artikel_id INT, anzahl INT)");
-            /*for(int i = 1; i < 100 ; i++) {
-                statement.execute("INSERT INTO artikel (artikelId, name, preis, menge, einheit_id, lagerbestand, rabatt) VALUES (" + i + ",'test', 100, 100, 1, 100, 10)");
-            }*/
+            statement.execute("DELETE FROM bestellung WHERE bestellungId = 130");
+            statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = 130");
+            statement.execute("INSERT INTO bearbeiter (bestellung_id, dokumenttyp, datum) VALUES (130, 2, '2023-12-05')");
+            for(int i = 3; i < 100 ; i++) {
+                //statement.execute("INSERT INTO artikel (artikelId, name, preis, menge, einheit_id, lagerbestand, rabatt) VALUES (" + i + ",'test', 100, 100, 1, 100, 10)");
+                statement.execute("INSERT INTO bestellung (bestellungid, artikel_id, anzahl, name_bestellung, preis_bestellung, menge_bestellung, einheit_id_bestellung, rabatt_bestellung) VALUES (130," + i + ",1, 'test',10, 10, 1, 10)");
+            }
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }

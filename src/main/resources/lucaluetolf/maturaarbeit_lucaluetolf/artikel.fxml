@@ -38,7 +38,7 @@
          </children>
       </VBox>
       <JFXButton layoutX="906.0" layoutY="47.0" onAction="#toSceneArtikelErfassen" style="-fx-background-radius: 20; -fx-background-color: #E8CFB0; -fx-font-size: 20; -fx-text-fill: ffffff;" text="+ Artikel hinzufügen" textFill="#d00909" />
-      <ScrollPane fitToWidth="true" layoutX="293.0" layoutY="139.0" prefHeight="582.0" prefWidth="854.0">
+      <ScrollPane fitToWidth="true" layoutX="293.0" layoutY="139.0" prefHeight="582.0" prefWidth="865.0">
          <content>
             <GridPane fx:id="gridpaneArtikel" prefHeight="580.0" prefWidth="850.0">
               <columnConstraints>

@@ -46,7 +46,7 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    @FXML
+    /*@FXML
     private ImageView imageView;
     @FXML
     private TextField textfeldArtikelnummer;
@@ -68,20 +68,12 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
     private boolean booleanPreis = false;
     private boolean booleanMenge = false;
     private boolean booleanRabatt = false;
-    private boolean booleanLagerbestand = false;
+    private boolean booleanLagerbestand = false;*/
 
     private String filePath = "";
     private String newPath = "Bilder/Benutzer/Artikel/Übergang/";
 
-    private boolean tester(String regex, TextField textField) {
-        boolean boolean1 = textField.getText().matches(regex);
-        if (boolean1) {
-            textField.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
-        } else {
-            textField.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
-        }
-        return boolean1;
-    }
+
 
 
     @FXML
@@ -99,80 +91,7 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
 
     }
 
-    @FXML
-    protected void textfieldArtikelnummerKey() {
-        textfeldArtikelnummer.setText(textfeldArtikelnummer.getText().replaceAll("[^0-9]", ""));
-        textfeldArtikelnummer.positionCaret(textfeldArtikelnummer.getLength());
-        booleanArtikelnummer = tester("^[1-9]\\d*$", textfeldArtikelnummer);
-        if (textfeldArtikelnummer.getText() != "" && booleanArtikelnummer){
-            try {
-                ResultSet resultsetArtikel = statement.executeQuery("SELECT COUNT(artikelId) AS summe FROM artikel WHERE artikelId = " + textfeldArtikelnummer.getText());
-                resultsetArtikel.next();
-                int res = resultsetArtikel.getInt("summe");
-                if (res == 0){
-                    textfeldArtikelnummer.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
-                }
-                else{
-                    textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
-                    booleanArtikelnummer = false;
-                }
-                resultsetArtikel.close();
-            } catch (Exception e) {
-                AllgemeineMethoden.fehlermeldung(e);
-            }
-        }
-        if (textfeldArtikelnummer.getLength() > 8){
-            booleanArtikelnummer = false;
-            textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
-        }
 
-    }
-
-    @FXML
-    protected void textfieldNameKey() {
-        textfeldName.setText(textfeldName.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ0-9]", ""));
-        textfeldName.positionCaret(textfeldName.getLength());
-        booleanName = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldName);
-    }
-
-    @FXML
-    protected void textfieldPreisKey() {
-        textfeldPreis.setText(textfeldPreis.getText().replaceAll("[^0-9.]", ""));
-        textfeldPreis.positionCaret(textfeldPreis.getLength());
-        booleanPreis = tester("^\\d+(\\.\\d{1}(0|5)?)?$", textfeldPreis);
-
-    }
-
-    @FXML
-    protected void textfieldMengeKey() {
-        textfeldMenge.setText(textfeldMenge.getText().replaceAll("[^0-9.]", ""));
-        textfeldMenge.positionCaret(textfeldMenge.getLength());
-        booleanMenge = tester("^\\d+(\\.\\d{1}(0|5)?)?$", textfeldMenge);
-    }
-
-    @FXML
-    protected void textfieldRabattKey() {
-        textfeldRabatt.setText(textfeldRabatt.getText().replaceAll("[^0-9]", ""));
-        booleanRabatt = tester("^[0-9]\\d*$", textfeldRabatt);
-        if (textfeldRabatt.getLength() != 0 && 100 < Integer.parseInt(textfeldRabatt.getText())) {
-            textfeldRabatt.setText("");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText("Fehlermeldung");
-            alert.setContentText("Der gewünschte Rabatt beträgt mehr als 100%");
-            alert.showAndWait();
-            textfeldRabatt.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
-        }
-        textfeldRabatt.positionCaret(textfeldRabatt.getLength());
-
-    }
-
-    @FXML
-    protected void textfieldLagerbestandKey() {
-        textfeldLagerbestand.setText(textfeldLagerbestand.getText().replaceAll("[^0-9]", ""));
-        textfeldLagerbestand.positionCaret(textfeldLagerbestand.getLength());
-        booleanLagerbestand = tester("^[0-9]\\d*$", textfeldLagerbestand);
-    }
 
     @FXML
     protected void artikelErfassen(ActionEvent event) {

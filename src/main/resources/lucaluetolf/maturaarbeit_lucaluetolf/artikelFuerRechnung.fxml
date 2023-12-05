@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lucaluetolf.maturaarbeit_lucaluetolf.GuiArtikelFuerRechnung">
     <children>
-        <ScrollPane fitToWidth="true" layoutX="42.0" layoutY="137.0" prefHeight="582.0" prefWidth="854.0">
+        <ScrollPane layoutX="42.0" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="865.0">
             <content>
                 <GridPane fx:id="gridpaneArtikel" prefHeight="580.0" prefWidth="850.0">
                     <columnConstraints>
@@ -29,7 +29,7 @@
                 </GridPane>
             </content>
         </ScrollPane>
-      <ScrollPane fitToWidth="true" layoutX="999.0" layoutY="137.0" prefHeight="494.0" prefWidth="204.0">
+      <ScrollPane fitToWidth="true" layoutX="985.0" layoutY="137.0" prefHeight="494.0" prefWidth="215.0">
          <content>
             <GridPane fx:id="gridpaneWarenkorb" prefHeight="492.0" prefWidth="200.0">
               <columnConstraints>
@@ -43,14 +43,14 @@
             </GridPane>
          </content>
       </ScrollPane>
-      <Pane fx:id="paneAdressat" layoutX="999.0" layoutY="55.0" prefHeight="82.0" prefWidth="204.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px;">
+      <Pane fx:id="paneAdressat" layoutX="988.0" layoutY="55.0" prefHeight="82.0" prefWidth="215.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px;">
          <children>
             <JFXButton fx:id="buttonAdressatAendern" layoutX="90.0" layoutY="41.0" prefHeight="25.0" prefWidth="98.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-text-fill: #ba8759;" text="Kunde ändern" />
             <Label fx:id="labelAdressatKundennummer" layoutX="14.0" layoutY="14.0" maxWidth="177.0" text="Label" textFill="WHITE" />
             <Label fx:id="labelAdressatAdresse" layoutX="14.0" layoutY="45.0" maxWidth="73.0" text="Label" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane fx:id="paneAdressat1" layoutX="999.0" layoutY="631.0" prefHeight="90.0" prefWidth="204.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px;">
+      <Pane fx:id="paneAdressat1" layoutX="988.0" layoutY="631.0" prefHeight="90.0" prefWidth="215.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px;">
          <children>
             <JFXButton fx:id="dokumentAbschliessen" layoutX="35.0" layoutY="58.0" onAction="#buttonRechnungErstellen" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-text-fill: #ba8759;" />
             <Label fx:id="labelAdressatKundennummer1" layoutX="14.0" layoutY="5.0" text="Total:" textFill="WHITE" />

@@ -499,9 +499,10 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
 
     @FXML
     protected void textfieldUnternehmenKey(){
-        textfeldUnternehmen.setText(textfeldUnternehmen.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
+        textfeldUnternehmen.setText(textfeldUnternehmen.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ &.,'()/-]", ""));
         textfeldUnternehmen.positionCaret(textfeldUnternehmen.getLength());
-        booleanUnternehmen = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldUnternehmen);
+        //booleanUnternehmen = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldUnternehmen);
+        booleanUnternehmen = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ0-9&.,'()/-]+$", textfeldUnternehmen);
     }
     @FXML
     protected void textfieldBenutzernameKey(){
@@ -523,18 +524,20 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
     }
     @FXML
     protected void textfieldBankKey(){
-        textfeldBank.setText(textfeldBank.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
+        textfeldBank.setText(textfeldBank.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ 0-9&.,'()/-]", ""));
         textfeldBank.positionCaret(textfeldBank.getLength());
-        booleanBank = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?(?:\\sAG)?$", textfeldBank);
+        //booleanBank = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?(?:\\sAG)?$", textfeldBank);
+        booleanBank = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ0-9&.,'()/-]+(?: [A-Za-zéàèöäüÉÀÈÖÄÜ0-9&.,'()/-]+)*$", textfeldBank);
         if (textfeldBank.getLength() == 0){
             booleanBank = true;
         }
     }
     @FXML
     protected void textfieldIbanKey(){
-        textfeldIban.setText(textfeldIban.getText().replaceAll("[^CH0-9]", ""));
+        textfeldIban.setText(textfeldIban.getText().replaceAll("[^CH0-9 ]", ""));
         textfeldIban.positionCaret(textfeldIban.getLength());
-        booleanIban = tester("^CH[0-9]{19}$", textfeldIban);
+        //booleanIban = tester("^CH[0-9]{19}$", textfeldIban);
+        booleanIban = tester("^CH\\d{2} \\d{4} \\d{4} \\d{4} \\d{4} \\d{1}$", textfeldIban);
         if (textfeldIban.getLength() == 0){
             booleanIban = true;
         }
@@ -615,6 +618,7 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
                 }
                 else{
                     textfieldEinheitId.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                    booleanEinheitId = false;
                 }
                 resultsetArtikel.close();
             } catch (Exception e) {
@@ -625,19 +629,19 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
 
     @FXML
     void textfieldBezeichnungKey() {
-        textfieldBezeichnung.setText(textfieldBezeichnung.getText().replaceAll("[^A-Za-z]", ""));
+        textfieldBezeichnung.setText(textfieldBezeichnung.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ]", ""));
         textfieldBezeichnung.positionCaret(textfieldBezeichnung.getLength());
-        booleanBezeichnung = tester("[A-Z][a-z]+$", textfieldBezeichnung);
+        booleanBezeichnung = tester("[A-Z][a-zéàèöäüÉÀÈÖÄÜ]+$", textfieldBezeichnung);
     }
     @FXML
     void textfieldAbkuerzungKey() {
-        textfieldAbkuerzung.setText(textfieldAbkuerzung.getText().replaceAll("[^A-Za-z]", ""));
+        textfieldAbkuerzung.setText(textfieldAbkuerzung.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ]", ""));
         textfieldAbkuerzung.positionCaret(textfieldAbkuerzung.getLength());
         if (textfieldAbkuerzung.getLength() >= 4){
             booleanAbkuerzung = false;
             textfieldAbkuerzung.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
         } else{
-            booleanAbkuerzung = tester("^[A-Z]?[a-z]*$", textfieldAbkuerzung);
+            booleanAbkuerzung = tester("^(?=.*[A-Za-zéàèöäüÉÀÈÖÄÜ]).*$", textfieldAbkuerzung);
         }
 
     }

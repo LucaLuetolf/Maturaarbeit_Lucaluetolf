@@ -156,8 +156,8 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     }
 
     //Strings
-    private String s1 = "Der Benutzername muss am Anfang gross geschrieben sein. Das Passwort muss mindestens eine Zahl, einen Gross- und Kleinbuchstaben enthalten. Die Länge beträgt mindestens 8 Zeichen. ";
-    private String s2 = "Die Artikelnummer darf nicht mit 0 starten. Der Name muss am Anfang gross geschrieben werden. Bei der Menge ist die Menge pro Einheit gemeint.";
+    private String s1 = "Der Benutzername muss am Anfang gross geschrieben sein. \nDas Passwort muss mindestens eine Zahl, einen Gross- und Kleinbuchstaben enthalten. Die Länge beträgt mindestens 8 Zeichen.";
+    private String s2 = "Die Artikelnummer darf nicht mit 0 starten. Der Name muss am Anfang gross geschrieben werden. Bei der Menge ist die Menge pro Einheit gemeint. Hinweis: Die Artikelnummer kann nachträglich nicht geändert werden";
     private String s3 = "Die Kundennummer darf nicht mit 0 starten";
 
     // Unternehmensdaten Erfassen
@@ -201,6 +201,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
         textfeldBank.setText(textfeldBank.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
         textfeldBank.positionCaret(textfeldBank.getLength());
         booleanBank = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?(?:\\sAG)?$", textfeldBank);
+        // TODO Regex
     }
     @FXML
     protected void textfieldIbanKey(){

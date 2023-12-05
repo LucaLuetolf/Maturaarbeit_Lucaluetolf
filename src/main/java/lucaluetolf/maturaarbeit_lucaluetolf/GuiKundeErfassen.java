@@ -89,23 +89,25 @@ public class GuiKundeErfassen extends GuiTaskleiste {
 
     @FXML
     protected void textfieldNachnameKey() {
-        textfeldNachname.setText(textfeldNachname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
+        textfeldNachname.setText(textfeldNachname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ '-]", ""));
         textfeldNachname.positionCaret(textfeldNachname.getLength());
-        booleanNachname = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldNachname);
+        //booleanNachname = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldNachname);
+        booleanNachname = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ'-]+$ ", textfeldNachname);
     }
 
     @FXML
     protected void textfieldVornameKey() {
-        textfeldVorname.setText(textfeldVorname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
+        textfeldVorname.setText(textfeldVorname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ '-]", ""));
         textfeldVorname.positionCaret(textfeldVorname.getLength());
-        booleanVorname = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldVorname);
+        //booleanVorname = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldVorname);
+        booleanVorname = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ'-]+(?: [A-Za-zéàèöäüÉÀÈÖÄÜ'-]+)*$", textfeldVorname);
     }
 
     @FXML
     protected void textfieldAdresseKey() {
-        textfeldAdresse.setText(textfeldAdresse.getText().replaceAll("^[^A-za-z]+ [^0-9]$", ""));
+        textfeldAdresse.setText(textfeldAdresse.getText().replaceAll("[^A-za-zzéàèöäüÉÀÈÖÄÜ '-0-9]", ""));
         textfeldAdresse.positionCaret(textfeldAdresse.getLength());
-        booleanAdresse = tester("^[A-Za-z]+(\\s\\d*)?$", textfeldAdresse);
+        booleanAdresse = tester("^[A-Za-zzéàèöäüÉÀÈÖÄÜ'-]+(\\s\\d*)?$", textfeldAdresse);
     }
 
     @FXML
@@ -117,25 +119,24 @@ public class GuiKundeErfassen extends GuiTaskleiste {
 
     @FXML
     protected void textfieldOrtKey() {
-        textfeldOrt.setText(textfeldOrt.getText().replaceAll("[^A-Za-z]", ""));
+        textfeldOrt.setText(textfeldOrt.getText().replaceAll("[^A-Za-zzéàèöäüÉÀÈÖÄÜ '-]", ""));
         textfeldOrt.positionCaret(textfeldOrt.getLength());
-        booleanOrt = tester("[A-Z][a-z]+$", textfeldOrt);
+        booleanOrt = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ'-]+(?: [A-Za-zéàèöäüÉÀÈÖÄÜ'-]+)*$\n", textfeldOrt);
     }
 
     @FXML
     protected void textfieldEmailKey() {
-        booleanEmail = tester("^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,}$", textfeldEmail);
+        textfeldEmail.setText(textfeldEmail.getText().replaceAll(" ", ""));
+        textfeldEmail.positionCaret(textfeldEmail.getLength());
+        booleanEmail = tester("^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\\.[A-Za-z]{0,}$", textfeldEmail);
     }
 
     @FXML
     protected void textfieldNatelnummerKey() {
         textfeldNatelnummer.setText(textfeldNatelnummer.getText().replaceAll("[^0-9]", ""));
         textfeldNatelnummer.positionCaret(textfeldNatelnummer.getLength());
-        if (textfeldNatelnummer.getLength() == 10){
-            booleanNatelnummer = tester("^[0-9]\\d*$", textfeldNatelnummer);
-        } else{
-            textfeldNatelnummer.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
-        }
+        booleanNatelnummer = tester("^(?:[0-9]{10}|)$", textfeldNatelnummer);
+
     }
 
     @FXML

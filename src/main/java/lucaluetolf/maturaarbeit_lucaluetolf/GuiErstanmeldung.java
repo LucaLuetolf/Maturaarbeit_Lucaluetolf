@@ -52,22 +52,22 @@ public class GuiErstanmeldung extends GuiTaskleiste implements Initializable {
     private Button buttonWeiter;
 
 
-    private String s1 = "Herzlich Willkommen, nachfolgend wird die ERP-Software erklärt. Auf dem Bild ist die Startseite zu sehen. Hier sind alle Funktionen der App zum auswählen bereit.";
+    private String s1 = "Herzlich Willkommen, nachfolgend wird die ERP-Software erklärt. Auf der Startseite sind alle Funktionen der App zum auswählen bereit.";
     private String s2 = "Beim starten der App wird das Loginfeld angezeigt. Hier muss der festgelegte Benutzername und das Passwort eingegeben werden. Bei richtiger Eingabe gelangen sie zur Startseite. \nACHTUNG: Das Passwort kann nicht zurückgesetzt werden.";
-    private String s3 = "Auf dem Bild ist die Auflistung der Artikel zu sehen. Via Button Artikel hinzufügen können neue Artikel erfasst und bei mehr Infos bearbeitet, werden. ";
+    private String s3 = "Auf diesem Bild ist die Auflistung der Artikel zu sehen. Via Button \"Artikel hinzufügen\" können neue Artikel erfasst und bei mehr Infos bearbeitet, werden. ";
     private String s4 = "Beim Erfassen der Daten werden falsch eingegeben Zeichen direkt herausgefiltert. Ist eine Eingabe ungültig, wird das Textfeld rot angezeigt.";
-    private String s5 = "Auf dieser Seite kann ein Artikel angepasst werden. Das einzige, was nicht geändert werden kann ist die Artikelnummer.";
-    private String s6 = "Auf diesem Bild ist die Seite Kunden zu sehen. Neue Kunden können via Kunde hinzufügen erfasst werden. Möchten sie einen Kunden bearbeiten, klicken sie in der Tabelle auf die gewünschte Zeile";
+    private String s5 = "Via Button \"mehr Infos\" kann ein Artikel angepasst werden. Das einzige, was nicht geändert werden kann ist die Artikelnummer.";
+    private String s6 = "Auf diesem Bild ist die Seite Kunden zu sehen. Neue Kunden können via \"Kunde hinzufügen\" erfasst werden. Möchten sie einen Kunden bearbeiten, klicken sie in der Tabelle auf die gewünschte Zeile";
     private String s7 = "Wie bei den Artikel auch, werden hier die falschen Eingaben direkt herausgefiltert.";
     private String s8 = "Das Fenster Kunde bearbeiten sieht gleich aus, wie das Fenster Kunde erfassen. Hier können die Daten in den Textfeldern geändert werden, um sie anzupassen";
     private String s9 = "Um eine Rechnung zu erstellen, wird erstmals der gewünschte Kunde (via klick auf die entsprechende Zeile) ausgewählt";
     private String s10 = "Im nächsten Schritt kann die Anzahl der Artikel via +, - oder anhand einer Eingabe im Textfeld festgelegt werden";
-    private String s11 = "Anschliessend wird eine Rechnung in Form von Pdf generiert. Gespeichert wird das Dokument im Ordner Kundendateien beim Speicherort der App.";
+    private String s11 = "Anschliessend wird eine Rechnung in Form von einem Pdf generiert. Gespeichert wird das Dokument im Ordner Kundendateien beim Speicherort der App.";
     private String s12 = "Die Seite Verkauf ist ähnlich aufgebaut, wie die Seite Rechnung erstellen. Der Unterschied liegt darin, dass ohne Kunde fortgefahren werden kann. Beim Abschliessen des Verkaufes kann zudem das Retourgeld berechnet werden. ";
     private String s13 = "Falls eine Rechnung oder Quittung Fehler enthält, kann sie hier geändert werden. Wissen muss man nur die Rechnungs- oder Quittungsnummer.";
-    private String s14 = "Diese Funktion ermöglicht es, die Verkaufszahlen von einem oder mehreren Artikel über den gewünschten Zeitraum in einem Diagram anzuzeigen.";
-    private String s15 = "Hier können die Unternehmensdaten und Einheiten angepasst werden. Dieses Tutorial kann auch dort gestartet werden";
-    private String s16 = "Bei dieser Seite können die Unternehmensdaten angepasst werden.";
+    private String s14 = "Diese Funktion ermöglicht es, die Verkaufszahlen von einem oder mehreren Artikel über den gewünschten Zeitraum in einem Diagramm anzuzeigen.";
+    private String s15 = "Hier kann das Konto und die Einheiten angepasst werden. Dieses Tutorial kann auch dort gestartet werden.";
+    private String s16 = "Bei dieser Seite können die Geschäftsdaten angepasst werden.";
     private String s17 = "Hier können die Verkaufseinheiten erfasst, aktiviert oder deaktiviert werden.";
 
 

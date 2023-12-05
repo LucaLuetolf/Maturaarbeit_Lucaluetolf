@@ -29,12 +29,12 @@
                   <Image url="@Bilder/System/Erstanmeldung/lagerbestandAnzeige.png" />
                </image>
             </ImageView>
-            <Label layoutX="11.0" layoutY="172.0" prefHeight="69.0" prefWidth="181.0" text="Ab welcher Stückzahl soll der wechsel der Linie von grün auf orange stattfinden (rot wird sie bei 0 Stück)" textFill="#ba8759" wrapText="true" />
+            <Label layoutX="11.0" layoutY="172.0" prefHeight="69.0" prefWidth="181.0" text="Ab welcher Stückzahl soll der Linienfarbwechsel von grün auf orange stattfinden (rot wird sie bei 0 Stück)" textFill="#ba8759" wrapText="true" />
          </children></Pane>
       <Pane fx:id="paneUnternehmensdatenErfassen" layoutX="310.0" layoutY="110.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-radius: 20px; -fx-background-color: #FFFFFF;" styleClass="backgroundloginpane" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
          <children>
             <TextField fx:id="textfeldUnternehmen" layoutX="296.0" layoutY="276.0" onKeyReleased="#textfieldUnternehmenKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="53.0" layoutY="43.0" text="Unternehmensdaten erfassen" textFill="#ba8759">
+            <Label layoutX="53.0" layoutY="43.0" text="Geschäftsdaten erfassen" textFill="#ba8759">
                <font>
                   <Font size="36.0" />
                </font>
@@ -184,7 +184,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="118.0" layoutY="361.0" prefHeight="35.0" prefWidth="171.0" text="Menge/ Einheit" textFill="#ba8759">
+            <Label layoutX="118.0" layoutY="361.0" prefHeight="35.0" prefWidth="171.0" text="Menge/Einheit" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>

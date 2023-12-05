@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
@@ -107,10 +108,22 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                     imageView.setImage(image);
                 }
                 imageView.setPreserveRatio(true);
+                //54
+                //imageView.setLayoutX(10);
+                //imageView.setLayoutY(14);
+                imageView.setFitWidth(150);
+                imageView.setFitHeight(65);
+
+                StackPane stackPaneImage = new StackPane();
+                stackPaneImage.getChildren().add(imageView);
+
+                stackPaneImage.setLayoutX(10);
+                stackPaneImage.setLayoutY(14);
+                stackPaneImage.setPrefSize(150,65);
+                StackPane.setAlignment(imageView, javafx.geometry.Pos.CENTER);
+
 
                 Line lineLagerbestand = new Line();
-                //170, 220
-                //212, 290
                 pane.setPrefSize(170, 220);
                 pane.getChildren().add(labelArtikelnummer);
                 pane.getChildren().add(labelName);
@@ -121,7 +134,7 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 pane.getChildren().add(labelTitelPreis);
                 pane.getChildren().add(labelTitelMenge);
                 pane.getChildren().add(lineLagerbestand);
-                pane.getChildren().add(imageView);
+                pane.getChildren().add(stackPaneImage);
                 labelTitelArtikelnummer.setLayoutX(14);
                 labelTitelArtikelnummer.setLayoutY(88);
                 labelTitelName.setLayoutX(14);

@@ -232,7 +232,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
 
                         try {
                             if(bearbeiten){
-                                ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter, kunden WHERE kundenId = kunden_id AND bestellung_id=" + rechnungsnummer);
+                                ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter WHERE bestellung_id=" + rechnungsnummer);
                                 resultsetKunde.next();
                                 Date datum = resultsetKunde.getDate("datum");
                                 resultsetKunde.close();
@@ -244,13 +244,14 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
                                 statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (" + rechnungsnummer + "," + kundennummer + "," + modus + ", '" + formatter.format(datum) + "')");
                             }
                             root = FXMLLoader.load(getClass().getResource("artikelFuerRechnung.fxml"));
+                            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
                         } catch (Exception e) {
                             AllgemeineMethoden.fehlermeldung(e);
                         }
-                        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        scene = new Scene(root);
-                        stage.setScene(scene);
-                        stage.show();
+
                     }
                 });
 
