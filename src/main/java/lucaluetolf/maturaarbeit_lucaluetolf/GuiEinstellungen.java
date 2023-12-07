@@ -34,35 +34,6 @@ import java.util.ResourceBundle;
 
 public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
 
-    Statement statement;
-    Connection connection;
-    {
-        try {
-            connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-    @FXML
-    private JFXButton buttonAppInfos;
-
-    @FXML
-    private JFXButton buttonEinheiten;
-
-    @FXML
-    private JFXButton buttonKonto;
-
-    @FXML
-    private JFXButton buttonStartseite;
-
-    @FXML
-    private JFXButton buttonTitelKonto;
-
     @FXML
     private RadioButton radioButtonAktivErfassen;
 
@@ -86,8 +57,6 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
     private AnchorPane anchorPaneKonto;
     @FXML
     private AnchorPane anchorPaneEinheiten;
-    @FXML
-    private AnchorPane anchorPaneAppInfos;
 
     @FXML
     private Label labelUnternehmensname;
@@ -108,38 +77,11 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
     private Label labelIban;
 
     @FXML
-    private TextField textfeldUnternehmen;
-    @FXML
-    private TextField textfeldBenutzername;
-    @FXML
-    private TextField textfeldPasswort;
-    @FXML
-    private TextField textfeldLagerbestandAnzeige;
-    @FXML
-    private TextField textfeldBank;
-    @FXML
-    private TextField textfeldIban;
-
-    @FXML
     private JFXButton buttonBearbeitenKonto;
     @FXML
     private JFXButton buttonAbbrechenKonto;
     @FXML
     private JFXButton buttonBildAendern;
-
-    @FXML
-    private ImageView imageviewUnternehmen;
-
-
-    private boolean booleanUnternehmen = true;
-    private boolean booleanBenutzername = true;
-    private boolean booleanPasswort = true;
-    private boolean booleanLagerbestandAnzeige = true;
-    private boolean booleanBank = true;
-    private boolean booleanIban = true;
-
-    private String filePath = "";
-    private String newPath = "Bilder/Benutzer/Unternehmen/";
 
     private boolean booleanEinheitId = false;
     private boolean booleanBezeichnung = false;
@@ -284,6 +226,12 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
 
     @FXML
     void konto(ActionEvent event) {
+        booleanUnternehmen = true;
+        booleanBenutzername = true;
+        booleanPasswort = true;
+        booleanLagerbestandAnzeige = true;
+        booleanBank = true;
+        booleanIban = true;
         buttonBearbeitenKonto.setId("1");
         anchorPaneStartseite.setVisible(false);
         anchorPaneKonto.setVisible(true);
@@ -368,16 +316,16 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
                     try {
                         statement.execute("UPDATE unternehmen SET unternehmensname = '" + textfeldUnternehmen.getText() + "', benutzername = '" + textfeldBenutzername.getText() + "', passwort = '" + textfeldPasswort.getText() + "', lagerbestandOrange = " + textfeldLagerbestandAnzeige.getText() + ", bank = '" + textfeldBank.getText() + "', iban = '" + textfeldIban.getText() + "'");
 
-                        if (filePath != ""){
-                            AllgemeineMethoden.dateiKopieren(filePath, newPath);
+                        if (pfadBildLogo != ""){
+                            AllgemeineMethoden.dateiKopieren(pfadBildLogo, neuerPfadBildLogo);
                             ResultSet resultSetDateityp = statement.executeQuery("SELECT * FROM unternehmen");
                             resultSetDateityp.next();
                             String dateityp = resultSetDateityp.getString("dateityp");
                             int bildnummer = resultSetDateityp.getInt("bildnummer");
                             resultSetDateityp.close();
 
-                            File neuesBildAlterPfad = new File(filePath);
-                            File neuesBildAlterName = new File(newPath + "/" + neuesBildAlterPfad.getName());
+                            File neuesBildAlterPfad = new File(pfadBildLogo);
+                            File neuesBildAlterName = new File(neuerPfadBildLogo + "/" + neuesBildAlterPfad.getName());
                             String dateitypNeu = "";
                             int index = neuesBildAlterPfad.getName().lastIndexOf(".");
                             if (index > 0) {
@@ -484,67 +432,6 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
     }
 
     @FXML
-    void bildAendern(){
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Bilddateien", "*.png;*.jpeg;*.jpg;*.gif;*.svg");
-        fileChooser.getExtensionFilters().add(filter);
-
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            filePath = selectedFile.getAbsolutePath();
-            Image image = new Image(filePath);
-            imageviewUnternehmen.setImage(image);
-        }
-    }
-
-    @FXML
-    protected void textfieldUnternehmenKey(){
-        textfeldUnternehmen.setText(textfeldUnternehmen.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ &.,'()/-]", ""));
-        textfeldUnternehmen.positionCaret(textfeldUnternehmen.getLength());
-        //booleanUnternehmen = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldUnternehmen);
-        booleanUnternehmen = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ0-9&.,'()/-]+$", textfeldUnternehmen);
-    }
-    @FXML
-    protected void textfieldBenutzernameKey(){
-        textfeldBenutzername.setText(textfeldBenutzername.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
-        textfeldBenutzername.positionCaret(textfeldBenutzername.getLength());
-        booleanBenutzername = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldBenutzername);
-    }
-    @FXML
-    protected void textfieldPasswortKey(){
-        textfeldPasswort.setText(textfeldPasswort.getText().replaceAll("[^A-Za-z0-9éàèöäüÉÀÈÖÄÜ,.;:-_?!]", ""));
-        textfeldPasswort.positionCaret(textfeldPasswort.getLength());
-        booleanPasswort = tester("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$", textfeldPasswort);
-    }
-    @FXML
-    protected void textfieldLagerbestandAnzeigeKey(){
-        textfeldLagerbestandAnzeige.setText(textfeldLagerbestandAnzeige.getText().replaceAll("[^0-9]", ""));
-        textfeldLagerbestandAnzeige.positionCaret(textfeldLagerbestandAnzeige.getLength());
-        booleanLagerbestandAnzeige = tester("^[1-9]\\d*$", textfeldLagerbestandAnzeige);
-    }
-    @FXML
-    protected void textfieldBankKey(){
-        textfeldBank.setText(textfeldBank.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ 0-9&.,'()/-]", ""));
-        textfeldBank.positionCaret(textfeldBank.getLength());
-        //booleanBank = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?(?:\\sAG)?$", textfeldBank);
-        booleanBank = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ0-9&.,'()/-]+(?: [A-Za-zéàèöäüÉÀÈÖÄÜ0-9&.,'()/-]+)*$", textfeldBank);
-        if (textfeldBank.getLength() == 0){
-            booleanBank = true;
-        }
-    }
-    @FXML
-    protected void textfieldIbanKey(){
-        textfeldIban.setText(textfeldIban.getText().replaceAll("[^CH0-9 ]", ""));
-        textfeldIban.positionCaret(textfeldIban.getLength());
-        //booleanIban = tester("^CH[0-9]{19}$", textfeldIban);
-        booleanIban = tester("^CH\\d{2} \\d{4} \\d{4} \\d{4} \\d{4} \\d{1}$", textfeldIban);
-        if (textfeldIban.getLength() == 0){
-            booleanIban = true;
-        }
-    }
-
-
-    @FXML
     void startseite(ActionEvent event) {
         anchorPaneStartseite.setVisible(true);
         anchorPaneKonto.setVisible(false);
@@ -593,15 +480,6 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
         textfieldAbkuerzung.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
     }
 
-    private boolean tester(String regex, TextField textField) {
-        boolean boolean1 = textField.getText().matches(regex);
-        if (boolean1) {
-            textField.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
-        } else {
-            textField.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
-        }
-        return boolean1;
-    }
 
     @FXML
     void textfieldEinheitIdKey() {
@@ -686,27 +564,8 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
                     statement.execute("DROP TABLE IF EXISTS bestellung");
                     statement.execute("DROP TABLE IF EXISTS verkaufteStueck");
                     statement.execute("DROP TABLE IF EXISTS loeschen");
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("erstanmeldung.fxml"));
-                    } catch (IOException e) {
-                        AllgemeineMethoden.fehlermeldung(e);
-                    }
-                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                        @Override
-                        public void handle(WindowEvent event) {
-                            event.consume();
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("Information Dialog");
-                            alert.setHeaderText("Neue Nachricht:");
-                            alert.setContentText("Die App kann momentan nicht geschlossen werden");
-                            alert.showAndWait();
-                        }
-                    });
-
+                    Stage aktuelleStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    aktuelleStage.close();
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
                 }

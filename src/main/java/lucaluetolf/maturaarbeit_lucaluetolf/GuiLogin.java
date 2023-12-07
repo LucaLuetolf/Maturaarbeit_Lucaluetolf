@@ -14,17 +14,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 
-public class GuiLogin {
+public class GuiLogin extends GuiTaskleiste {
 
-    Statement statement;
-    {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
     String benutzername1 = null;
     String passwort1 = null;
 
@@ -40,11 +31,6 @@ public class GuiLogin {
       }
     }
 
-
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     @FXML
     private TextField benutzername;
     @FXML

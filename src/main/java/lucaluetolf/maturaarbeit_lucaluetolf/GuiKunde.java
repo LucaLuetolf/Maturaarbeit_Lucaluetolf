@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -18,39 +17,35 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class GuiKunde extends GuiTaskleiste implements Initializable {
-    Statement statement;
-
-    {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            AllgemeineMethoden.fehlermeldung(e);
-        }
-    }
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-
     @FXML
     private TableView tableViewKunden;
     @FXML
-    private Label labelName;
+    private Label labelWillkommen;
+    LocalTime time = LocalTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            ResultSet resultSet = statement.executeQuery("SELECT unternehmensname FROM unternehmen");
-            resultSet.next();
-            labelName.setText(resultSet.getString(1));
-            resultSet.close();
-        } catch (SQLException e) {
-            AllgemeineMethoden.fehlermeldung(e);
+        int time1 = Integer.parseInt(formatter.format(time));
+        if (time1 >= 6 && time1 < 11) {
+            labelWillkommen.setText("Good Morning");
+        }
+        if (time1 >= 11 && time1 < 13) {
+            labelWillkommen.setText("Good Noon");
+        }
+        if (time1 >= 13 && time1 < 17) {
+            labelWillkommen.setText("Good Afternoon");
+        }
+        if (time1 >= 17 && time1 < 22) {
+            labelWillkommen.setText("Good Evening");
+        }
+        if (time1 >= 22 || time1 < 6) {
+            labelWillkommen.setText("Good Night");
         }
         ObservableList<ObservableList<String>> observableList = FXCollections.observableArrayList();
         TableColumn<ObservableList<String>, String> spalteKundennummer = new TableColumn<>("Kundennr.");
@@ -60,7 +55,7 @@ public class GuiKunde extends GuiTaskleiste implements Initializable {
         TableColumn<ObservableList<String>, String> spalteOrt = new TableColumn<>("Ort");
         TableColumn<ObservableList<String>, String> spaltePostleitzahl = new TableColumn<>("PLZ");
         TableColumn<ObservableList<String>, String> spalteEmail = new TableColumn<>("E-Mail");
-        TableColumn<ObservableList<String>, String> spalteNatelnummer = new TableColumn<>("Natelnr.");
+        TableColumn<ObservableList<String>, String> spalteNatelnummer = new TableColumn<>("Telefonnr.");
 
         spalteKundennummer.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(0)));
         spalteNachname.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(1)));
@@ -122,7 +117,6 @@ public class GuiKunde extends GuiTaskleiste implements Initializable {
         spaltePostleitzahl.setPrefWidth(40);
         spalteEmail.setPrefWidth(160);
         spalteNatelnummer.setPrefWidth(90);
-
     }
 
     @FXML

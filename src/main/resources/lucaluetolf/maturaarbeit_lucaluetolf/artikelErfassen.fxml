@@ -14,26 +14,26 @@
    <children>
       <Pane layoutX="300.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
          <children>
+            <JFXButton layoutX="238.0" layoutY="211.0" onAction="#bildAendern" text="Bild ändern" textFill="#ba8759">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
             <TextField fx:id="textfeldArtikelnummer" layoutX="300.0" layoutY="265.0" onKeyReleased="#textfieldArtikelnummerKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="53.0" layoutY="43.0" text="Artikel erfassen" textFill="#ba8759">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <JFXButton layoutX="300.0" layoutY="507.0" onAction="#artikelErfassen" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="erfassen" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </JFXButton>
             <Label layoutX="118.0" layoutY="260.0" prefHeight="35.0" prefWidth="171.0" text="Artikelnummer" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldLagerbestand" layoutX="300.0" layoutY="431.0" onKeyReleased="#textfieldLagerbestandKey" prefHeight="25.0" prefWidth="202.0" />
             <TextField fx:id="textfeldName" layoutX="300.0" layoutY="300.0" onKeyReleased="#textfieldNameKey" prefHeight="25.0" prefWidth="202.0" />
             <TextField fx:id="textfeldPreis" layoutX="300.0" layoutY="334.0" onKeyReleased="#textfieldPreisKey" prefHeight="25.0" prefWidth="202.0" />
             <TextField fx:id="textfeldMenge" layoutX="300.0" layoutY="366.0" onKeyReleased="#textfieldMengeKey" prefHeight="25.0" prefWidth="125.0" />
+            <ChoiceBox fx:id="choiceBoxMenge" layoutX="427.0" layoutY="365.0" prefHeight="20.0" prefWidth="75.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BABABA; -fx-border-radius: 5px;" />
             <Label layoutX="118.0" layoutY="295.0" prefHeight="35.0" prefWidth="171.0" text="Name" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
@@ -60,26 +60,26 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <JFXButton layoutX="238.0" layoutY="211.0" onAction="#bildAendern" text="Bild ändern" textFill="#ba8759">
+            <TextField fx:id="textfeldLagerbestand" layoutX="300.0" layoutY="431.0" onKeyReleased="#textfieldLagerbestandKey" prefHeight="25.0" prefWidth="202.0" />
+            <JFXButton layoutX="124.0" layoutY="507.0" onAction="#toSceneArtikel" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E8CFB0; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-width: 4;" text="zurück" textFill="#ba8759">
                <font>
-                  <Font size="18.0" />
+                  <Font size="24.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="124.0" layoutY="507.0" onAction="#toSceneArtikel" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E8CFB0; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-width: 4;" text="zurück" textFill="#ba8759">
+            <JFXButton layoutX="300.0" layoutY="507.0" onAction="#artikelErfassen" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="erfassen" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </JFXButton>
             <Pane layoutX="232.0" layoutY="93.0" prefHeight="125.0" prefWidth="125.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;">
                <children>
-                  <ImageView fx:id="imageView" fitHeight="110.0" fitWidth="110.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageViewArtikel" fitHeight="110.0" fitWidth="110.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Bilder/System/Artikel/Artikel.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <ChoiceBox fx:id="choiceBoxMenge" layoutX="427.0" layoutY="365.0" prefHeight="20.0" prefWidth="75.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BABABA; -fx-border-radius: 5px;" />
          </children>
       </Pane>
    </children>

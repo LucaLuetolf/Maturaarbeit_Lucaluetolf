@@ -28,10 +28,6 @@ import java.util.ResourceBundle;
 
 public class GuiStartseite extends GuiTaskleiste implements Initializable {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
     LocalTime time = LocalTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
 

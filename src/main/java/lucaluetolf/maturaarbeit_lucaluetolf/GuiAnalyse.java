@@ -87,7 +87,6 @@ public class GuiAnalyse extends GuiTaskleiste implements Initializable {
                     resultSet.close();
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
-                    //throw new RuntimeException(e);
                 }
                 lineChart.getData().add(series);
             } else{
@@ -102,7 +101,6 @@ public class GuiAnalyse extends GuiTaskleiste implements Initializable {
                     resultSet.close();
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
-                    //throw new RuntimeException(e);
                 }
                 lineChart.getData().add(series);
             }
@@ -147,8 +145,5 @@ public class GuiAnalyse extends GuiTaskleiste implements Initializable {
         datePickerBis.setEditable(true);
         datePickerBis.setMouseTransparent(false);
     }
-
-
-
 
 }

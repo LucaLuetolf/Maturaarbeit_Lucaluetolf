@@ -13,35 +13,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class GuiErstanmeldungDatenErfassen implements Initializable {
-
-    Statement statement;
-
-    {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
+public class GuiErstanmeldungDatenErfassen extends GuiTaskleiste implements Initializable {
 
     @FXML
     private Label labelBeschreibung;
@@ -57,162 +39,12 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
     @FXML
     private Pane paneLagerbestand;
 
-
-    //Unternehmensdaten:
-
-    @FXML
-    private TextField textfeldUnternehmen;
-    @FXML
-    private TextField textfeldBenutzername;
-    @FXML
-    private TextField textfeldPasswort;
-    @FXML
-    private TextField textfeldLagerbestandAnzeige;
-    @FXML
-    private TextField textfeldBank;
-
-    @FXML
-    private TextField textfeldIban;
-
-    @FXML
-    private ImageView imageviewLogo;
-
-    private boolean booleanUnternehmen = false;
-    private boolean booleanBenutzername = false;
-    private boolean booleanPasswort = false;
-    private boolean booleanLagerbestandAnzeige = false;
-    private boolean booleanBank = true;
-    private boolean booleanIban = true;
-
-    private String filePathLogo = "";
-    private String newPathLogo = "Bilder/Benutzer/Unternehmen/";
-
-
-    //Artikel:
-
-    @FXML
-    private ImageView imageView;
-    @FXML
-    private TextField textfeldArtikelnummer;
-    @FXML
-    private TextField textfeldName;
-    @FXML
-    private TextField textfeldPreis;
-    @FXML
-    private TextField textfeldMenge;
-    @FXML
-    private TextField textfeldRabatt;
-    @FXML
-    private TextField textfeldLagerbestand;
-    @FXML
-    private ChoiceBox<String> choiceBoxMenge;
-
-    private boolean booleanArtikelnummer = false;
-    private boolean booleanName = false;
-    private boolean booleanPreis = false;
-    private boolean booleanMenge = false;
-    private boolean booleanRabatt = false;
-    private boolean booleanLagerbestand = false;
-
-    private String filePath = "";
-    private String newPath = "Bilder/Benutzer/Artikel/Übergang/";
-
-    //Kunden:
-
-    @FXML
-    private TextField textfeldKundennummer;
-    @FXML
-    private TextField textfeldNachname;
-    @FXML
-    private TextField textfeldVorname;
-    @FXML
-    private TextField textfeldAdresse;
-    @FXML
-    private TextField textfeldPostleitzahl;
-    @FXML
-    private TextField textfeldOrt;
-    @FXML
-    private TextField textfeldEmail;
-    @FXML
-    private TextField textfeldNatelnummer;
-    boolean booleanKundennummer = false;
-    boolean booleanNachname = false;
-    boolean booleanVorname = false;
-    boolean booleanAdresse = false;
-    boolean booleanPostleitzahl = false;
-    boolean booleanOrt = false;
-    boolean booleanEmail = false;
-    boolean booleanNatelnummer = false;
-
-    //Methode "tester" zur Überprüfung der Eingabe:
-    private boolean tester(String regex, TextField textField) {
-        boolean boolean1 = textField.getText().matches(regex);
-        if (boolean1) {
-            textField.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
-        } else {
-            textField.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
-        }
-        return boolean1;
-    }
-
     //Strings
     private String s1 = "Der Benutzername muss am Anfang gross geschrieben sein. \nDas Passwort muss mindestens eine Zahl, einen Gross- und Kleinbuchstaben enthalten. Die Länge beträgt mindestens 8 Zeichen.";
     private String s2 = "Die Artikelnummer darf nicht mit 0 starten. Der Name muss am Anfang gross geschrieben werden. Bei der Menge ist die Menge pro Einheit gemeint. Hinweis: Die Artikelnummer kann nachträglich nicht geändert werden";
     private String s3 = "Die Kundennummer darf nicht mit 0 starten";
 
     // Unternehmensdaten Erfassen
-    @FXML
-    protected void textfieldUnternehmenKey(){
-        /*textfeldUnternehmen.setText(textfeldUnternehmen.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
-        textfeldUnternehmen.positionCaret(textfeldUnternehmen.getLength());
-        booleanUnternehmen = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldUnternehmen);*/
-        if (textfeldUnternehmen.getLength() != 0){
-            booleanUnternehmen = true;
-            textfeldUnternehmen.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
-        } else{
-            booleanUnternehmen = false;
-            textfeldUnternehmen.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
-        }
-    }
-    @FXML
-    protected void textfieldBenutzernameKey(){
-        textfeldBenutzername.setText(textfeldBenutzername.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
-        textfeldBenutzername.positionCaret(textfeldBenutzername.getLength());
-        booleanBenutzername = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldBenutzername);
-    }
-    @FXML
-    protected void textfieldPasswortKey(){
-        textfeldPasswort.setText(textfeldPasswort.getText().replaceAll("[^A-Za-z0-9éàèöäüÉÀÈÖÄÜ,.;:-_?!]", ""));
-        textfeldPasswort.positionCaret(textfeldPasswort.getLength());
-        booleanPasswort = tester("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$", textfeldPasswort);
-    }
-    @FXML
-    protected void textfieldLagerbestandAnzeigeKey(){
-        textfeldLagerbestandAnzeige.setText(textfeldLagerbestandAnzeige.getText().replaceAll("[^0-9]", ""));
-        textfeldLagerbestandAnzeige.positionCaret(textfeldLagerbestandAnzeige.getLength());
-        booleanLagerbestandAnzeige = tester("^[1-9]\\d*$", textfeldLagerbestandAnzeige);
-    }
-    @FXML
-    protected void textfieldBankKey(){
-        if(textfeldIban.getText() == "" && textfeldBank.getText() == ""){
-            booleanIban = true;
-            booleanBank = true;
-        }
-        textfeldBank.setText(textfeldBank.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
-        textfeldBank.positionCaret(textfeldBank.getLength());
-        booleanBank = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?(?:\\sAG)?$", textfeldBank);
-        // TODO Regex
-    }
-    @FXML
-    protected void textfieldIbanKey(){
-        if(textfeldIban.getText() == "" && textfeldBank.getText() == ""){
-            booleanIban = true;
-            booleanBank = true;
-        }
-        textfeldIban.setText(textfeldIban.getText().replaceAll("[^CH0-9]", ""));
-        textfeldIban.positionCaret(textfeldIban.getLength());
-        booleanIban = tester("^CH[0-9]{19}$", textfeldIban);
-    }
     @FXML
     protected void imageViewLagerbestandEntered(){
         paneLagerbestand.setVisible(true);
@@ -222,19 +54,6 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
         paneLagerbestand.setVisible(false);
     }
 
-    @FXML
-    protected void bildAendernLogo(){
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Bilddateien", "*.png;*.jpeg;*.jpg;*.gif;*.svg");
-        fileChooser.getExtensionFilters().add(filter);
-
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            filePathLogo = selectedFile.getAbsolutePath();
-            Image image = new Image(filePathLogo);
-            imageviewLogo.setImage(image);
-        }
-    }
 
     private boolean unternehmensdatenErfassen(){
         boolean booleanUnternehmensdatenErfassen = false;
@@ -245,16 +64,16 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                 } else{
                     statement.execute("INSERT INTO unternehmen (unternehmensname, rechnungsnummer, benutzername, passwort, lagerbestandOrange, bank, iban) VALUES ('" + textfeldUnternehmen.getText() + "', 1, '" + textfeldBenutzername.getText() + "','" + textfeldPasswort.getText() + "'," + textfeldLagerbestandAnzeige.getText() + ",'" + textfeldBank.getText() + "','" + textfeldIban.getText() + "')");
                 }
-                if (filePathLogo != ""){
-                    AllgemeineMethoden.dateiKopieren(filePathLogo, newPathLogo);
-                    File altesBild = new File(filePathLogo);
-                    File neuesBild = new File(newPathLogo + altesBild.getName());
+                if (pfadBildLogo != ""){
+                    AllgemeineMethoden.dateiKopieren(pfadBildLogo, neuerPfadBildLogo);
+                    File altesBild = new File(pfadBildLogo);
+                    File neuesBild = new File(neuerPfadBildLogo + altesBild.getName());
                     String dateityp = "";
                     int index = altesBild.getName().lastIndexOf(".");
                     if (index > 0) {
                         dateityp = altesBild.getName().substring(index + 1);
                     }
-                    File neuerName = new File(newPathLogo + "1." + dateityp);
+                    File neuerName = new File(neuerPfadBildLogo + "1." + dateityp);
                     neuesBild.renameTo(neuerName);
                     statement.execute("UPDATE unternehmen SET dateityp = '" + dateityp + "', bildnummer = 1");
                 }
@@ -288,85 +107,6 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
 
 
     //Artikel Erfassen
-
-    @FXML
-    protected void bildAendern() {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Bilddateien", "*.png;*.jpeg;*.jpg;*.gif;*.svg");
-        fileChooser.getExtensionFilters().add(filter);
-
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            filePath = selectedFile.getAbsolutePath();
-            Image image = new Image(filePath);
-            imageView.setImage(image);
-        }
-
-    }
-
-    @FXML
-    protected void textfieldArtikelnummerKey() {
-        textfeldArtikelnummer.setText(textfeldArtikelnummer.getText().replaceAll("[^0-9]", ""));
-        textfeldArtikelnummer.positionCaret(textfeldArtikelnummer.getLength());
-        booleanArtikelnummer = tester("^[1-9]\\d{0,8}$", textfeldArtikelnummer);
-        /*if(textfeldArtikelnummer.getText() != ""){
-            if (textfeldArtikelnummer.getLength() > 8){
-                textfeldArtikelnummer.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
-                booleanArtikelnummer = false;
-            }
-            else{
-                textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
-            }
-        }*/
-
-    }
-
-    @FXML
-    protected void textfieldNameKey() {
-        textfeldName.setText(textfeldName.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ0-9]", ""));
-        textfeldName.positionCaret(textfeldName.getLength());
-        booleanName = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldName);
-    }
-
-    @FXML
-    protected void textfieldPreisKey() {
-        textfeldPreis.setText(textfeldPreis.getText().replaceAll("[^0-9.]", ""));
-        textfeldPreis.positionCaret(textfeldPreis.getLength());
-        booleanPreis = tester("^\\d+(\\.\\d{1}(0|5)?)?$", textfeldPreis);
-
-    }
-
-    @FXML
-    protected void textfieldMengeKey() {
-        textfeldMenge.setText(textfeldMenge.getText().replaceAll("[^0-9.]", ""));
-        textfeldMenge.positionCaret(textfeldMenge.getLength());
-        booleanMenge = tester("^\\d+(\\.\\d{1}(0|5)?)?$", textfeldMenge);
-    }
-
-    @FXML
-    protected void textfieldRabattKey() {
-        textfeldRabatt.setText(textfeldRabatt.getText().replaceAll("[^0-9]", ""));
-        textfeldRabatt.positionCaret(textfeldRabatt.getLength());
-        booleanRabatt = tester("^[0-9]\\d*$", textfeldRabatt);
-        if (100 < Integer.parseInt(textfeldRabatt.getText())) {
-            textfeldRabatt.setText("");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText("Fehlermeldung");
-            alert.setContentText("Der gewünschte Rabatt beträgt mehr als 100%");
-            alert.showAndWait();
-
-        }
-
-    }
-
-    @FXML
-    protected void textfieldLagerbestandKey() {
-        textfeldLagerbestand.setText(textfeldLagerbestand.getText().replaceAll("[^0-9]", ""));
-        textfeldLagerbestand.positionCaret(textfeldLagerbestand.getLength());
-        booleanLagerbestand = tester("^[0-9]\\d*$", textfeldLagerbestand);
-    }
-
     private boolean artikelErfassen(int artikelnummer) {
         boolean booleanArtikelErfassen = false;
         if (booleanArtikelnummer && booleanName && booleanPreis && booleanMenge && booleanRabatt && booleanLagerbestand) {
@@ -376,16 +116,16 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                 statement.execute("INSERT INTO artikel (artikelId, name, preis, menge, einheit_id, rabatt, lagerbestand) VALUES (" + textfeldArtikelnummer.getText() + "," + "'" + textfeldName.getText() + "'" + "," + textfeldPreis.getText() + "," + textfeldMenge.getText() + "," +  resultsetEinheit.getInt("einheitId") + "," + textfeldRabatt.getText() + "," + textfeldLagerbestand.getText() + ")");
                 resultsetEinheit.close();
 
-                if (filePath != ""){
-                    AllgemeineMethoden.dateiKopieren(filePath, newPath);
-                    File altesBild = new File(filePath);
-                    File neuesBild = new File(newPath + altesBild.getName());
+                if (pfadBildArtikel != ""){
+                    AllgemeineMethoden.dateiKopieren(pfadBildArtikel, neuerPfadBildArtikel);
+                    File altesBild = new File(pfadBildArtikel);
+                    File neuesBild = new File(neuerPfadBildArtikel + altesBild.getName());
                     String dateityp = "";
                     int index = altesBild.getName().lastIndexOf(".");
                     if (index > 0) {
                         dateityp = altesBild.getName().substring(index + 1);
                     }
-                    File neuerName = new File(newPath + "/1." + dateityp);
+                    File neuerName = new File(neuerPfadBildArtikel + "/1." + dateityp);
                     neuesBild.renameTo(neuerName);
                     File ordner1 = new File("Bilder/Benutzer/Artikel/Übergang");
                     File ordner2 = new File("Bilder/Benutzer/Artikel/" + artikelnummer);
@@ -425,95 +165,6 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
 
     //Kunde Erfassen
 
-    @FXML
-    protected void textfieldKundennummerKey() {
-        textfeldKundennummer.setText(textfeldKundennummer.getText().replaceAll("[^0-9]", ""));
-        textfeldKundennummer.positionCaret(textfeldKundennummer.getLength());
-        booleanKundennummer = tester("^[1-9]\\d{1,9}$", textfeldKundennummer);
-        if (textfeldKundennummer.getText() != ""){
-            try {
-                ResultSet resultsetArtikel = statement.executeQuery("SELECT COUNT(kundenId) AS summe FROM kunden WHERE kundenId = " + textfeldKundennummer.getText());
-                resultsetArtikel.next();
-                int res = resultsetArtikel.getInt("summe");
-                if (res == 0 && textfeldKundennummer.getLength() <= 8){
-                    textfeldKundennummer.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
-                }
-                else{
-                    textfeldKundennummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
-                }
-                resultsetArtikel.close();
-            } catch (Exception e) {
-                AllgemeineMethoden.fehlermeldung(e);
-            }
-        }
-        if (textfeldKundennummer.getLength() > 8){
-            booleanKundennummer = false;
-            textfeldKundennummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
-        }
-    }
-
-    @FXML
-    protected void textfieldNachnameKey() {
-        textfeldNachname.setText(textfeldNachname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
-        textfeldNachname.positionCaret(textfeldNachname.getLength());
-        booleanNachname = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldNachname);
-    }
-
-    @FXML
-    protected void textfieldVornameKey() {
-        textfeldVorname.setText(textfeldVorname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
-        textfeldVorname.positionCaret(textfeldVorname.getLength());
-        booleanVorname = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldVorname);
-    }
-
-    @FXML
-    protected void textfieldAdresseKey() {
-        textfeldAdresse.setText(textfeldAdresse.getText().replaceAll("^[^A-za-z]+ [^0-9]$", ""));
-        textfeldAdresse.positionCaret(textfeldAdresse.getLength());
-        booleanAdresse = tester("^[A-Za-z]+(\\s\\d*)?$", textfeldAdresse);
-    }
-
-    @FXML
-    protected void textfieldPostleitzahlKey() {
-        textfeldPostleitzahl.setText(textfeldPostleitzahl.getText().replaceAll("[^0-9]", ""));
-        textfeldPostleitzahl.positionCaret(textfeldPostleitzahl.getLength());
-        booleanPostleitzahl = tester("^[0-9]{4}$", textfeldPostleitzahl);
-    }
-
-    @FXML
-    protected void textfieldOrtKey() {
-        textfeldOrt.setText(textfeldOrt.getText().replaceAll("[^A-Za-z]", ""));
-        textfeldOrt.positionCaret(textfeldOrt.getLength());
-        booleanOrt = tester("[A-Z][a-z]+$", textfeldOrt);
-    }
-
-    @FXML
-    protected void textfieldEmailKey() {
-        booleanEmail = tester("^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,}$", textfeldEmail);
-    }
-
-    @FXML
-    protected void textfieldNatelnummerKey() {
-        textfeldNatelnummer.setText(textfeldNatelnummer.getText().replaceAll("[^0-9]", ""));
-        textfeldNatelnummer.positionCaret(textfeldNatelnummer.getLength());
-        booleanNatelnummer = tester("^[0-9]\\d*$", textfeldNatelnummer);
-    }
-
-    @FXML
-    protected void ohneKundeFortfahren(ActionEvent event){
-        try {
-            root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        } catch (IOException e) {
-            AllgemeineMethoden.fehlermeldung(e);
-        }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        stage.setOnCloseRequest(event1 -> {
-            stage.close();
-        });
-    }
 
     private boolean kundeErfassen() {
         boolean booleanKundeErfassen = false;
@@ -603,7 +254,7 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                 Image image = null;
                 try {
                     image = new Image(String.valueOf(getClass().getResource("/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png")));
-                    imageView.setImage(image);
+                    imageViewArtikel.setImage(image);
                     labelBeschreibung.setText(s2);
                 } catch (Exception e) {
                     AllgemeineMethoden.fehlermeldung(e);
@@ -639,5 +290,21 @@ public class GuiErstanmeldungDatenErfassen implements Initializable {
                 });
                 break;
         }
+    }
+
+    @FXML
+    protected void ohneKundeFortfahren(ActionEvent event){
+        try {
+            root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        } catch (IOException e) {
+            AllgemeineMethoden.fehlermeldung(e);
+        }
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        stage.setOnCloseRequest(event1 -> {
+            stage.close();
+        });
     }
 }

@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -20,41 +19,38 @@ import javafx.stage.Stage;
 
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class GuiArtikel extends GuiTaskleiste implements Initializable {
-    Statement statement;
-
-    {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     @FXML
     private GridPane gridpaneArtikel;
     @FXML
-    private Label labelName;
+    private Label labelWillkommen;
+    LocalTime time = LocalTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            ResultSet resultSet = statement.executeQuery("SELECT unternehmensname FROM unternehmen");
-            resultSet.next();
-            labelName.setText(resultSet.getString(1));
-            resultSet.close();
-        } catch (SQLException e) {
-            AllgemeineMethoden.fehlermeldung(e);
+        int time1 = Integer.parseInt(formatter.format(time));
+        if (time1 >= 6 && time1 < 11) {
+            labelWillkommen.setText("Good Morning");
+        }
+        if (time1 >= 11 && time1 < 13) {
+            labelWillkommen.setText("Good Noon");
+        }
+        if (time1 >= 13 && time1 < 17) {
+            labelWillkommen.setText("Good Afternoon");
+        }
+        if (time1 >= 17 && time1 < 22) {
+            labelWillkommen.setText("Good Evening");
+        }
+        if (time1 >= 22 || time1 < 6) {
+            labelWillkommen.setText("Good Night");
         }
         int column = 0;
         int row = 0;
@@ -77,7 +73,7 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                     column = 0;
                 }
                 Pane pane = new Pane();
-                JFXButton button = new JFXButton("Mehr Infos");
+                JFXButton button = new JFXButton("mehr Infos");
                 button.setStyle("-fx-border-radius: 15px; -fx-text-fill: #ba8759; -fx-background-color: #FFFFFF");
 
                 Label labelTitelArtikelnummer = new Label("Artikelnr.:");

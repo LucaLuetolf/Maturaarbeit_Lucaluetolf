@@ -17,49 +17,18 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 public class GuiKundeBearbeiten extends GuiTaskleiste implements Initializable {
-    Statement statement;
-
-    {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-    @FXML
-    private TextField textfeldKundennummer;
-    @FXML
-    private TextField textfeldNachname;
-    @FXML
-    private TextField textfeldVorname;
-    @FXML
-    private TextField textfeldAdresse;
-    @FXML
-    private TextField textfeldPostleitzahl;
-    @FXML
-    private TextField textfeldOrt;
-    @FXML
-    private TextField textfeldEmail;
-    @FXML
-    private TextField textfeldNatelnummer;
-    boolean booleanNachname = true;
-    boolean booleanVorname = true;
-    boolean booleanAdresse = true;
-    boolean booleanPostleitzahl = true;
-    boolean booleanOrt = true;
-    boolean booleanEmail = true;
-    boolean booleanNatelnummer = true;
-
     private int kundennummer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        booleanNachname = true;
+        booleanVorname = true;
+        booleanAdresse = true;
+        booleanPostleitzahl = true;
+        booleanOrt = true;
+        booleanEmail = true;
+        booleanNatelnummer = true;
+
         try {
             textfeldKundennummer.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
             textfeldNachname.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
@@ -134,67 +103,6 @@ public class GuiKundeBearbeiten extends GuiTaskleiste implements Initializable {
             }
         }
 
-    }
-
-    private boolean tester(String regex, TextField textField) {
-        boolean boolean1 = textField.getText().matches(regex);
-        if (boolean1) {
-            textField.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
-        } else {
-            textField.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
-        }
-        return boolean1;
-    }
-
-    @FXML
-    protected void textfieldNachnameKey() {
-        textfeldNachname.setText(textfeldNachname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
-        textfeldNachname.positionCaret(textfeldNachname.getLength());
-        booleanNachname = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldNachname);
-    }
-
-    @FXML
-    protected void textfieldVornameKey() {
-        textfeldVorname.setText(textfeldVorname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
-        textfeldVorname.positionCaret(textfeldVorname.getLength());
-        booleanVorname = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldVorname);
-    }
-
-    @FXML
-    protected void textfieldAdresseKey() {
-        textfeldAdresse.setText(textfeldAdresse.getText().replaceAll("^[^A-za-z]+ [^0-9]$", ""));
-        textfeldAdresse.positionCaret(textfeldAdresse.getLength());
-        booleanAdresse = tester("^[A-Za-z]+(\\s\\d*)?$", textfeldAdresse);
-    }
-
-    @FXML
-    protected void textfieldPostleitzahlKey() {
-        textfeldPostleitzahl.setText(textfeldPostleitzahl.getText().replaceAll("[^0-9]", ""));
-        textfeldPostleitzahl.positionCaret(textfeldPostleitzahl.getLength());
-        booleanPostleitzahl = tester("^[0-9]{4}$", textfeldPostleitzahl);
-    }
-
-    @FXML
-    protected void textfieldOrtKey() {
-        textfeldOrt.setText(textfeldOrt.getText().replaceAll("[^A-Za-z]", ""));
-        textfeldOrt.positionCaret(textfeldOrt.getLength());
-        booleanOrt = tester("[A-Z][a-z]+$", textfeldOrt);
-    }
-
-    @FXML
-    protected void textfieldEmailKey() {
-        booleanEmail = tester("^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,}$", textfeldEmail);
-    }
-
-    @FXML
-    protected void textfieldNatelnummerKey() {
-        textfeldNatelnummer.setText(textfeldNatelnummer.getText().replaceAll("[^0-9]", ""));
-        textfeldNatelnummer.positionCaret(textfeldNatelnummer.getLength());
-        if (textfeldNatelnummer.getLength() == 10){
-            booleanNatelnummer = tester("^[0-9]\\d*$", textfeldNatelnummer);
-        } else{
-            textfeldNatelnummer.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
-        }
     }
 
 }

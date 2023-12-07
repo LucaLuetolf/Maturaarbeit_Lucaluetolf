@@ -23,7 +23,7 @@ public class AllgemeineMethoden {
 
     public static void fehlermeldung(Exception e){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
+        alert.setTitle("Fehlermeldung");
         alert.setHeaderText("Leider ist ein Fehler aufgetreten");
         alert.setContentText(e.getMessage());
         alert.showAndWait();

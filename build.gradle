@@ -60,7 +60,8 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Main-Class': 'lucaluetolf.maturaarbeit_lucaluetolf.Launcher'
     }
-    archiveBaseName = project.name + 'Fat-Jar'
+    //archiveBaseName = project.name + 'Fat-Jar'
+    archiveBaseName = 'ERP-Software'
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
     duplicatesStrategy 'exclude'

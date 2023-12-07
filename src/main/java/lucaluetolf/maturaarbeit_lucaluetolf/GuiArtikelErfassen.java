@@ -11,107 +11,38 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.*;
 import java.util.ResourceBundle;
 
 public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
 
-    Statement statement;
-
-    {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-    /*@FXML
-    private ImageView imageView;
-    @FXML
-    private TextField textfeldArtikelnummer;
-    @FXML
-    private TextField textfeldName;
-    @FXML
-    private TextField textfeldPreis;
-    @FXML
-    private TextField textfeldMenge;
-    @FXML
-    private TextField textfeldRabatt;
-    @FXML
-    private TextField textfeldLagerbestand;
-    @FXML
-    private ChoiceBox<String> choiceBoxMenge;
-
-    private boolean booleanArtikelnummer = false;
-    private boolean booleanName = false;
-    private boolean booleanPreis = false;
-    private boolean booleanMenge = false;
-    private boolean booleanRabatt = false;
-    private boolean booleanLagerbestand = false;*/
-
-    private String filePath = "";
-    private String newPath = "Bilder/Benutzer/Artikel/Übergang/";
-
-
-
-
-    @FXML
-    protected void bildAendern() {
-        FileChooser fileChooser = new FileChooser();
-        ExtensionFilter filter = new ExtensionFilter("Bilddateien", "*.png;*.jpeg;*.jpg;*.gif;*.svg");
-        fileChooser.getExtensionFilters().add(filter);
-
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            filePath = selectedFile.getAbsolutePath();
-            Image image = new Image(filePath);
-            imageView.setImage(image);
-        }
-
-    }
-
-
-
     @FXML
     protected void artikelErfassen(ActionEvent event) {
-        if (booleanArtikelnummer && booleanName && booleanPreis && booleanMenge && booleanRabatt && booleanLagerbestand) {
+        if (booleanArtikelnummer && booleanName && booleanPreis && booleanMenge && booleanRabatt && booleanLagerbestand && choiceBoxMenge.getValue() != null) {
             try {
                 ResultSet resultsetEinheit = statement.executeQuery("SELECT * FROM einheiten WHERE abkuerzung = '" + choiceBoxMenge.getSelectionModel().getSelectedItem()+ "'");
                 resultsetEinheit.next();
                 statement.execute("INSERT INTO artikel (artikelId, name, preis, menge, einheit_id, rabatt, lagerbestand) VALUES (" + textfeldArtikelnummer.getText() + "," + "'" + textfeldName.getText() + "'" + "," + textfeldPreis.getText() + "," + textfeldMenge.getText() + "," +  resultsetEinheit.getInt("einheitId") + "," + textfeldRabatt.getText() + "," + textfeldLagerbestand.getText() + ")");
                 resultsetEinheit.close();
 
-                if (filePath != ""){
-                    AllgemeineMethoden.dateiKopieren(filePath, newPath);
-                    File altesBild = new File(filePath);
-                    File neuesBild = new File(newPath + altesBild.getName());
+                if (pfadBildArtikel != ""){
+                    AllgemeineMethoden.dateiKopieren(pfadBildArtikel, neuerPfadBildArtikel);
+                    File altesBild = new File(pfadBildArtikel);
+                    File neuesBild = new File(neuerPfadBildArtikel + altesBild.getName());
                     String dateityp = "";
                     int index = altesBild.getName().lastIndexOf(".");
                     if (index > 0) {
                         dateityp = altesBild.getName().substring(index + 1);
                     }
-                    File neuerName = new File(newPath + "/1." + dateityp);
+                    File neuerName = new File(neuerPfadBildArtikel + "/1." + dateityp);
                     neuesBild.renameTo(neuerName);
                     File ordner1 = new File("Bilder/Benutzer/Artikel/Übergang");
                     File ordner2 = new File("Bilder/Benutzer/Artikel/" + textfeldArtikelnummer.getText());
@@ -135,6 +66,12 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
         } else {
             if (booleanArtikelnummer == false) {
                 textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+                if(textfeldArtikelnummer.getText().matches("^[1-9]\\d*$") && textfeldArtikelnummer.getLength() > 0 && textfeldArtikelnummer.getLength() <= 8){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Fehlermeldung");
+                    alert.setHeaderText("Diese Artikelnummer ist bereits vergeben.");
+                    alert.showAndWait();
+                }
             }
             if (booleanName == false) {
                 textfeldName.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
@@ -150,6 +87,9 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
             }
             if (booleanLagerbestand == false) {
                 textfeldLagerbestand.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            }
+            if (choiceBoxMenge.getValue() == null){
+                choiceBoxMenge.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
             }
         }
     }
@@ -180,7 +120,7 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
         Image image = null;
         try {
             image = new Image(String.valueOf(getClass().getResource("/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Artikel/Artikel.png")));
-            imageView.setImage(image);
+            imageViewArtikel.setImage(image);
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }

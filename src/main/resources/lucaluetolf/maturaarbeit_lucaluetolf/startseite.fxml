@@ -22,9 +22,9 @@
                <children>
                   <Pane layoutX="15.0" layoutY="26.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
                      <children>
-                        <Label fx:id="labelName" alignment="CENTER" contentDisplay="TOP" layoutX="13.0" maxWidth="180.0" prefHeight="100.0" prefWidth="171.0" text="Name" textFill="#ba8759" wrapText="true">
+                        <Label fx:id="labelWillkommen" alignment="CENTER" contentDisplay="TOP" layoutX="13.0" maxWidth="180.0" prefHeight="100.0" prefWidth="171.0" text="Name" textFill="#ba8759" wrapText="true">
                            <font>
-                              <Font size="32.0" />
+                              <Font size="28.0" />
                            </font>
                         </Label>
                      </children>
@@ -126,7 +126,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Label fx:id="labelWillkommen" layoutX="64.0" layoutY="121.0" prefHeight="50.0" prefWidth="441.0" text="Label" textFill="#ba8759">
+            <Label fx:id="labelName" layoutX="64.0" layoutY="121.0" prefHeight="50.0" prefWidth="441.0" text="Label" textFill="#ba8759">
                <font>
                   <Font size="35.0" />
                </font></Label>

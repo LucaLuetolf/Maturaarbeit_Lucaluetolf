@@ -27,21 +27,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializable {
-    Statement statement;
-    Connection connection;
     private int rechnungsnummer = 0;
     private int modus = 0;
     private boolean bearbeiten = false;
 
     {
         try {
-            connection = DriverManager.getConnection("jdbc:h2:~/Maturaarbeit", "User", "database");
-            statement = connection.createStatement();
             ResultSet resultsetBearbeiten = statement.executeQuery("SELECT COUNT(bearbeiten) FROM unternehmen");
             resultsetBearbeiten.next();
             int exists = resultsetBearbeiten.getInt(1);
             resultsetBearbeiten.close();
-            if (exists == 1){
+            if (exists == 1) {
                 bearbeiten = true;
                 ResultSet resultsetRechnungsnummer = statement.executeQuery("SELECT * FROM unternehmen");
                 resultsetRechnungsnummer.next();
@@ -51,7 +47,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
                 resultSetModus.next();
                 modus = resultSetModus.getInt("dokumenttyp");
                 resultSetModus.close();
-            }else{
+            } else {
                 ResultSet resultsetRechnungsnummer = statement.executeQuery("SELECT * FROM unternehmen");
                 resultsetRechnungsnummer.next();
                 rechnungsnummer = resultsetRechnungsnummer.getInt("rechnungsnummer");
@@ -65,11 +61,6 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
             AllgemeineMethoden.fehlermeldung(e);
         }
     }
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
 
     @FXML
     private TableView tableViewKunden;
@@ -89,7 +80,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
     public void initialize(URL location, ResourceBundle resources) {
         try {
             kundenAnzeigen(statement.executeQuery("SELECT * FROM kunden"));
-            if (modus == 1){
+            if (modus == 1) {
                 buttonOhneKunde.setVisible(false);
             }
         } catch (Exception e) {
@@ -105,14 +96,14 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
 
     @FXML
     protected void textfieldFilterNachnameKey() {
-        textfieldFilterNachname.setText(textfieldFilterNachname.getText().replaceAll("[^A-Z, ^a-z]", ""));
+        textfieldFilterNachname.setText(textfieldFilterNachname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ '-]", ""));
         textfieldFilterNachname.positionCaret(textfieldFilterNachname.getLength());
 
     }
 
     @FXML
     protected void textfieldFilterVornameKey() {
-        textfieldFilterVorname.setText(textfieldFilterVorname.getText().replaceAll("[^A-Z, ^a-z]", ""));
+        textfieldFilterVorname.setText(textfieldFilterVorname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ '-]", ""));
         textfieldFilterVorname.positionCaret(textfieldFilterVorname.getLength());
     }
 
@@ -126,7 +117,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
     protected void kundenRechnungFilterAnwenden() {
         int counter = 0;
         stringResultset = "SELECT * FROM Kunden";
-        if (textfieldFilterKundennummer.getText() != "") {
+        if (textfieldFilterKundennummer.getLength() != 0) {
             if (counter == 0) {
                 stringResultset = stringResultset + " WHERE";
             }
@@ -136,7 +127,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
             counter++;
             stringResultset = stringResultset + " kundenId = " + textfieldFilterKundennummer.getText();
         }
-        if (textfieldFilterNachname.getText() != "") {
+        if (textfieldFilterNachname.getLength() != 0) {
             if (counter == 0) {
                 stringResultset = stringResultset + " WHERE";
             }
@@ -146,7 +137,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
             counter++;
             stringResultset = stringResultset + " nachname = '" + textfieldFilterNachname.getText() + "'";
         }
-        if (textfieldFilterVorname.getText() != "") {
+        if (textfieldFilterVorname.getLength() != 0) {
             if (counter == 0) {
                 stringResultset = stringResultset + " WHERE";
             }
@@ -156,7 +147,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
             counter++;
             stringResultset = stringResultset + " vorname = '" + textfieldFilterVorname.getText() + "'";
         }
-        if (textfieldFilterPostleitzahl.getText() != "") {
+        if (textfieldFilterPostleitzahl.getLength() != 0) {
             if (counter == 0) {
                 stringResultset = stringResultset + " WHERE";
             }
@@ -173,8 +164,9 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
             AllgemeineMethoden.fehlermeldung(e);
         }
     }
+
     @FXML
-    protected void kundenRechnungFilterZuruecksetzten(){
+    protected void kundenRechnungFilterZuruecksetzten() {
         textfieldFilterKundennummer.setText("");
         textfieldFilterNachname.setText("");
         textfieldFilterVorname.setText("");
@@ -197,7 +189,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
         TableColumn<ObservableList<String>, String> spalteOrt = new TableColumn<>("Ort");
         TableColumn<ObservableList<String>, String> spaltePostleitzahl = new TableColumn<>("PLZ");
         TableColumn<ObservableList<String>, String> spalteEmail = new TableColumn<>("E-Mail");
-        TableColumn<ObservableList<String>, String> spalteNatelnummer = new TableColumn<>("Natelnr.");
+        TableColumn<ObservableList<String>, String> spalteNatelnummer = new TableColumn<>("Telefonnr.");
 
         spalteKundennummer.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(0)));
         spalteNachname.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().get(1)));
@@ -231,13 +223,13 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
                         int kundennummer = Integer.parseInt(spalteKundennummer.getCellData(zeilennummer));
 
                         try {
-                            if(bearbeiten){
+                            if (bearbeiten) {
                                 ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter WHERE bestellung_id=" + rechnungsnummer);
                                 resultsetKunde.next();
                                 Date datum = resultsetKunde.getDate("datum");
                                 resultsetKunde.close();
                                 statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (" + rechnungsnummer + "," + kundennummer + "," + modus + ", '" + datum + "')");
-                            } else{
+                            } else {
                                 statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
                                 LocalDate datum = LocalDate.now();
                                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -275,9 +267,9 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
     }
 
     @FXML
-    protected void ohneKunde(ActionEvent event){
+    protected void ohneKunde(ActionEvent event) {
         try {
-            if(bearbeiten) {
+            if (bearbeiten) {
                 ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter, kunden WHERE kundenId = kunden_id AND bestellung_id=" + rechnungsnummer);
                 resultsetKunde.next();
                 Date datum = resultsetKunde.getDate("datum");
@@ -285,7 +277,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
                 statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
                 statement.execute("INSERT INTO bearbeiter (bestellung_id, dokumenttyp, datum) VALUES (" + rechnungsnummer + "," + modus + ",'" + datum + "')");
 
-            } else{
+            } else {
                 statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
                 LocalDate datum = LocalDate.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -304,10 +296,10 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
     }
 
     @FXML
-    protected void zurueck(ActionEvent event){
+    protected void zurueck(ActionEvent event) {
         try {
-            if (bearbeiten == true){
-                ResultSet resultsetLagerbestandAnzahl = statement.executeQuery("SELECT COUNT(artikel_id) FROM bestellung, bearbeiter WHERE bestellungId = 0");
+            if (bearbeiten == true) {
+                /*ResultSet resultsetLagerbestandAnzahl = statement.executeQuery("SELECT COUNT(artikel_id) FROM bestellung, bearbeiter WHERE bestellungId = 0");
                 resultsetLagerbestandAnzahl.next();
                 int anzahlArtikel = resultsetLagerbestandAnzahl.getInt(1);
                 resultsetLagerbestandAnzahl.close();
@@ -327,8 +319,43 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
                 statement.execute("UPDATE bestellung SET bestellungId = " + rechnungsnummer + "WHERE bestellungId = 0");
                 statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
                 statement.execute("UPDATE bearbeiter SET bestellung_id = " + rechnungsnummer + " WHERE bestellung_id = 0");
-                statement.execute("UPDATE unternehmen SET bearbeiten = null");
-            } else{
+                statement.execute("UPDATE unternehmen SET bearbeiten = null");*/
+
+                ResultSet resultsetLaenge = statement.executeQuery("SELECT COUNT(artikel_Id) FROM bestellung WHERE bestellungId = 0");
+                resultsetLaenge.next();
+                int laenge = resultsetLaenge.getInt(1);
+                resultsetLaenge.close();
+                ResultSet resultsetKunde = statement.executeQuery("SELECT * FROM bearbeiter WHERE bestellung_id = 0");
+                resultsetKunde.next();
+                Date date = resultsetKunde.getDate("datum");
+                resultsetKunde.close();
+                for (int i = 0; i < laenge; i++) {
+
+                    int artikelId = 0;
+                    int anzahl = 0;
+
+                    ResultSet resultsetArtikelIdUndAnzahl = statement.executeQuery("SELECT * FROM bestellung WHERE bestellungId = 0");
+                    if (resultsetArtikelIdUndAnzahl.absolute(i + 1)) {
+                        artikelId = resultsetArtikelIdUndAnzahl.getInt("artikel_Id");
+                        anzahl = resultsetArtikelIdUndAnzahl.getInt("anzahl");
+                    }
+                    resultsetArtikelIdUndAnzahl.close();
+                    ResultSet resultSetLagerbestand = statement.executeQuery("SELECT * FROM artikel WHERE artikelid = " + artikelId);
+                    resultSetLagerbestand.next();
+                    int lagerbestand = resultSetLagerbestand.getInt("lagerbestand");
+                    resultSetLagerbestand.close();
+                    ResultSet resultSetVerkaufteStueck = statement.executeQuery("SELECT * FROM verkaufteStueck WHERE artikel_id = " + artikelId);
+                    resultSetVerkaufteStueck.next();
+                    int verkaufteStueck = resultSetVerkaufteStueck.getInt("anzahl");
+                    resultSetVerkaufteStueck.close();
+                    int neuerLagerbestand = lagerbestand - anzahl;
+                    int neuVerkaufteStueck = verkaufteStueck + anzahl;
+                    statement.execute("UPDATE artikel SET lagerbestand = " + neuerLagerbestand + " WHERE artikelId = " + artikelId);
+                    statement.execute("UPDATE verkaufteStueck SET anzahl = " + neuVerkaufteStueck + " WHERE artikel_Id = " + artikelId + " AND datum = '" + date + "'");
+                }
+                statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = 0");
+                statement.execute("DELETE FROM bestellung WHERE bestellungId = 0");
+            } else {
                 statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
                 statement.execute("DELETE FROM bestellung WHERE bestellungId = " + rechnungsnummer);
             }

@@ -20,16 +20,16 @@
                   <JFXButton onAction="#toSceneStartseite" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Startseite" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="150.0" />
                   <Pane layoutX="28.0" layoutY="43.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20px;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
                      <children>
-                        <Label fx:id="labelName" alignment="CENTER" contentDisplay="TOP" layoutX="13.0" maxWidth="180.0" prefHeight="100.0" prefWidth="171.0" text="Name" textFill="#ba8759" wrapText="true">
+                        <Label fx:id="labelWillkommen" alignment="CENTER" contentDisplay="TOP" layoutX="13.0" maxWidth="180.0" prefHeight="100.0" prefWidth="171.0" text="Name" textFill="#ba8759" wrapText="true">
                            <font>
-                              <Font size="32.0" />
+                              <Font size="28.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
                   <JFXButton onAction="#toSceneArtikel" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Artikel" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="210.0" />
                   <JFXButton onAction="#toSceneKunden" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Kunden" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="270.0" />
-                  <JFXButton onAction="#toSceneNeueRechnung" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="neue Rechnung" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="330.0" />
+                  <JFXButton onAction="#toSceneNeueRechnung" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Rechnung" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="330.0" />
                   <JFXButton onAction="#toSceneVerkauf" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Verkauf" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="390.0" />
                   <JFXButton onAction="#toScenePdfBearbeiten" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Pdf bearbeiten" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="450.0" />
                   <JFXButton onAction="#toSceneAnalyse" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-background-color: ffffff; -fx-text-fill: #ba8759; -fx-font-size: 20;" text="Analyse" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="510.0" />
@@ -38,7 +38,7 @@
          </children>
       </VBox>
       <JFXButton layoutX="906.0" layoutY="47.0" onAction="#toSceneArtikelErfassen" style="-fx-background-radius: 20; -fx-background-color: #E8CFB0; -fx-font-size: 20; -fx-text-fill: ffffff;" text="+ Artikel hinzufügen" textFill="#d00909" />
-      <ScrollPane fitToWidth="true" layoutX="293.0" layoutY="139.0" prefHeight="582.0" prefWidth="865.0">
+      <ScrollPane layoutX="293.0" layoutY="139.0" prefHeight="582.0" prefWidth="867.0">
          <content>
             <GridPane fx:id="gridpaneArtikel" prefHeight="580.0" prefWidth="850.0">
               <columnConstraints>

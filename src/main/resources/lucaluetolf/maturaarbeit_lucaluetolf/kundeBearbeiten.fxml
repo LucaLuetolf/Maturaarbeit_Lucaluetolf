@@ -22,10 +22,11 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldOrt" layoutX="300.0" layoutY="326.0" onKeyReleased="#textfieldOrtKey" prefHeight="25.0" prefWidth="202.0" />
             <TextField fx:id="textfeldNachname" layoutX="300.0" layoutY="195.0" onKeyReleased="#textfieldNachnameKey" prefHeight="25.0" prefWidth="202.0" />
             <TextField fx:id="textfeldVorname" layoutX="300.0" layoutY="229.0" onKeyReleased="#textfieldVornameKey" prefHeight="25.0" prefWidth="202.0" />
             <TextField fx:id="textfeldAdresse" layoutX="300.0" layoutY="261.0" onKeyReleased="#textfieldAdresseKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldPostleitzahl" layoutX="300.0" layoutY="294.0" onKeyReleased="#textfieldPostleitzahlKey" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="textfeldOrt" layoutX="300.0" layoutY="326.0" onKeyReleased="#textfieldOrtKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="118.0" layoutY="190.0" prefHeight="35.0" prefWidth="171.0" text="Nachname" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
@@ -46,7 +47,6 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="textfeldPostleitzahl" layoutX="300.0" layoutY="294.0" onKeyReleased="#textfieldPostleitzahlKey" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="118.0" layoutY="289.0" prefHeight="35.0" prefWidth="171.0" text="Postleitzahl" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
@@ -59,17 +59,17 @@
                </font>
             </Label>
             <TextField fx:id="textfeldNatelnummer" layoutX="300.0" layoutY="390.0" onKeyReleased="#textfieldNatelnummerKey" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="118.0" layoutY="385.0" prefHeight="35.0" prefWidth="171.0" text="Natelnummer" textFill="#ba8759">
+            <Label layoutX="118.0" layoutY="385.0" prefHeight="35.0" prefWidth="171.0" text="Telefonnummer" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <JFXButton layoutX="300.0" layoutY="473.0" onAction="#speichern" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="speichern" textFill="WHITE">
+            <JFXButton layoutX="118.0" layoutY="473.0" onAction="#toSceneKunden" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E8CFB0; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-width: 4;" text="abbrechen" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="118.0" layoutY="473.0" onAction="#toSceneKunden" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E8CFB0; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-width: 4;" text="abbrechen" textFill="#ba8759">
+            <JFXButton layoutX="300.0" layoutY="473.0" onAction="#speichern" prefHeight="60.0" prefWidth="160.0" style="-fx-background-color: #E8CFB0; -fx-background-radius: 15;" text="speichern" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
