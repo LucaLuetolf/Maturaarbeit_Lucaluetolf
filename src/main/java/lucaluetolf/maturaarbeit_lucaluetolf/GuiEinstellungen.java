@@ -314,8 +314,11 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
             if (booleanUnternehmen && booleanBenutzername && booleanPasswort && booleanLagerbestandAnzeige && booleanBank && booleanIban){
                 if ((textfeldBank.getLength() != 0 && textfeldIban.getLength() != 0) || (textfeldBank.getLength() == 0 && textfeldIban.getLength() ==0)){
                     try {
-                        statement.execute("UPDATE unternehmen SET unternehmensname = '" + textfeldUnternehmen.getText() + "', benutzername = '" + textfeldBenutzername.getText() + "', passwort = '" + textfeldPasswort.getText() + "', lagerbestandOrange = " + textfeldLagerbestandAnzeige.getText() + ", bank = '" + textfeldBank.getText() + "', iban = '" + textfeldIban.getText() + "'");
-
+                        if(textfeldBank.getLength() == 0 && textfeldIban.getLength() == 0){
+                            statement.execute("UPDATE unternehmen SET unternehmensname = '" + textfeldUnternehmen.getText() + "', benutzername = '" + textfeldBenutzername.getText() + "', passwort = '" + textfeldPasswort.getText() + "', lagerbestandOrange = " + textfeldLagerbestandAnzeige.getText() + ", bank = '', iban = ''");
+                        } else {
+                            statement.execute("UPDATE unternehmen SET unternehmensname = '" + textfeldUnternehmen.getText() + "', benutzername = '" + textfeldBenutzername.getText() + "', passwort = '" + textfeldPasswort.getText() + "', lagerbestandOrange = " + textfeldLagerbestandAnzeige.getText() + ", bank = '" + textfeldBank.getText() + "', iban = '" + textfeldIban.getText() + "'");
+                        }
                         if (pfadBildLogo != ""){
                             AllgemeineMethoden.dateiKopieren(pfadBildLogo, neuerPfadBildLogo);
                             ResultSet resultSetDateityp = statement.executeQuery("SELECT * FROM unternehmen");

@@ -130,7 +130,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="118.0" layoutY="361.0" prefHeight="35.0" prefWidth="171.0" text="Menge/Einheit" textFill="#ba8759">
+            <Label layoutX="118.0" layoutY="361.0" prefHeight="35.0" prefWidth="171.0" text="Inhalt" textFill="#ba8759">
                <font>
                   <Font size="24.0" />
                </font>

@@ -79,7 +79,7 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 Label labelTitelArtikelnummer = new Label("Artikelnr.:");
                 Label labelTitelName = new Label("Name:");
                 Label labelTitelPreis = new Label("Preis:");
-                Label labelTitelMenge = new Label("Menge: ");
+                Label labelTitelMenge = new Label("Inhalt: ");
                 Label labelArtikelnummer = new Label(resultSet.getString("artikelId"));
 
 

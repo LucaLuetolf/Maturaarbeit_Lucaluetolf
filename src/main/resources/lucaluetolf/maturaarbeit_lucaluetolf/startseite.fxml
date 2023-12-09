@@ -126,7 +126,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Label fx:id="labelName" layoutX="64.0" layoutY="121.0" prefHeight="50.0" prefWidth="441.0" text="Label" textFill="#ba8759">
+            <Label fx:id="labelName" layoutX="64.0" layoutY="121.0" maxWidth="720.0" prefHeight="51.0" prefWidth="720.0" text="Label" textFill="#ba8759">
                <font>
                   <Font size="35.0" />
                </font></Label>

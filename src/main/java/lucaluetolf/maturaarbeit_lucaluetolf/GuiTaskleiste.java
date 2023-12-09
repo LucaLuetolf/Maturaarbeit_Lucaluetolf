@@ -260,7 +260,9 @@ public class GuiTaskleiste {
     protected void textfieldUnternehmenKey(){
         textfeldUnternehmen.setText(textfeldUnternehmen.getText().replaceAll("[\\\\]", ""));
         textfeldUnternehmen.positionCaret(textfeldUnternehmen.getLength());
-        booleanUnternehmen = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldUnternehmen);
+        //booleanUnternehmen = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldUnternehmen);
+        booleanUnternehmen = tester("[^\\\\]", textfeldUnternehmen);
+
         if (textfeldUnternehmen.getLength() != 0){
             booleanUnternehmen = true;
             textfeldUnternehmen.setStyle("-fx-border-color: #7CFC00; -fx-border-radius: 3px");
@@ -268,24 +270,41 @@ public class GuiTaskleiste {
             booleanUnternehmen = false;
             textfeldUnternehmen.setStyle("-fx-border-color: #BABABA; -fx-border-radius: 3px");
         }
+        if (booleanUnternehmen && textfeldUnternehmen.getLength() > 30) {
+            textfeldUnternehmen.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanUnternehmen = false;
+        }
+
     }
     @FXML
     protected void textfieldBenutzernameKey(){
         textfeldBenutzername.setText(textfeldBenutzername.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ ]", ""));
         textfeldBenutzername.positionCaret(textfeldBenutzername.getLength());
         booleanBenutzername = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldBenutzername);
+        if (booleanBenutzername && textfeldBenutzername.getLength() > 30) {
+            textfeldBenutzername.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanBenutzername = false;
+        }
     }
     @FXML
     protected void textfieldPasswortKey(){
         textfeldPasswort.setText(textfeldPasswort.getText().replaceAll("[^A-Za-z0-9éàèöäüÉÀÈÖÄÜ,.;:-_?!]", ""));
         textfeldPasswort.positionCaret(textfeldPasswort.getLength());
         booleanPasswort = tester("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$", textfeldPasswort);
+        if (booleanPasswort && textfeldPasswort.getLength() > 30) {
+            textfeldPasswort.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanPasswort = false;
+        }
     }
     @FXML
     protected void textfieldLagerbestandAnzeigeKey(){
         textfeldLagerbestandAnzeige.setText(textfeldLagerbestandAnzeige.getText().replaceAll("[^0-9]", ""));
         textfeldLagerbestandAnzeige.positionCaret(textfeldLagerbestandAnzeige.getLength());
         booleanLagerbestandAnzeige = tester("^[1-9]\\d*$", textfeldLagerbestandAnzeige);
+        if (booleanLagerbestandAnzeige && textfeldLagerbestandAnzeige.getLength() > 8) {
+            textfeldLagerbestandAnzeige.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanLagerbestandAnzeige = false;
+        }
     }
     @FXML
     protected void textfieldBankKey(){
@@ -293,9 +312,12 @@ public class GuiTaskleiste {
         textfeldBank.positionCaret(textfeldBank.getLength());
         //booleanBank = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?(?:\\sAG)?$", textfeldBank);
         booleanBank = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ0-9&.,'()/-]+(?: [A-Za-zéàèöäüÉÀÈÖÄÜ0-9&.,'()/-]+)*$", textfeldBank);
-        if(textfeldIban.getText() == "" && textfeldBank.getText() == ""){
-            booleanIban = true;
+        if(textfeldBank.getText() == ""){
             booleanBank = true;
+        }
+        if (booleanBank && textfeldBank.getLength() > 30) {
+            textfeldBank.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanBank = false;
         }
     }
     @FXML
@@ -304,9 +326,8 @@ public class GuiTaskleiste {
         textfeldIban.positionCaret(textfeldIban.getLength());
         //booleanIban = tester("^CH[0-9]{19}$", textfeldIban);
         booleanIban = tester("^CH\\d{2} \\d{4} \\d{4} \\d{4} \\d{4} \\d{1}$", textfeldIban);
-        if(textfeldIban.getText() == "" && textfeldBank.getText() == ""){
+        if(textfeldIban.getText() == ""){
             booleanIban = true;
-            booleanBank = true;
         }
     }
 
@@ -376,11 +397,10 @@ public class GuiTaskleiste {
                 AllgemeineMethoden.fehlermeldung(e);
             }
         }
-        if (textfeldArtikelnummer.getLength() > 8){
-            booleanArtikelnummer = false;
+        if (booleanArtikelnummer && textfeldArtikelnummer.getLength() > 8) {
             textfeldArtikelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanArtikelnummer = false;
         }
-
     }
 
     @FXML
@@ -388,6 +408,10 @@ public class GuiTaskleiste {
         textfeldName.setText(textfeldName.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ0-9 -_.,!']", ""));
         textfeldName.positionCaret(textfeldName.getLength());
         booleanName = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ0-9 -_.,!]+$", textfeldName);
+        if (booleanName && textfeldName.getLength() > 30) {
+            textfeldName.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanName = false;
+        }
     }
 
     @FXML
@@ -395,6 +419,10 @@ public class GuiTaskleiste {
         textfeldPreis.setText(textfeldPreis.getText().replaceAll("[^0-9.]", ""));
         textfeldPreis.positionCaret(textfeldPreis.getLength());
         booleanPreis = tester("^\\d+(\\.\\d{1}(0|5)?)?$", textfeldPreis);
+        if (booleanPreis && Double.parseDouble(textfeldPreis.getText()) > 9999) {
+            textfeldPreis.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanPreis = false;
+        }
 
     }
 
@@ -403,6 +431,10 @@ public class GuiTaskleiste {
         textfeldMenge.setText(textfeldMenge.getText().replaceAll("[^0-9.]", ""));
         textfeldMenge.positionCaret(textfeldMenge.getLength());
         booleanMenge = tester("^\\d+(\\.\\d{1}(0|5)?)?$", textfeldMenge);
+        if (booleanMenge && Double.parseDouble(textfeldMenge.getText()) > 9999) {
+            textfeldMenge.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanMenge = false;
+        }
     }
 
     @FXML
@@ -427,6 +459,10 @@ public class GuiTaskleiste {
         textfeldLagerbestand.setText(textfeldLagerbestand.getText().replaceAll("[^0-9]", ""));
         textfeldLagerbestand.positionCaret(textfeldLagerbestand.getLength());
         booleanLagerbestand = tester("^[0-9]\\d*$", textfeldLagerbestand);
+        if (booleanLagerbestand && textfeldLagerbestand.getLength() > 8) {
+            textfeldLagerbestand.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanLagerbestand = false;
+        }
     }
 
 
@@ -463,7 +499,7 @@ public class GuiTaskleiste {
         textfeldKundennummer.setText(textfeldKundennummer.getText().replaceAll("[^0-9]", ""));
         textfeldKundennummer.positionCaret(textfeldKundennummer.getLength());
         booleanKundennummer = tester("^[1-9]\\d*$", textfeldKundennummer);
-        if (textfeldKundennummer.getText() != "" && booleanKundennummer){
+        if (textfeldKundennummer.getText() != "" && booleanKundennummer && textfeldKundennummer.getLength() <= 8){
             try {
                 ResultSet resultsetArtikel = statement.executeQuery("SELECT COUNT(kundenId) AS summe FROM kunden WHERE kundenId = " + textfeldKundennummer.getText());
                 resultsetArtikel.next();
@@ -480,6 +516,10 @@ public class GuiTaskleiste {
                 AllgemeineMethoden.fehlermeldung(e);
             }
         }
+        if (booleanKundennummer && textfeldKundennummer.getLength() > 8) {
+            textfeldKundennummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanKundennummer = false;
+        }
     }
 
     @FXML
@@ -487,6 +527,10 @@ public class GuiTaskleiste {
         textfeldNachname.setText(textfeldNachname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ '-]", ""));
         textfeldNachname.positionCaret(textfeldNachname.getLength());
         booleanNachname = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ'-]+(?: [A-Za-zéàèöäüÉÀÈÖÄÜ'-]+)*$", textfeldNachname);
+        if (booleanNachname && textfeldNachname.getLength() > 15) {
+            textfeldNachname.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanNachname = false;
+        }
     }
 
     @FXML
@@ -494,6 +538,10 @@ public class GuiTaskleiste {
         textfeldVorname.setText(textfeldVorname.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ '-]", ""));
         textfeldVorname.positionCaret(textfeldVorname.getLength());
         booleanVorname = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ'-]+(?: [A-Za-zéàèöäüÉÀÈÖÄÜ'-]+)*$", textfeldVorname);
+        if (booleanVorname && textfeldVorname.getLength() > 10) {
+            textfeldVorname.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanVorname = false;
+        }
     }
 
     @FXML
@@ -501,6 +549,10 @@ public class GuiTaskleiste {
         textfeldAdresse.setText(textfeldAdresse.getText().replaceAll("[^A-za-zzéàèöäüÉÀÈÖÄÜ '0-9-]", ""));
         textfeldAdresse.positionCaret(textfeldAdresse.getLength());
         booleanAdresse = tester("^[A-Za-zzéàèöäüÉÀÈÖÄÜ'-]+(\\s\\d*)?$", textfeldAdresse);
+        if (booleanAdresse && textfeldAdresse.getLength() > 30) {
+            textfeldAdresse.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanAdresse = false;
+        }
     }
 
     @FXML
@@ -515,6 +567,10 @@ public class GuiTaskleiste {
         textfeldOrt.setText(textfeldOrt.getText().replaceAll("[^A-Za-zzéàèöäüÉÀÈÖÄÜ '0-9-]", ""));
         textfeldOrt.positionCaret(textfeldOrt.getLength());
         booleanOrt = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ0-9'-]+(?: [A-Za-zéàèöäüÉÀÈÖÄÜ0-9'-]+)*$", textfeldOrt);
+        if (booleanOrt && textfeldOrt.getLength() > 20) {
+            textfeldOrt.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanOrt = false;
+        }
     }
 
     @FXML
@@ -524,6 +580,10 @@ public class GuiTaskleiste {
         booleanEmail = tester("^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\\.[A-Za-z]{0,}$", textfeldEmail);
         if(textfeldEmail.getText().isEmpty()){
             booleanEmail = true;
+        }
+        if (booleanEmail && textfeldEmail.getLength() > 30) {
+            textfeldEmail.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
+            booleanEmail = false;
         }
     }
 

@@ -20,6 +20,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
@@ -32,6 +34,14 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
                 resultsetEinheit.next();
                 statement.execute("INSERT INTO artikel (artikelId, name, preis, menge, einheit_id, rabatt, lagerbestand) VALUES (" + textfeldArtikelnummer.getText() + "," + "'" + textfeldName.getText() + "'" + "," + textfeldPreis.getText() + "," + textfeldMenge.getText() + "," +  resultsetEinheit.getInt("einheitId") + "," + textfeldRabatt.getText() + "," + textfeldLagerbestand.getText() + ")");
                 resultsetEinheit.close();
+                LocalDate datum = LocalDate.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                ResultSet resultsetVerkaufteStueck = statement.executeQuery("SELECT COUNT(artikel_id) FROM verkaufteStueck WHERE datum = '" + formatter.format(datum) + "'");
+                resultsetVerkaufteStueck.next();
+                int existiert = resultsetVerkaufteStueck.getInt(1);
+                if (existiert != 0){
+                    statement.execute("INSERT INTO verkaufteStueck (artikel_id, anzahl, datum) VALUES (" + textfeldArtikelnummer.getText() + ",0,'" + formatter.format(datum) + "')");
+                }
 
                 if (pfadBildArtikel != ""){
                     AllgemeineMethoden.dateiKopieren(pfadBildArtikel, neuerPfadBildArtikel);
