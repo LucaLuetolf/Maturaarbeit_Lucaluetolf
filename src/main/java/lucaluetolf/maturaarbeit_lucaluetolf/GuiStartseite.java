@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -27,7 +28,6 @@ import java.util.ResourceBundle;
 
 
 public class GuiStartseite extends GuiTaskleiste implements Initializable {
-
     LocalTime time = LocalTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
 

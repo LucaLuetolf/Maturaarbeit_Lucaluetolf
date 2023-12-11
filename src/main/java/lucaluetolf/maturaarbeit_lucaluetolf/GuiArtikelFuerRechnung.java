@@ -369,12 +369,14 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     labelName.setText(resultsetArtikelAngabenBestellung.getString("name_bestellung"));
                     labelPreis.setText(String.valueOf(resultsetArtikelAngabenBestellung.getDouble("preis_bestellung")));
                     labelMenge.setText(resultsetArtikelAngabenBestellung.getDouble("menge_bestellung") + " " + resultsetArtikelAngabenBestellung.getString("abkuerzung"));
-                    resultsetArtikelAngabenBestellung.close();
-                    ResultSet resultsetAnzahl = statement.executeQuery("SELECT * FROM bestellung WHERE artikel_Id = " + artikelId + " AND " + rechnungsnummer + " = bestellungId");
-                    resultsetAnzahl.next();
-                    textFieldAnzahl.setText(String.valueOf(resultsetAnzahl.getInt("anzahl")));
-                    paneFuerWarenkorb(artikelId, resultsetAnzahl.getInt("anzahl"));
-                    resultsetAnzahl.close();
+                    //resultsetArtikelAngabenBestellung.close();
+                    //ResultSet resultsetAnzahl = statement.executeQuery("SELECT * FROM bestellung WHERE artikel_Id = " + artikelId + " AND " + rechnungsnummer + " = bestellungId");
+                    //resultsetAnzahl.next();
+                    textFieldAnzahl.setText(String.valueOf(resultsetArtikelAngabenBestellung.getInt("anzahl")));
+                    paneFuerWarenkorb(artikelId, resultsetArtikelAngabenBestellung.getInt("anzahl"));
+                    //resultsetAnzahl.close();
+
+
                 } else {
                     resultsetArtikelUeberpruefenObVerwendet.close();
                 }
@@ -497,7 +499,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     if (bearbeiten){
                         statement.execute("UPDATE bestellung SET anzahl = 0 WHERE artikel_id = " + artikelId + " AND bestellungId = " + rechnungsnummer);
                     }else{
-                        statement.execute("DELETE FROM bestellung WHERE artikel_id = " + artikelId);
+                        statement.execute("DELETE FROM bestellung WHERE artikel_id = " + artikelId + " AND bestellungId = " + rechnungsnummer);
                     }
                 } else {
                     statement.execute("UPDATE bestellung SET anzahl = " + anzahl + " WHERE artikel_id = " + artikelId + " AND bestellungId = " + rechnungsnummer);
@@ -713,7 +715,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 }
             }
             if (bearbeiten) {
-                statement.execute("DELETE FROM bestellung WHERE anzahl = 0");
+                //statement.execute("DELETE FROM bestellung WHERE anzahl = 0");
                 statement.execute("UPDATE unternehmen SET bearbeiten = null");
                 statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = 0");
                 statement.execute("DELETE FROM bestellung WHERE bestellungId = 0");

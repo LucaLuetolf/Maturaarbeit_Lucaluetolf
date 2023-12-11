@@ -119,7 +119,6 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
                         resultSetDateityp.close();
                         File neuesBildAlterPfad = new File(pfadBildArtikel);
                         File neuesBildAlterName = new File(neuerPfadBildArtikel + "/" + neuesBildAlterPfad.getName());
-                        System.out.println(neuerPfadBildArtikel);
                         String dateitypNeu = "";
                         int index = neuesBildAlterPfad.getName().lastIndexOf(".");
                         if (index > 0) {

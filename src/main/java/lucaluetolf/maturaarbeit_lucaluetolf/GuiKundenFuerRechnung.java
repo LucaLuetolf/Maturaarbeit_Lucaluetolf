@@ -228,6 +228,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
                                 resultsetKunde.next();
                                 Date datum = resultsetKunde.getDate("datum");
                                 resultsetKunde.close();
+                                statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
                                 statement.execute("INSERT INTO bearbeiter (bestellung_id, kunden_id, dokumenttyp, datum) VALUES (" + rechnungsnummer + "," + kundennummer + "," + modus + ", '" + datum + "')");
                             } else {
                                 statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
@@ -359,7 +360,7 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
                 statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
                 statement.execute("DELETE FROM bestellung WHERE bestellungId = " + rechnungsnummer);
             }
-
+            statement.execute("UPDATE unternehmen SET bearbeiten = null");
             root = FXMLLoader.load(getClass().getResource("startseite.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
