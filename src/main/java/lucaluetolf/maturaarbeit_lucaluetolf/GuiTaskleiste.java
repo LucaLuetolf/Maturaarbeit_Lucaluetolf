@@ -322,10 +322,10 @@ public class GuiTaskleiste {
     }
     @FXML
     protected void textfieldIbanKey(){
-        textfeldIban.setText(textfeldIban.getText().replaceAll("[^CH0-9 ]", ""));
+        textfeldIban.setText(textfeldIban.getText().replaceAll("[^A-Za-z0-9 ]", ""));
         textfeldIban.positionCaret(textfeldIban.getLength());
         //booleanIban = tester("^CH[0-9]{19}$", textfeldIban);
-        booleanIban = tester("^CH\\d{2} \\d{4} \\d{4} \\d{4} \\d{4} \\d{1}$", textfeldIban);
+        booleanIban = tester("^CH[0-9a-zA-Z]{2} [0-9a-zA-Z]{4} [0-9a-zA-Z]{4} [0-9a-zA-Z]{4} [0-9a-zA-Z]{4} [0-9a-zA-Z]{1}$", textfeldIban);
         if(textfeldIban.getText() == ""){
             booleanIban = true;
         }

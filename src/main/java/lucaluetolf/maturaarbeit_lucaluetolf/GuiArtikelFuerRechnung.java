@@ -622,7 +622,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             alert.setContentText("Die Rechnung wurde erfolgreich erstellt");
             alert.showAndWait();
         } else if (modus == 2) {
-            layout1(2);
             Alert barOderKarteAlert = new Alert(Alert.AlertType.NONE);
             barOderKarteAlert.setTitle("Zahlungsmethode");
             barOderKarteAlert.setHeaderText("Wie wird bezahlt?");
@@ -635,6 +634,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 public void handle(ActionEvent event) {
                     barKarte = 1;
                     barOderKarteAlert.close();
+                    layout1(2);
                 }
             });
             Button karte = new Button("Karte");
@@ -643,6 +643,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 public void handle(ActionEvent event) {
                     barKarte = 2;
                     barOderKarteAlert.close();
+                    layout1(2);
                 }
             });
 

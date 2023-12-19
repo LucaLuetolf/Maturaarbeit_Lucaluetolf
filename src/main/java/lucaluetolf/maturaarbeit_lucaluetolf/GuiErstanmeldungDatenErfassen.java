@@ -71,10 +71,11 @@ public class GuiErstanmeldungDatenErfassen extends GuiTaskleiste implements Init
                         dateityp = altesBild.getName().substring(index + 1);
                     }
                     File neuerName = new File(neuerPfadBildLogo + "1." + dateityp);
-                    neuesBild.renameTo(neuerName);
-                    statement.execute("UPDATE unternehmen SET dateityp = '" + dateityp + "', bildnummer = 1");
-                }
+                    if(neuesBild.renameTo(neuerName)){
+                        statement.execute("UPDATE unternehmen SET dateityp = '" + dateityp + "', bildnummer = 1");
 
+                    }
+                }
             } catch (Exception e) {
                 AllgemeineMethoden.fehlermeldung(e);
             }
@@ -123,12 +124,13 @@ public class GuiErstanmeldungDatenErfassen extends GuiTaskleiste implements Init
                         dateityp = altesBild.getName().substring(index + 1);
                     }
                     File neuerName = new File(neuerPfadBildArtikel + "/1." + dateityp);
-                    neuesBild.renameTo(neuerName);
+                    if(neuesBild.renameTo(neuerName)){
+                        statement.execute("UPDATE artikel SET dateityp = '" + dateityp + "', bildnummer = 1 WHERE artikelId = " + artikelnummer);
+                    }
                     File ordner1 = new File("Bilder/Benutzer/Artikel/Übergang");
                     File ordner2 = new File("Bilder/Benutzer/Artikel/" + artikelnummer);
                     ordner1.renameTo(ordner2);
                     AllgemeineMethoden.ordnerErstellen("Bilder/Benutzer/Artikel/Übergang");
-                    statement.execute("UPDATE artikel SET dateityp = '" + dateityp + "', bildnummer = 1 WHERE artikelId = " + artikelnummer);
                 }
                 else{
                     AllgemeineMethoden.ordnerErstellen("Bilder/Benutzer/Artikel/" + textfeldArtikelnummer.getText());

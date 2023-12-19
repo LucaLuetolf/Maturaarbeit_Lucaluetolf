@@ -335,8 +335,9 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
                                 dateitypNeu = neuesBildAlterPfad.getName().substring(index + 1);
                             }
                             File neuesBildNeuerName = new File(String.valueOf("Bilder/Benutzer/Unternehmen/" + (bildnummer+1) + "." + dateitypNeu));
-                            neuesBildAlterName.renameTo(neuesBildNeuerName);
-                            statement.execute("UPDATE unternehmen SET dateityp = '" + dateitypNeu + "', bildnummer = " + (bildnummer+1));
+                            if(neuesBildAlterName.renameTo(neuesBildNeuerName)){
+                                statement.execute("UPDATE unternehmen SET dateityp = '" + dateitypNeu + "', bildnummer = " + (bildnummer+1));
+                            }
                         }
 
                         buttonBearbeitenKonto.setId("1");
