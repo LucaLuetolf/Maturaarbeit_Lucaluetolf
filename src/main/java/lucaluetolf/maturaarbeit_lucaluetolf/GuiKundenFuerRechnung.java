@@ -10,15 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.sql.*;
@@ -300,28 +297,6 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
     protected void zurueck(ActionEvent event) {
         try {
             if (bearbeiten == true) {
-                /*ResultSet resultsetLagerbestandAnzahl = statement.executeQuery("SELECT COUNT(artikel_id) FROM bestellung, bearbeiter WHERE bestellungId = 0");
-                resultsetLagerbestandAnzahl.next();
-                int anzahlArtikel = resultsetLagerbestandAnzahl.getInt(1);
-                resultsetLagerbestandAnzahl.close();
-                for (int i = 0; i < anzahlArtikel; i++) {
-                    ResultSet resultsetLagerbestandAendern = statement.executeQuery("SELECT * FROM bestellung, bearbeiter WHERE bestellungId = 0");
-                    if (resultsetLagerbestandAendern.absolute(i+1)){
-                        int anzahl = resultsetLagerbestandAendern.getInt("anzahl");
-                        int artikelId = resultsetLagerbestandAendern.getInt("artikel_id");
-                        Date datum = resultsetLagerbestandAendern.getDate("datum");
-                        statement.execute("UPDATE artikel SET lagerbestand = lagerbestand - " + anzahl + " WHERE artikelId = " + artikelId);
-                        statement.execute("UPDATE verkaufteStueck SET anzahl = anzahl + " + anzahl + " WHERE artikel_Id = " + artikelId + " AND datum = '" + datum + "'");
-                    }
-                    resultsetLagerbestandAendern.close();
-                }
-
-                statement.execute("DELETE FROM bestellung WHERE bestellungId = " + rechnungsnummer);
-                statement.execute("UPDATE bestellung SET bestellungId = " + rechnungsnummer + "WHERE bestellungId = 0");
-                statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = " + rechnungsnummer);
-                statement.execute("UPDATE bearbeiter SET bestellung_id = " + rechnungsnummer + " WHERE bestellung_id = 0");
-                statement.execute("UPDATE unternehmen SET bearbeiten = null");*/
-
                 ResultSet resultsetLaenge = statement.executeQuery("SELECT COUNT(artikel_Id) FROM bestellung WHERE bestellungId = 0");
                 resultsetLaenge.next();
                 int laenge = resultsetLaenge.getInt(1);
@@ -372,8 +347,5 @@ public class GuiKundenFuerRechnung extends GuiTaskleiste implements Initializabl
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
-
     }
-
-
 }

@@ -138,7 +138,7 @@ public class GuiTaskleiste {
     protected void toScenePdfBearbeiten(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         TextField textfield = new TextField();
-        alert.setTitle("Information Dialog");
+        alert.setTitle("Rechnungs- oder Quittungsnummer");
         alert.setHeaderText("Bitte geben sie die Rechnungs- oder Quittungsnummer ein:");
         textfield.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
@@ -160,7 +160,7 @@ public class GuiTaskleiste {
                 root = FXMLLoader.load(getClass().getResource("artikelFuerRechnung.fxml"));
             } else{
                 Alert alertKeineRechnung = new Alert(Alert.AlertType.INFORMATION);
-                alertKeineRechnung.setTitle("Information Dialog");
+                alertKeineRechnung.setTitle("Fehlermeldung");
                 alertKeineRechnung.setHeaderText("Neue Information:");
                 alertKeineRechnung.setContentText("Leider wurde keine Rechnung oder Quittung mit der Nummer: " + rechnungsnummer + " gefunden");
                 alertKeineRechnung.showAndWait();
@@ -202,8 +202,6 @@ public class GuiTaskleiste {
 
     }
 
-
-    //Erfassen
     protected boolean tester(String regex, TextField textField) {
         boolean boolean1 = textField.getText().matches(regex);
         if (boolean1) {
@@ -214,7 +212,6 @@ public class GuiTaskleiste {
         return boolean1;
     }
 
-    //Unternehmensdaten erfassen
     @FXML
     protected TextField textfeldUnternehmen;
     @FXML
@@ -260,7 +257,6 @@ public class GuiTaskleiste {
     protected void textfieldUnternehmenKey(){
         textfeldUnternehmen.setText(textfeldUnternehmen.getText().replaceAll("[\\\\]", ""));
         textfeldUnternehmen.positionCaret(textfeldUnternehmen.getLength());
-        //booleanUnternehmen = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?$", textfeldUnternehmen);
         booleanUnternehmen = tester("[^\\\\]", textfeldUnternehmen);
 
         if (textfeldUnternehmen.getLength() != 0){
@@ -310,7 +306,6 @@ public class GuiTaskleiste {
     protected void textfieldBankKey(){
         textfeldBank.setText(textfeldBank.getText().replaceAll("[^A-Za-zéàèöäüÉÀÈÖÄÜ 0-9&.,'()/-]", ""));
         textfeldBank.positionCaret(textfeldBank.getLength());
-        //booleanBank = tester("^[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+(\\s[A-ZÉÀÈÖÄÜ][a-zéàèöäü]+)?(?:\\sAG)?$", textfeldBank);
         booleanBank = tester("^[A-Za-zéàèöäüÉÀÈÖÄÜ0-9&.,'()/-]+(?: [A-Za-zéàèöäüÉÀÈÖÄÜ0-9&.,'()/-]+)*$", textfeldBank);
         if(textfeldBank.getText() == ""){
             booleanBank = true;
@@ -324,15 +319,12 @@ public class GuiTaskleiste {
     protected void textfieldIbanKey(){
         textfeldIban.setText(textfeldIban.getText().replaceAll("[^A-Za-z0-9 ]", ""));
         textfeldIban.positionCaret(textfeldIban.getLength());
-        //booleanIban = tester("^CH[0-9]{19}$", textfeldIban);
         booleanIban = tester("^CH[0-9a-zA-Z]{2} [0-9a-zA-Z]{4} [0-9a-zA-Z]{4} [0-9a-zA-Z]{4} [0-9a-zA-Z]{4} [0-9a-zA-Z]{1}$", textfeldIban);
         if(textfeldIban.getText() == ""){
             booleanIban = true;
         }
     }
 
-
-    //Artikel erfassen
     @FXML
     protected ImageView imageViewArtikel;
     @FXML
@@ -464,10 +456,6 @@ public class GuiTaskleiste {
             booleanLagerbestand = false;
         }
     }
-
-
-
-    //Kunde erfassen
 
     @FXML
     protected TextField textfeldKundennummer;

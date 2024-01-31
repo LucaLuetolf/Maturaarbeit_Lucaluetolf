@@ -9,21 +9,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.*;
 import java.util.ResourceBundle;
 
@@ -35,8 +27,6 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
     private JFXButton buttonBildAendern;
     @FXML
     private JFXButton buttonZurueck;
-    @FXML
-    private ImageView imageviewArtikel;
     @FXML
     private Label labelArtikelnummer;
     @FXML
@@ -124,7 +114,6 @@ public class GuiArtikelEinzeln extends GuiTaskleiste implements Initializable {
                         if (index > 0) {
                             dateitypNeu = neuesBildAlterPfad.getName().substring(index + 1);
                         }
-                        File neuesBildNeuerName = new File(String.valueOf(getClass().getResource("/Bilder/Benutzer/Artikel/" + textfeldArtikelnummer.getText() + "/" + (bildnummer+1) + "." + dateitypNeu)));
                         String neuesBildNeuerNamePfad = "Bilder/Benutzer/Artikel/" + textfeldArtikelnummer.getText() + "/" + (bildnummer+1) + "." + dateitypNeu;
                         if (neuesBildAlterName.renameTo(new File(neuesBildNeuerNamePfad))) {
                             statement.execute("UPDATE artikel SET dateityp = '" + dateitypNeu + "', bildnummer = " + (bildnummer + 1) + "WHERE artikelId = " + textfeldArtikelnummer.getText());

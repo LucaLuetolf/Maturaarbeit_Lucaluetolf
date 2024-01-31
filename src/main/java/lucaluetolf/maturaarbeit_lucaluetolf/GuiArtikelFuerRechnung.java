@@ -20,7 +20,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -33,7 +32,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.DecimalFormat;
@@ -191,13 +189,9 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 laenge = resultsetLaenge.getInt(1);
                 resultsetLaenge.close();
             }
-            //Anzahl der Artikel:
-
-
 
             for (int i = 0; i < laenge; i++) {
 
-                //Artikelnummer für den jeweiligen Schleifen durchlauf
                 int artikelId = 0;
                 ResultSet resultsetArtikelId = null;
                 if (bearbeiten){
@@ -221,7 +215,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 ResultSet resultsetArtikel = statement.executeQuery("SELECT * FROM artikel, einheiten WHERE einheitId = einheit_Id AND artikelId = " + artikelId);
                 resultsetArtikel.next();
 
-                //Festlegen, an welcher Position das Pane ist
                 if (column == 5) {
                     row = row + 1;
                     gridpaneArtikel.addColumn(row);
@@ -230,7 +223,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     column = 0;
                 }
 
-                //Pane für die Anzeige der Artikel
                 Pane paneArtikel = new Pane();
                 paneArtikel.setPrefSize(170, 220);
                 paneArtikel.setStyle("-fx-background-color: #E8CFB0; -fx-background-radius: 20px; -fx-border-color: #FFFFFF; -fx-border-radius: 20px");
@@ -317,9 +309,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     imageView.setImage(image);
                 }
                 imageView.setPreserveRatio(true);
-                //54
-                //imageView.setLayoutX(10);
-                //imageView.setLayoutY(14);
                 imageView.setFitWidth(150);
                 imageView.setFitHeight(65);
 
@@ -369,13 +358,8 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     labelName.setText(resultsetArtikelAngabenBestellung.getString("name_bestellung"));
                     labelPreis.setText(String.valueOf(resultsetArtikelAngabenBestellung.getDouble("preis_bestellung")));
                     labelMenge.setText(resultsetArtikelAngabenBestellung.getDouble("menge_bestellung") + " " + resultsetArtikelAngabenBestellung.getString("abkuerzung"));
-                    //resultsetArtikelAngabenBestellung.close();
-                    //ResultSet resultsetAnzahl = statement.executeQuery("SELECT * FROM bestellung WHERE artikel_Id = " + artikelId + " AND " + rechnungsnummer + " = bestellungId");
-                    //resultsetAnzahl.next();
                     textFieldAnzahl.setText(String.valueOf(resultsetArtikelAngabenBestellung.getInt("anzahl")));
                     paneFuerWarenkorb(artikelId, resultsetArtikelAngabenBestellung.getInt("anzahl"));
-                    //resultsetAnzahl.close();
-
 
                 } else {
                     resultsetArtikelUeberpruefenObVerwendet.close();
@@ -530,7 +514,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     Label labelWarenkorbArtikelnummer = new Label(resultsetWarenkorb.getString("artikel_Id"));
                     labelWarenkorbArtikelnummer.setLayoutX(11);
                     labelWarenkorbArtikelnummer.setLayoutY(16);
-                    //labelWarenkorbArtikelnummer.setMaxWidth(60);
                     labelWarenkorbArtikelnummer.setStyle("-fx-text-fill: #FFFFFF ");
                     paneWarenkorb.getChildren().add(labelWarenkorbArtikelnummer);
 
@@ -544,14 +527,12 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                     Label labelWarenkorbPreis = new Label(resultsetWarenkorb.getString("preis_bestellung"));
                     labelWarenkorbPreis.setLayoutX(11);
                     labelWarenkorbPreis.setLayoutY(49);
-                    //labelWarenkorbPreis.setMaxWidth(55);
                     labelWarenkorbPreis.setStyle("-fx-text-fill: #FFFFFF ");
                     paneWarenkorb.getChildren().add(labelWarenkorbPreis);
 
                     Label labelWarenkorbAnzahl = new Label(String.valueOf(resultsetWarenkorb.getInt("anzahl")));
                     labelWarenkorbAnzahl.setLayoutX(71);
                     labelWarenkorbAnzahl.setLayoutY(49);
-                    //labelWarenkorbAnzahl.setMaxWidth(20);
                     labelWarenkorbAnzahl.setStyle("-fx-text-fill: #FFFFFF ");
                     paneWarenkorb.getChildren().add(labelWarenkorbAnzahl);
 
@@ -618,7 +599,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         if (modus == 1) {
             layout1(1);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("new Information-Dialog");
+            alert.setTitle("Abschluss");
             alert.setContentText("Die Rechnung wurde erfolgreich erstellt");
             alert.showAndWait();
         } else if (modus == 2) {
@@ -716,7 +697,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
                 }
             }
             if (bearbeiten) {
-                //statement.execute("DELETE FROM bestellung WHERE anzahl = 0");
                 statement.execute("UPDATE unternehmen SET bearbeiten = null");
                 statement.execute("DELETE FROM bearbeiter WHERE bestellung_id = 0");
                 statement.execute("DELETE FROM bestellung WHERE bestellungId = 0");
@@ -744,7 +724,7 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
 
     public void barZahlung(){
         Alert zahlen = new Alert(Alert.AlertType.INFORMATION);
-        zahlen.setTitle("Zahlen-Alert");
+        zahlen.setTitle("Barzahlung");
         zahlen.setHeaderText("Bar erhalten: ");
 
         TextField textField = new TextField();
@@ -771,7 +751,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
 
             grid.add(button, (i - 1) % 3, (i - 1) / 3);
         }
-
 
         Button zeroButton = new Button("0");
         zeroButton.setPrefSize(60, 60);
@@ -801,15 +780,12 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         VBox content = new VBox(textField, grid);
         zahlen.getDialogPane().setContent(content);
 
-        /*ButtonType ok = new ButtonType("OK");
-        ButtonType abbrechen = new ButtonType("abbrechen");
-        zahlen.getButtonTypes().setAll(ok, abbrechen);*/
         zahlen.showAndWait();
         if (Double.parseDouble(textField.getText()) >= Double.parseDouble(labelSumme.getText())) {
             Alert rueckgeld = new Alert(Alert.AlertType.INFORMATION);
             rueckgeld.setTitle("Bargeldzahlung");
             rueckgeld.setHeaderText("Abschluss:");
-            rueckgeld.setContentText("Total:" + labelSumme.getText() + "\nBar erhalten: " + Double.parseDouble(textField.getText()) + "\nRückgeld: " + Math.round(20.00 * (Double.parseDouble(textField.getText()) - Double.parseDouble(labelSumme.getText())))/20.00);
+            rueckgeld.setContentText("Total: " + labelSumme.getText() + "\nBar erhalten: " + Double.parseDouble(textField.getText()) + "\nRückgeld: " + Math.round(20.00 * (Double.parseDouble(textField.getText()) - Double.parseDouble(labelSumme.getText())))/20.00);
             rueckgeld.showAndWait();
         } else {
             Alert zuwenigRueckgeld = new Alert(Alert.AlertType.INFORMATION);
@@ -818,45 +794,16 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             zuwenigRueckgeld.showAndWait();
             barZahlung();
         }
-
-        /*Optional<ButtonType> optional = zahlen.showAndWait();
-        if (optional.isPresent()) {
-            if (Double.parseDouble(textField.getText()) >= Double.parseDouble(labelSumme.getText())) {
-                Alert rueckgeld = new Alert(Alert.AlertType.INFORMATION);
-                rueckgeld.setTitle("Bargeldzahlung");
-                rueckgeld.setHeaderText("Abschluss:");
-                rueckgeld.setContentText("Total:" + labelSumme.getText() + "\nBar erhalten: " + Double.parseDouble(textField.getText()) + "\nRückgeld: " + Math.round(20.00 * (Double.parseDouble(textField.getText()) - Double.parseDouble(labelSumme.getText())))/20.00);
-                rueckgeld.showAndWait();
-            } else {
-                Alert zuwenigRueckgeld = new Alert(Alert.AlertType.INFORMATION);
-                zuwenigRueckgeld.setHeaderText("Fehlermeldung");
-                zuwenigRueckgeld.setContentText("Zu wenig Geld gegeben");
-                ButtonType buttonTypeOkZuWenigRueckgeld = new ButtonType("OK");
-                ButtonType buttonTypeAbbrechenZuWenigRueckgeld = new ButtonType("abbrechen");
-                zuwenigRueckgeld.getButtonTypes().setAll(buttonTypeOkZuWenigRueckgeld, buttonTypeAbbrechenZuWenigRueckgeld);
-                Optional<ButtonType> optional1 = zuwenigRueckgeld.showAndWait();
-                barZahlung();
-                if (optional1.isPresent() && optional1.get() == buttonTypeOkZuWenigRueckgeld) {
-                    barZahlung();
-                } else {
-                    return;
-                }
-            }
-        } else {
-            return;
-        }*/
     }
 
     private void layout1(int rechnung1Quittung2) {
 
-        //Grössen der Zellen
         float ganzeseite = 570F;
         float absender1 = 100F;
         float absender2 = 223F;
         float adressat = 143F;
 
-        //BestellungmR
-        float bezeichnungmR = 245F; //mR = mit Rabatt
+        float bezeichnungmR = 245F;
         float artikelnummermR = 60F;
         float einheitmR = 55F;
         float mengemR = 45F;
@@ -864,21 +811,18 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         float rabattmR = 30;
         float gesamtmR = 50F;
 
-        //BestellungoR
-        float bezeichnungoR = 250F; //oR = ohne Rabatt
+        float bezeichnungoR = 250F;
         float artikelnummeroR = 60F;
         float einheitoR = 70F;
         float mengeoR = 45F;
         float preisoR = 40F;
         float gesamtoR = 60F;
 
-        //Grössen für Tabelle
         float[] ganzeseite1 = {ganzeseite};
         float[] absenderAdressat = {absender1, absender2, adressat};
         float[] bestellungmR = {artikelnummermR, bezeichnungmR, einheitmR, mengemR, preismR, rabattmR, gesamtmR};
         float[] bestellungoR = {artikelnummeroR, bezeichnungoR, einheitoR, mengeoR, preisoR, gesamtoR};
 
-        //Tabellen
         Table absatz = new Table(ganzeseite1);
         Table tabelleAbsenderAdressat = new Table(absenderAdressat);
         Table tabelleTitelBestellungoR = new Table(bestellungoR);
@@ -887,16 +831,12 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         Table tabelleBankdaten = new Table(ganzeseite1);
         Table tabelleTotal = new Table(ganzeseite1);
 
-        //Absatz
         absatz.addCell(new Cell().add(new ListItem("\n")).setBorder(Border.NO_BORDER));
 
-        //Zeit
         LocalDateTime datum = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MMMM yyyy");
         DateTimeFormatter formatterPfad = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
-
-        //PDF definieren
         PdfWriter writer = null;
         try {
             if (bearbeiten) {
@@ -982,13 +922,8 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         rechnung.setDefaultPageSize(PageSize.A4);
         Document document = new Document(rechnung);
 
-        //Bankdaten
         try {
             if (rechnung1Quittung2 == 1){
-                /*ResultSet resultSetBankdatenExists = statement.executeQuery("SELECT COUNT(IBAN) FROM unternehmen");
-                resultSetBankdatenExists.next();
-                int exists = resultSetBankdatenExists.getInt(1);
-                resultSetBankdatenExists.close();*/
                 ResultSet resultSetBankdatenExists = statement.executeQuery("SELECT IBAN FROM unternehmen");
                 resultSetBankdatenExists.next();
                 String iban = resultSetBankdatenExists.getString("IBAN");
@@ -1014,7 +949,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             AllgemeineMethoden.fehlermeldung(e);
         }
 
-        //Bilder
         ImageData datenLogo = null;
         try {
             ResultSet resultsetUnternehmen = statement.executeQuery("SELECT COUNT(bildnummer) FROM unternehmen");
@@ -1077,7 +1011,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             document.add(tabelleAbsenderAdressat);
             document.add(absatz);
 
-            //Paragraph Rechnungsnummer
             Paragraph paragraphQuittungRechnungsnummer = null;
             if (rechnung1Quittung2 == 1) {
                 paragraphQuittungRechnungsnummer = new Paragraph("Rechnung " + rechnungsnummer).setBorder(Border.NO_BORDER).setFontSize(15F).setBold();
@@ -1089,7 +1022,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             document.add(paragraphQuittungRechnungsnummer);
             document.add(absatz);
 
-            //Bestellung
             tabelleTitelBestellungmR.addCell(new Cell().add(new ListItem("Nr.")).setBorder(Border.NO_BORDER).setBold());
             tabelleTitelBestellungmR.addCell(new Cell().add(new ListItem("Bezeichnung")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.LEFT));
             tabelleTitelBestellungmR.addCell(new Cell().add(new ListItem("Inhalt")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
@@ -1104,7 +1036,6 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
             tabelleTitelBestellungoR.addCell(new Cell().add(new ListItem("Anz.")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
             tabelleTitelBestellungoR.addCell(new Cell().add(new ListItem("Preis")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
             tabelleTitelBestellungoR.addCell(new Cell().add(new ListItem("Betrag")).setBorder(Border.NO_BORDER).setBold().setTextAlignment(com.itextpdf.layout.properties.TextAlignment.RIGHT));
-
 
             ResultSet resultSetBestellung = statement.executeQuery("SELECT * FROM bestellung, einheiten WHERE " + rechnungsnummer + " = bestellungId AND einheitId = einheit_id_bestellung ORDER BY artikel_id");
 
@@ -1227,7 +1158,5 @@ public class GuiArtikelFuerRechnung extends GuiTaskleiste implements Initializab
         } catch (Exception e) {
             AllgemeineMethoden.fehlermeldung(e);
         }
-
-
     }
 }

@@ -8,13 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -39,12 +36,10 @@ public class GuiErstanmeldungDatenErfassen extends GuiTaskleiste implements Init
     @FXML
     private Pane paneLagerbestand;
 
-    //Strings
     private String s1 = "Der Benutzername muss am Anfang gross geschrieben sein. \nDas Passwort muss mindestens eine Zahl, einen Gross- und Kleinbuchstaben enthalten. Die Länge beträgt mindestens 8 Zeichen.";
     private String s2 = "Die Artikelnummer darf nicht mit 0 starten. Der Name muss am Anfang gross geschrieben werden. Bei der Menge ist die Menge pro Einheit gemeint. Hinweis: Die Artikelnummer kann nachträglich nicht geändert werden";
     private String s3 = "Die Kundennummer darf nicht mit 0 starten";
 
-    // Unternehmensdaten Erfassen
     @FXML
     protected void imageViewLagerbestandEntered(){
         paneLagerbestand.setVisible(true);
@@ -103,8 +98,6 @@ public class GuiErstanmeldungDatenErfassen extends GuiTaskleiste implements Init
         return booleanUnternehmensdatenErfassen;
     }
 
-
-    //Artikel Erfassen
     private boolean artikelErfassen(int artikelnummer) {
         boolean booleanArtikelErfassen = false;
         if (booleanArtikelnummer && booleanName && booleanPreis && booleanMenge && booleanRabatt && booleanLagerbestand) {
@@ -161,9 +154,6 @@ public class GuiErstanmeldungDatenErfassen extends GuiTaskleiste implements Init
         }
         return booleanArtikelErfassen;
     }
-
-    //Kunde Erfassen
-
 
     private boolean kundeErfassen() {
         boolean booleanKundeErfassen = false;

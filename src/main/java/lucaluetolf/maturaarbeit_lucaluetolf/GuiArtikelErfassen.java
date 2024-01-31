@@ -8,14 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.io.File;
 import java.net.URL;
@@ -53,7 +49,6 @@ public class GuiArtikelErfassen extends GuiTaskleiste implements Initializable {
                         dateityp = altesBild.getName().substring(index + 1);
                     }
                     File neuerName = new File(neuerPfadBildArtikel + "/1." + dateityp);
-                    System.out.println(neuerName.getPath());
                     if(neuesBild.renameTo(neuerName)){
                         statement.execute("UPDATE artikel SET dateityp = '" + dateityp + "', bildnummer = 1 WHERE artikelId = " + textfeldArtikelnummer.getText());
                     }

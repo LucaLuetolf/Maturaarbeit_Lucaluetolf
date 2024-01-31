@@ -17,7 +17,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -104,9 +103,6 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                     imageView.setImage(image);
                 }
                 imageView.setPreserveRatio(true);
-                //54
-                //imageView.setLayoutX(10);
-                //imageView.setLayoutY(14);
                 imageView.setFitWidth(150);
                 imageView.setFitHeight(65);
 
@@ -117,7 +113,6 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 stackPaneImage.setLayoutY(14);
                 stackPaneImage.setPrefSize(150,65);
                 StackPane.setAlignment(imageView, javafx.geometry.Pos.CENTER);
-
 
                 Line lineLagerbestand = new Line();
                 pane.setPrefSize(170, 220);
@@ -177,7 +172,7 @@ public class GuiArtikel extends GuiTaskleiste implements Initializable {
                 }
 
                 button.setLayoutX(50);
-                button.setLayoutY(162);//152
+                button.setLayoutY(162);
                 button.setId(resultSet.getString("artikelId"));
                 button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override

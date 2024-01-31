@@ -131,5 +131,4 @@ public class GuiKunde extends GuiTaskleiste implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
 }

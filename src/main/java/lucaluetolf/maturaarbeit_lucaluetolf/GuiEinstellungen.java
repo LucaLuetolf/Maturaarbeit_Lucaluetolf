@@ -11,24 +11,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.*;
 import java.util.ResourceBundle;
 
@@ -61,8 +53,6 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
     @FXML
     private Label labelUnternehmensname;
 
-
-    // Konto einstellungen:
     @FXML
     private Label labelUnternehmen;
     @FXML
@@ -159,7 +149,6 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
                 RadioButton radioButtonInaktiv = new RadioButton("Wird nicht verwendet");
                 radioButtonInaktiv.setId(String.valueOf(resultsetEinheiten.getInt("einheitId")));
                 radioButtonInaktiv.setSelected(!aktiv);
-
 
                 radioButtonAktiv.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -323,7 +312,6 @@ public class GuiEinstellungen extends GuiTaskleiste implements Initializable {
                             AllgemeineMethoden.dateiKopieren(pfadBildLogo, neuerPfadBildLogo);
                             ResultSet resultSetDateityp = statement.executeQuery("SELECT * FROM unternehmen");
                             resultSetDateityp.next();
-                            String dateityp = resultSetDateityp.getString("dateityp");
                             int bildnummer = resultSetDateityp.getInt("bildnummer");
                             resultSetDateityp.close();
 

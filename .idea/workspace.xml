@@ -4,23 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d32342c-e604-4824-b681-7f47ff856665" name="Changes" comment="diverse Fehler behoben">
+    <list default="true" id="9d32342c-e604-4824-b681-7f47ff856665" name="Changes" comment="Finale Version">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bilder/Benutzer/Artikel/1/1.JPG" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Bilder/Benutzer/Artikel/2/1.jpeg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Bilder/Benutzer/Unternehmen/1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/Links.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Textdokumente/Links.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/Links.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/Notizen.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/SQL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/Tutorial Pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Textdokumente/kundebearbeiten" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiAnalyse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiAnalyse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelEinzeln.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelEinzeln.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelErfassen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelErfassen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiEinstellungen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiEinstellungen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiErstanmeldung.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiErstanmeldung.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiErstanmeldungDatenErfassen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiErstanmeldungDatenErfassen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKunde.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKunde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeBearbeiten.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeBearbeiten.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeErfassen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundeErfassen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundenFuerRechnung.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundenFuerRechnung.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiStartseite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiStartseite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiTaskleiste.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiTaskleiste.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/pdfDokument.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/Bilder/System/Erstanmeldung/pdfDokument.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelEinzeln.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelEinzeln.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelErfassen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/artikelErfassen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/erstanmeldungDatenErfassen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/erstanmeldungDatenErfassen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/startseite.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lucaluetolf/maturaarbeit_lucaluetolf/startseite.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +51,12 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Maturaarbeit_LucaLuetolf" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -64,6 +80,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -78,6 +95,20 @@
         <option name="url" value="https://github.com/LucaLuetolf/Maturaarbeit_Lucaluetolf.git" />
       </UrlAndAccount>
     </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/AllgemeineMethoden.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiAnalyse.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikel.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelEinzeln.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiArtikelFuerRechnung.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiEinstellungen.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKunde.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiKundenFuerRechnung.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiLogin.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiStartseite.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/GuiTaskleiste.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/lucaluetolf/maturaarbeit_lucaluetolf/Main.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -98,11 +129,22 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luca Schule/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Maturaarbeit_Lucaluetolf/DatenbankERPSoftware.mv.db&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;h2&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
@@ -114,6 +156,7 @@
       <recent name="C:\Users\Luca Schule\IdeaProjects\Maturaarbeit_Lucaluetolf\src\main\resources\lucaluetolf\maturaarbeit_lucaluetolf\Bilder\Benutzer\Unternehmen" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Maturaarbeit_Lucaluetolf\Bilder\Benutzer\Artikel\2" />
       <recent name="C:\Maturaarbeit_Lucaluetolf\src\main\resources\lucaluetolf\maturaarbeit_lucaluetolf\Bilder\System\Erstanmeldung" />
       <recent name="C:\Users\Luca Schule\IdeaProjects\Maturaarbeit_Lucaluetolf\Bilder" />
     </key>
@@ -121,7 +164,7 @@
       <recent name="lucaluetolf.maturaarbeit_lucaluetolf" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Launcher">
+  <component name="RunManager" selected="Gradle.Maturaarbeit_Lucaluetolf [fatJar]">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="lucaluetolf.maturaarbeit_lucaluetolf.Launcher" />
       <module name="Maturaarbeit_LucaLuetolf.main" />
@@ -215,19 +258,6 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Maturaarbeit_Lucaluetolf" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Maturaarbeit_Lucaluetolf" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.Launcher" />
       <item itemvalue="Application.Main" />
@@ -248,7 +278,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-18.0.2-corretto-18.0.2-8336523bb0d9-8518695b" />
+        <option value="jdk-18.0.2-corretto-18.0.2-3183f394aec4-38982a12" />
       </set>
     </attachedChunks>
   </component>
@@ -260,6 +290,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1698842792873</updated>
+      <workItem from="1702473863161" duration="913000" />
+      <workItem from="1702971479833" duration="31000" />
+      <workItem from="1702974556425" duration="45000" />
+      <workItem from="1703499160375" duration="952000" />
+      <workItem from="1703774497142" duration="14947000" />
+      <workItem from="1704116352022" duration="1141000" />
+      <workItem from="1704284077929" duration="3871000" />
+      <workItem from="1704703491553" duration="772000" />
+      <workItem from="1704789665396" duration="610000" />
+      <workItem from="1704808722667" duration="3584000" />
+      <workItem from="1704892313022" duration="5798000" />
+      <workItem from="1705393904193" duration="34000" />
+      <workItem from="1705481790629" duration="2684000" />
+      <workItem from="1705678503550" duration="615000" />
+      <workItem from="1705742017170" duration="4913000" />
+      <workItem from="1706374428491" duration="607000" />
+      <workItem from="1706631046242" duration="2877000" />
     </task>
     <task id="LOCAL-00001" summary="Die Funktion Analyse wurde erstellt. Es besteht momentan noch ein Fehler beim Verkauf. In den Einstellungen können die Einheiten angepasst, eingefügt und aktiviert werden. Die Erstanmeldung ist noch Fehlerhaft, es fehlen noch die dazugehörigen Texte. Das erfassen der notwendigen Daten bei der erstverwendung Funktioniert hingegen.">
       <option name="closed" value="true" />
@@ -309,15 +356,54 @@
       <option name="project" value="LOCAL" />
       <updated>1701951874301</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="diverse Fehler behoben">
+      <option name="closed" value="true" />
+      <created>1702144517876</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1702144517876</updated>
+    </task>
+    <task id="LOCAL-00008" summary="diverse Fehler behoben">
+      <option name="closed" value="true" />
+      <created>1702290936361</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1702290936362</updated>
+    </task>
+    <task id="LOCAL-00009" summary="diverse Fehler behoben">
+      <option name="closed" value="true" />
+      <created>1702974718767</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1702974718767</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Die Funktion Analyse wurde erstellt. Es besteht momentan noch ein Fehler beim Verkauf. In den Einstellungen können die Einheiten angepasst, eingefügt und aktiviert werden. Die Erstanmeldung ist noch Fehlerhaft, es fehlen noch die dazugehörigen Texte. Das erfassen der notwendigen Daten bei der erstverwendung Funktioniert hingegen." />
     <MESSAGE value="Bilder der Erstanmeldung" />
     <MESSAGE value="Pfade angepasst, neu auch für Mac kompatibel" />
     <MESSAGE value="diverse Fehler behoben" />
-    <option name="LAST_COMMIT_MESSAGE" value="diverse Fehler behoben" />
+    <MESSAGE value="Finale Version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finale Version" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

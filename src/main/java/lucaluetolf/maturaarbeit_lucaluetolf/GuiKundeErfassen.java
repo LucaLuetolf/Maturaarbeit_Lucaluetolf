@@ -4,14 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.FileInputStream;
-import java.sql.*;
 
 public class GuiKundeErfassen extends GuiTaskleiste {
     @FXML
@@ -62,7 +57,6 @@ public class GuiKundeErfassen extends GuiTaskleiste {
                 textfeldNatelnummer.setStyle("-fx-border-color: #FF0000; -fx-border-radius: 3px");
             }
         }
-
 
     }
 
